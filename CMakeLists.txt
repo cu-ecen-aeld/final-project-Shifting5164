@@ -13,6 +13,10 @@ set_target_properties(cewserver PROPERTIES
 # strip in release
 set_target_properties(cewserver PROPERTIES LINK_FLAGS_RELEASE -s)
 
+# disable RPATH
+# https://wiki.debian.org/RpathIssue
+set_target_properties(cewserver PROPERTIES SKIP_BUILD_RPATH TRUE)
+
 # https://wiki.debian.org/Hardening
 # https://www.redhat.com/en/blog/hardening-elf-binaries-using-relocation-read-only-relro
 target_compile_options(cewserver PRIVATE
@@ -47,9 +51,11 @@ add_compile_definitions(
 # add library search paths
 target_link_directories(cewserver PRIVATE
         external/libini/build/
+        external/libev/.libs
 )
 
 # What libraries to use
 target_link_libraries(cewserver
         libini.a
+        libev.a
 )

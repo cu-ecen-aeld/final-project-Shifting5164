@@ -6,8 +6,14 @@ DIR_DEBUG=build/debug
 DIR_RELEASE=build/release
 PROJ_NAME=cewserver
 
+all: submodule libini libev release
+
 submodule:
+	git config --global --add safe.directory /work
+	git config --global --add safe.directory /work/external/libev
+	git config --global --add safe.directory /work/external/libini
 	git submodule update --init --recursive
+	git config --local status.showUntrackedFiles no
 
 docker_build:
 	cd Docker && docker build --tag ${DOCKERTAG} .
@@ -20,11 +26,11 @@ check:
 	echo "clang-check:"
 	echo "#################################"
 
-	clang-check ./src/*
+	clang-check --analyze ./src/*
 	echo "\n#################################"
 	echo "cppcheck:"
 	echo "#################################"
-	cppcheck ./src/*
+	cppcheck --enable=all --std=c11 --suppress=missingIncludeSystem ./src/*
 
 clean:
 	-rm --force --recursive -- ./build/*
@@ -51,3 +57,7 @@ libini:
 	  && cmake -S . -B build -D BUILD_SHARED_LIBS=off\
 	  && cmake --build build --config Release --verbose --clean-first
 
+libev:
+	cd external/libev \
+	  && ./configure \
+	  && make -j$(nproc)
