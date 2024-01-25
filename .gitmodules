@@ -1,0 +1,3 @@
+[submodule "external/libini"]
+	path = external/libini
+	url = https://github.com/pcercuei/libini.git

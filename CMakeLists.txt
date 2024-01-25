@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.22.1)
-project(cewserver C)
+project(cewserver LANGUAGES C VERSION 0.1)
 
 set(CMAKE_C_STANDARD 11)
 
 add_executable(cewserver src/main.c)
+
+set_target_properties(cewserver PROPERTIES
+        VERSION ${PROJECT_VERSION}
+        SOVERSION ${PROJECT_VERSION_MAJOR}
+)
 
 # strip in release
 set_target_properties(cewserver PROPERTIES LINK_FLAGS_RELEASE -s)
@@ -35,4 +40,16 @@ target_link_options(cewserver PRIVATE
 
 add_compile_definitions(
         $<$<CONFIG:DEBUG>:DEBUG>
+)
+
+#target_include_directories(cewserver PRIVATE external/libini/) // does work, but clion can't do check
+
+# add library search paths
+target_link_directories(cewserver PRIVATE
+        external/libini/build/
+)
+
+# What libraries to use
+target_link_libraries(cewserver
+        libini.a
 )

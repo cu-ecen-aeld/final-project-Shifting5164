@@ -11,5 +11,7 @@ RUN \
         bash-completion \
         clang-tools \
         cppcheck \
+        git \
+        strace \
         valgrind
 
