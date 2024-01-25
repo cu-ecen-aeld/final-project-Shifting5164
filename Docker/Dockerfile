@@ -1,0 +1,15 @@
+FROM ubuntu:22.04
+
+RUN \
+	   apt-get update \
+	&& apt-get install -y \
+		cmake \
+		checksec \
+		gcc \
+        make \
+        tree \
+        bash-completion \
+        clang-tools \
+        cppcheck \
+        valgrind
+
