@@ -11,11 +11,14 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <pthread.h>
+#include <time.h>
 #include <sys/socket.h>
 #include <sys/queue.h>
 #include <sys/stat.h>
 #include <sys/random.h>
 #include <sys/resource.h>
+
+#define USE_AESD_CHAR_DEVICE 1
 
 #define SOCKET_FAIL -1
 #define RET_OK 0
@@ -29,8 +32,12 @@
 #define HOUSECLEANING_INTERVAL 100 /* ms */
 
 /* Global datafile or kernel buffer*/
+#ifdef USE_AESD_CHAR_DEVICE
+#define DATA_FILE_PATH "/dev/aesdchar"
+#define IOCTL_CMD "AESDCHAR_IOCSEEKTO"
+#else
 #define DATA_FILE_PATH "/var/tmp/aesdsocketdata"
-
+#endif
 
 typedef struct DataFile {
     char *pcFilePath;       /* path */
@@ -71,6 +78,9 @@ int32_t iSfd = 0;      /* connect socket */
 bool bTerminateProg = false; /* terminating program gracefully */
 pthread_t Cleanup;      /* cleanup thread */
 
+#ifndef USE_AESD_CHAR_DEVICE
+pthread_t Timestamp;    /* timestamp thread */
+#endif
 
 /* Thread list for clients connections
  * List actions thread safe with 'ListMutex'
@@ -86,7 +96,7 @@ pthread_mutex_t ListMutex = PTHREAD_MUTEX_INITIALIZER;
 static int32_t cleanup_client_list(int32_t *piStillActive) {
 
     int32_t iCount = 0;
-    sClientThreadEntry *curr = NULL, *next = NULL;
+    sClientThreadEntry *curr, *next = NULL;
 
     /* Note: when looping the list, and something needs to be removed, then start the
      * list loop again to prevent pointer errors and memory leaks */
@@ -101,11 +111,11 @@ static int32_t cleanup_client_list(int32_t *piStillActive) {
         LIST_FOREACH(curr, &sClientThreadListHead, sClientThreadEntry) {
             if (curr->sClient.bIsDone == true) {
                 pthread_join(curr->sThread, NULL);
-                printf("Done with client thread: %ld\n", curr->lID);
+                printf("Done with client thread: %lu\n", curr->lID);
                 LIST_REMOVE(curr, sClientThreadEntry);
                 free(curr);
                 iSomethingRemoved++;
-                continue; /* loop list again */
+                break; /* loop list again */
             } else {
                 iCount++;   /* count still active clients, to be returned to the caller */
             }
@@ -133,9 +143,24 @@ static void exit_cleanup(void) {
     pthread_cancel(Cleanup);
     pthread_join(Cleanup, NULL);
 
+#ifndef USE_AESD_CHAR_DEVICE
+    pthread_cancel(Timestamp);
+    pthread_join(Timestamp, NULL);
+#endif
+
+    /* Wait for all clients to finish */
+    int32_t iCount;
+    do {
+        cleanup_client_list(&iCount);
+        (iCount > 0) ? usleep(100 * 1000) : (0);
+    } while (iCount);
+
+
     /* Remove datafile */
     if (sGlobalDataFile.pFile != NULL) {
+#ifndef USE_AESD_CHAR_DEVICE
         unlink(sGlobalDataFile.pcFilePath);
+#endif
     }
 
     /* Close socket */
@@ -299,6 +324,66 @@ static int32_t file_send(sClient *psClient, sDataFile *psDataFile) {
 }
 
 
+static int32_t ioc_seekto(sClient *psClient) {
+    struct aesd_seekto seekto;
+    int n = 0;
+    int iRet = 0;
+
+    /*  AESDCHAR_IOCSEEKTO:0,0 */
+    if (psClient->iReceived < 22) {
+        return -1;
+    }
+
+    /* Filter out the IOCTL_CMD, and focus on the offsets */
+    if ((n = sscanf(&psClient->acRecvBuff[strlen(IOCTL_CMD) + 1], "%d,%d", &seekto.write_cmd,
+                    &seekto.write_cmd_offset)) == 2) {
+
+        if ((iRet = ioctl(fileno(sGlobalDataFile.pFile), AESDCHAR_IOCSEEKTO, &seekto)) != 0) {
+            iRet = errno;
+        }
+    }
+
+    return iRet;
+}
+
+/* perform a apecial ioctl action based on the
+ */
+static int32_t special_ioctl_action(sClient *psClient) {
+
+    int32_t iRet = 0;
+
+    if ((psClient->psDataFile->pFile = fopen(psClient->psDataFile->pcFilePath, "w+")) == NULL) {
+        return errno;
+    }
+
+    /* Set the drivers f_post through the ioctl command */
+    if ((iRet = ioc_seekto(psClient)) != 0) {
+        fprintf(stderr, "ioc_seekto error with %d: %s. Line %d.\n", iRet, strerror(iRet), __LINE__);
+        goto exit;
+    }
+
+    /* Send all data from f_pos all the way to the end over the socket to the client */
+    while (!feof(psClient->psDataFile->pFile)) {
+        //NOTE: fread will return nmemb elements
+        //NOTE: fread does not distinguish between end-of-file and error,
+        int32_t iRead = fread(psClient->acSendBuff, 1, sizeof(psClient->acSendBuff), psClient->psDataFile->pFile);
+        if (ferror(psClient->psDataFile->pFile) != 0) {
+            iRet = errno;
+            goto exit;
+        }
+
+        if (send(psClient->iSockfd, psClient->acSendBuff, iRead, 0) < 0) {
+            iRet = errno;
+            goto exit;
+        }
+    }
+
+    exit:
+    fclose(sGlobalDataFile.pFile);
+
+    return iRet;
+}
+
 /* Description:
  * Write cvpBuff with ciSize to datafile, threadsafe
  *
@@ -308,18 +393,19 @@ static int32_t file_send(sClient *psClient, sDataFile *psDataFile) {
  */
 static int32_t file_write(sDataFile *psDataFile, const void *cvpBuff, const int32_t ciSize) {
 
-    int32_t iRet = RET_OK;
+    int32_t iRet;
 
     if (pthread_mutex_lock(&psDataFile->pMutex) != 0) {
         return errno;
     }
 
-    if ((psDataFile->pFile = fopen(psDataFile->pcFilePath, "a+")) == NULL) {
+    if ((psDataFile->pFile = fopen(psDataFile->pcFilePath, "w+")) == NULL) {
         iRet = errno;
         goto exit_no_open;
     }
 
     /* Append received data */
+    fseek(psDataFile->pFile, 0, SEEK_END);
     fwrite(cvpBuff, ciSize, 1, psDataFile->pFile);
     if (ferror(psDataFile->pFile) != 0) {
         iRet = errno;
@@ -330,7 +416,7 @@ static int32_t file_write(sDataFile *psDataFile, const void *cvpBuff, const int3
     exit_no_open:
     pthread_mutex_unlock(&psDataFile->pMutex);
 
-    return iRet;
+    return RET_OK;
 }
 
 static int32_t daemonize(void) {
@@ -439,7 +525,7 @@ static void *client_serve(void *arg) {
 
             pthread_exit((void *) RET_OK);
 
-        } else if (psClient->iReceived) {
+        } else if (psClient->iReceived > 0) {
             /* Got data from client, do stuff */
 
             /* Search for a complete message, determined by the "\n" end character */
@@ -454,6 +540,18 @@ static void *client_serve(void *arg) {
                 continue;
             }
 
+#ifdef USE_AESD_CHAR_DEVICE
+            /*  AESDCHAR_IOCSEEKTO:X,Y */
+            if (strstr(psClient->acRecvBuff, IOCTL_CMD) != NULL) {
+                /* Special IOCTL action received */
+
+                if (special_ioctl_action(psClient) != 0) {
+                    do_thread_exit_with_errno(__LINE__, iRet);
+                }
+
+                continue;
+            }
+#endif
             /* End of message detected, write until message end */
 
             // NOTE: Ee know that message end is in the buffer, so +1 here is allowed to
@@ -483,6 +581,33 @@ static void *housekeeping(void *arg) {
     }
 }
 
+/* Write a RFC 2822 timestring to global data file */
+/* NOTE: not using a timer_setup() anymore due to valgrind/glib incompatibility ?
+ * https://sourceforge.net/p/valgrind/mailman/valgrind-users/thread/9eedcfc2db32c08a04543af3f51ab249397c501a.camel%40skynet.be/
+ */
+#ifndef USE_AESD_CHAR_DEVICE
+static void *timestamp(void *arg) {
+
+    while (1) {
+
+        int iRet;
+        char acTime[64];
+        time_t t = time(NULL);
+        struct tm *tmp = localtime(&t);
+
+        strftime(acTime, sizeof(acTime), "timestamp: %a, %d %b %Y %T %z\n", tmp);
+
+        if ((iRet = file_write(&sGlobalDataFile, acTime, strlen(acTime))) != RET_OK) {
+            do_thread_exit_with_errno(__LINE__, iRet);
+        }
+
+        sleep(TIMESTAMP_INTERVAL);
+    }
+
+    pthread_exit((void *) 0);
+}
+#endif
+
 int32_t main(int32_t argc, char **argv) {
 
     bool bDeamonize = false;
@@ -495,7 +620,7 @@ int32_t main(int32_t argc, char **argv) {
     /* Going to run as service or not > */
     if (bDeamonize) {
         printf("Demonizing, listening on port %s\n", PORT);
-        if ((iRet = daemonize()) != 0) {
+        if ((iRet = daemonize() != 0)) {
             do_exit_with_errno(__LINE__, iRet);
         }
     }
@@ -511,6 +636,22 @@ int32_t main(int32_t argc, char **argv) {
     if (pthread_create(&Cleanup, NULL, housekeeping, NULL) != 0) {
         do_exit_with_errno(__LINE__, errno);
     }
+
+#ifndef USE_AESD_CHAR_DEVICE
+    /* spinup timestamp timer */
+    if (pthread_create(&Timestamp, NULL, timestamp, NULL) != 0) {
+        do_exit_with_errno(__LINE__, errno);
+    }
+#endif
+
+    /* Test if we have access to the device (mostly likely sudo) */
+#ifdef USE_AESD_CHAR_DEVICE
+    if ((sGlobalDataFile.pFile = fopen(sGlobalDataFile.pcFilePath, "w")) == NULL) {
+        fprintf(stderr, "No write access to: %s\n", sGlobalDataFile.pcFilePath);
+        do_exit_with_errno(__LINE__, errno);
+    }
+    fclose(sGlobalDataFile.pFile);
+#endif
 
     /* Opens a stream socket, failing and returning -1 if any of the socket connection steps fail. */
     if ((iRet = setup_socket()) != RET_OK) {
@@ -565,7 +706,7 @@ int32_t main(int32_t argc, char **argv) {
         /* Add random ID for tracking */
         psClientThreadEntry->lID = random();
 
-        printf("Spinning up client thread: %ld\n", psClientThreadEntry->lID);
+        printf("Spinning up client thread: %lu\n", psClientThreadEntry->lID);
 
         /* Insert client thread tracking on list sClientThreadListHead */
         if (pthread_mutex_lock(&ListMutex) != 0) {
