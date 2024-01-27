@@ -17,7 +17,7 @@ docker_build:
 	cd Docker && docker build --tag ${DOCKERTAG} .
 
 docker_run:
-	docker run --privileged --rm --volume $(shell pwd):/work --workdir /work --interactive --tty  ${DOCKERTAG}
+	docker run -p 9000:9000 --privileged --rm --volume $(shell pwd):/work --workdir /work --interactive --tty  ${DOCKERTAG}
 
 check:
 	echo "\n#################################"

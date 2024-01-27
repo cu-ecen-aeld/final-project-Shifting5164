@@ -59,3 +59,7 @@ target_link_libraries(cewserver
         libini.a
         libev.a
 )
+
+# Just for testing
+target_link_libraries( cewserver ${CMAKE_THREAD_LIBS_INIT} )
+target_link_libraries( cewserver rt )
