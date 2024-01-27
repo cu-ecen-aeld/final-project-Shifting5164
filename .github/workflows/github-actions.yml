@@ -63,7 +63,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Code
-        run: (make libs && make debug)
+        run: (make submodule && make libs && make debug)
 
   code_check:
     name: Static code check
