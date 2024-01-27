@@ -23,12 +23,12 @@ check:
 	echo "\n#################################"
 	echo "clang-check:"
 	echo "#################################"
-
 	clang-check --analyze ./src/*
+
 	echo "\n#################################"
 	echo "cppcheck:"
 	echo "#################################"
-	cppcheck --enable=all --std=c11 --suppress=missingIncludeSystem ./src/*
+	cppcheck --error-exitcode=1 --enable=all --std=c11 --suppress=missingIncludeSystem ./src/*
 
 clean:
 	-rm --force --recursive -- ./build/*

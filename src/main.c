@@ -86,7 +86,7 @@ pthread_mutex_t ListMutex = PTHREAD_MUTEX_INITIALIZER;
 static int32_t cleanup_client_list(int32_t *piStillActive) {
 
     int32_t iCount = 0;
-    sClientThreadEntry *curr, *next = NULL;
+    sClientThreadEntry *curr = NULL, *next = NULL;
 
     /* Note: when looping the list, and something needs to be removed, then start the
      * list loop again to prevent pointer errors and memory leaks */
@@ -101,11 +101,11 @@ static int32_t cleanup_client_list(int32_t *piStillActive) {
         LIST_FOREACH(curr, &sClientThreadListHead, sClientThreadEntry) {
             if (curr->sClient.bIsDone == true) {
                 pthread_join(curr->sThread, NULL);
-                printf("Done with client thread: %lu\n", curr->lID);
+                printf("Done with client thread: %ld\n", curr->lID);
                 LIST_REMOVE(curr, sClientThreadEntry);
                 free(curr);
                 iSomethingRemoved++;
-                break; /* loop list again */
+                continue; /* loop list again */
             } else {
                 iCount++;   /* count still active clients, to be returned to the caller */
             }
@@ -132,14 +132,6 @@ static void exit_cleanup(void) {
     /* End support threads */
     pthread_cancel(Cleanup);
     pthread_join(Cleanup, NULL);
-
-    /* Wait for all clients to finish */
-    int32_t iCount;
-    do {
-        cleanup_client_list(&iCount);
-        (iCount > 0) ? usleep(100 * 1000) : (0);
-    } while (iCount);
-
 
     /* Remove datafile */
     if (sGlobalDataFile.pFile != NULL) {
@@ -316,19 +308,18 @@ static int32_t file_send(sClient *psClient, sDataFile *psDataFile) {
  */
 static int32_t file_write(sDataFile *psDataFile, const void *cvpBuff, const int32_t ciSize) {
 
-    int32_t iRet;
+    int32_t iRet = RET_OK;
 
     if (pthread_mutex_lock(&psDataFile->pMutex) != 0) {
         return errno;
     }
 
-    if ((psDataFile->pFile = fopen(psDataFile->pcFilePath, "a")) == NULL) {
+    if ((psDataFile->pFile = fopen(psDataFile->pcFilePath, "a+")) == NULL) {
         iRet = errno;
         goto exit_no_open;
     }
 
     /* Append received data */
-    fseek(psDataFile->pFile, 0, SEEK_END);
     fwrite(cvpBuff, ciSize, 1, psDataFile->pFile);
     if (ferror(psDataFile->pFile) != 0) {
         iRet = errno;
@@ -339,7 +330,7 @@ static int32_t file_write(sDataFile *psDataFile, const void *cvpBuff, const int3
     exit_no_open:
     pthread_mutex_unlock(&psDataFile->pMutex);
 
-    return RET_OK;
+    return iRet;
 }
 
 static int32_t daemonize(void) {
@@ -448,7 +439,7 @@ static void *client_serve(void *arg) {
 
             pthread_exit((void *) RET_OK);
 
-        } else if (psClient->iReceived > 0) {
+        } else if (psClient->iReceived) {
             /* Got data from client, do stuff */
 
             /* Search for a complete message, determined by the "\n" end character */
@@ -504,7 +495,7 @@ int32_t main(int32_t argc, char **argv) {
     /* Going to run as service or not > */
     if (bDeamonize) {
         printf("Demonizing, listening on port %s\n", PORT);
-        if ((iRet = daemonize() != 0)) {
+        if ((iRet = daemonize()) != 0) {
             do_exit_with_errno(__LINE__, iRet);
         }
     }
@@ -574,7 +565,7 @@ int32_t main(int32_t argc, char **argv) {
         /* Add random ID for tracking */
         psClientThreadEntry->lID = random();
 
-        printf("Spinning up client thread: %lu\n", psClientThreadEntry->lID);
+        printf("Spinning up client thread: %ld\n", psClientThreadEntry->lID);
 
         /* Insert client thread tracking on list sClientThreadListHead */
         if (pthread_mutex_lock(&ListMutex) != 0) {
