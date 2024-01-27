@@ -6,12 +6,10 @@ DIR_DEBUG=build/debug
 DIR_RELEASE=build/release
 PROJ_NAME=cewserver
 
-all: submodule libini libev release
+all: submodule libs release
 
 submodule:
-	git config --global --add safe.directory /work
-	git config --global --add safe.directory /work/external/libev
-	git config --global --add safe.directory /work/external/libini
+	git config --global --add safe.directory '*'
 	git submodule update --init --recursive
 	git config --local status.showUntrackedFiles no
 
@@ -19,7 +17,7 @@ docker_build:
 	cd Docker && docker build --tag ${DOCKERTAG} .
 
 docker_run:
-	docker run  --rm --volume $(shell pwd):/work --workdir /work --interactive --tty  ${DOCKERTAG}
+	docker run --privileged --rm --volume $(shell pwd):/work --workdir /work --interactive --tty  ${DOCKERTAG}
 
 check:
 	echo "\n#################################"
@@ -50,6 +48,8 @@ release:
 	cmake --build ${DIR_RELEASE} --config Debug --verbose --clean-first
 	file ${DIR_RELEASE}/${PROJ_NAME}
 	checksec --file=${DIR_RELEASE}/${PROJ_NAME}
+
+libs: libini libev
 
 #NOTE: https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html
 libini:
