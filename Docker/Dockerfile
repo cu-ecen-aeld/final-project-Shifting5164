@@ -13,5 +13,6 @@ RUN \
         cppcheck \
         git \
         strace \
+        vim \
         valgrind
 
