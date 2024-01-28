@@ -13,65 +13,92 @@
 
 sSettingsStruct sSettings = {0};
 
-typedef enum eSettingsType{
+typedef enum eSettingsType {
     TYPE_NONE,
     TYPE_LONG,
     TYPE_STRING,
-}eSettingsType;
+} eSettingsType;
 
 typedef struct sOptionMapping {
     uint8_t *pSection;
     uint8_t *pKey;
     eSettingsType eType;
     void *pDst;
-} sOptionMapping;
+} tsOptionMapping;
 
-static sOptionMapping sKnownOptions[] = {
-        {"general", "workers", TYPE_LONG,&sSettings.cWorkerThreads},
-        {"general", "clients", TYPE_LONG,&sSettings.cMaxClientsPerThread},
-        {NULL, NULL, TYPE_NONE,NULL}
+static tsOptionMapping sKnownOptions[] = {
+        {"general", "workers", TYPE_LONG, &sSettings.cWorkerThreads},
+        {"general", "clients", TYPE_LONG, &sSettings.cMaxClientsPerThread},
+        {NULL, NULL,           TYPE_NONE, NULL}
 };
 
-static int32_t parse_option(uint8_t *cpcSection, uint8_t *cpcKey, const uint8_t *cpcValue) {
-    sOptionMapping *pMap = NULL;
-    int32_t iSize = sizeof(sKnownOptions) / sizeof(sOptionMapping);
+void show_settings(void) {
+    tsOptionMapping *psSetting = NULL;
+    int32_t iSize = sizeof(sKnownOptions) / sizeof(tsOptionMapping);
 
-    for (int i = 0; i < iSize-1; i++) {
+    for (int i = 0; i < iSize - 1; i++) {
 
-        pMap = &sKnownOptions[i];
+        psSetting = &sKnownOptions[i];
 
-        assert(pMap != NULL);
-        assert(pMap->pSection != NULL);
+        assert(psSetting != NULL);
+        assert(psSetting->pSection != NULL);
 
-        printf("pMap->pSection: %s:%s\n", cpcSection, pMap->pSection);
-        printf("pMap->pKey: %s:%s\n", cpcKey, pMap->pKey);
+        switch (psSetting->eType) {
+            case TYPE_LONG:
+                printf("Setting %s:%s = %ld\n", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pDst));
+                break;
 
-        if ((strncmp(pMap->pSection, cpcSection, strlen(pMap->pSection)) == 0) &&
-            (strncmp(pMap->pKey, cpcKey, strlen(pMap->pKey)) == 0)) {
+            case TYPE_STRING:
+                printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, (char *) (psSetting->pDst));
+                break;
 
-            switch (pMap->eType) {
+            default:
+                break;
+        }
+    }
+}
+
+static int32_t parse_option(const uint8_t *cpcSection, const uint8_t *cpcKey, const uint8_t *cpcValue) {
+    tsOptionMapping *psSetting = NULL;
+    int32_t iSize = sizeof(sKnownOptions) / sizeof(tsOptionMapping);
+
+    for (int i = 0; i < iSize - 1; i++) {
+
+        psSetting = &sKnownOptions[i];
+
+        assert(psSetting != NULL);
+        assert(psSetting->pSection != NULL);
+
+        printf("psSetting->pSection: %s:%s\n", cpcSection, psSetting->pSection);
+        printf("psSetting->pKey: %s:%s\n", cpcKey, psSetting->pKey);
+
+        if ((strncmp(psSetting->pSection, cpcSection, strlen(psSetting->pSection)) == 0) &&
+            (strncmp(psSetting->pKey, cpcKey, strlen(psSetting->pKey)) == 0)) {
+
+            switch (psSetting->eType) {
                 case TYPE_LONG:
-                    long val = strtol(cpcValue, NULL, 10);
-                    memcpy(pMap->pDst,&val, sizeof(long));
+                    long lVal = strtol(cpcValue, NULL, 10);
+                    memcpy(psSetting->pDst, &lVal, sizeof(long));
 
-                    printf("*pMap->pDst: %ld\n", (long *)pMap->pDst);
-                    printf("&pMap->pDst: %ld\n", &pMap->pDst);
+                    printf("*psSetting->pDst: %ld\n", (long *) psSetting->pDst);
+                    printf("&psSetting->pDst: %ld\n", &psSetting->pDst);
 
                     printf("cMaxClientsPerThread: %ld\n", &sSettings.cMaxClientsPerThread);
                     printf("cWorkerThreads: %ld\n", &sSettings.cWorkerThreads);
                     printf("cLogLevel: %ld\n", &sSettings.cLogLevel);
-
                     break;
+
                 case TYPE_STRING:
                     //TODO
                     break;
+
                 default:
-                    return -1;
+                    return EXIT_FAILURE;
             }
         }
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 sSettingsStruct *settings_init(void) {
@@ -82,11 +109,11 @@ int32_t settings_destroy(void) {
     return 0; //TODO
 }
 
-int32_t settings_load(const uint8_t *cpSettingsFile) {
-    struct INI *ini = NULL;
+int32_t settings_load(const uint8_t *cpcSettingsFile) {
+    struct INI *sIni = NULL;
 
-    ini = ini_open(cpSettingsFile);
-    if (!ini) {
+    sIni = ini_open(cpcSettingsFile);
+    if (!sIni) {
         return EXIT_FAILURE;
     }
 
@@ -97,7 +124,7 @@ int32_t settings_load(const uint8_t *cpSettingsFile) {
         char *pcSection;
         size_t SectionLen;
 
-        int iRet = ini_next_section(ini, &cpcBuf, &SectionLen);
+        int iRet = ini_next_section(sIni, &cpcBuf, &SectionLen);
         if (!iRet) {
             printf("End of file.\n");
             break;
@@ -118,7 +145,7 @@ int32_t settings_load(const uint8_t *cpSettingsFile) {
             char *pcKey, *pcValue;
             size_t KeyLen, ValueLen;
 
-            iRet = ini_read_pair(ini, &cpcBuf, &KeyLen, &buf2, &ValueLen);
+            iRet = ini_read_pair(sIni, &cpcBuf, &KeyLen, &buf2, &ValueLen);
             if (!iRet) {
                 printf("No more data.\n");
                 break;
@@ -137,28 +164,27 @@ int32_t settings_load(const uint8_t *cpSettingsFile) {
             memcpy(pcValue, buf2, ValueLen);
             printf("Reading pcKey: \'%s\' pcValue: \'%s\'\n", pcKey, pcValue);
 
-            for(int i = 0; pcSection[i]; i++){
+            // Make everything lower case
+            for (int i = 0; pcSection[i]; i++) {
                 pcSection[i] = tolower(pcSection[i]);
             }
 
-            for(int i = 0; pcKey[i]; i++){
+            for (int i = 0; pcKey[i]; i++) {
                 pcKey[i] = tolower(pcKey[i]);
             }
 
-            parse_option(pcSection, pcKey, pcValue);
-
+            if ( parse_option(pcSection, pcKey, pcValue) ) {
+                printf("Error parsing option");
+            }
         }
     }
 
-    ini_close(ini);
-
-    printf("Loaded cMaxClientsPerThread: %ld\n", sSettings.cMaxClientsPerThread);
-    printf("Loaded cWorkerThreads: %ld\n", sSettings.cWorkerThreads);
-
+    ini_close(sIni);
+    show_settings();
     return EXIT_SUCCESS;
 
 
     error:
-    ini_close(ini);
+    ini_close(sIni);
     return EXIT_FAILURE;
 }
