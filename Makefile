@@ -61,3 +61,11 @@ libev:
 	cd external/libev \
 	  && ./configure \
 	  && make -j$(nproc)
+
+cmocka:
+	mkdir -p external/cmocka/build \
+		&& cd external/cmocka/build \
+		&& cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release .. \
+		&& make -j$(nproc) \
+		&& make install
+
