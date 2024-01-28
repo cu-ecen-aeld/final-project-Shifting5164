@@ -5,10 +5,13 @@
 #include <stdint.h>
 
 typedef struct sSettings {
-    long cMaxClientsPerThread;
-    long cWorkerThreads;
-    long cLogLevel;
+    long lMaxClientsPerThread;
+    long lWorkerThreads;
+    long lLogLevel;
+    char *pcLogfile;
 } sSettingsStruct;
+
+#define MAX_SETTINGS_LEN 100
 
 sSettingsStruct *settings_init(void);
 int32_t settings_destroy(void);

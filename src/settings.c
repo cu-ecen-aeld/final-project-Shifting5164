@@ -23,12 +23,14 @@ typedef struct sOptionMapping {
     uint8_t *pSection;
     uint8_t *pKey;
     eSettingsType eType;
-    void *pDst;
+    void *pvDst;
 } tsOptionMapping;
 
 static tsOptionMapping sKnownOptions[] = {
-        {"general", "workers", TYPE_LONG, &sSettings.cWorkerThreads},
-        {"general", "clients", TYPE_LONG, &sSettings.cMaxClientsPerThread},
+        {"general", "workers", TYPE_LONG,   &sSettings.lWorkerThreads},
+        {"general", "clients", TYPE_LONG,   &sSettings.lMaxClientsPerThread},
+        {"logging", "logfile", TYPE_STRING, &sSettings.pcLogfile},
+        {"logging", "level",   TYPE_LONG,   &sSettings.lLogLevel},
         {NULL, NULL,           TYPE_NONE, NULL}
 };
 
@@ -45,11 +47,11 @@ void show_settings(void) {
 
         switch (psSetting->eType) {
             case TYPE_LONG:
-                printf("Setting %s:%s = %ld\n", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pDst));
+                printf("Setting %s:%s = %ld\n", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pvDst));
                 break;
 
             case TYPE_STRING:
-                printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, (char *) (psSetting->pDst));
+                printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, (char *) (psSetting->pvDst));
                 break;
 
             default:
@@ -69,27 +71,25 @@ static int32_t parse_option(const uint8_t *cpcSection, const uint8_t *cpcKey, co
         assert(psSetting != NULL);
         assert(psSetting->pSection != NULL);
 
-        printf("psSetting->pSection: %s:%s\n", cpcSection, psSetting->pSection);
-        printf("psSetting->pKey: %s:%s\n", cpcKey, psSetting->pKey);
-
         if ((strncmp(psSetting->pSection, cpcSection, strlen(psSetting->pSection)) == 0) &&
             (strncmp(psSetting->pKey, cpcKey, strlen(psSetting->pKey)) == 0)) {
 
+            long lVal;
             switch (psSetting->eType) {
                 case TYPE_LONG:
-                    long lVal = strtol(cpcValue, NULL, 10);
-                    memcpy(psSetting->pDst, &lVal, sizeof(long));
-
-                    printf("*psSetting->pDst: %ld\n", (long *) psSetting->pDst);
-                    printf("&psSetting->pDst: %ld\n", &psSetting->pDst);
-
-                    printf("cMaxClientsPerThread: %ld\n", &sSettings.cMaxClientsPerThread);
-                    printf("cWorkerThreads: %ld\n", &sSettings.cWorkerThreads);
-                    printf("cLogLevel: %ld\n", &sSettings.cLogLevel);
+                    lVal = strtol(cpcValue, NULL, 10);
+                    memcpy(psSetting->pvDst, &lVal, sizeof(long));
                     break;
 
                 case TYPE_STRING:
-                    //TODO
+                    if (strlen(cpcValue) > MAX_SETTINGS_LEN) {
+                        return EXIT_FAILURE;
+                    }
+
+                    psSetting->pvDst = malloc(strlen(cpcValue));
+                    memset(psSetting->pvDst, 0, iSize);
+                    memcpy(psSetting->pvDst, cpcValue, strlen(cpcValue));
+
                     break;
 
                 default:
@@ -107,6 +107,8 @@ sSettingsStruct *settings_init(void) {
 
 int32_t settings_destroy(void) {
     return 0; //TODO
+
+    // loop settings and free.
 }
 
 int32_t settings_load(const uint8_t *cpcSettingsFile) {
@@ -173,7 +175,7 @@ int32_t settings_load(const uint8_t *cpcSettingsFile) {
                 pcKey[i] = tolower(pcKey[i]);
             }
 
-            if ( parse_option(pcSection, pcKey, pcValue) ) {
+            if (parse_option(pcSection, pcKey, pcValue)) {
                 printf("Error parsing option");
             }
         }
