@@ -1,5 +1,5 @@
 .PHONY:
-.SILENT:
+#.SILENT:
 
 DOCKERTAG=projenv
 DIR_DEBUG=build/debug
@@ -10,8 +10,8 @@ all: submodule libs release
 
 submodule:
 	git config --global --add safe.directory '*'
-	git submodule update --init --recursive
 	git config --local status.showUntrackedFiles no
+	git submodule update --init --recursive
 
 docker_build:
 	cd Docker && docker build --tag ${DOCKERTAG} .
@@ -49,6 +49,15 @@ release:
 	file ${DIR_RELEASE}/${PROJ_NAME}
 	checksec --file=${DIR_RELEASE}/${PROJ_NAME}
 
+.PHONY: test
+test:
+	mkdir -p test/build
+	cd test/ \
+		&& cmake -S . -B build \
+		&& cmake --build build --verbose --clean-first \
+		&& build/cewserver_test
+
+
 libs: libini libev
 
 #NOTE: https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html
@@ -63,8 +72,8 @@ libev:
 	  && make -j$(nproc)
 
 cmocka:
-	mkdir -p external/cmocka/build \
-		&& cd external/cmocka/build \
+	mkdir -p external/cmocka/build
+	cd external/cmocka/build \
 		&& cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release .. \
 		&& make -j$(nproc) \
 		&& make install
