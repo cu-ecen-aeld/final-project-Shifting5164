@@ -7,7 +7,7 @@ DIR_RELEASE=build/release
 PROJ_NAME=cewserver
 
 all: submodule libs release
-pipeline_test: cmocka test
+pipeline_test: submodule libs cmocka test
 pipeline_check: submodule libs debug check
 
 submodule:
@@ -75,6 +75,7 @@ libev:
 	  && make -j$(nproc)
 
 cmocka:
+	-rm -fr external/cmocka/build
 	mkdir -p external/cmocka/build
 	cd external/cmocka/build \
 		&& cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release .. \
