@@ -1,6 +1,5 @@
 /*
  * TODO:
- * - dual configuration keys will do dual malloc, thus memory leak
  * - MAX_SETTINGS_LEN always fixed failure
  * - destroy to free all mallocs
  */
@@ -100,7 +99,7 @@ static int32_t parse_option(const uint8_t *cpcSection, const uint8_t *cpcKey, co
                         return EXIT_FAILURE;
                     }
 
-                    *psSetting->pvDst = malloc(strlen(cpcValue));
+                    *psSetting->pvDst = realloc(*psSetting->pvDst, strlen(cpcValue));
                     memcpy(*psSetting->pvDst, cpcValue, strlen(cpcValue));
                     break;
 
