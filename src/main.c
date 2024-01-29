@@ -497,7 +497,8 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     settings_init();
-    settings_load("/work/test/ini/settings.ini");
+    settings_load("/work/test/ini/valid_dual_settings.ini");
+    exit(1);
 
     /* Going to run as service or not > */
     if (bDeamonize) {

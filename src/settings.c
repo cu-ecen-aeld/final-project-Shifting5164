@@ -1,3 +1,10 @@
+/*
+ * TODO:
+ * - dual configuration keys will do dual malloc, thus memory leak
+ * - MAX_SETTINGS_LEN always fixed failure
+ * - destroy to free all mallocs
+ */
+
 #include <alloca.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -58,6 +65,13 @@ void show_settings(void) {
                 break;
         }
     }
+
+    printf("pcLogfile:%s\n",sSettings.pcLogfile);
+    printf("lLogLevel:%d\n",sSettings.lLogLevel);
+    printf("lMaxClientsPerThread:%d\n",sSettings.lMaxClientsPerThread);
+    printf("lWorkerThreads:%d\n",sSettings.lWorkerThreads);
+
+
 }
 
 static int32_t parse_option(const uint8_t *cpcSection, const uint8_t *cpcKey, const uint8_t *cpcValue) {
@@ -86,9 +100,18 @@ static int32_t parse_option(const uint8_t *cpcSection, const uint8_t *cpcKey, co
                         return EXIT_FAILURE;
                     }
 
-                    psSetting->pvDst = malloc(strlen(cpcValue));
-                    memset(psSetting->pvDst, 0, iSize);
-                    memcpy(psSetting->pvDst, cpcValue, strlen(cpcValue));
+                    void *tmp = malloc(strlen(cpcValue));
+                    memset(tmp, 0, strlen(cpcValue));
+                    memcpy(tmp, cpcValue, strlen(cpcValue));
+                    printf("tmp = %s\n", tmp);
+                    printf("*(char *)psSetting->pvDst = %d\n", *(char *)psSetting->pvDst);
+                    *(char *)psSetting->pvDst = tmp;
+                    printf("*(char *)psSetting->pvDst = %d\n", *(char *)psSetting->pvDst);
+                    printf("psSetting->pvDst = %s\n", psSetting->pvDst);
+
+//                    psSetting->pvDst = malloc(strlen(cpcValue));
+//                    memset(psSetting->pvDst, 0, strlen(cpcValue));
+//                    memcpy(psSetting->pvDst, cpcValue, strlen(cpcValue));
 
                     break;
 
