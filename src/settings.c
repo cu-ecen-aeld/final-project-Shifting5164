@@ -58,7 +58,7 @@ void show_settings(void) {
                 break;
 
             case TYPE_STRING:
-                // printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, (char *) (psSetting->pvDst));
+                printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, (char *) (*psSetting->pvDst));
                 break;
 
             default:
