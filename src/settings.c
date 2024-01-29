@@ -30,7 +30,7 @@ typedef struct sOptionMapping {
     uint8_t *pSection;
     uint8_t *pKey;
     eSettingsType eType;
-    void *pvDst;
+    long *pvDst;
 } tsOptionMapping;
 
 static tsOptionMapping sKnownOptions[] = {
@@ -58,7 +58,7 @@ void show_settings(void) {
                 break;
 
             case TYPE_STRING:
-                printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, (char *) (psSetting->pvDst));
+                // printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, (char *) (psSetting->pvDst));
                 break;
 
             default:
@@ -103,11 +103,34 @@ static int32_t parse_option(const uint8_t *cpcSection, const uint8_t *cpcKey, co
                     void *tmp = malloc(strlen(cpcValue));
                     memset(tmp, 0, strlen(cpcValue));
                     memcpy(tmp, cpcValue, strlen(cpcValue));
-                    printf("tmp = %s\n", tmp);
-                    printf("*(char *)psSetting->pvDst = %d\n", *(char *)psSetting->pvDst);
-                    *(char *)psSetting->pvDst = tmp;
-                    printf("*(char *)psSetting->pvDst = %d\n", *(char *)psSetting->pvDst);
-                    printf("psSetting->pvDst = %s\n", psSetting->pvDst);
+                    
+                    // printf("4 psSetting->pKey = %s\n", psSetting->pKey);
+                    // psSetting->pKey = tmp;
+
+                    
+                    // psSetting->pvDst = &sSettings.pcLogfile; // test , not needed
+                    printf("a psSetting->pvDst = %ld\n", psSetting->pvDst); 
+                    printf("a *psSetting->pvDst = %s\n", *psSetting->pvDst); 
+                    printf("a &sSettings.pcLogfile = %ld\n", &sSettings.pcLogfile);
+                    printf("a sSettings.pcLogfile = %ld\n", sSettings.pcLogfile);
+                    printf("b tmp = %ld\n", tmp);
+                    // sSettings.pcLogfile=tmp; // OK, but wrong
+                    // *(psSetting->pKey)=tmp;
+                    // *((*psSetting).pKey) = tmp;
+
+                    *psSetting->pvDst = tmp;
+
+
+                    printf("1 tmp = %s\n", tmp);
+                    printf("3 &sSettings.pcLogfile = %lu\n", &sSettings.pcLogfile);
+                    printf("4 psSetting->pKey = %s\n", psSetting->pKey);
+                    printf("5 sSettings.pcLogfile = %s\n", sSettings.pcLogfile);
+
+                    exit(1);
+
+                    // *(char *)psSetting->pvDst = tmp;
+                    // printf("*(char *)psSetting->pvDst = %d\n", *(char *)psSetting->pvDst);
+                    // printf("psSetting->pvDst = %s\n", psSetting->pvDst);
 
 //                    psSetting->pvDst = malloc(strlen(cpcValue));
 //                    memset(psSetting->pvDst, 0, strlen(cpcValue));
