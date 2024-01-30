@@ -61,6 +61,15 @@ test:
 		&& cmake --build build --verbose --clean-first \
 		&& build/cewserver_test
 
+.PHONY: test_mem
+test_mem:
+	mkdir -p test/build
+	cd test/ \
+		&& cmake -S . -B build \
+		&& cmake --build build --verbose --clean-first \
+		&& build/cewserver_test \
+		&& valgrind --leak-check=full --show-leak-kinds=all build/cewserver_test
+
 libs: libini libev
 
 #NOTE: https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html

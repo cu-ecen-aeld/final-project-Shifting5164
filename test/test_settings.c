@@ -14,6 +14,8 @@ static void settings_wrong_file(void **state) {
 
     assert_int_equal(settings->lMaxClientsPerThread, 0);
     assert_int_equal(settings->lWorkerThreads, 0);
+
+    settings_destroy();
 }
 
 /* read basic information, all valid*/
@@ -25,6 +27,8 @@ static void settings_basic_valid_file(void **state) {
 
     assert_int_equal(settings->lMaxClientsPerThread, 50);
     assert_int_equal(settings->lWorkerThreads, 4);
+
+    settings_destroy();
 }
 
 /* read invalid settings, so entry should be ignored, and options should be '0' */
@@ -35,6 +39,8 @@ static void settings_basic_invalid_file(void **state) {
 
     assert_int_equal(settings->lMaxClientsPerThread, 0);
     assert_int_equal(settings->lWorkerThreads, 0);
+
+    settings_destroy();
 }
 
 static void settings_dual_settings(void **state) {
@@ -46,6 +52,8 @@ static void settings_dual_settings(void **state) {
     assert_int_equal(settings->lWorkerThreads, 4);
     assert_non_null(settings->pcLogfile);
     assert_string_equal(settings->pcLogfile, "/var/log/cewserver2.log" );
+
+    settings_destroy();
 }
 
 

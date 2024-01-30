@@ -16,6 +16,7 @@
 
 #include <ini.h>
 #include <sds.h>
+#include <sdsalloc.h>
 
 sSettingsStruct sSettings = {0};
 
@@ -29,7 +30,7 @@ typedef struct sOptionMapping {
     uint8_t *pSection;
     uint8_t *pKey;
     eSettingsType eType;
-    long *pvDst;
+    void *pvDst;
 } tsOptionMapping;
 
 static tsOptionMapping sKnownOptions[] = {
@@ -57,7 +58,7 @@ void show_settings(void) {
                 break;
 
             case TYPE_STRING:
-                printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, (char *) (*psSetting->pvDst));
+//                printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, (char *) (*psSetting->pvDst));
                 break;
 
             default:
@@ -65,15 +66,15 @@ void show_settings(void) {
         }
     }
 
-    printf("pcLogfile:%s\n",sSettings.pcLogfile);
-    printf("lLogLevel:%d\n",sSettings.lLogLevel);
-    printf("lMaxClientsPerThread:%d\n",sSettings.lMaxClientsPerThread);
-    printf("lWorkerThreads:%d\n",sSettings.lWorkerThreads);
+    printf("pcLogfile:%s\n", sSettings.pcLogfile);
+    printf("lLogLevel:%d\n", sSettings.lLogLevel);
+    printf("lMaxClientsPerThread:%d\n", sSettings.lMaxClientsPerThread);
+    printf("lWorkerThreads:%d\n", sSettings.lWorkerThreads);
 
 
 }
 
-static int32_t parse_option(const uint8_t *cpcSection, const uint8_t *cpcKey, const uint8_t *cpcValue) {
+static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cpcValue) {
     tsOptionMapping *psSetting = NULL;
     int32_t iSize = sizeof(sKnownOptions) / sizeof(tsOptionMapping);
 
@@ -95,12 +96,46 @@ static int32_t parse_option(const uint8_t *cpcSection, const uint8_t *cpcKey, co
                     break;
 
                 case TYPE_STRING:
-                    if (strlen(cpcValue) > MAX_SETTINGS_LEN) {
-                        return EXIT_FAILURE;
-                    }
+//                    if (sdslen(cpcValue) > MAX_SETTINGS_LEN) {
+//                        return EXIT_FAILURE;
+//                    }
 
-                    *psSetting->pvDst = realloc(*psSetting->pvDst, strlen(cpcValue));
-                    memcpy(*psSetting->pvDst, cpcValue, strlen(cpcValue));
+                    printf("(char *)psSetting->pvDst:0x%X\n", (char *)psSetting->pvDst);
+                    printf("&sSettings.pcLogfile:0x%X\n", &sSettings.pcLogfile);
+
+                    char *astring = "bla";
+                    sSettings.pcLogfile = sdsnew(astring);
+                    printf("&astring:0x%X\n",&astring);
+                    printf("sSettings.pcLogfile:%s\n",sSettings.pcLogfile);
+                    printf("(char *)psSetting->pvDst:0x%X\n", *(char *)(psSetting->pvDst) );
+
+                    char *tmp = (*(char *)psSetting->pvDst) ;
+//                    printf("WORK:%s\n", *tmp);
+
+
+
+//                    printf("tmp2:%ld\n", *tmp2);
+
+//                    sdsdup(cpcValue);
+
+                    printf("DONE\n");
+                    exit(1);
+
+
+//                    if (tmp2 != NULL) {
+//                        printf("sdsfree");
+//                        sdsfree(tmp);
+//                    }
+
+
+//                    exit(1);
+
+//                    tmp2 = sdsdup(cpcValue);
+
+//                    *psSetting->pvDst = sdsnewlen(cpcValue,sdslen(cpcValue));
+
+//                    *psSetting->pvDst = s_realloc(*psSetting->pvDst, sdslen(cpcValue));
+//                    memcpy(*psSetting->pvDst, cpcValue, sdslen(cpcValue));
                     break;
 
                 default:
@@ -117,9 +152,9 @@ sSettingsStruct *settings_init(void) {
 }
 
 int32_t settings_destroy(void) {
-    return 0; //TODO
-
-    // loop settings and free.
+    if (sSettings.pcLogfile != NULL) {
+        sdsfree(sSettings.pcLogfile);
+    }
 }
 
 int32_t settings_load(const uint8_t *cpcSettingsFile) {
@@ -134,7 +169,7 @@ int32_t settings_load(const uint8_t *cpcSettingsFile) {
 
     while (1) {
         const char *cpcBuf;
-        char *pcSection;
+        sds Section;
         size_t SectionLen;
 
         int iRet = ini_next_section(sIni, &cpcBuf, &SectionLen);
@@ -148,14 +183,13 @@ int32_t settings_load(const uint8_t *cpcSettingsFile) {
             goto error;
         }
 
-        pcSection = alloca(SectionLen + 1);
-        pcSection[SectionLen] = '\0';
-        memcpy(pcSection, cpcBuf, SectionLen);
-        printf("Opening section: \'%s\'\n", pcSection);
+        Section = sdsnewlen(cpcBuf, SectionLen);
+
+        printf("Opening section: \'%s\'\n", Section);
 
         while (1) {
             const char *buf2;
-            char *pcKey, *pcValue;
+            sds Key, Value;
             size_t KeyLen, ValueLen;
 
             iRet = ini_read_pair(sIni, &cpcBuf, &KeyLen, &buf2, &ValueLen);
@@ -169,27 +203,30 @@ int32_t settings_load(const uint8_t *cpcSettingsFile) {
                 goto error;
             }
 
-            pcKey = alloca(KeyLen + 1);
-            pcKey[KeyLen] = '\0';
-            memcpy(pcKey, cpcBuf, KeyLen);
-            pcValue = alloca(ValueLen + 1);
-            pcValue[ValueLen] = '\0';
-            memcpy(pcValue, buf2, ValueLen);
-            printf("Reading pcKey: \'%s\' pcValue: \'%s\'\n", pcKey, pcValue);
+            Key = sdsnewlen(cpcBuf, KeyLen);
+            Value = sdsnewlen(buf2, ValueLen);
+
+            printf("Reading Key: \'%s\' Value: \'%s\'\n", Key, Value);
 
             // Make everything lower case
-            for (int i = 0; pcSection[i]; i++) {
-                pcSection[i] = tolower(pcSection[i]);
+            for (int i = 0; Section[i]; i++) {
+                Section[i] = tolower(Section[i]);
             }
 
-            for (int i = 0; pcKey[i]; i++) {
-                pcKey[i] = tolower(pcKey[i]);
+            for (int i = 0; Key[i]; i++) {
+                Key[i] = tolower(Key[i]);
             }
 
-            if (parse_option(pcSection, pcKey, pcValue)) {
+            if (parse_option(Section, Key, Value)) {
                 printf("Error parsing option");
             }
+
+            sdsfree(Key);
+            sdsfree(Value);
+
         }
+
+        sdsfree(Section);
     }
 
     ini_close(sIni);

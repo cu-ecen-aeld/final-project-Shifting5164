@@ -9,6 +9,7 @@ add_executable(cewserver
         include/settings.h
         external/sds/sds.c
         external/sds/sds.h
+        external/sds/sdsalloc.h
 )
 
 target_include_directories(cewserver PRIVATE

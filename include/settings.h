@@ -3,12 +3,13 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <sds.h>
 
 typedef struct sSettings {
     long lMaxClientsPerThread;
     long lWorkerThreads;
     long lLogLevel;
-    char *pcLogfile;
+    sds pcLogfile;
 } sSettingsStruct;
 
 #define MAX_SETTINGS_LEN 100

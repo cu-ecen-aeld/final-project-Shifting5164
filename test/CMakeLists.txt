@@ -5,6 +5,8 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(cewserver_test
         test.c
+        ../external/sds/sds.c
+        ../external/sds/sds.h
 )
 
 target_include_directories(cewserver_test PRIVATE
