@@ -92,7 +92,7 @@ jobs:
         run: (make pipeline_test)
 
 
-  code_test:
+  code_test_mem:
     name: Memleak test
     runs-on: self-hosted
     container:
