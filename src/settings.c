@@ -46,13 +46,13 @@ void show_settings(void) {
         assert(psSetting != NULL);
         assert(psSetting->pSection != NULL);
 
+        char **pcString = (char *)psSetting->pvDst;
         switch (psSetting->eType) {
             case TYPE_LONG:
                 printf("Setting %s:%s = %ld\n", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pvDst));
                 break;
 
             case TYPE_STRING:
-                char **pcString = (char *)psSetting->pvDst;
                 printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, *pcString );
                 break;
 
@@ -84,18 +84,22 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
             (strncmp(psSetting->pKey, cpcKey, strlen(psSetting->pKey)) == 0)) {
 
             long lVal;
+            char **pStr = (char *)psSetting->pvDst;
             switch (psSetting->eType) {
                 case TYPE_LONG:
                     lVal = strtol(cpcValue, NULL, 10);
                     memcpy(psSetting->pvDst, &lVal, sizeof(long));
                     break;
 
-                case TYPE_STRING:
-                    char **tmp = (char *)psSetting->pvDst;
-                    if (*tmp != NULL){
-                        sdsfree(*tmp);
+                case TYPE_STRING:                    
+
+                    /* When we are overwriting, then free old sds 
+                    and add new. */
+                    if (*pStr != NULL){
+                        sdsfree(*pStr);
                     }
-                    *tmp = sdsdup(cpcValue);            
+                    
+                    *pStr = sdsdup(cpcValue);            
                     break;
 
                 default:
@@ -118,6 +122,8 @@ int32_t settings_destroy(void) {
     }
 
     memset(&sSettings, 0 ,sizeof(sSettingsStruct));
+
+    return EXIT_SUCCESS;
 
 }
 
