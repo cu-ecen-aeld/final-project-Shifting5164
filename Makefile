@@ -8,7 +8,9 @@ PROJ_NAME=cewserver
 
 all: submodule libs release
 pipeline_test: submodule libs cmocka test
+pipeline_test_mem: submodule libs cmocka test_mem
 pipeline_check: submodule libs debug check
+
 
 submodule:
 	git config --global --add safe.directory '*'
@@ -55,7 +57,7 @@ release:
 
 .PHONY: test
 test:
-	mkdir -p test/build
+	mkdir --parents -- test/build
 	cd test/ \
 		&& cmake -S . -B build \
 		&& cmake --build build --verbose --clean-first \
@@ -63,7 +65,7 @@ test:
 
 .PHONY: test_mem
 test_mem:
-	mkdir -p test/build
+	mkdir --parents -- test/build
 	cd test/ \
 		&& cmake -S . -B build \
 		&& cmake --build build --verbose --clean-first \
@@ -84,8 +86,8 @@ libev:
 	  && make -j$(nproc)
 
 cmocka:
-	-rm -fr external/cmocka/build
-	mkdir -p external/cmocka/build
+	-rm --force --remove -- external/cmocka/build
+	mkdir --parents -- external/cmocka/build
 	cd external/cmocka/build \
 		&& cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release .. \
 		&& make -j$(nproc) \
