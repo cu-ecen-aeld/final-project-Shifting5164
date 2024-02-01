@@ -1,9 +1,3 @@
-/*
- * TODO:
- * - MAX_SETTINGS_LEN always fixed failure
- * - destroy to free all mallocs
- */
-
 #include <alloca.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -114,10 +108,14 @@ sSettingsStruct *settings_init(void) {
     return &sSettings;
 }
 
+
 int32_t settings_destroy(void) {
     if (sSettings.pcLogfile != NULL) {
-        // sdsfree(sSettings.pcLogfile);
+        sdsfree(sSettings.pcLogfile);
     }
+
+    memset(&sSettings, 0 ,sizeof(sSettingsStruct));
+
 }
 
 int32_t settings_load(const uint8_t *cpcSettingsFile) {
