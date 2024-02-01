@@ -100,25 +100,34 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
 //                        return EXIT_FAILURE;
 //                    }
 
-                    printf("(char *)psSetting->pvDst:0x%X\n", (char *)psSetting->pvDst);
-                    printf("&sSettings.pcLogfile:0x%X\n", &sSettings.pcLogfile);
+                    printf("OK (char *)psSetting->pvDst:0x%X\n", (char *)psSetting->pvDst);
+                    printf("OK &sSettings.pcLogfile:0x%X\n", &sSettings.pcLogfile);
 
-                    char *astring = "bla";
-                    sSettings.pcLogfile = sdsnew(astring);
-                    printf("&astring:0x%X\n",&astring);
-                    printf("sSettings.pcLogfile:%s\n",sSettings.pcLogfile);
-                    printf("(char *)psSetting->pvDst:0x%X\n", *(char *)(psSetting->pvDst) );
+                    // char *astring = "bla";
+                    // sSettings.pcLogfile = sdsnew(astring);
 
-                    char *tmp = (*(char *)psSetting->pvDst) ;
-//                    printf("WORK:%s\n", *tmp);
+                    // printf("OK &astring:0x%X\n",&astring);
+                    printf("OK sSettings.pcLogfile:%s\n",sSettings.pcLogfile);
+                    printf("OK (char *)psSetting->pvDst:0x%X\n", (char *)(psSetting->pvDst) );
+                
+
+                    char **tmp = (char *)(*psSetting).pvDst;
+                    printf("OK tmp: 0X%X\n", tmp);                                          
+                    *tmp = sdsnew("bla");
+                    printf("tmp: 0X%X\n", tmp);
+                    printf("OK (char *)psSetting->pvDst:0x%X\n", (char *)(psSetting->pvDst) );
 
 
+                    // printf("*tmp: %s\n",  *tmp);                                      
+                    // psSetting->pvDst = &sdsdup(cpcValue);
+                    printf(" -- (char *)(psSetting->pvDst):%s\n",(char *)(psSetting->pvDst));
+                    printf(" -- sSettings.pcLogfile:%s\n",sSettings.pcLogfile);
 
-//                    printf("tmp2:%ld\n", *tmp2);
+// //                    printf("tmp2:%ld\n", *tmp2);
 
-//                    sdsdup(cpcValue);
+// //                    sdsdup(cpcValue);
 
-                    printf("DONE\n");
+                    printf(" -- DONE -- \n");
                     exit(1);
 
 
@@ -128,7 +137,7 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
 //                    }
 
 
-//                    exit(1);
+                   // exit(1);
 
 //                    tmp2 = sdsdup(cpcValue);
 
@@ -153,7 +162,7 @@ sSettingsStruct *settings_init(void) {
 
 int32_t settings_destroy(void) {
     if (sSettings.pcLogfile != NULL) {
-        sdsfree(sSettings.pcLogfile);
+        // sdsfree(sSettings.pcLogfile);
     }
 }
 
