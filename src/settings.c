@@ -100,22 +100,22 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
 //                        return EXIT_FAILURE;
 //                    }
 
-                    printf("OK (char *)psSetting->pvDst:0x%X\n", (char *)psSetting->pvDst);
-                    printf("OK &sSettings.pcLogfile:0x%X\n", &sSettings.pcLogfile);
+                    // printf("OK (char *)psSetting->pvDst:0x%X\n", (char *)psSetting->pvDst);
+                    // printf("OK &sSettings.pcLogfile:0x%X\n", &sSettings.pcLogfile);
 
                     // char *astring = "bla";
                     // sSettings.pcLogfile = sdsnew(astring);
 
                     // printf("OK &astring:0x%X\n",&astring);
-                    printf("OK sSettings.pcLogfile:%s\n",sSettings.pcLogfile);
-                    printf("OK (char *)psSetting->pvDst:0x%X\n", (char *)(psSetting->pvDst) );
+                    // printf("OK sSettings.pcLogfile:%s\n",sSettings.pcLogfile);
+                    // printf("OK (char *)psSetting->pvDst:0x%X\n", (char *)(psSetting->pvDst) );
                 
 
                     char **tmp = (char *)(*psSetting).pvDst;
-                    printf("OK tmp: 0X%X\n", tmp);                                          
-                    *tmp = sdsnew("bla");
-                    printf("tmp: 0X%X\n", tmp);
-                    printf("OK (char *)psSetting->pvDst:0x%X\n", (char *)(psSetting->pvDst) );
+                    // printf("OK tmp: 0X%X\n", tmp);                                          
+                    *tmp = sdsdup(cpcValue);
+                    // printf("tmp: 0X%X\n", tmp);
+                    // printf("OK (char *)psSetting->pvDst:0x%X\n", (char *)(psSetting->pvDst) );
 
 
                     // printf("*tmp: %s\n",  *tmp);                                      
@@ -127,8 +127,8 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
 
 // //                    sdsdup(cpcValue);
 
-                    printf(" -- DONE -- \n");
-                    exit(1);
+                    // printf(" -- DONE -- \n");
+                    // exit(1);
 
 
 //                    if (tmp2 != NULL) {
