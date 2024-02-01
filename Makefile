@@ -91,3 +91,5 @@ cmocka:
 		&& make -j$(nproc) \
 		&& make install
 
+gef:
+	bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
