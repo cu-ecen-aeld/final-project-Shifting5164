@@ -92,6 +92,9 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
 
                 case TYPE_STRING:
                     char **tmp = (char *)psSetting->pvDst;
+                    if (*tmp != NULL){
+                        sdsfree(*tmp);
+                    }
                     *tmp = sdsdup(cpcValue);            
                     break;
 
