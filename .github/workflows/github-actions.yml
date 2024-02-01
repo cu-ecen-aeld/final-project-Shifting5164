@@ -90,3 +90,17 @@ jobs:
 
       - name: Code check
         run: (make pipeline_test)
+
+
+  code_test:
+    name: Memleak test
+    runs-on: self-hosted
+    container:
+      image: junkyard6930/projenv:github_actions
+    needs: build_docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Code check
+        run: (make pipeline_test_mem)
