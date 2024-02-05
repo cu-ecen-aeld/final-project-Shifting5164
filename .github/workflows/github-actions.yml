@@ -40,7 +40,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   build_release:
-    name: Build release
+    name: Build Release
     runs-on: self-hosted
     container:
       image: junkyard6930/projenv:github_actions
@@ -53,7 +53,7 @@ jobs:
         run: (make)
 
   build_debug:
-    name: Build debug
+    name: Build Debug
     runs-on: self-hosted
     container:
       image: junkyard6930/projenv:github_actions
@@ -66,7 +66,7 @@ jobs:
         run: (make submodule && make libs && make debug)
 
   code_check:
-    name: Static code check
+    name: Static Code Check
     runs-on: self-hosted
     container:
       image: junkyard6930/projenv:github_actions
@@ -76,4 +76,31 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Code check
-        run: (make check)
+        run: (make pipeline_check)
+
+  code_test:
+    name: Unit Testing
+    runs-on: self-hosted
+    container:
+      image: junkyard6930/projenv:github_actions
+    needs: build_docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Code check
+        run: (make pipeline_test)
+
+
+  code_test_mem:
+    name: Memleak test
+    runs-on: self-hosted
+    container:
+      image: junkyard6930/projenv:github_actions
+    needs: build_docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Code check
+        run: (make pipeline_test_mem)

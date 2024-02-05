@@ -17,6 +17,13 @@
 #include <sys/random.h>
 #include <sys/resource.h>
 
+#include <ev.h>
+
+#include <settings.h>
+/*
+https://github.com/cu-ecen-aeld/final-project-Shifting5164
+*/
+
 #define SOCKET_FAIL -1
 #define RET_OK 0
 
@@ -33,7 +40,7 @@
 
 
 typedef struct DataFile {
-    char *pcFilePath;       /* path */
+    char *pcFilePath;           /* path */
     FILE *pFile;               /* filehandle */
     pthread_mutex_t pMutex;     /* thread safe datafile access */
 } sDataFile;
@@ -491,6 +498,10 @@ int32_t main(int32_t argc, char **argv) {
     if ((argc > 1) && strcmp(argv[0], "-d")) {
         bDeamonize = true;
     }
+
+    settings_init();
+    settings_load("/work/test/ini/valid_dual_settings.ini");
+    exit(1);
 
     /* Going to run as service or not > */
     if (bDeamonize) {

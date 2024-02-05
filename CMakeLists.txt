@@ -3,7 +3,21 @@ project(cewserver LANGUAGES C VERSION 0.1)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(cewserver src/main.c)
+add_executable(cewserver
+        src/main.c
+        src/settings.c
+        include/settings.h
+        external/sds/sds.c
+        external/sds/sds.h
+        external/sds/sdsalloc.h
+)
+
+target_include_directories(cewserver PRIVATE
+        include
+        external/libini
+        external/libev
+        external/sds
+)
 
 set_target_properties(cewserver PROPERTIES
         VERSION ${PROJECT_VERSION}

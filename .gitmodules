@@ -4,3 +4,9 @@
 [submodule "external/libev"]
 	path = external/libev
 	url = https://github.com/enki/libev.git
+[submodule "external/sds"]
+	path = external/sds
+	url = https://github.com/antirez/sds.git
+[submodule "external/cmocka"]
+	path = external/cmocka
+	url = https://git.cryptomilk.org/projects/cmocka.git

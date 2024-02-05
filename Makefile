@@ -1,5 +1,5 @@
-.PHONY:
 .SILENT:
+.PHONY:
 
 DOCKERTAG=projenv
 DIR_DEBUG=build/debug
@@ -7,11 +7,15 @@ DIR_RELEASE=build/release
 PROJ_NAME=cewserver
 
 all: submodule libs release
+pipeline_test: submodule libs cmocka test
+pipeline_test_mem: submodule libs cmocka test_mem
+pipeline_check: submodule libs debug check
+
 
 submodule:
 	git config --global --add safe.directory '*'
-	git submodule update --init --recursive
 	git config --local status.showUntrackedFiles no
+	git submodule update --init --recursive
 
 docker_build:
 	cd Docker && docker build --tag ${DOCKERTAG} .
@@ -19,11 +23,12 @@ docker_build:
 docker_run:
 	docker run -p 9000:9000 --privileged --rm --volume $(shell pwd):/work --workdir /work --interactive --tty  ${DOCKERTAG}
 
+#https://clang.llvm.org/docs/HowToSetupToolingForLLVM.html
 check:
 	echo "\n#################################"
 	echo "clang-check:"
 	echo "#################################"
-	clang-check --analyze ./src/*
+	clang-check -p ./build/debug/ --analyze ./src/*
 
 	echo "\n#################################"
 	echo "cppcheck:"
@@ -35,9 +40,10 @@ clean:
 
 #Note: cmake release / debug configs
 #https://stackoverflow.com/questions/7724569/debug-vs-release-in-cmake
+#https://clang.llvm.org/docs/HowToSetupToolingForLLVM.html
 debug:
 	mkdir --parents -- ${DIR_DEBUG}
-	cmake -S . -B ${DIR_DEBUG} -D CMAKE_BUILD_TYPE=Debug
+	cmake -S . -B ${DIR_DEBUG} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 	cmake --build ${DIR_DEBUG} --config Release --verbose --clean-first
 	file ${DIR_DEBUG}/${PROJ_NAME}
 	checksec --file=${DIR_DEBUG}/${PROJ_NAME}
@@ -48,6 +54,23 @@ release:
 	cmake --build ${DIR_RELEASE} --config Debug --verbose --clean-first
 	file ${DIR_RELEASE}/${PROJ_NAME}
 	checksec --file=${DIR_RELEASE}/${PROJ_NAME}
+
+.PHONY: test
+test:
+	mkdir --parents -- test/build
+	cd test/ \
+		&& cmake -S . -B build \
+		&& cmake --build build --verbose --clean-first \
+		&& build/cewserver_test
+
+.PHONY: test_mem
+test_mem:
+	mkdir --parents -- test/build
+	cd test/ \
+		&& cmake -S . -B build \
+		&& cmake --build build --verbose --clean-first \
+		&& build/cewserver_test \
+		&& valgrind --leak-check=full --show-leak-kinds=all build/cewserver_test
 
 libs: libini libev
 
@@ -61,3 +84,14 @@ libev:
 	cd external/libev \
 	  && ./configure \
 	  && make -j$(nproc)
+
+cmocka:
+	-rm --force --remove -- external/cmocka/build
+	mkdir --parents -- external/cmocka/build
+	cd external/cmocka/build \
+		&& cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release .. \
+		&& make -j$(nproc) \
+		&& make install
+
+gef:
+	bash -c "$(curl -fsSL https://gef.blah.cat/sh)"

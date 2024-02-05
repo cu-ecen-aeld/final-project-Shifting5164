@@ -2,7 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/cmocka" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/external/libev" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/external/libini" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/external/sds" vcs="Git" />
   </component>
 </project>
