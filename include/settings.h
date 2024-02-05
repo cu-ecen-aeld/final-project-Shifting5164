@@ -12,8 +12,6 @@ typedef struct sSettings {
     sds pcLogfile;
 } sSettingsStruct;
 
-#define MAX_SETTINGS_LEN 100
-
 sSettingsStruct *settings_init(void);
 int32_t settings_destroy(void);
 

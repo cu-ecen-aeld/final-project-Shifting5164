@@ -10,6 +10,8 @@ add_executable(cewserver
         external/sds/sds.c
         external/sds/sds.h
         external/sds/sdsalloc.h
+        src/logger.c
+        include/logger.h
 )
 
 target_include_directories(cewserver PRIVATE

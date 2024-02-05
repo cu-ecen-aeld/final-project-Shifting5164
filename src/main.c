@@ -20,6 +20,7 @@
 #include <ev.h>
 
 #include <settings.h>
+#include <logger.h>
 /*
 https://github.com/cu-ecen-aeld/final-project-Shifting5164
 */
@@ -499,6 +500,14 @@ int32_t main(int32_t argc, char **argv) {
         bDeamonize = true;
     }
 
+    if (logger_init("/var/log/testlog") ){
+        strerror(errno);
+    }
+
+    log_error("logmsg %d", 42);
+    exit(0);
+
+    //TODO
     settings_init();
     settings_load("/work/test/ini/valid_dual_settings.ini");
     exit(1);
