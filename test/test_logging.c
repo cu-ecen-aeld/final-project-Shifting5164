@@ -8,6 +8,7 @@ static char testfile[] = "/var/log/testlog";
 //no acess to file, should fail
 static void logger_no_file(void **state) {
     assert_true(logger_init("/a/path/that/doesnt/exists", eDEBUG));
+    logger_destroy();
 }
 
 //may not dual init, but should destroy correctly

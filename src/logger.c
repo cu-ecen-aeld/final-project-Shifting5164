@@ -226,12 +226,14 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
     /* Test access, and create */
     FILE *fd;
     if ((fd = fopen(gpcLogfile, "a+")) == NULL) {
+        sdsfree(gpcLogfile);
         return errno;
     }
     fclose(fd);
 
     /* Spin up thread */
     if (pthread_create(&LoggerThread, NULL, logger_thread, NULL) != 0) {
+        sdsfree(gpcLogfile);
         return errno;
     }
 
@@ -269,6 +271,7 @@ int32_t logger_destroy(void) {
     n1 = STAILQ_FIRST(&Head);
     while (n1 != NULL) {
         n2 = STAILQ_NEXT(n1, entries);
+        sdsfree(n1->data);
         free(n1);
         n1 = n2;
     }

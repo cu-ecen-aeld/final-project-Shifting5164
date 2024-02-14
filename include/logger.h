@@ -3,9 +3,14 @@
 
 #include <sds.h>
 
-#define LOGGER_QUEUE_SIZE 50    // maximum queue size
-#define BULK_WRITE 0   // amount of messages minimum in the queue to start writing, 0 = streaming
-#define LOGGER_MAX_USER_MSG_LEN 1024    //max characters in logging msg
+// Maximum queue size
+#define LOGGER_QUEUE_SIZE 50
+
+// Amount of messages to be in the queue to start writing in bulk, 0 = streaming
+#define BULK_WRITE 0
+
+// Max characters in logging msg
+#define LOGGER_MAX_USER_MSG_LEN 1024
 
 typedef enum {
     eDEBUG = 0,
