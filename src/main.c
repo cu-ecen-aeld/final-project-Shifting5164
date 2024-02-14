@@ -500,17 +500,19 @@ int32_t main(int32_t argc, char **argv) {
         bDeamonize = true;
     }
 
-    if (logger_init("/var/log/testlog") ){
+    if (logger_init("/var/log/testlog", eWARNING) ){
         strerror(errno);
     }
 
-    log_error("logmsg %d", 42);
-    exit(0);
+    if (log_error("logmsg %d", 42) ){
+        strerror(errno);
+    }
 
-    //TODO
     settings_init();
     settings_load("/work/test/ini/valid_dual_settings.ini");
-    exit(1);
+
+    logger_destroy();
+    exit(0);
 
     /* Going to run as service or not > */
     if (bDeamonize) {
