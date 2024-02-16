@@ -11,48 +11,53 @@
 #include <sds.h>
 #include <logger.h>
 
-sSettingsStruct sSettings = {0};
+/* All settings */
+static tsSSettings gsCurrSSettings = {0};
 
+/* Type definitions for different types of settings */
 typedef enum eSettingsType {
     TYPE_NONE,
     TYPE_LONG,
     TYPE_STRING,
 } eSettingsType;
 
+/* Layout of settings mapping in the config file vs the settings sutrcture */
 typedef struct sOptionMapping {
-    char *pSection;
-    char *pKey;
-    eSettingsType eType;
-    void *pvDst;
+    char *pSection;         // section of the ini
+    char *pKey;             // config key in that section
+    eSettingsType eType;    // type definition
+    void *pvDst;            // destination memory
 } tsOptionMapping;
 
+/* Actual mapping for the file settings to memory */
 static tsOptionMapping sKnownOptions[] = {
-        {"general", "workers", TYPE_LONG,   &sSettings.lWorkerThreads},
-        {"general", "clients", TYPE_LONG,   &sSettings.lMaxClientsPerThread},
-        {"logging", "logfile", TYPE_STRING, &sSettings.pcLogfile},
-        {"logging", "level",   TYPE_LONG,   &sSettings.lLogLevel},
-        {NULL, NULL,           TYPE_NONE, NULL}
+        {"general", "workers", TYPE_LONG,   &gsCurrSSettings.lWorkerThreads},
+        {"general", "clients", TYPE_LONG,   &gsCurrSSettings.lMaxClientsPerThread},
+        {"logging", "logfile", TYPE_STRING, &gsCurrSSettings.pcLogfile},
+        {"logging", "level",   TYPE_LONG,   &gsCurrSSettings.lLogLevel},
+        {NULL, NULL,           TYPE_NONE, NULL} // not needed, just for security
 };
 
-void show_settings(void) {
+/* Write the final configuration after loading and parsing settings to the log. */
+void settings_to_log(void) {
     tsOptionMapping *psSetting = NULL;
     int32_t iSize = sizeof(sKnownOptions) / sizeof(tsOptionMapping);
 
-    for (int i = 0; i < iSize - 1; i++) {
+    for (int32_t i = 0; i < iSize - 1; i++) {
 
         psSetting = &sKnownOptions[i];
 
         assert(psSetting != NULL);
         assert(psSetting->pSection != NULL);
 
-        char **pcString = (char **)psSetting->pvDst;
+        char **pcString = (char **) psSetting->pvDst;
         switch (psSetting->eType) {
             case TYPE_LONG:
                 log_info("Setting %s:%s = %ld", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pvDst));
                 break;
 
             case TYPE_STRING:
-                log_info("Setting %s:%s = %s", psSetting->pSection, psSetting->pKey, *pcString );
+                log_info("Setting %s:%s = %s", psSetting->pSection, psSetting->pKey, *pcString);
                 break;
 
             default:
@@ -61,14 +66,23 @@ void show_settings(void) {
     }
 }
 
+/* Parse the options passed in section, with value. When the section and key are found in the mapping the
+ * value will be copied to the memory. If no mapping is found, then its ignored.
+ *
+ * Return:
+ * SET_EXIT_SUCCESS: when mapping is found, and value is copied
+ * SET_NOTYPE : when no type is known
+ * SET_NOMAP : when no mapping is found
+ */
 static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cpcValue) {
     tsOptionMapping *psSetting = NULL;
     int32_t iSize = sizeof(sKnownOptions) / sizeof(tsOptionMapping);
 
-    for (int i = 0; i < iSize - 1; i++) {
+    for (int32_t i = 0; i < iSize - 1; i++) {
 
         psSetting = &sKnownOptions[i];
 
+        /* Make sure we don't run out of the mapping */
         assert(psSetting != NULL);
         assert(psSetting->pSection != NULL);
 
@@ -76,47 +90,30 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
             (strncmp(psSetting->pKey, cpcKey, strlen(psSetting->pKey)) == 0)) {
 
             long lVal;
-            char **pStr = (char **)psSetting->pvDst;
+            char **ppcStr = (char **) psSetting->pvDst;
             switch (psSetting->eType) {
                 case TYPE_LONG:
                     lVal = strtol(cpcValue, NULL, 10);
                     memcpy(psSetting->pvDst, &lVal, sizeof(long));
-                    break;
+                    return SET_EXIT_SUCCESS;
 
-                case TYPE_STRING:                    
-
-                    /* When we are overwriting, then free old sds 
+                case TYPE_STRING:
+                    /* When we are overwriting and old setting, then free old sds
                     and add new. */
-                    if (*pStr != NULL){
-                        sdsfree(*pStr);
+                    if (*ppcStr != NULL) {
+                        sdsfree(*ppcStr);
                     }
-                    
-                    *pStr = sdsdup(cpcValue);            
+
+                    *ppcStr = sdsdup(cpcValue);
                     break;
 
                 default:
-                    return EXIT_FAILURE;
+                    return SET_NOTYPE;
             }
         }
     }
 
-    return EXIT_SUCCESS;
-}
-
-sSettingsStruct *settings_init(void) {
-    return &sSettings;
-}
-
-
-int32_t settings_destroy(void) {
-    if (sSettings.pcLogfile != NULL) {
-        sdsfree(sSettings.pcLogfile);
-    }
-
-    memset(&sSettings, 0 ,sizeof(sSettingsStruct));
-
-    return EXIT_SUCCESS;
-
+    return SET_NOMAP;
 }
 
 int32_t settings_load(const char *cpcSettingsFile) {
@@ -124,7 +121,7 @@ int32_t settings_load(const char *cpcSettingsFile) {
 
     sIni = ini_open(cpcSettingsFile);
     if (!sIni) {
-        return EXIT_FAILURE;
+        return SET_NOFILE;
     }
 
     log_debug("INI file %s opened.", cpcSettingsFile);
@@ -161,7 +158,7 @@ int32_t settings_load(const char *cpcSettingsFile) {
             }
 
             if (iRet < 0) {
-                log_debug("ERROR: code %i", iRet);
+                log_error("ERROR: code %i", iRet);
                 goto error;
             }
 
@@ -192,11 +189,34 @@ int32_t settings_load(const char *cpcSettingsFile) {
     }
 
     ini_close(sIni);
-    show_settings();
-    return EXIT_SUCCESS;
+    settings_to_log();
+    return SET_EXIT_SUCCESS;
 
 
     error:
     ini_close(sIni);
-    return EXIT_FAILURE;
+    return SET_EXIT_FAILURE;
+}
+
+
+/*
+ * Init the settings.
+ */
+tsSSettings *settings_init(void) {
+    return &gsCurrSSettings;
+}
+
+/*
+ * Destroy the settings.
+ */
+int32_t settings_destroy(void) {
+    if (gsCurrSSettings.pcLogfile != NULL) {
+        sdsfree(gsCurrSSettings.pcLogfile);
+        gsCurrSSettings.pcLogfile = NULL;
+    }
+
+    memset(&gsCurrSSettings, 0, sizeof(tsSSettings));
+
+    return SET_EXIT_SUCCESS;
+
 }

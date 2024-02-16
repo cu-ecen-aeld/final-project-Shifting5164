@@ -21,6 +21,7 @@
 
 #include <settings.h>
 #include <logger.h>
+
 /*
 https://github.com/cu-ecen-aeld/final-project-Shifting5164
 */

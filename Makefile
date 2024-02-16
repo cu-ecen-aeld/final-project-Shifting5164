@@ -15,7 +15,9 @@ pipeline_check: submodule libs debug check
 submodule:
 	git config --global --add safe.directory '*'
 	git config --local status.showUntrackedFiles no
-	git submodule update --init --recursive
+	git submodule update --init --recursive --force --checkout
+	git submodule
+	git diff ./external/
 
 docker_build:
 	cd Docker && docker build --tag ${DOCKERTAG} .
