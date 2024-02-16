@@ -1,13 +1,17 @@
 #ifndef CEWSERVER_LOGGER_H
 #define CEWSERVER_LOGGER_H
 
-#include <sds.h>
+#include <stdint.h>
 
-// Maximum queue size
+// usleep
+#define POLLING_INTERVAL 100
+
+// Maximum queue entries
 #define LOGGER_QUEUE_SIZE 50
 
-// Amount of messages to be in the queue to start writing in bulk, 0 = streaming
-#define BULK_WRITE 0
+// Amount of messages to be in the queue before its writing in bulk
+// 0 = streaming
+#define BULK_WRITE 10
 
 // Max characters in logging msg
 #define LOGGER_MAX_USER_MSG_LEN 1024

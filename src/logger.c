@@ -9,13 +9,15 @@
 #include <sys/queue.h>
 #include <sys/stat.h>
 
+#include <sds.h>
+
 #include "logger.h"
 
 static sds gpcLogfile = NULL;
 static pthread_t LoggerThread;
 static pthread_mutex_t pLogMutex = PTHREAD_MUTEX_INITIALIZER;
 
-/* mapping from enum to text */
+/* Mapping from logging level enum to text */
 static const char *pcLogTypeMsg[] = {
         "Error",
         "Warning",
@@ -23,17 +25,26 @@ static const char *pcLogTypeMsg[] = {
         "Debug",
 };
 
-typedef struct sEntry {
-    sds data;
-    STAILQ_ENTRY(sEntry) entries;        /* Singly linked tail queue */
+/* Log message queue */
+typedef struct sQEntry {
+    sds msg;   /* A sds pointer to log message */
+    STAILQ_ENTRY(sQEntry) entries;        /* Singly linked tail queue */
 } tsEntry;
-
-STAILQ_HEAD(stailhead, sEntry);
+STAILQ_HEAD(stailhead, sQEntry);
 static struct stailhead Head;
-static int32_t iDataInQueue = 0;
-static int32_t iInitDone = 0;
-static int32_t iForceFlush = 0;
-static int32_t iLoglevel = eWARNING;
+
+
+// Amount of messages in the queue
+static int32_t iDataInQueueCount = 0;
+
+// Set when logging system has been setup
+static int32_t iIsInitDone = 0;
+
+// Force a flush of the message queue to the datafile
+static int32_t iDoForceFlush = 0;
+
+// Dynamic logging level
+static int32_t iCurrLogLevel = eWARNING;
 
 /*  Log writing thread.
  *
@@ -48,12 +59,13 @@ static void *logger_thread(void *arg) {
 
     while (1) {
 
-        /* Thread may cancel here, no mallocs or open fd */
+        /* Thread may canceled before and after the sleep, no mallocs or open fd
+         * thus no cleanup needed. Can take some extra time tho.*/
+        pthread_testcancel();
+        usleep(POLLING_INTERVAL);
         pthread_testcancel();
 
-        usleep(100); // TODO EV
-
-        if ((iDataInQueue > BULK_WRITE) || (iForceFlush && iDataInQueue)) {
+        if ((iDataInQueueCount > BULK_WRITE) || (iDoForceFlush && iDataInQueueCount)) {
 
             /* Open file for writing */
             if ((fd = fopen(gpcLogfile, "a+")) == NULL) {
@@ -66,9 +78,9 @@ static void *logger_thread(void *arg) {
                 /* Get data from head, save the log message pointer for later use */
                 sds LogMessage;
                 tsEntry *Entry = STAILQ_FIRST(&Head);
-                LogMessage = Entry->data;
+                LogMessage = Entry->msg;
 
-                // mutex block
+                // mutex block, only for removing the entry
                 {
                     if (pthread_mutex_lock(&pLogMutex) != 0) {
                         exit(errno);
@@ -77,7 +89,7 @@ static void *logger_thread(void *arg) {
                     /* Delete entry from the head */
                     STAILQ_REMOVE_HEAD(&Head, entries);
                     free(Entry);
-                    iDataInQueue--;
+                    iDataInQueueCount--;
 
                     if (pthread_mutex_unlock(&pLogMutex) != 0) {
                         exit(errno);
@@ -90,14 +102,15 @@ static void *logger_thread(void *arg) {
                     exit(errno);
                 }
 
-                // free
+                /* Free the allocated message */
                 sdsfree(LogMessage);
 
-            } while (iDataInQueue);
+            } while (iDataInQueueCount);
 
-            iForceFlush = 0;
+            /* Make sure we only flush once when set */
+            iDoForceFlush = 0;
 
-            /* Flush and close after bulk write */
+            /* Flush and close file after bulk write */
             if (fflush(fd) != 0) {
                 exit(errno);
             }
@@ -107,8 +120,6 @@ static void *logger_thread(void *arg) {
             }
         }
     }
-
-    exit(0);
 }
 
 /* Add a log message to the writing queue. Writing will be outsourced to a writing thread.
@@ -117,39 +128,42 @@ static void *logger_thread(void *arg) {
  */
 static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_list args) {
 
-    /* Check space against runaway */
-    if (iDataInQueue > LOGGER_QUEUE_SIZE) {
+    /* Check max allowed messages in the queue against runaway */
+    if (iDataInQueueCount > LOGGER_QUEUE_SIZE) {
         return ENOBUFS;
     }
 
+    /* Add timestamp, IEC compatible */
     char acTime[64];
     time_t t = time(NULL);
     struct tm *tmp = localtime(&t);
     strftime(acTime, sizeof(acTime), "%a, %d %b %Y %T %z", tmp);
 
+    /* Parse the users message */
     char cUserMsg[LOGGER_MAX_USER_MSG_LEN] = {0};
     vsnprintf(cUserMsg, sizeof(cUserMsg), pcMsg, args);
 
-    /* Make the log entry
+    /* Make the log entry, dynamic memory for passing into the queue.
      * free @ logger_thread */
     sds LogMsg = sdscatprintf(sdsempty(), "%s : %s : %s\n", acTime, pcLogTypeMsg[eType], cUserMsg);
 
-    /* Pack message in queue entry
+    /* Pack message in a queue entry
      * free @ logger_thread
      * */
     tsEntry *NewEntry = malloc(sizeof(tsEntry));
-    NewEntry->data = LogMsg;
+    NewEntry->msg = LogMsg;
 
-    // mutex safe block
+    /* mutex safe block */
     {
         if (pthread_mutex_lock(&pLogMutex) != 0) {
+            sdsfree(LogMsg);
             free(NewEntry);
             return errno;
         }
 
-        /* Insert at the tail */
+        /* Push at the tail, using head for popping */
         STAILQ_INSERT_TAIL(&Head, NewEntry, entries);
-        iDataInQueue++;
+        iDataInQueueCount++;
 
         if (pthread_mutex_unlock(&pLogMutex) != 0) {
             return errno;
@@ -169,11 +183,11 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
  */
 int32_t log_debug(const char *message, ...) {
 
-    if (!iInitDone) {
+    if (!iIsInitDone) {
         return -1;
     }
 
-    if (iLoglevel < eDEBUG) {
+    if (iCurrLogLevel < eDEBUG) {
         return -2;
     }
 
@@ -195,11 +209,11 @@ int32_t log_debug(const char *message, ...) {
  */
 int32_t log_info(const char *message, ...) {
 
-    if (!iInitDone) {
+    if (!iIsInitDone) {
         return -1;
     }
 
-    if (iLoglevel < eINFO) {
+    if (iCurrLogLevel < eINFO) {
         return -2;
     }
 
@@ -220,11 +234,11 @@ int32_t log_info(const char *message, ...) {
  */
 int32_t log_warning(const char *message, ...) {
 
-    if (!iInitDone) {
+    if (!iIsInitDone) {
         return -1;
     }
 
-    if (iLoglevel < eWARNING) {
+    if (iCurrLogLevel < eWARNING) {
         return -2;
     }
 
@@ -245,11 +259,11 @@ int32_t log_warning(const char *message, ...) {
  */
 int32_t log_error(const char *message, ...) {
 
-    if (!iInitDone) {
+    if (!iIsInitDone) {
         return -1;
     }
 
-    if (iLoglevel < eERROR) {
+    if (iCurrLogLevel < eERROR) {
         return -2;
     }
 
@@ -265,8 +279,8 @@ int32_t log_error(const char *message, ...) {
  */
 int32_t logger_flush(void) {
     /* Force flush queue */
-    iForceFlush = 1;
-    while (iDataInQueue) {
+    iDoForceFlush = 1;
+    while (iDataInQueueCount) {
         usleep(100);
     };
     return 0;
@@ -281,14 +295,14 @@ int32_t logger_flush(void) {
  */
 int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
 
-    if (iInitDone) {
+    if (iIsInitDone) {
         return -1;
     }
 
     /* Set logfile */
     gpcLogfile = sdsnew(pcLogfilePath);
 
-    iLoglevel = Loglevel;
+    iCurrLogLevel = Loglevel;
 
     /* Test access, and create datafile */
     FILE *fd;
@@ -306,10 +320,10 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
 
     /* Setup queue */
     STAILQ_INIT(&Head);
-    iDataInQueue = 0;
+    iDataInQueueCount = 0;
 
-    iInitDone = 1;
-    iForceFlush = 0;
+    iDoForceFlush = 0;
+    iIsInitDone = 1;
 
     return 0;
 }
@@ -322,7 +336,7 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
  */
 int32_t logger_destroy(void) {
 
-    if (!iInitDone) {
+    if (!iIsInitDone) {
         return -1;
     }
 
@@ -338,6 +352,7 @@ int32_t logger_destroy(void) {
         gpcLogfile = NULL;
     }
 
+    /* Not needed, still for safety */
     pthread_mutex_unlock(&pLogMutex);
 
     /* TailQ deletion */
@@ -345,15 +360,15 @@ int32_t logger_destroy(void) {
     n1 = STAILQ_FIRST(&Head);
     while (n1 != NULL) {
         n2 = STAILQ_NEXT(n1, entries);
-        sdsfree(n1->data);
-        free(n1);
+        sdsfree(n1->msg);   //sds msg
+        free(n1);   // queue item
         n1 = n2;
     }
 
-    iDataInQueue = 0;
+    iDataInQueueCount = 0;
 
     /* May be init again */
-    iInitDone = 0;
+    iIsInitDone = 0;
 
     return 0;
 }
