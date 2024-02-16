@@ -5,8 +5,10 @@
 #include <pthread.h>
 #include <errno.h>
 #include <string.h>
-#include <sys/queue.h>
 #include <unistd.h>
+#include <sys/queue.h>
+#include <sys/stat.h>
+
 #include "logger.h"
 
 static sds gpcLogfile = NULL;
@@ -15,10 +17,10 @@ static pthread_mutex_t pLogMutex = PTHREAD_MUTEX_INITIALIZER;
 
 /* mapping from enum to text */
 static const char *pcLogTypeMsg[] = {
-        "Debug",
-        "Info",
+        "Error",
         "Warning",
-        "Error"
+        "Info",
+        "Debug",
 };
 
 typedef struct sEntry {
@@ -33,18 +35,26 @@ static int32_t iInitDone = 0;
 static int32_t iForceFlush = 0;
 static int32_t iLoglevel = eWARNING;
 
+/*  Log writing thread.
+ *
+ * Will try to write the queued logging messages in bulk defined by BULK_WRITE.
+ *
+ *
+ */
 static void *logger_thread(void *arg) {
 
-    log_debug("logger_thread() entered with argument '%s'\n", arg);
+    static FILE *fd = NULL;
 
     while (1) {
 
-        usleep(100);
+        /* Thread may cancel here, no mallocs or open fd */
+        pthread_testcancel();
+
+        usleep(100); // TODO EV
 
         if ((iDataInQueue > BULK_WRITE) || (iForceFlush && iDataInQueue)) {
 
             /* Open file for writing */
-            FILE *fd = NULL;
             if ((fd = fopen(gpcLogfile, "a+")) == NULL) {
                 exit(errno);
             }
@@ -52,18 +62,18 @@ static void *logger_thread(void *arg) {
             /* Bulk write */
             do {
 
-                // mutex block
+                /* Get data from head, save the log message pointer for later use */
                 sds LogMessage;
+                tsEntry *Entry = STAILQ_FIRST(&Head);
+                LogMessage = Entry->data;
+
+                // mutex block
                 {
                     if (pthread_mutex_lock(&pLogMutex) != 0) {
                         exit(errno);
                     }
 
-                    /* Get data */
-                    tsEntry *Entry = STAILQ_FIRST(&Head);
-                    LogMessage = Entry->data;
-
-                    /* Deletion from the head */
+                    /* Delete entry from the head */
                     STAILQ_REMOVE_HEAD(&Head, entries);
                     free(Entry);
                     iDataInQueue--;
@@ -73,7 +83,7 @@ static void *logger_thread(void *arg) {
                     }
                 }
 
-                /* Write the entry */
+                /* Write the log entry */
                 fwrite(LogMessage, sdslen(LogMessage), 1, fd);
                 if (ferror(fd) != 0) {
                     exit(errno);
@@ -115,7 +125,7 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
 
     /* Make the log entry
      * free @ logger_thread */
-    sds LogMsg = sdscatprintf(sdsempty(), "%s : %s : %s", acTime, pcLogTypeMsg[eType], cUserMsg);
+    sds LogMsg = sdscatprintf(sdsempty(), "%s : %s : %s\n", acTime, pcLogTypeMsg[eType], cUserMsg);
 
     /* Pack message in queue entry
      * free @ logger_thread
@@ -123,17 +133,20 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
     tsEntry *NewEntry = malloc(sizeof(tsEntry));
     NewEntry->data = LogMsg;
 
-    if (pthread_mutex_lock(&pLogMutex) != 0) {
-        free(NewEntry);
-        return errno;
-    }
+    // mutex safe block
+    {
+        if (pthread_mutex_lock(&pLogMutex) != 0) {
+            free(NewEntry);
+            return errno;
+        }
 
-    /* Insert at the tail */
-    STAILQ_INSERT_TAIL(&Head, NewEntry, entries);
-    iDataInQueue++;
+        /* Insert at the tail */
+        STAILQ_INSERT_TAIL(&Head, NewEntry, entries);
+        iDataInQueue++;
 
-    if (pthread_mutex_unlock(&pLogMutex) != 0) {
-        return errno;
+        if (pthread_mutex_unlock(&pLogMutex) != 0) {
+            return errno;
+        }
     }
 
     return 0;
@@ -211,7 +224,9 @@ int32_t log_error(const char *message, ...) {
 int32_t logger_flush(void) {
     /* Force flush queue */
     iForceFlush = 1;
-    while (iDataInQueue);
+    while (iDataInQueue){
+        usleep(100);
+    };
     return 0;
 }
 
@@ -256,6 +271,7 @@ int32_t logger_destroy(void) {
         return -1;
     }
 
+    log_debug("Destroying the logger.");
     logger_flush();
 
     /* End logger thread */

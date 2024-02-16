@@ -48,11 +48,11 @@ void show_settings(void) {
         char **pcString = (char **)psSetting->pvDst;
         switch (psSetting->eType) {
             case TYPE_LONG:
-                log_info("Setting %s:%s = %ld\n", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pvDst));
+                log_info("Setting %s:%s = %ld", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pvDst));
                 break;
 
             case TYPE_STRING:
-                log_info("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, *pcString );
+                log_info("Setting %s:%s = %s", psSetting->pSection, psSetting->pKey, *pcString );
                 break;
 
             default:
@@ -127,7 +127,7 @@ int32_t settings_load(const char *cpcSettingsFile) {
         return EXIT_FAILURE;
     }
 
-    log_debug("INI file %s opened.\n", cpcSettingsFile);
+    log_debug("INI file %s opened.", cpcSettingsFile);
 
     while (1) {
         const char *cpcBuf;
@@ -136,18 +136,18 @@ int32_t settings_load(const char *cpcSettingsFile) {
 
         int iRet = ini_next_section(sIni, &cpcBuf, &SectionLen);
         if (!iRet) {
-            log_debug("End of file.\n");
+            log_debug("End of file.");
             break;
         }
 
         if (iRet < 0) {
-            log_debug("ERROR: code %i\n", iRet);
+            log_debug("ERROR: code %i", iRet);
             goto error;
         }
 
         Section = sdsnewlen(cpcBuf, SectionLen);
 
-        log_debug("Opening section: \'%s\'\n", Section);
+        log_debug("Opening section: \'%s\'", Section);
 
         while (1) {
             const char *buf2;
@@ -156,19 +156,19 @@ int32_t settings_load(const char *cpcSettingsFile) {
 
             iRet = ini_read_pair(sIni, &cpcBuf, &KeyLen, &buf2, &ValueLen);
             if (!iRet) {
-                log_debug("No more data.\n");
+                log_debug("No more data.");
                 break;
             }
 
             if (iRet < 0) {
-                log_debug("ERROR: code %i\n", iRet);
+                log_debug("ERROR: code %i", iRet);
                 goto error;
             }
 
             Key = sdsnewlen(cpcBuf, KeyLen);
             Value = sdsnewlen(buf2, ValueLen);
 
-            log_info("Reading Key: \'%s\' Value: \'%s\'\n", Key, Value);
+            log_info("Reading Key: \'%s\' Value: \'%s\'", Key, Value);
 
             // Make everything lower case
             for (int i = 0; Section[i]; i++) {

@@ -13,10 +13,10 @@
 #define LOGGER_MAX_USER_MSG_LEN 1024
 
 typedef enum {
-    eDEBUG = 0,
-    eINFO,
+    eERROR = 0,
     eWARNING,
-    eERROR,
+    eINFO,
+    eDEBUG,
 } tLoggerType;
 
 int32_t log_debug(const char *, ...);

@@ -501,9 +501,15 @@ int32_t main(void) {
 //        bDeamonize = true;
 //    }
 
-    if ( (iRet = logger_init("/var/log/testlog", eWARNING)) != 0 ){
+    if ( (iRet = logger_init("/var/log/testlog", eDEBUG)) != 0 ){
         return iRet;
     }
+
+    log_error("----- STARTING -------");
+    log_warning("----- STARTING -------");
+    log_info("----- STARTING -------");
+    log_debug("----- STARTING -------");
+
 
     if ((iRet = log_error("logmsg %d", 42))!= 0 ){
         return iRet;

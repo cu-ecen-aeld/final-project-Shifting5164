@@ -43,6 +43,7 @@ target_compile_options(cewserver PRIVATE
         -Wformat
         -Wformat-security
         -Werror=format-security
+        -Wno-unused-parameter   #for threads
         $<$<CONFIG:DEBUG>:-g3>
         $<$<CONFIG:DEBUG>:-Og>
         $<$<CONFIG:DEBUG>:-ggdb>
