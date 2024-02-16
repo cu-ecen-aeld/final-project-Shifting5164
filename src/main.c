@@ -491,7 +491,8 @@ https://github.com/cu-ecen-aeld/final-project-Shifting5164
 //    }
 //}
 
-int32_t main(int32_t argc, char **argv) {
+//int32_t main(int32_t argc, char **argv) {
+int32_t main(void) {
 
 //    bool bDeamonize = false;
     int32_t iRet = 0;

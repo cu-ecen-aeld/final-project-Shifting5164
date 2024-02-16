@@ -20,8 +20,8 @@ typedef enum eSettingsType {
 } eSettingsType;
 
 typedef struct sOptionMapping {
-    uint8_t *pSection;
-    uint8_t *pKey;
+    char *pSection;
+    char *pKey;
     eSettingsType eType;
     void *pvDst;
 } tsOptionMapping;
@@ -45,7 +45,7 @@ void show_settings(void) {
         assert(psSetting != NULL);
         assert(psSetting->pSection != NULL);
 
-        char **pcString = (char *)psSetting->pvDst;
+        char **pcString = (char **)psSetting->pvDst;
         switch (psSetting->eType) {
             case TYPE_LONG:
                 log_info("Setting %s:%s = %ld\n", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pvDst));
@@ -76,7 +76,7 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
             (strncmp(psSetting->pKey, cpcKey, strlen(psSetting->pKey)) == 0)) {
 
             long lVal;
-            char **pStr = (char *)psSetting->pvDst;
+            char **pStr = (char **)psSetting->pvDst;
             switch (psSetting->eType) {
                 case TYPE_LONG:
                     lVal = strtol(cpcValue, NULL, 10);
@@ -119,7 +119,7 @@ int32_t settings_destroy(void) {
 
 }
 
-int32_t settings_load(const uint8_t *cpcSettingsFile) {
+int32_t settings_load(const char *cpcSettingsFile) {
     struct INI *sIni = NULL;
 
     sIni = ini_open(cpcSettingsFile);

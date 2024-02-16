@@ -15,7 +15,7 @@ typedef struct sSettings {
 sSettingsStruct *settings_init(void);
 int32_t settings_destroy(void);
 
-int32_t settings_load(const uint8_t *);
+int32_t settings_load(const char*);
 
 
 #endif

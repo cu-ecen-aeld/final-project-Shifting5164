@@ -38,6 +38,7 @@ set_target_properties(cewserver PROPERTIES SKIP_BUILD_RPATH TRUE)
 target_compile_options(cewserver PRIVATE
         -Wall
         -Wextra
+        -Werror
         -Wpedantic
         -Wformat
         -Wformat-security
@@ -58,9 +59,9 @@ target_link_options(cewserver PRIVATE
         $<$<CONFIG:RELEASE>:-z,now>
 )
 
-add_compile_definitions(
-        $<$<CONFIG:DEBUG>:DEBUG>
-)
+#add_compile_definitions(
+#        $<$<CONFIG:DEBUG>:DEBUG>
+#)
 
 #target_include_directories(cewserver PRIVATE external/libini/) // does work, but clion can't do check
 

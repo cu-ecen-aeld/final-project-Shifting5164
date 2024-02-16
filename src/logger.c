@@ -23,7 +23,7 @@ static const char *pcLogTypeMsg[] = {
 
 typedef struct sEntry {
     sds data;
-    STAILQ_ENTRY(entry) entries;        /* Singly linked tail queue */
+    STAILQ_ENTRY(sEntry) entries;        /* Singly linked tail queue */
 } tsEntry;
 
 STAILQ_HEAD(stailhead, sEntry);
@@ -33,7 +33,9 @@ static int32_t iInitDone = 0;
 static int32_t iForceFlush = 0;
 static int32_t iLoglevel = eWARNING;
 
-static int32_t logger_thread(void *arg) {
+static void *logger_thread(void *arg) {
+
+    log_debug("logger_thread() entered with argument '%s'\n", arg);
 
     while (1) {
 
@@ -44,7 +46,7 @@ static int32_t logger_thread(void *arg) {
             /* Open file for writing */
             FILE *fd = NULL;
             if ((fd = fopen(gpcLogfile, "a+")) == NULL) {
-                return errno;
+                exit(errno);
             }
 
             /* Bulk write */
@@ -54,7 +56,7 @@ static int32_t logger_thread(void *arg) {
                 sds LogMessage;
                 {
                     if (pthread_mutex_lock(&pLogMutex) != 0) {
-                        return errno;
+                        exit(errno);
                     }
 
                     /* Get data */
@@ -67,14 +69,14 @@ static int32_t logger_thread(void *arg) {
                     iDataInQueue--;
 
                     if (pthread_mutex_unlock(&pLogMutex) != 0) {
-                        return errno;
+                        exit(errno);
                     }
                 }
 
                 /* Write the entry */
                 fwrite(LogMessage, sdslen(LogMessage), 1, fd);
                 if (ferror(fd) != 0) {
-                    return errno;
+                    exit(errno);
                 }
 
                 // free
@@ -86,11 +88,11 @@ static int32_t logger_thread(void *arg) {
 
             /* Flush and close after bulk write */
             if (fflush(fd) != 0) {
-                return errno;
+                exit(errno);
             }
 
             if (fclose(fd) != 0) {
-                return errno;
+                exit(errno);
             }
         }
     }
@@ -143,7 +145,7 @@ int32_t log_debug(const char *message, ...) {
         return -1;
     }
 
-    if (iLoglevel < eDEBUG){
+    if (iLoglevel < eDEBUG) {
         return 0;
     }
 
@@ -160,7 +162,7 @@ int32_t log_info(const char *message, ...) {
         return -1;
     }
 
-    if (iLoglevel < eINFO){
+    if (iLoglevel < eINFO) {
         return 0;
     }
 
@@ -177,7 +179,7 @@ int32_t log_warning(const char *message, ...) {
         return -1;
     }
 
-    if (iLoglevel < eWARNING){
+    if (iLoglevel < eWARNING) {
         return 0;
     }
 
@@ -194,7 +196,7 @@ int32_t log_error(const char *message, ...) {
         return -1;
     }
 
-    if (iLoglevel < eERROR){
+    if (iLoglevel < eERROR) {
         return 0;
     }
 
