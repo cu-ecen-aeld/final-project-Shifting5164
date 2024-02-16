@@ -39,7 +39,8 @@ static int32_t iLoglevel = eWARNING;
  *
  * Will try to write the queued logging messages in bulk defined by BULK_WRITE.
  *
- *
+ * Args: None
+ * Return: errno
  */
 static void *logger_thread(void *arg) {
 
@@ -106,13 +107,19 @@ static void *logger_thread(void *arg) {
             }
         }
     }
+
+    exit(0);
 }
 
+/* Add a log message to the writing queue. Writing will be outsourced to a writing thread.
+ *
+ * Return: errno on error, else 0
+ */
 static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_list args) {
 
     /* Check space against runaway */
     if (iDataInQueue > LOGGER_QUEUE_SIZE) {
-        return -1;
+        return ENOBUFS;
     }
 
     char acTime[64];
@@ -152,6 +159,14 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
     return 0;
 }
 
+/* Write message on this level
+ *
+ * Return
+ * - -1 when logging system is no init yet
+ * - -2 when current level is not sufficient to queue the message
+ * - 0 when message is queued sucesfully
+ * - errno on error
+ */
 int32_t log_debug(const char *message, ...) {
 
     if (!iInitDone) {
@@ -159,16 +174,25 @@ int32_t log_debug(const char *message, ...) {
     }
 
     if (iLoglevel < eDEBUG) {
-        return 0;
+        return -2;
     }
 
     va_list args;
     va_start(args, message);
     int32_t ret = log_add_to_queue(eDEBUG, message, args);
     va_end(args);
+
     return ret;
 }
 
+/* Write message on this level
+ *
+ * Return
+ * - -1 when logging system is no init yet
+ * - -2 when current level is not sufficient to queue the message
+ * - 0 when message is queued sucesfully
+ * - errno on error
+ */
 int32_t log_info(const char *message, ...) {
 
     if (!iInitDone) {
@@ -176,7 +200,7 @@ int32_t log_info(const char *message, ...) {
     }
 
     if (iLoglevel < eINFO) {
-        return 0;
+        return -2;
     }
 
     va_list args;
@@ -186,6 +210,14 @@ int32_t log_info(const char *message, ...) {
     return ret;
 }
 
+/* Write message on this level
+ *
+ * Return
+ * - -1 when logging system is no init yet
+ * - -2 when current level is not sufficient to queue the message
+ * - 0 when message is queued sucesfully
+ * - errno on error
+ */
 int32_t log_warning(const char *message, ...) {
 
     if (!iInitDone) {
@@ -193,7 +225,7 @@ int32_t log_warning(const char *message, ...) {
     }
 
     if (iLoglevel < eWARNING) {
-        return 0;
+        return -2;
     }
 
     va_list args;
@@ -203,6 +235,14 @@ int32_t log_warning(const char *message, ...) {
     return ret;
 }
 
+/* Write message on this level
+ *
+ * Return
+ * - -1 when logging system is no init yet
+ * - -2 when current level is not sufficient to queue the message
+ * - 0 when message is queued sucesfully
+ * - errno on error
+ */
 int32_t log_error(const char *message, ...) {
 
     if (!iInitDone) {
@@ -210,7 +250,7 @@ int32_t log_error(const char *message, ...) {
     }
 
     if (iLoglevel < eERROR) {
-        return 0;
+        return -2;
     }
 
     va_list args;
@@ -220,16 +260,25 @@ int32_t log_error(const char *message, ...) {
     return ret;
 }
 
-/* Blocking flush */
+/* Force a blocking flush of the current message queue to the datafile
+ * Return: Always 0
+ */
 int32_t logger_flush(void) {
     /* Force flush queue */
     iForceFlush = 1;
-    while (iDataInQueue){
+    while (iDataInQueue) {
         usleep(100);
     };
     return 0;
 }
 
+/* Init the Logging system
+ *
+ * Return:
+ * -1: Init already done
+ * 0: Sucessfull
+ * errno on error
+ */
 int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
 
     if (iInitDone) {
@@ -241,7 +290,7 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
 
     iLoglevel = Loglevel;
 
-    /* Test access, and create */
+    /* Test access, and create datafile */
     FILE *fd;
     if ((fd = fopen(gpcLogfile, "a+")) == NULL) {
         sdsfree(gpcLogfile);
@@ -249,7 +298,7 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
     }
     fclose(fd);
 
-    /* Spin up thread */
+    /* Spin up writing thread */
     if (pthread_create(&LoggerThread, NULL, logger_thread, NULL) != 0) {
         sdsfree(gpcLogfile);
         return errno;
@@ -265,6 +314,12 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
     return 0;
 }
 
+/* Destroy the logging system
+ *
+ * Return:
+ * 0: success
+ * -1: Already destroyed
+ */
 int32_t logger_destroy(void) {
 
     if (!iInitDone) {
