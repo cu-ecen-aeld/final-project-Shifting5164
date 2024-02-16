@@ -24,16 +24,22 @@ docker_run:
 	docker run -p 9000:9000 --privileged --rm --volume $(shell pwd):/work --workdir /work --interactive --tty  ${DOCKERTAG}
 
 #https://clang.llvm.org/docs/HowToSetupToolingForLLVM.html
-check:
+check: debug
 	echo "\n#################################"
 	echo "clang-check:"
 	echo "#################################"
-	clang-check -p ./build/debug/ --analyze ./src/*
+	clang-check -p ./build/debug/ --analyze ./src/* ./include/*
 
 	echo "\n#################################"
 	echo "cppcheck:"
 	echo "#################################"
-	cppcheck --error-exitcode=1 --enable=all --std=c11 --suppress=missingIncludeSystem ./src/*
+	cppcheck --error-exitcode=1 \
+		--enable=all \
+		--std=c11 \
+		--suppress=missingIncludeSystem \
+		--suppress=unusedFunction \
+		--suppress=*:external/* \
+		--project=./build/debug/compile_commands.json
 
 clean:
 	-rm --force --recursive -- ./build/*
@@ -41,6 +47,7 @@ clean:
 #Note: cmake release / debug configs
 #https://stackoverflow.com/questions/7724569/debug-vs-release-in-cmake
 #https://clang.llvm.org/docs/HowToSetupToolingForLLVM.html
+#https://stackoverflow.com/questions/48625499/cppcheck-support-in-cmake
 debug:
 	mkdir --parents -- ${DIR_DEBUG}
 	cmake -S . -B ${DIR_DEBUG} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON

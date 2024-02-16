@@ -122,6 +122,7 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
     NewEntry->data = LogMsg;
 
     if (pthread_mutex_lock(&pLogMutex) != 0) {
+        free(NewEntry);
         return errno;
     }
 
