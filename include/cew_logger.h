@@ -1,5 +1,5 @@
-#ifndef CEWSERVER_LOGGER_H
-#define CEWSERVER_LOGGER_H
+#ifndef CEWSERVER_CEW_LOGGER_H
+#define CEWSERVER_CEW_LOGGER_H
 
 #include <stdint.h>
 
@@ -33,12 +33,12 @@ tsLogSettings sCurrLogSettings = {
 /* Return definitions */
 #define LOG_EXIT_SUCCESS EXIT_SUCCESS
 #define LOG_EXIT_FAILURE EXIT_FAILURE   // + errno usually
-#define LOG_NOINIT -1
-#define LOG_NOLVL -2
+#define LOG_NOINIT (-1)
+#define LOG_NOLVL (-2)
 
 
 /* Log types */
-int32_t log_msg(const tLoggerType, const char *, ...);
+int32_t log_msg(tLoggerType, const char *, ...);
 
 #define log_debug(...) log_msg(eDEBUG,__VA_ARGS__)
 #define log_info(...) log_msg(eINFO,__VA_ARGS__)
@@ -53,4 +53,4 @@ int32_t logger_destroy(void);
 /* Force blocking flush of the queue to the datafile */
 int32_t logger_flush(void);
 
-#endif //CEWSERVER_LOGGER_H
+#endif //CEWSERVER_CEW_LOGGER_H

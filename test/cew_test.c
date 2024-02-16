@@ -3,8 +3,8 @@
 #include <stdint.h>
 #include <setjmp.h>
 #include <cmocka.h>
-#include "test_settings.c"
-#include "test_logging.c"
+#include "cew_test_settings.c"
+#include "cew_test_logging.c"
 
 int main(void) {
     int iRet = 0;

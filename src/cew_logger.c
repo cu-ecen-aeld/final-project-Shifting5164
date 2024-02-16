@@ -9,9 +9,8 @@
 #include <sys/queue.h>
 #include <sys/stat.h>
 
-#include <logger.h>
 #include <sds.h>
-
+#include <cew_logger.h>
 
 /* Logger framework. Threadsafe logging implementation to a datafile.
  *
@@ -216,7 +215,7 @@ static inline int32_t is_msg_allowed(void) {
  * - LOG_LOG_EXIT_SUCCESS when message is queued sucesfully
  * - LOG_EXIT_FAILURE, no error
  */
-int32_t log_msg(const tLoggerType eType, const char *message, ...) {
+int32_t log_msg(tLoggerType eType, const char *message, ...) {
 
     if (is_msg_allowed()) {
         return LOG_EXIT_FAILURE;

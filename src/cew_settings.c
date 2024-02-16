@@ -5,11 +5,11 @@
 #include <stddef.h>
 #include <ctype.h>
 
-#include <settings.h>
+#include <cew_settings.h>
 
 #include <ini.h>
 #include <sds.h>
-#include <logger.h>
+#include <cew_logger.h>
 
 /* All settings */
 static tsSSettings gsCurrSSettings = {0};

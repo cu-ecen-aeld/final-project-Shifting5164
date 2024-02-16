@@ -1,5 +1,5 @@
-#ifndef CEWSERVER_SETTINGS_H
-#define CEWSERVER_SETTINGS_H
+#ifndef CEWSERVER_CEW_SETTINGS_H
+#define CEWSERVER_CEW_SETTINGS_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -16,9 +16,9 @@ typedef struct sSSettings {
 
 #define SET_EXIT_SUCCESS EXIT_SUCCESS
 #define SET_EXIT_FAILURE EXIT_FAILURE   // + errno usually
-#define SET_NOTYPE -1
-#define SET_NOMAP -2
-#define SET_NOFILE -3
+#define SET_NOTYPE (-1)
+#define SET_NOMAP (-2)
+#define SET_NOFILE (-3)
 
 
 tsSSettings *settings_init(void);

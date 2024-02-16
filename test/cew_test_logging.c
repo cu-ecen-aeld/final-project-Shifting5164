@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include <cmocka.h>
-#include "../src/logger.c"
+#include "../src/cew_logger.c"
 
 static char testfile[] = "/var/log/testlog";
 

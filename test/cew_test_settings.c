@@ -1,6 +1,6 @@
 #include <stddef.h>
 #include <cmocka.h>
-#include "../src/settings.c"
+#include "../src/cew_settings.c"
 
 static void settings_no_file(void **state) {
     assert_true(settings_load("none"));
@@ -8,7 +8,7 @@ static void settings_no_file(void **state) {
 
 /* read invalid file, so entry should be ignored, and options should be '0' */
 static void settings_wrong_file(void **state) {
-    sSettingsStruct *settings = settings_init();
+    tsSSettings *settings = settings_init();
 
     assert_true(settings_load("/dev/null"));
 
@@ -21,7 +21,7 @@ static void settings_wrong_file(void **state) {
 /* read basic information, all valid*/
 static void settings_basic_valid_file(void **state) {
 
-    sSettingsStruct *settings = settings_init();
+    tsSSettings *settings = settings_init();
 
     assert_false(settings_load("ini/valid_settings.ini"));
 
@@ -33,7 +33,7 @@ static void settings_basic_valid_file(void **state) {
 
 /* read invalid settings, so entry should be ignored, and options should be '0' */
 static void settings_basic_invalid_file(void **state) {
-    sSettingsStruct *settings = settings_init();
+    tsSSettings *settings = settings_init();
 
     assert_false(settings_load("ini/invalid_settings.ini"));
 
@@ -44,7 +44,7 @@ static void settings_basic_invalid_file(void **state) {
 }
 
 static void settings_dual_settings(void **state) {
-    sSettingsStruct *settings = settings_init();
+    tsSSettings *settings = settings_init();
 
     assert_false(settings_load("ini/valid_dual_settings.ini"));
 

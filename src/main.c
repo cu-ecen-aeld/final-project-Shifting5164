@@ -19,8 +19,8 @@
 
 #include <ev.h>
 
-#include <settings.h>
-#include <logger.h>
+#include <cew_settings.h>
+#include <cew_logger.h>
 
 /*
 https://github.com/cu-ecen-aeld/final-project-Shifting5164
