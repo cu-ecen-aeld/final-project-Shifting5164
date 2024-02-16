@@ -1,4 +1,3 @@
-#include <alloca.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,7 +9,7 @@
 
 #include <ini.h>
 #include <sds.h>
-#include <sdsalloc.h>
+#include <logger.h>
 
 sSettingsStruct sSettings = {0};
 
@@ -21,8 +20,8 @@ typedef enum eSettingsType {
 } eSettingsType;
 
 typedef struct sOptionMapping {
-    uint8_t *pSection;
-    uint8_t *pKey;
+    char *pSection;
+    char *pKey;
     eSettingsType eType;
     void *pvDst;
 } tsOptionMapping;
@@ -46,27 +45,20 @@ void show_settings(void) {
         assert(psSetting != NULL);
         assert(psSetting->pSection != NULL);
 
-        char **pcString = (char *)psSetting->pvDst;
+        char **pcString = (char **)psSetting->pvDst;
         switch (psSetting->eType) {
             case TYPE_LONG:
-                printf("Setting %s:%s = %ld\n", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pvDst));
+                log_info("Setting %s:%s = %ld", psSetting->pSection, psSetting->pKey, *(long *) (psSetting->pvDst));
                 break;
 
             case TYPE_STRING:
-                printf("Setting %s:%s = %s\n", psSetting->pSection, psSetting->pKey, *pcString );
+                log_info("Setting %s:%s = %s", psSetting->pSection, psSetting->pKey, *pcString );
                 break;
 
             default:
                 break;
         }
     }
-
-    printf("pcLogfile:%s\n", sSettings.pcLogfile);
-    printf("lLogLevel:%d\n", sSettings.lLogLevel);
-    printf("lMaxClientsPerThread:%d\n", sSettings.lMaxClientsPerThread);
-    printf("lWorkerThreads:%d\n", sSettings.lWorkerThreads);
-
-
 }
 
 static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cpcValue) {
@@ -84,7 +76,7 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
             (strncmp(psSetting->pKey, cpcKey, strlen(psSetting->pKey)) == 0)) {
 
             long lVal;
-            char **pStr = (char *)psSetting->pvDst;
+            char **pStr = (char **)psSetting->pvDst;
             switch (psSetting->eType) {
                 case TYPE_LONG:
                     lVal = strtol(cpcValue, NULL, 10);
@@ -127,7 +119,7 @@ int32_t settings_destroy(void) {
 
 }
 
-int32_t settings_load(const uint8_t *cpcSettingsFile) {
+int32_t settings_load(const char *cpcSettingsFile) {
     struct INI *sIni = NULL;
 
     sIni = ini_open(cpcSettingsFile);
@@ -135,7 +127,7 @@ int32_t settings_load(const uint8_t *cpcSettingsFile) {
         return EXIT_FAILURE;
     }
 
-    printf("INI file opened.\n");
+    log_debug("INI file %s opened.", cpcSettingsFile);
 
     while (1) {
         const char *cpcBuf;
@@ -144,18 +136,18 @@ int32_t settings_load(const uint8_t *cpcSettingsFile) {
 
         int iRet = ini_next_section(sIni, &cpcBuf, &SectionLen);
         if (!iRet) {
-            printf("End of file.\n");
+            log_debug("End of file.");
             break;
         }
 
         if (iRet < 0) {
-            printf("ERROR: code %i\n", iRet);
+            log_debug("ERROR: code %i", iRet);
             goto error;
         }
 
         Section = sdsnewlen(cpcBuf, SectionLen);
 
-        printf("Opening section: \'%s\'\n", Section);
+        log_debug("Opening section: \'%s\'", Section);
 
         while (1) {
             const char *buf2;
@@ -164,19 +156,19 @@ int32_t settings_load(const uint8_t *cpcSettingsFile) {
 
             iRet = ini_read_pair(sIni, &cpcBuf, &KeyLen, &buf2, &ValueLen);
             if (!iRet) {
-                printf("No more data.\n");
+                log_debug("No more data.");
                 break;
             }
 
             if (iRet < 0) {
-                printf("ERROR: code %i\n", iRet);
+                log_debug("ERROR: code %i", iRet);
                 goto error;
             }
 
             Key = sdsnewlen(cpcBuf, KeyLen);
             Value = sdsnewlen(buf2, ValueLen);
 
-            printf("Reading Key: \'%s\' Value: \'%s\'\n", Key, Value);
+            log_info("Reading Key: \'%s\' Value: \'%s\'", Key, Value);
 
             // Make everything lower case
             for (int i = 0; Section[i]; i++) {
@@ -188,7 +180,7 @@ int32_t settings_load(const uint8_t *cpcSettingsFile) {
             }
 
             if (parse_option(Section, Key, Value)) {
-                printf("Error parsing option");
+                log_error("Error parsing option");
             }
 
             sdsfree(Key);

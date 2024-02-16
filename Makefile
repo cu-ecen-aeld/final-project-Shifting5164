@@ -21,19 +21,33 @@ docker_build:
 	cd Docker && docker build --tag ${DOCKERTAG} .
 
 docker_run:
-	docker run -p 9000:9000 --privileged --rm --volume $(shell pwd):/work --workdir /work --interactive --tty  ${DOCKERTAG}
+	docker run -p 9000:9000 \
+		--privileged \
+		--rm \
+		--volume $(shell pwd):/work \
+		--workdir /work \
+		--interactive \
+		--tty \
+		${DOCKERTAG}
 
 #https://clang.llvm.org/docs/HowToSetupToolingForLLVM.html
-check:
+#https://stackoverflow.com/questions/48625499/cppcheck-support-in-cmake
+check: debug
 	echo "\n#################################"
 	echo "clang-check:"
 	echo "#################################"
-	clang-check -p ./build/debug/ --analyze ./src/*
+	clang-check -p ./build/debug/ --analyze ./src/* ./include/*
 
 	echo "\n#################################"
 	echo "cppcheck:"
 	echo "#################################"
-	cppcheck --error-exitcode=1 --enable=all --std=c11 --suppress=missingIncludeSystem ./src/*
+	cppcheck --error-exitcode=1 \
+		--enable=all \
+		--std=c11 \
+		--suppress=missingIncludeSystem \
+		--suppress=unusedFunction \
+		--suppress=*:external/* \
+		--project=./build/debug/compile_commands.json
 
 clean:
 	-rm --force --recursive -- ./build/*
@@ -41,17 +55,18 @@ clean:
 #Note: cmake release / debug configs
 #https://stackoverflow.com/questions/7724569/debug-vs-release-in-cmake
 #https://clang.llvm.org/docs/HowToSetupToolingForLLVM.html
+#https://stackoverflow.com/questions/48625499/cppcheck-support-in-cmake
 debug:
 	mkdir --parents -- ${DIR_DEBUG}
 	cmake -S . -B ${DIR_DEBUG} -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-	cmake --build ${DIR_DEBUG} --config Release --verbose --clean-first
+	cmake --build ${DIR_DEBUG} --config Debug --verbose --clean-first
 	file ${DIR_DEBUG}/${PROJ_NAME}
 	checksec --file=${DIR_DEBUG}/${PROJ_NAME}
 
 release:
 	mkdir --parents -- ${DIR_RELEASE}
-	cmake -S . -B ${DIR_RELEASE} -D CMAKE_BUILD_TYPE=Release
-	cmake --build ${DIR_RELEASE} --config Debug --verbose --clean-first
+	cmake -S . -B ${DIR_RELEASE} -DCMAKE_BUILD_TYPE=Release
+	cmake --build ${DIR_RELEASE} --config Release --verbose --clean-first
 	file ${DIR_RELEASE}/${PROJ_NAME}
 	checksec --file=${DIR_RELEASE}/${PROJ_NAME}
 
@@ -67,8 +82,8 @@ test:
 test_mem:
 	mkdir --parents -- test/build
 	cd test/ \
-		&& cmake -S . -B build \
-		&& cmake --build build --verbose --clean-first \
+		&& cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug \
+		&& cmake --build build --verbose --config Debug --clean-first \
 		&& build/cewserver_test \
 		&& valgrind --leak-check=full --show-leak-kinds=all build/cewserver_test
 
