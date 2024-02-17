@@ -50,43 +50,52 @@ static void logger_no_init(void **state) {
     assert_true(log_error("my error is %d", 42));
 }
 
+// see if things get written on the correct levels
 static void logger_check_levels(void **state) {
-    unlink(testfile);
 
-    assert_false(logger_init(testfile, eDEBUG));
 
     //---------------------------
     {
+        unlink(testfile);
+        assert_false(logger_init(testfile, eDEBUG));
         assert_false(log_error("my error is %d", 42));
+        logger_flush();
 
         FILE *fd = fopen(testfile, "r");
-        char filedata[100] = {0};
+        char filedata[1024] = {0};
         char testmsg[] = "Error : my error is 42";
         fread(&filedata, sizeof(filedata), 1, fd);
         fclose(fd);
 
-        assert_null(strstr(filedata, testmsg));
+        assert_non_null(strstr(filedata, testmsg));
+        assert_false(logger_destroy());
     }
 
     //---------------------------
     {
+        unlink(testfile);
+        assert_false(logger_init(testfile, eDEBUG));
         assert_false(log_error("my warning is %d", 42));
+        logger_flush();
 
         FILE *fd = fopen(testfile, "r");
-        char filedata[100] = {0};
-        char testmsg[] = "Warning : my warning is 42";
+        char filedata[1024] = {0};
+        char testmsg[] = "Error : my warning is 42";
         fread(&filedata, sizeof(filedata), 1, fd);
         fclose(fd);
 
-        assert_null(strstr(filedata, testmsg));
+        assert_non_null(strstr(filedata, testmsg));
+        assert_false(logger_destroy());
     }
 
     //---------------------------
     {
+        unlink(testfile);
+        assert_false(logger_init(testfile, eDEBUG));
         assert_false(log_error("my info is %d", 42));
 
         FILE *fd = fopen(testfile, "r");
-        char filedata[100] = {0};
+        char filedata[1024] = {0};
         char testmsg[] = "Info : my info is 42";
         fread(&filedata, sizeof(filedata), 1, fd);
         fclose(fd);
@@ -111,7 +120,7 @@ static void logger_check_levels(void **state) {
     unlink(testfile);
 }
 
-
+// see what get accepted, local and global
 static void logger_get_and_set_settings(void **state) {
 
     assert_false(logger_init(testfile, eDEBUG));
@@ -130,6 +139,83 @@ static void logger_get_and_set_settings(void **state) {
     logger_destroy();
 }
 
+// test all loglevels, if they are accepted or not
+static void logger_check_level_filter(void **state) {
+    unlink(testfile);
+
+    assert_false(logger_init(testfile, eERROR));
+    assert_false(log_error("my error is %d", 42));
+    assert_true(log_warning("my warning is %d", 42));
+    assert_true(log_info("my info is %d", 42));
+    assert_true(log_debug("my debug is %d", 42));
+
+    sCurrLogSettings.iCurrLogLevel = eWARNING;
+    assert_false(log_error("my error is %d", 42));
+    assert_false(log_warning("my warning is %d", 42));
+    assert_true(log_info("my info is %d", 42));
+    assert_true(log_debug("my debug is %d", 42));
+
+    sCurrLogSettings.iCurrLogLevel = eINFO;
+    assert_false(log_error("my error is %d", 42));
+    assert_false(log_warning("my warning is %d", 42));
+    assert_false(log_info("my info is %d", 42));
+    assert_true(log_debug("my debug is %d", 42));
+
+    sCurrLogSettings.iCurrLogLevel = eDEBUG;
+    assert_false(log_error("my error is %d", 42));
+    assert_false(log_warning("my warning is %d", 42));
+    assert_false(log_info("my info is %d", 42));
+    assert_false(log_debug("my debug is %d", 42));
+
+    assert_false(logger_destroy());
+    unlink(testfile);
+
+}
+
+static void *write_log(void *arg) {
+    int32_t count = 100;
+    char *id = (char *) arg;
+
+    int32_t curr_count = 0;
+    do {
+        log_error("my error is %d, from t:%s, c:%d", 42, id, curr_count);
+        usleep(5);
+        log_warning("my warning is %d, from t:%s, c:%d", 42, id, curr_count);
+        usleep(11);
+        log_info("my info is %d, from t:%s, c:%d", 42, id, curr_count);
+        usleep(7);
+        log_debug("my debug is %d, from t:%s, c:%d", 42, id, curr_count);
+        usleep(14);
+        curr_count++;
+    } while (count--);
+
+    return(0);
+}
+
+// test multithreading of this design
+static void logger_check_mutithreading(void **state) {
+    unlink(testfile);
+    assert_false(logger_init(testfile, eDEBUG));
+
+    int32_t test_threads = 10;
+    struct sThreads {
+        pthread_t th;
+        char id[5];
+    };
+
+    struct sThreads threads[test_threads];
+
+    for (int32_t i = 0; i < test_threads; i++) {
+        snprintf(threads[i].id, sizeof(threads[i].id), "%d", i);
+        pthread_create(&threads[i].th, NULL, write_log, &threads[i].id);
+    }
+
+    for (int32_t i = 0; i < test_threads; i++) {
+        pthread_join(threads[i].th, NULL);
+    }
+
+    logger_destroy();
+}
 
 const struct CMUnitTest test_logging[] = {
         cmocka_unit_test(logger_no_file),
@@ -139,5 +225,6 @@ const struct CMUnitTest test_logging[] = {
         cmocka_unit_test(logger_no_init),
         cmocka_unit_test(logger_check_levels),
         cmocka_unit_test(logger_get_and_set_settings),
-
+        cmocka_unit_test(logger_check_level_filter),
+        cmocka_unit_test(logger_check_mutithreading),
 };
