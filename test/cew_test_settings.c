@@ -19,7 +19,7 @@ static void settings_wrong_file(void **state) {
 /* read basic information, all valid*/
 static void settings_basic_valid_file(void **state) {
 
-    assert_false(settings_load("ini/valid_settings.ini"));
+    assert_false(settings_load("/var/tmp/cew_test/ini/valid_settings.ini"));
 
     assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 50);
     assert_int_equal(gsCurrSSettings.lWorkerThreads, 4);
@@ -30,7 +30,7 @@ static void settings_basic_valid_file(void **state) {
 /* read invalid settings, so entry should be ignored, and options should be '0' */
 static void settings_basic_invalid_file(void **state) {
 
-    assert_false(settings_load("ini/invalid_settings.ini"));
+    assert_false(settings_load("/var/tmp/cew_test/ini/invalid_settings.ini"));
 
     assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 0);
     assert_int_equal(gsCurrSSettings.lWorkerThreads, 0);
@@ -40,7 +40,7 @@ static void settings_basic_invalid_file(void **state) {
 
 static void settings_dual_settings(void **state) {
 
-    assert_false(settings_load("ini/valid_dual_settings.ini"));
+    assert_false(settings_load("/var/tmp/cew_test/ini/valid_dual_settings.ini"));
 
     assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 51);
     assert_int_equal(gsCurrSSettings.lWorkerThreads, 4);
@@ -52,7 +52,7 @@ static void settings_dual_settings(void **state) {
 
 static void settings_get_and_set_settings(void **state) {
 
-    assert_false(settings_load("ini/valid_dual_settings.ini"));
+    assert_false(settings_load("/var/tmp/cew_test/ini/valid_dual_settings.ini"));
 
     // read if valid
     assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 51);

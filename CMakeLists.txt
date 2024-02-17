@@ -3,6 +3,41 @@ project(cewserver LANGUAGES C VERSION 0.1)
 
 set(CMAKE_C_STANDARD 11)
 
+#------------------------------------
+# Cmocka unittest
+
+add_executable(cewserver_test
+        ./test/cew_test.c
+        external/sds/sds.c
+        external/sds/sds.h
+)
+
+target_include_directories(cewserver_test PRIVATE
+        include
+        external/libini
+        external/libev
+        external/sds
+)
+
+# add library search paths
+target_link_directories(cewserver_test PRIVATE
+        external/libini/build/
+        external/libev/.libs
+)
+
+# What libraries to use
+target_link_libraries(cewserver_test
+        libini.a
+        libev.a
+)
+
+# Just for testing
+target_link_libraries(cewserver_test ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(cewserver_test rt cmocka)
+
+
+#------------------------------------------------
+
 add_executable(cewserver
         src/main.c
         src/cew_settings.c

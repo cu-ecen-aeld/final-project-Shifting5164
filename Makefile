@@ -73,21 +73,14 @@ release:
 	checksec --file=${DIR_RELEASE}/${PROJ_NAME}
 
 .PHONY: test
-test:
-	mkdir --parents -- test/build
-	cd test/ \
-		&& cmake -S . -B build \
-		&& cmake --build build --verbose --clean-first \
-		&& build/cewserver_test
+test: debug
+	cp -r -- ./test/ini/ /var/tmp/cew_test/
+	./build/debug/cewserver_test
 
 .PHONY: test_mem
 test_mem:
-	mkdir --parents -- test/build
-	cd test/ \
-		&& cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug \
-		&& cmake --build build --verbose --config Debug --clean-first \
-		&& build/cewserver_test \
-		&& valgrind --leak-check=full --show-leak-kinds=all build/cewserver_test
+	cp -r -- ./test/ini/ /var/tmp/cew_test/
+	valgrind --leak-check=full --show-leak-kinds=all ./build/debug/cewserver_test
 
 libs: libini libev
 
