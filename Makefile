@@ -7,8 +7,8 @@ DIR_RELEASE=build/release
 PROJ_NAME=cewserver
 
 all: submodule libs release
-pipeline_test: submodule libs cmocka test
-pipeline_test_mem: submodule libs cmocka test_mem
+pipeline_test: submodule libs test
+pipeline_test_mem: submodule libs test_mem
 pipeline_check: submodule libs debug check
 
 
@@ -73,23 +73,18 @@ release:
 	checksec --file=${DIR_RELEASE}/${PROJ_NAME}
 
 .PHONY: test
-test:
-	mkdir --parents -- test/build
-	cd test/ \
-		&& cmake -S . -B build \
-		&& cmake --build build --verbose --clean-first \
-		&& build/cewserver_test
+test: debug
+	mkdir -p -- /var/tmp/cew_test/
+	cp -r -- ./test/ini/ /var/tmp/cew_test/
+	./build/debug/cewserver_test
 
 .PHONY: test_mem
-test_mem:
-	mkdir --parents -- test/build
-	cd test/ \
-		&& cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug \
-		&& cmake --build build --verbose --config Debug --clean-first \
-		&& build/cewserver_test \
-		&& valgrind --leak-check=full --show-leak-kinds=all build/cewserver_test
+test_mem: debug
+	mkdir -p -- /var/tmp/cew_test/
+	cp -r -- ./test/ini/ /var/tmp/cew_test/
+	valgrind --leak-check=full --show-leak-kinds=all ./build/debug/cewserver_test
 
-libs: libini libev
+libs: libini libev cmocka
 
 #NOTE: https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html
 libini:
