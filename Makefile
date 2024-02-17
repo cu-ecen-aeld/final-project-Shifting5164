@@ -7,8 +7,8 @@ DIR_RELEASE=build/release
 PROJ_NAME=cewserver
 
 all: submodule libs release
-pipeline_test: submodule libs cmocka test
-pipeline_test_mem: submodule libs cmocka test_mem
+pipeline_test: submodule libs test
+pipeline_test_mem: submodule libs test_mem
 pipeline_check: submodule libs debug check
 
 
@@ -84,7 +84,7 @@ test_mem: debug
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
 	valgrind --leak-check=full --show-leak-kinds=all ./build/debug/cewserver_test
 
-libs: libini libev
+libs: libini libev cmocka
 
 #NOTE: https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html
 libini:
