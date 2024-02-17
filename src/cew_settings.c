@@ -8,6 +8,7 @@
 #include <ini.h>
 #include <sds.h>
 
+#include <banned.h>
 #include <cew_settings.h>
 #include <cew_logger.h>
 

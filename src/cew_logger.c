@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 
 #include <sds.h>
+#include <banned.h>
 #include <cew_logger.h>
 
 static sds gpcLogfile = NULL;
