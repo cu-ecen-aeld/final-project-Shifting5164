@@ -48,6 +48,12 @@ add_executable(cewserver
         src/cew_logger.c
         include/cew_logger.h
         include/banned.h
+        src/cew_client.c
+        include/cew_client.h
+        src/cew_socket.c
+        include/cew_socket.h
+        include/cew_worker.h
+        src/cew_worker.c
 )
 
 target_include_directories(cewserver PRIVATE
