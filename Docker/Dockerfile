@@ -14,5 +14,7 @@ RUN \
         git \
         strace \
         vim \
-        valgrind
+        valgrind \
+        net-tools \
+        netcat-openbsd
 
