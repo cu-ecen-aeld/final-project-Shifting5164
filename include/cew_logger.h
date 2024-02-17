@@ -13,6 +13,15 @@
  * 3) A separate thread will write the messages from the queue in a bulk or streaming manner.
  * 4) Writing will be undertaken when the polling period expires and data is available.
  *
+ * Why STAILQ: 
+ * From the man: https://www.man7.org/linux/man-pages/man3/stailq.3.html
+ * This structure contains a pair of pointers, one to the first element in the tail
+ * queue and the other to the last element in the tail queue.  The elements are
+ * singly linked for minimum space and pointer manipulation overhead at the expense
+ * of O(n) removal for arbitrary elements.
+ *
+ * The design uses only the head and tail entires, thus an O(1) system.
+ *
  */
 
 #ifndef CEWSERVER_CEW_LOGGER_H
@@ -36,7 +45,7 @@ typedef struct sLogSettings {
     int32_t iPollingInterval;   // usleep
     int32_t iLoggerQueueSize;   // Maximum queue entries
     int32_t iBulkWrite;         // Amount of messages to be in the queue before its writing in bulk, 0 = streaming
-    int32_t iCurrLogLevel;      // Dynamic logging level
+    tLoggerType iCurrLogLevel;      // Dynamic logging level
 } tsLogSettings;
 
 /* Return definitions */

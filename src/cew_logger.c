@@ -72,7 +72,7 @@ static void *logger_thread(void *arg) {
         if ((iDataInQueueCount > sCurrLogSettings.iBulkWrite) || (iDoForceFlush && iDataInQueueCount)) {
 
             /* Open file for writing */
-            if ((fd = fopen(gpcLogfile, "a+")) == NULL) {
+            if ((fd = fopen(gpcLogfile, "a")) == NULL) {
                 exit(errno);
             }
 
@@ -188,12 +188,12 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
 }
 
 
-static inline int32_t is_msg_allowed(void) {
+static inline int32_t is_msg_allowed(tLoggerType eType) {
     if (!iIsInitDone) {
         return LOG_NOLVL;
     }
 
-    if (sCurrLogSettings.iCurrLogLevel < eDEBUG) {
+    if (sCurrLogSettings.iCurrLogLevel < eType) {
         return LOG_NOINIT;
     }
 
@@ -211,13 +211,13 @@ static inline int32_t is_msg_allowed(void) {
  */
 int32_t log_msg(tLoggerType eType, const char *message, ...) {
 
-    if (is_msg_allowed()) {
+    if (is_msg_allowed(eType)) {
         return LOG_EXIT_FAILURE;
     }
 
     va_list args;
     va_start(args, message);
-    int32_t ret = log_add_to_queue(eDEBUG, message, args);
+    int32_t ret = log_add_to_queue(eType, message, args);
     va_end(args);
 
     return ret;
