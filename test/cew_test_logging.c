@@ -206,6 +206,7 @@ static void logger_check_mutithreading(void **state) {
     struct sThreads threads[test_threads];
 
     for (int32_t i = 0; i < test_threads; i++) {
+        memset(threads[i].id, 0, sizeof(threads[i].id));
         snprintf(threads[i].id, sizeof(threads[i].id), "%d", i);
         pthread_create(&threads[i].th, NULL, write_log, &threads[i].id);
     }
