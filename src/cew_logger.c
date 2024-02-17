@@ -12,26 +12,17 @@
 #include <sds.h>
 #include <cew_logger.h>
 
-/* Logger framework. Threadsafe logging implementation to a datafile.
- *
- * Options:
- * - Bulk and streaming writing.
- * - Force flushing of message queue.
- * - Multiple logging levels.
- * - Definable queue size.
- * - Definable polling time.
- *
- * Principle of operation :
- * 1) User has choice of several logging levels.
- * 2) Log messages are created on the heap, the pointer will be added to a tail queue.
- * 3) A separate thread will write the messages from the queue in a bulk or streaming manner.
- * 4) Writing will be undertaken when the polling period expires and data is available.
- *
- */
-
 static sds gpcLogfile = NULL;
 static pthread_t LoggerThread;
 static pthread_mutex_t pLogMutex = PTHREAD_MUTEX_INITIALIZER;
+
+/* Default settings for logging */
+static tsLogSettings sCurrLogSettings = {
+        .iPollingInterval = 100,
+        .iLoggerQueueSize = 50,
+        .iBulkWrite = 10,
+        .iCurrLogLevel = eWARNING,
+};
 
 /* Mapping from logging level enum to text */
 static const char *pcLogTypeMsg[] = {
@@ -237,7 +228,8 @@ int32_t logger_flush(void) {
     iDoForceFlush = 1;
     while (iDataInQueueCount) {
         usleep(100);
-    };
+    }
+
     return LOG_EXIT_SUCCESS;
 }
 
@@ -324,6 +316,18 @@ int32_t logger_destroy(void) {
 
     /* May be init again */
     iIsInitDone = 0;
+
+    return LOG_EXIT_SUCCESS;
+}
+
+
+/* Return only a copy */
+tsLogSettings logger_get(void) {
+    return sCurrLogSettings;
+}
+
+int32_t logger_set(tsLogSettings sNewSettings) {
+    sCurrLogSettings = sNewSettings;
 
     return LOG_EXIT_SUCCESS;
 }

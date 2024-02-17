@@ -20,12 +20,17 @@ typedef struct sSSettings {
 #define SET_NOMAP (-2)
 #define SET_NOFILE (-3)
 
-
-tsSSettings *settings_init(void);
+int32_t settings_init(void);
 
 int32_t settings_destroy(void);
 
-int32_t settings_load(const char*);
+/* Load settings from settings file */
+int32_t settings_load(const char *);
 
+/* Get a copy of the settings */
+tsSSettings settings_get(void);
 
-#endif
+/* Set new settings */
+int32_t settings_set(tsSSettings);
+
+#endif //CEWSERVER_CEW_SETTINGS_H

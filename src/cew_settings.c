@@ -5,13 +5,12 @@
 #include <stddef.h>
 #include <ctype.h>
 
-#include <cew_settings.h>
-
 #include <ini.h>
 #include <sds.h>
+
+#include <cew_settings.h>
 #include <cew_logger.h>
 
-/* All settings */
 static tsSSettings gsCurrSSettings = {0};
 
 /* Type definitions for different types of settings */
@@ -198,12 +197,11 @@ int32_t settings_load(const char *cpcSettingsFile) {
     return SET_EXIT_FAILURE;
 }
 
-
 /*
  * Init the settings.
  */
-tsSSettings *settings_init(void) {
-    return &gsCurrSSettings;
+int32_t settings_init(void) {
+    return SET_EXIT_SUCCESS;
 }
 
 /*
@@ -220,3 +218,17 @@ int32_t settings_destroy(void) {
     return SET_EXIT_SUCCESS;
 
 }
+
+/* Return only a copy */
+tsSSettings settings_get(void) {
+    return gsCurrSSettings;
+}
+
+int32_t settings_set(tsSSettings sNewSettings) {
+    gsCurrSSettings = sNewSettings;
+
+    return SET_EXIT_SUCCESS;
+}
+
+
+
