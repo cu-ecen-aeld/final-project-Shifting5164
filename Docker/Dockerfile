@@ -16,5 +16,6 @@ RUN \
         vim \
         valgrind \
         net-tools \
-        netcat-openbsd
+        netcat-openbsd \
+        tmux
 
