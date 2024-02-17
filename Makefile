@@ -74,11 +74,13 @@ release:
 
 .PHONY: test
 test: debug
+	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
 	./build/debug/cewserver_test
 
 .PHONY: test_mem
-test_mem:
+test_mem: debug
+	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
 	valgrind --leak-check=full --show-leak-kinds=all ./build/debug/cewserver_test
 
