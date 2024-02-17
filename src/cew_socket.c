@@ -4,6 +4,8 @@
 #include <netdb.h>
 #include <errno.h>
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include <cew_socket.h>
 #include <cew_logger.h>
@@ -11,29 +13,36 @@
 /* connect socket */
 static int32_t iFd = 0;
 
-//
-//int32_t socket_receive_client(void) {
-//
-//    /* Found a exit signal */
+
+int32_t socket_receive_client(void) {
+
+    /* Found a exit signal */
 //    if (bTerminateProg == true) {
 //        break;
 //    }
-//
-//    /* tmp allocation of client data, to be copied to thead info struct later */
-//    int32_t iSockfd;
-//    struct sockaddr_storage sTheirAddr;
-//    socklen_t tAddrSize = sizeof(sTheirAddr);
-//
-//    /* Accept clients, and fill client information struct, BLOCKING  */
-//    if ((iSockfd = accept(iFd, (struct sockaddr *) &sTheirAddr, &tAddrSize)) < 0) {
-//
-//        /* crtl +c */
-//        if (errno != EINTR) {
+
+    /* tmp allocation of client data, to be copied to thead info struct later */
+    int32_t iSockfd;
+    struct sockaddr_storage sTheirAddr;
+    socklen_t tAddrSize = sizeof(sTheirAddr);
+
+    /* Accept clients, and fill client information struct, BLOCKING  */
+    if ((iSockfd = accept(iFd, (struct sockaddr *) &sTheirAddr, &tAddrSize)) < 0) {
+
+        /* crtl +c */
+        if (errno != EINTR) {
 //            do_exit_with_errno(__LINE__, errno);
-//        } else {
-//            break;
-//        }
-//    }
+            return -1;
+        } else {
+            return -1;
+        }
+    }
+
+    char testbuff[] = "hello\n";
+    send(iSockfd, testbuff, sizeof(testbuff), 0);
+
+    return 0;
+
 //
 //    /* prepare thread  item */
 //    sWorkerThreadEntry *psClientThreadEntry = NULL;
@@ -50,15 +59,15 @@ static int32_t iFd = 0;
 //
 //    /* Add random ID for tracking */
 //    psClientThreadEntry->lID = random();
-//
+
 //    printf("Spinning up client thread: %ld\n", psClientThreadEntry->lID);
-//
+
 //    /* Spawn new thread and serve the client */
 //    if (pthread_create(&psClientThreadEntry->sThread, NULL, client_serve, &psClientThreadEntry->sClient) < 0) {
 //        do_exit_with_errno(__LINE__, errno);
 //    }
-//
-//}
+
+}
 
 
 /* Description:
@@ -69,7 +78,7 @@ static int32_t iFd = 0;
  * - errno on error
  * - RET_OK when succeeded
  */
-int32_t socket_setup(char *Port) {
+int32_t socket_setup(int32_t iPort) {
 
     struct addrinfo sHints = {0};
     struct addrinfo *psServinfo = NULL;
@@ -79,7 +88,10 @@ int32_t socket_setup(char *Port) {
     sHints.ai_socktype = SOCK_STREAM; // TCP stream sockets
     sHints.ai_flags = AI_PASSIVE;     // bind to all interfaces
 
-    if ((getaddrinfo(NULL, Port, &sHints, &psServinfo)) != 0) {
+    char cPort[10] = {0};
+    snprintf(cPort, sizeof(cPort), "%d", iPort);
+
+    if ((getaddrinfo(NULL, cPort, &sHints, &psServinfo)) != 0) {
         return errno;
     }
 
@@ -104,7 +116,7 @@ int32_t socket_setup(char *Port) {
         return errno;
     }
 
-    log_info("Socket listing on port %s", Port);
+    log_info("Socket listing on port %d", iPort);
 
     return SOCK_EXIT_SUCCESS;
 }

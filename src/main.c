@@ -1,5 +1,6 @@
 /* TODO
  * - logger force flush after x time
+ * - logger ascii art how it works
  *
  *
  *
@@ -40,15 +41,15 @@ https://github.com/cu-ecen-aeld/final-project-Shifting5164
 
 #define RET_OK 0 //todo
 #define SOCKET_FAIL -2 //todo
-#define PORT "9000" //todo to settings
 
 bool bTerminateProg = false; /* terminating program gracefully */
 
 /* completing any open connection operations,
  * closing any open sockets, and deleting the file /var/tmp/aesdsocketdata*/
 static void exit_cleanup(void) {
-    logger_destroy();
+    socket_close();
     settings_destroy();
+    logger_destroy();
 }
 
 /* Signal actions */
@@ -205,7 +206,7 @@ int32_t main(int32_t argc, char **argv) {
 
     /* Going to run as service or not ? */
     if (bDeamonize) {
-        printf("Demonizing, listening on port %s\n", PORT);
+        printf("Demonizing, listening on port %ld\n", sCurrSettings.lPort);
         if ((iRet = daemonize()) != 0) {
             do_exit_with_errno(iRet);
         }
@@ -216,21 +217,19 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     /* Opens a stream socket, failing and returning -1 if any of the socket connection steps fail. */
-    if ((iRet = socket_setup(PORT)) != SOCK_EXIT_SUCCESS) {
+    if ((iRet = socket_setup((int32_t)sCurrSettings.lPort)) != SOCK_EXIT_SUCCESS) {
         log_error("Exit with %d: %s. Line %d.\n", iRet, strerror(iRet));
         do_exit(SOCKET_FAIL);
     }
 
     if (!bDeamonize) {
-        printf("Waiting for connections...\n");
+        printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
 
     /* Keep receiving clients */
-//    while (1) {
-
-        // do something.
-
-//    }
+    while (1) {
+        socket_receive_client();
+    }
 
     sleep(1);
 

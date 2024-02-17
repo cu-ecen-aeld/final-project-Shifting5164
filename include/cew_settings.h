@@ -11,6 +11,7 @@ typedef struct sSSettings {
     long lMaxClientsPerThread;
     long lWorkerThreads;
     long lLogLevel;
+    long lPort;
     sds pcLogfile;
 } tsSSettings;
 

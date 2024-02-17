@@ -10,6 +10,7 @@
 #include <cew_settings.h>
 #include <cew_logger.h>
 
+/* Defaults when nothing is loaded*/
 static tsSSettings sCurrSSettings = {0};
 
 /* Type definitions for different types of settings */
@@ -31,6 +32,7 @@ typedef struct sOptionMapping {
 static tsOptionMapping sKnownOptions[] = {
         {"general", "workers", TYPE_LONG,   &sCurrSSettings.lWorkerThreads},
         {"general", "clients", TYPE_LONG,   &sCurrSSettings.lMaxClientsPerThread},
+        {"general", "port",    TYPE_LONG,   &sCurrSSettings.lPort},
         {"logging", "logfile", TYPE_STRING, &sCurrSSettings.pcLogfile},
         {"logging", "level",   TYPE_LONG,   &sCurrSSettings.lLogLevel},
         {NULL, NULL,           TYPE_NONE, NULL} // not needed, just for security
@@ -213,6 +215,8 @@ int32_t settings_destroy(void) {
     }
 
     memset(&sCurrSSettings, 0, sizeof(tsSSettings));
+
+    log_info("Destroying settings");
 
     return SET_EXIT_SUCCESS;
 
