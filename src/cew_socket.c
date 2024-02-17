@@ -6,7 +6,7 @@
 #include <string.h>
 
 #include <cew_socket.h>
-
+#include <cew_logger.h>
 
 /* connect socket */
 static int32_t iFd = 0;
@@ -104,6 +104,8 @@ int32_t socket_setup(char *Port) {
         return errno;
     }
 
+    log_info("Socket listing on port %s", Port);
+
     return SOCK_EXIT_SUCCESS;
 }
 
@@ -113,7 +115,10 @@ int32_t socket_close(void) {
     /* Close socket */
     if (iFd > 0) {
         close(iFd);
+        iFd = 0;
     }
+
+    log_info("Stopped socket.");
 
     return 0;
 

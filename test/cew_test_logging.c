@@ -3,7 +3,7 @@
 #include <cmocka.h>
 #include "../src/cew_logger.c"
 
-static char testfile[] = "/var/log/testlog";
+static char testfile[] = "/var/tmp/testlog";
 
 //no acess to file, should fail
 static void logger_no_file(void **state) {

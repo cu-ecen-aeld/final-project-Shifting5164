@@ -19,9 +19,9 @@ static pthread_mutex_t pLogMutex = PTHREAD_MUTEX_INITIALIZER;
 
 /* Default settings for logging */
 static tsLogSettings sCurrLogSettings = {
-        .iPollingInterval = 100,
+        .iPollingInterval = 1000,
         .iLoggerQueueSize = 50,
-        .iBulkWrite = 10,
+        .iBulkWrite = 0, //streaming
         .iCurrLogLevel = eWARNING,
 };
 

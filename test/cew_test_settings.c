@@ -10,8 +10,8 @@ static void settings_no_file(void **state) {
 static void settings_wrong_file(void **state) {
     assert_true(settings_load("/dev/null"));
 
-    assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 0);
-    assert_int_equal(gsCurrSSettings.lWorkerThreads, 0);
+    assert_int_equal(sCurrSSettings.lMaxClientsPerThread, 0);
+    assert_int_equal(sCurrSSettings.lWorkerThreads, 0);
 
     settings_destroy();
 }
@@ -21,8 +21,8 @@ static void settings_basic_valid_file(void **state) {
 
     assert_false(settings_load("/var/tmp/cew_test/ini/valid_settings.ini"));
 
-    assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 50);
-    assert_int_equal(gsCurrSSettings.lWorkerThreads, 4);
+    assert_int_equal(sCurrSSettings.lMaxClientsPerThread, 50);
+    assert_int_equal(sCurrSSettings.lWorkerThreads, 4);
 
     settings_destroy();
 }
@@ -32,8 +32,8 @@ static void settings_basic_invalid_file(void **state) {
 
     assert_false(settings_load("/var/tmp/cew_test/ini/invalid_settings.ini"));
 
-    assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 0);
-    assert_int_equal(gsCurrSSettings.lWorkerThreads, 0);
+    assert_int_equal(sCurrSSettings.lMaxClientsPerThread, 0);
+    assert_int_equal(sCurrSSettings.lWorkerThreads, 0);
 
     settings_destroy();
 }
@@ -42,10 +42,10 @@ static void settings_dual_settings(void **state) {
 
     assert_false(settings_load("/var/tmp/cew_test/ini/valid_dual_settings.ini"));
 
-    assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 51);
-    assert_int_equal(gsCurrSSettings.lWorkerThreads, 4);
-    assert_non_null(gsCurrSSettings.pcLogfile);
-    assert_string_equal(gsCurrSSettings.pcLogfile, "/var/log/cewserver2.log" );
+    assert_int_equal(sCurrSSettings.lMaxClientsPerThread, 51);
+    assert_int_equal(sCurrSSettings.lWorkerThreads, 4);
+    assert_non_null(sCurrSSettings.pcLogfile);
+    assert_string_equal(sCurrSSettings.pcLogfile, "/var/log/cewserver2.log" );
 
     settings_destroy();
 }
@@ -55,19 +55,19 @@ static void settings_get_and_set_settings(void **state) {
     assert_false(settings_load("/var/tmp/cew_test/ini/valid_dual_settings.ini"));
 
     // read if valid
-    assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 51);
-    assert_int_equal(gsCurrSSettings.lWorkerThreads, 4);
-    assert_non_null(gsCurrSSettings.pcLogfile);
-    assert_string_equal(gsCurrSSettings.pcLogfile, "/var/log/cewserver2.log" );
+    assert_int_equal(sCurrSSettings.lMaxClientsPerThread, 51);
+    assert_int_equal(sCurrSSettings.lWorkerThreads, 4);
+    assert_non_null(sCurrSSettings.pcLogfile);
+    assert_string_equal(sCurrSSettings.pcLogfile, "/var/log/cewserver2.log" );
 
     // test if modifying is only local (get a copy)
     tsSSettings old = settings_get();
     old.lMaxClientsPerThread = 55;
-    assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 51);
+    assert_int_equal(sCurrSSettings.lMaxClientsPerThread, 51);
 
     // set settings, and read back
     settings_set(old);
-    assert_int_equal(gsCurrSSettings.lMaxClientsPerThread, 55);
+    assert_int_equal(sCurrSSettings.lMaxClientsPerThread, 55);
     old = settings_get();
     assert_int_equal(old.lMaxClientsPerThread, 55);
 

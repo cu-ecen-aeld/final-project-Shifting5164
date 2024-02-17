@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
@@ -8,11 +7,10 @@
 #include <ini.h>
 #include <sds.h>
 
-#include <banned.h>
 #include <cew_settings.h>
 #include <cew_logger.h>
 
-static tsSSettings gsCurrSSettings = {0};
+static tsSSettings sCurrSSettings = {0};
 
 /* Type definitions for different types of settings */
 typedef enum eSettingsType {
@@ -31,10 +29,10 @@ typedef struct sOptionMapping {
 
 /* Actual mapping for the file settings to memory */
 static tsOptionMapping sKnownOptions[] = {
-        {"general", "workers", TYPE_LONG,   &gsCurrSSettings.lWorkerThreads},
-        {"general", "clients", TYPE_LONG,   &gsCurrSSettings.lMaxClientsPerThread},
-        {"logging", "logfile", TYPE_STRING, &gsCurrSSettings.pcLogfile},
-        {"logging", "level",   TYPE_LONG,   &gsCurrSSettings.lLogLevel},
+        {"general", "workers", TYPE_LONG,   &sCurrSSettings.lWorkerThreads},
+        {"general", "clients", TYPE_LONG,   &sCurrSSettings.lMaxClientsPerThread},
+        {"logging", "logfile", TYPE_STRING, &sCurrSSettings.pcLogfile},
+        {"logging", "level",   TYPE_LONG,   &sCurrSSettings.lLogLevel},
         {NULL, NULL,           TYPE_NONE, NULL} // not needed, just for security
 };
 
@@ -209,12 +207,12 @@ int32_t settings_init(void) {
  * Destroy the settings.
  */
 int32_t settings_destroy(void) {
-    if (gsCurrSSettings.pcLogfile != NULL) {
-        sdsfree(gsCurrSSettings.pcLogfile);
-        gsCurrSSettings.pcLogfile = NULL;
+    if (sCurrSSettings.pcLogfile != NULL) {
+        sdsfree(sCurrSSettings.pcLogfile);
+        sCurrSSettings.pcLogfile = NULL;
     }
 
-    memset(&gsCurrSSettings, 0, sizeof(tsSSettings));
+    memset(&sCurrSSettings, 0, sizeof(tsSSettings));
 
     return SET_EXIT_SUCCESS;
 
@@ -222,11 +220,11 @@ int32_t settings_destroy(void) {
 
 /* Return only a copy */
 tsSSettings settings_get(void) {
-    return gsCurrSSettings;
+    return sCurrSSettings;
 }
 
 int32_t settings_set(tsSSettings sNewSettings) {
-    gsCurrSSettings = sNewSettings;
+    sCurrSSettings = sNewSettings;
 
     return SET_EXIT_SUCCESS;
 }

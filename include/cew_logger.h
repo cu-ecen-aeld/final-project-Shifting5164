@@ -42,9 +42,9 @@ typedef enum {
 
 /* Logger settings */
 typedef struct sLogSettings {
-    int32_t iPollingInterval;   // usleep
-    int32_t iLoggerQueueSize;   // Maximum queue entries
-    int32_t iBulkWrite;         // Amount of messages to be in the queue before its writing in bulk, 0 = streaming
+    int32_t iPollingInterval;       // usleep
+    int32_t iLoggerQueueSize;       // Maximum queue entries
+    int32_t iBulkWrite;             // Amount of messages to be in the queue before its writing in bulk, 0 = streaming
     tLoggerType iCurrLogLevel;      // Dynamic logging level
 } tsLogSettings;
 

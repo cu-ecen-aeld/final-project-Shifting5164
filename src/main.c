@@ -1,3 +1,10 @@
+/* TODO
+ * - logger force flush after x time
+ *
+ *
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -29,7 +36,7 @@
 https://github.com/cu-ecen-aeld/final-project-Shifting5164
 */
 
-#define SETTINGS_FILE "/work/test/ini/valid_settings.ini"
+#define SETTINGS_FILE "/work/test/ini/valid_settings.ini"   //todo
 
 #define RET_OK 0 //todo
 #define SOCKET_FAIL -2 //todo
@@ -40,7 +47,8 @@ bool bTerminateProg = false; /* terminating program gracefully */
 /* completing any open connection operations,
  * closing any open sockets, and deleting the file /var/tmp/aesdsocketdata*/
 static void exit_cleanup(void) {
-    //TODO
+    logger_destroy();
+    settings_destroy();
 }
 
 /* Signal actions */
@@ -56,8 +64,8 @@ void sig_handler(const int32_t ciSigno) {
 }
 
 static void do_exit(const int32_t ciExitval) {
-    exit_cleanup();
     log_info("Goodbye!");
+    exit_cleanup();
     exit(ciExitval);
 }
 
@@ -175,12 +183,6 @@ int32_t main(int32_t argc, char **argv) {
         bDeamonize = true;
     }
 
-    if ((iRet = logger_init("/var/log/testlog", eDEBUG)) != 0) {
-        do_exit_with_errno(iRet);
-    }
-
-    log_error("----- STARTING -------");
-
     if ((iRet = settings_init()) != 0) {
         do_exit_with_errno(iRet);
     }
@@ -188,6 +190,18 @@ int32_t main(int32_t argc, char **argv) {
     if ((iRet = settings_load(SETTINGS_FILE)) != 0) {
         do_exit_with_errno(iRet);
     }
+
+    /* Get a copy of the current settings */
+    tsSSettings sCurrSettings = settings_get();
+
+    if ((iRet = logger_init(sCurrSettings.pcLogfile, (tLoggerType)sCurrSettings.lLogLevel)) != 0) {
+        do_exit_with_errno(iRet);
+    }
+
+    log_error("----- STARTING -------");
+
+    /* Show settings in log */
+    settings_to_log();
 
     /* Going to run as service or not ? */
     if (bDeamonize) {
@@ -212,11 +226,13 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     /* Keep receiving clients */
-    while (1) {
+//    while (1) {
 
         // do something.
 
-    }
+//    }
+
+    sleep(1);
 
     client_stub(); //remove me
     worker_stub(); //remove me
