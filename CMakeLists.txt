@@ -12,6 +12,7 @@ add_executable(cewserver
         external/sds/sdsalloc.h
         src/cew_logger.c
         include/cew_logger.h
+        include/banned.h
 )
 
 target_include_directories(cewserver PRIVATE

@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 
 #include <sds.h>
+#include <banned.h>
 #include <cew_logger.h>
 
 static sds gpcLogfile = NULL;
@@ -141,10 +142,12 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
     }
 
     /* Add timestamp, IEC compatible */
-    char acTime[64];
     time_t t = time(NULL);
-    struct tm *tmp = localtime(&t);
-    strftime(acTime, sizeof(acTime), "%a, %d %b %Y %T %z", tmp);
+    tzset();    // needed for localtime_r
+    struct tm local_tm ;
+    struct tm *tz = localtime_r(&t, &local_tm);
+    char acTime[64];
+    strftime(acTime, sizeof(acTime), "%a, %d %b %Y %T %z", tz);
 
     /* Parse the users message */
     char cUserMsg[LOGGER_MAX_USER_MSG_LEN] = {0};

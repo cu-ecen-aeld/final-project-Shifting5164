@@ -8,6 +8,7 @@
 #include <ini.h>
 #include <sds.h>
 
+#include <banned.h>
 #include <cew_settings.h>
 #include <cew_logger.h>
 
@@ -93,7 +94,7 @@ static int32_t parse_option(const sds cpcSection, const sds cpcKey, const sds cp
             switch (psSetting->eType) {
                 case TYPE_LONG:
                     lVal = strtol(cpcValue, NULL, 10);
-                    memcpy(psSetting->pvDst, &lVal, sizeof(long));
+                    memcpy(psSetting->pvDst, &lVal, sizeof(long)); //TODO
                     return SET_EXIT_SUCCESS;
 
                 case TYPE_STRING:
