@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include <cmocka.h>
-#include "../src/logger.c"
+#include "../src/cew_logger.c"
 
 static char testfile[] = "/var/log/testlog";
 
@@ -111,6 +111,26 @@ static void logger_check_levels(void **state) {
     unlink(testfile);
 }
 
+
+static void logger_get_and_set_settings(void **state) {
+
+    assert_false(logger_init(testfile, eDEBUG));
+
+    // test if modifying is only local (get a copy)
+    tsLogSettings old = logger_get();
+    old.iCurrLogLevel = 5;
+    assert_int_equal(sCurrLogSettings.iCurrLogLevel, 3);
+
+    // set settings, and read back
+    logger_set(old);
+    assert_int_equal(sCurrLogSettings.iCurrLogLevel, 5);
+    old = logger_get();
+    assert_int_equal(old.iCurrLogLevel, 5);
+
+    logger_destroy();
+}
+
+
 const struct CMUnitTest test_logging[] = {
         cmocka_unit_test(logger_no_file),
         cmocka_unit_test(logger_dual_init),
@@ -118,5 +138,6 @@ const struct CMUnitTest test_logging[] = {
         cmocka_unit_test(logger_error_entry),
         cmocka_unit_test(logger_no_init),
         cmocka_unit_test(logger_check_levels),
+        cmocka_unit_test(logger_get_and_set_settings),
 
 };

@@ -5,13 +5,13 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(cewserver
         src/main.c
-        src/settings.c
-        include/settings.h
+        src/cew_settings.c
+        include/cew_settings.h
         external/sds/sds.c
         external/sds/sds.h
         external/sds/sdsalloc.h
-        src/logger.c
-        include/logger.h
+        src/cew_logger.c
+        include/cew_logger.h
 )
 
 target_include_directories(cewserver PRIVATE
@@ -60,9 +60,9 @@ target_link_options(cewserver PRIVATE
         $<$<CONFIG:RELEASE>:-z,now>
 )
 
-#add_compile_definitions(
-#        $<$<CONFIG:DEBUG>:DEBUG>
-#)
+add_compile_definitions(
+        $<$<CONFIG:DEBUG>:DEBUG>
+)
 
 #target_include_directories(cewserver PRIVATE external/libini/) // does work, but clion can't do check
 

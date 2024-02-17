@@ -10,12 +10,19 @@
 #include <sys/stat.h>
 
 #include <sds.h>
-
-#include "logger.h"
+#include <cew_logger.h>
 
 static sds gpcLogfile = NULL;
 static pthread_t LoggerThread;
 static pthread_mutex_t pLogMutex = PTHREAD_MUTEX_INITIALIZER;
+
+/* Default settings for logging */
+static tsLogSettings sCurrLogSettings = {
+        .iPollingInterval = 100,
+        .iLoggerQueueSize = 50,
+        .iBulkWrite = 10,
+        .iCurrLogLevel = eWARNING,
+};
 
 /* Mapping from logging level enum to text */
 static const char *pcLogTypeMsg[] = {
@@ -33,22 +40,18 @@ typedef struct sQEntry {
 STAILQ_HEAD(stailhead, sQEntry);
 static struct stailhead Head;
 
-
 // Amount of messages in the queue
 static int32_t iDataInQueueCount = 0;
 
-// Set when logging system has been setup
+// Set when logging system has been set up
 static int32_t iIsInitDone = 0;
 
 // Force a flush of the message queue to the datafile
 static int32_t iDoForceFlush = 0;
 
-// Dynamic logging level
-static int32_t iCurrLogLevel = eWARNING;
-
 /*  Log writing thread.
  *
- * Will try to write the queued logging messages in bulk defined by BULK_WRITE.
+ * Will try to write the queued logging messages in bulk defined by sCurrLogSettings.iBulkWrite.
  *
  * Args: None
  * Return: errno
@@ -62,10 +65,10 @@ static void *logger_thread(void *arg) {
         /* Thread may canceled before and after the sleep, no mallocs or open fd
          * thus no cleanup needed. Can take some extra time tho.*/
         pthread_testcancel();
-        usleep(POLLING_INTERVAL);
+        usleep(sCurrLogSettings.iPollingInterval);
         pthread_testcancel();
 
-        if ((iDataInQueueCount > BULK_WRITE) || (iDoForceFlush && iDataInQueueCount)) {
+        if ((iDataInQueueCount > sCurrLogSettings.iBulkWrite) || (iDoForceFlush && iDataInQueueCount)) {
 
             /* Open file for writing */
             if ((fd = fopen(gpcLogfile, "a+")) == NULL) {
@@ -124,13 +127,17 @@ static void *logger_thread(void *arg) {
 
 /* Add a log message to the writing queue. Writing will be outsourced to a writing thread.
  *
- * Return: errno on error, else 0
+ * Return:
+ * - LOG_EXIT_FAILURE, errno will be set. Probably no log message added to queue, and discarded.
+ * - LOG_EXIT_SUCCESS, when all good.
+ *
  */
 static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_list args) {
 
     /* Check max allowed messages in the queue against runaway */
-    if (iDataInQueueCount > LOGGER_QUEUE_SIZE) {
-        return ENOBUFS;
+    if (iDataInQueueCount > sCurrLogSettings.iLoggerQueueSize) {
+        errno = ENOBUFS;
+        return LOG_EXIT_FAILURE;
     }
 
     /* Add timestamp, IEC compatible */
@@ -156,9 +163,13 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
     /* mutex safe block */
     {
         if (pthread_mutex_lock(&pLogMutex) != 0) {
+            int32_t tmperr = errno;
+
             sdsfree(LogMsg);
             free(NewEntry);
-            return errno;
+
+            errno = tmperr;
+            return LOG_EXIT_FAILURE;
         }
 
         /* Push at the tail, using head for popping */
@@ -166,29 +177,39 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
         iDataInQueueCount++;
 
         if (pthread_mutex_unlock(&pLogMutex) != 0) {
-            return errno;
+            return LOG_EXIT_FAILURE;
         }
     }
 
-    return 0;
+    return LOG_EXIT_SUCCESS;
 }
+
+
+static inline int32_t is_msg_allowed(void) {
+    if (!iIsInitDone) {
+        return LOG_NOLVL;
+    }
+
+    if (sCurrLogSettings.iCurrLogLevel < eDEBUG) {
+        return LOG_NOINIT;
+    }
+
+    return LOG_EXIT_SUCCESS;
+}
+
 
 /* Write message on this level
  *
  * Return
- * - -1 when logging system is no init yet
- * - -2 when current level is not sufficient to queue the message
- * - 0 when message is queued sucesfully
- * - errno on error
+ * - LOG_NOLVL when logging system is no init yet
+ * - LOG_NOINIT when current level is not sufficient to queue the message
+ * - LOG_LOG_EXIT_SUCCESS when message is queued sucesfully
+ * - LOG_EXIT_FAILURE, no error
  */
-int32_t log_debug(const char *message, ...) {
+int32_t log_msg(tLoggerType eType, const char *message, ...) {
 
-    if (!iIsInitDone) {
-        return -1;
-    }
-
-    if (iCurrLogLevel < eDEBUG) {
-        return -2;
+    if (is_msg_allowed()) {
+        return LOG_EXIT_FAILURE;
     }
 
     va_list args;
@@ -199,123 +220,49 @@ int32_t log_debug(const char *message, ...) {
     return ret;
 }
 
-/* Write message on this level
- *
- * Return
- * - -1 when logging system is no init yet
- * - -2 when current level is not sufficient to queue the message
- * - 0 when message is queued sucesfully
- * - errno on error
- */
-int32_t log_info(const char *message, ...) {
-
-    if (!iIsInitDone) {
-        return -1;
-    }
-
-    if (iCurrLogLevel < eINFO) {
-        return -2;
-    }
-
-    va_list args;
-    va_start(args, message);
-    int32_t ret = log_add_to_queue(eINFO, message, args);
-    va_end(args);
-    return ret;
-}
-
-/* Write message on this level
- *
- * Return
- * - -1 when logging system is no init yet
- * - -2 when current level is not sufficient to queue the message
- * - 0 when message is queued sucesfully
- * - errno on error
- */
-int32_t log_warning(const char *message, ...) {
-
-    if (!iIsInitDone) {
-        return -1;
-    }
-
-    if (iCurrLogLevel < eWARNING) {
-        return -2;
-    }
-
-    va_list args;
-    va_start(args, message);
-    int32_t ret = log_add_to_queue(eWARNING, message, args);
-    va_end(args);
-    return ret;
-}
-
-/* Write message on this level
- *
- * Return
- * - -1 when logging system is no init yet
- * - -2 when current level is not sufficient to queue the message
- * - 0 when message is queued sucesfully
- * - errno on error
- */
-int32_t log_error(const char *message, ...) {
-
-    if (!iIsInitDone) {
-        return -1;
-    }
-
-    if (iCurrLogLevel < eERROR) {
-        return -2;
-    }
-
-    va_list args;
-    va_start(args, message);
-    int32_t ret = log_add_to_queue(eERROR, message, args);
-    va_end(args);
-    return ret;
-}
-
 /* Force a blocking flush of the current message queue to the datafile
- * Return: Always 0
+ * Return: Always LOG_EXIT_SUCCESS
  */
 int32_t logger_flush(void) {
     /* Force flush queue */
     iDoForceFlush = 1;
     while (iDataInQueueCount) {
         usleep(100);
-    };
-    return 0;
+    }
+
+    return LOG_EXIT_SUCCESS;
 }
 
 /* Init the Logging system
  *
  * Return:
- * -1: Init already done
+ * LOG_NOINIT: Init already done
  * 0: Sucessfull
  * errno on error
  */
 int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
 
     if (iIsInitDone) {
-        return -1;
+        return LOG_NOINIT;
     }
 
     /* Set logfile */
     gpcLogfile = sdsnew(pcLogfilePath);
 
-    iCurrLogLevel = Loglevel;
+    sCurrLogSettings.iCurrLogLevel = Loglevel;
 
     /* Test access, and create datafile */
     FILE *fd;
     if ((fd = fopen(gpcLogfile, "a+")) == NULL) {
         sdsfree(gpcLogfile);
-        return errno;
+        return LOG_EXIT_FAILURE;
     }
     fclose(fd);
 
     /* Spin up writing thread */
     if (pthread_create(&LoggerThread, NULL, logger_thread, NULL) != 0) {
         sdsfree(gpcLogfile);
-        return errno;
+        return LOG_EXIT_FAILURE;
     }
 
     /* Setup queue */
@@ -325,19 +272,19 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
     iDoForceFlush = 0;
     iIsInitDone = 1;
 
-    return 0;
+    return LOG_EXIT_SUCCESS;
 }
 
 /* Destroy the logging system
  *
  * Return:
  * 0: success
- * -1: Already destroyed
+ * LOG_NOINIT: Already destroyed
  */
 int32_t logger_destroy(void) {
 
     if (!iIsInitDone) {
-        return -1;
+        return LOG_NOINIT;
     }
 
     log_debug("Destroying the logger.");
@@ -370,7 +317,19 @@ int32_t logger_destroy(void) {
     /* May be init again */
     iIsInitDone = 0;
 
-    return 0;
+    return LOG_EXIT_SUCCESS;
+}
+
+
+/* Return only a copy */
+tsLogSettings logger_get(void) {
+    return sCurrLogSettings;
+}
+
+int32_t logger_set(tsLogSettings sNewSettings) {
+    sCurrLogSettings = sNewSettings;
+
+    return LOG_EXIT_SUCCESS;
 }
 
 
