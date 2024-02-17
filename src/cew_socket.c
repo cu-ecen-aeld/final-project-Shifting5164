@@ -78,7 +78,7 @@ int32_t socket_receive_client(void) {
  * - errno on error
  * - RET_OK when succeeded
  */
-int32_t socket_setup(int32_t iPort) {
+int32_t socket_setup(uint16_t iPort) {
 
     struct addrinfo sHints = {0};
     struct addrinfo *psServinfo = NULL;
@@ -88,7 +88,7 @@ int32_t socket_setup(int32_t iPort) {
     sHints.ai_socktype = SOCK_STREAM; // TCP stream sockets
     sHints.ai_flags = AI_PASSIVE;     // bind to all interfaces
 
-    char cPort[10] = {0};
+    char cPort[6] = {0}; //65535\0
     snprintf(cPort, sizeof(cPort), "%d", iPort);
 
     if ((getaddrinfo(NULL, cPort, &sHints, &psServinfo)) != 0) {

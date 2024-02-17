@@ -10,7 +10,7 @@
 
 
 /* Open socket on specified port */
-int32_t socket_setup(int32_t);
+int32_t socket_setup(uint16_t);
 
 int32_t socket_receive_client(void);
 

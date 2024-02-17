@@ -217,7 +217,7 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     /* Opens a stream socket, failing and returning -1 if any of the socket connection steps fail. */
-    if ((iRet = socket_setup((int32_t)sCurrSettings.lPort)) != SOCK_EXIT_SUCCESS) {
+    if ((iRet = socket_setup((int16_t)sCurrSettings.lPort)) != SOCK_EXIT_SUCCESS) {
         log_error("Exit with %d: %s. Line %d.\n", iRet, strerror(iRet));
         do_exit(SOCKET_FAIL);
     }
