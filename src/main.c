@@ -226,6 +226,9 @@ int32_t main(int32_t argc, char **argv) {
         printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
 
+    worker_test(10);
+    exit(0);
+
     /* Keep receiving clients */
     while (1) {
         socket_receive_client();
@@ -234,7 +237,6 @@ int32_t main(int32_t argc, char **argv) {
     sleep(1);
 
     client_stub(); //remove me
-    worker_stub(); //remove me
 
     do_exit(EXIT_SUCCESS);
 }

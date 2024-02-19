@@ -1,6 +1,13 @@
 #ifndef CEWSERVER_CEW_CLIENT_H
 #define CEWSERVER_CEW_CLIENT_H
 
+#include <stdint.h>
+
+typedef struct sClientStruct{
+    int32_t iId;    // unique random id
+    // last data for timeout
+}tsClientStruct;
+
 void client_stub(void);
 
 //

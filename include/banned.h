@@ -41,4 +41,7 @@
 #undef asctime_r
 #define asctime_r(t, buf) BANNED(asctime_r)
 
+#undef calloc
+#define calloc(buf, s) BANNED(calloc)   //valgrind will break.... (old version)
+
 #endif /* BANNED_H */

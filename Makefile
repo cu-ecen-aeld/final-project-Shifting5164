@@ -82,7 +82,7 @@ test: debug
 test_mem: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
-	valgrind --leak-check=full --show-leak-kinds=all ./build/debug/cewserver_test
+	valgrind --malloc-fill=0xAB --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver_test
 
 libs: libini libev cmocka
 

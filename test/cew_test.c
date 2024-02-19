@@ -6,6 +6,7 @@
 #include "cew_test_settings.c"
 #include "cew_test_logging.c"
 #include "cew_test_socket.c"
+#include "cew_test_worker.c"
 
 int main(void) {
     int iRet = 0;
@@ -13,6 +14,8 @@ int main(void) {
     iRet += cmocka_run_group_tests(test_settings, NULL, NULL);
     iRet += cmocka_run_group_tests(test_logging, NULL, NULL);
     iRet += cmocka_run_group_tests(test_socket, NULL, NULL);
+    iRet += cmocka_run_group_tests(test_worker, NULL, NULL);
+
 
     return iRet;
 }
