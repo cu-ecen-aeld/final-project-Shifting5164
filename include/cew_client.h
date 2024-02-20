@@ -6,6 +6,8 @@
 typedef struct sClientStruct{
     int32_t iId;    // unique random id
     // last data for timeout
+    // ip
+    // socket
 }tsClientStruct;
 
 void client_stub(void);

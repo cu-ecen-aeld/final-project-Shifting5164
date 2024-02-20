@@ -49,6 +49,7 @@ bool bTerminateProg = false; /* terminating program gracefully */
 static void exit_cleanup(void) {
     socket_close();
     settings_destroy();
+    worker_destroy();
     logger_destroy();
 }
 
@@ -226,8 +227,7 @@ int32_t main(int32_t argc, char **argv) {
         printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
 
-    worker_test(10);
-    exit(0);
+    worker_init(10); //todo
 
     /* Keep receiving clients */
     while (1) {

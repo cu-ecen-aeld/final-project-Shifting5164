@@ -38,8 +38,8 @@ typedef struct sQEntry {
     sds msg;   /* A sds pointer to log message */
     STAILQ_ENTRY(sQEntry) entries;        /* Singly linked tail queue */
 } tsEntry;
-STAILQ_HEAD(stailhead, sQEntry);
-static struct stailhead Head;
+STAILQ_HEAD(LogMsgQueue, sQEntry);
+static struct LogMsgQueue Head;
 
 // Amount of messages in the queue
 static int32_t iDataInQueueCount = 0;

@@ -2,6 +2,7 @@
 #define CEWSERVER_CEW_WORKER_H
 
 #include <stdlib.h>
+#include <cew_client.h>
 
 /* The config will define the current workers and clients dynamically
  * but to make everything faster move some things to compile time, so
@@ -22,13 +23,6 @@ int32_t worker_init(const int32_t);
 
 int32_t worker_destroy(void);
 
-int32_t worker_test(const int32_t iWantedWorkers);
-//
-///* Worker defintions */
-//typedef struct sWorkerThreadEntry {
-//    pthread_t sThread;      /* pthread info */
-//    long lID;               /* random unique id of the thread*/
-//} sWorkerThreadEntry;
-
+int32_t worker_route_client(tsClientStruct *);
 
 #endif //CEWSERVER_CEW_WORKER_H
