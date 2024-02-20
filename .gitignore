@@ -118,3 +118,7 @@ fabric.properties
 
 build/
 external/*
+massif.out.*
+vgcore.*
+logging_testfile
+
