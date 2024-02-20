@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <setjmp.h>
 #include <cmocka.h>
+
 #include "cew_test_settings.c"
 #include "cew_test_logging.c"
 #include "cew_test_socket.c"

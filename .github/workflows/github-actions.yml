@@ -88,7 +88,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Code check
+      - name: Run Test
         run: (make pipeline_test)
 
 
@@ -102,5 +102,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Code check
+      - name: Run valgrind
         run: (make pipeline_test_mem)
+
+
+  code_test_mem_hist:
+    name: Make Memory Histogram
+    runs-on: self-hosted
+    container:
+      image: junkyard6930/projenv:github_actions
+    needs: build_docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run massif
+        run: (make code_test_mem_hist)

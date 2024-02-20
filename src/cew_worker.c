@@ -119,6 +119,7 @@ int32_t worker_route_client(tsClientStruct *psClient) {
     psClientEntry->psClient = psClient;
 
     if (pthread_mutex_lock(&WorkerAdmin.Mutex[worker]) != 0) {
+        free(psClientEntry);
         return WORKER_EXIT_FAILURE;
     }
 
@@ -129,6 +130,7 @@ int32_t worker_route_client(tsClientStruct *psClient) {
     }
 
     return WORKER_EXIT_SUCCESS;
+
 }
 
 // spinup and configure worker threads
