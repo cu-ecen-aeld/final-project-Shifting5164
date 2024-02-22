@@ -20,7 +20,7 @@
  * singly linked for minimum space and pointer manipulation overhead at the expense
  * of O(n) removal for arbitrary elements.
  *
- * The design uses only the head and tail entires, thus an O(1) system.
+ * The design uses only the head and tail, thus an O(1) system.
  *
  */
 
@@ -32,6 +32,9 @@
 // Max characters in logging msg
 #define LOGGER_MAX_USER_MSG_LEN 1024
 
+// Show messages on terminal on stdout. Good for debugging. Only works good when iBulkWrite=0
+//#define LOGGER_SHOW_ON_TERMINAL
+
 // Loglevels
 typedef enum {
     eERROR = 0,
@@ -42,9 +45,9 @@ typedef enum {
 
 /* Logger settings */
 typedef struct sLogSettings {
-    int32_t iPollingInterval;   // usleep
-    int32_t iLoggerQueueSize;   // Maximum queue entries
-    int32_t iBulkWrite;         // Amount of messages to be in the queue before its writing in bulk, 0 = streaming
+    int32_t iPollingInterval;       // usleep
+    int32_t iLoggerQueueSize;       // Maximum queue entries
+    int32_t iBulkWrite;             // Amount of messages to be in the queue before its writing in bulk, 0 = streaming
     tLoggerType iCurrLogLevel;      // Dynamic logging level
 } tsLogSettings;
 

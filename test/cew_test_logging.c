@@ -3,7 +3,7 @@
 #include <cmocka.h>
 #include "../src/cew_logger.c"
 
-static char testfile[] = "/var/log/testlog";
+static char logging_testfile[] = "/var/tmp/testlog";
 
 //no acess to file, should fail
 static void logger_no_file(void **state) {
@@ -13,36 +13,36 @@ static void logger_no_file(void **state) {
 
 //may not dual init, but should destroy correctly
 static void logger_dual_init(void **state) {
-    unlink(testfile);
+    unlink(logging_testfile);
 
-    assert_false(logger_init(testfile, eDEBUG));
-    assert_true(logger_init(testfile, eDEBUG));
+    assert_false(logger_init(logging_testfile, eDEBUG));
+    assert_true(logger_init(logging_testfile, eDEBUG));
     assert_false(logger_destroy());
 
-    unlink(testfile);
+    unlink(logging_testfile);
 }
 
 //may not dual destroy
 static void logger_dual_destroy(void **state) {
-    unlink(testfile);
+    unlink(logging_testfile);
 
-    assert_false(logger_init(testfile, eDEBUG));
+    assert_false(logger_init(logging_testfile, eDEBUG));
     assert_false(logger_destroy());
     assert_true(logger_destroy());
 
-    unlink(testfile);
+    unlink(logging_testfile);
 }
 
 // normal usage
 static void logger_error_entry(void **state) {
-    unlink(testfile);
+    unlink(logging_testfile);
 
-    assert_false(logger_init(testfile, eDEBUG));
+    assert_false(logger_init(logging_testfile, eDEBUG));
     assert_false(log_error("my error is %d", 42));
     assert_false(logger_flush());
     assert_false(logger_destroy());
 
-    unlink(testfile);
+    unlink(logging_testfile);
 }
 
 // log message without init
@@ -56,12 +56,12 @@ static void logger_check_levels(void **state) {
 
     //---------------------------
     {
-        unlink(testfile);
-        assert_false(logger_init(testfile, eDEBUG));
+        unlink(logging_testfile);
+        assert_false(logger_init(logging_testfile, eDEBUG));
         assert_false(log_error("my error is %d", 42));
         logger_flush();
 
-        FILE *fd = fopen(testfile, "r");
+        FILE *fd = fopen(logging_testfile, "r");
         char filedata[1024] = {0};
         char testmsg[] = "Error : my error is 42";
         fread(&filedata, sizeof(filedata), 1, fd);
@@ -73,12 +73,12 @@ static void logger_check_levels(void **state) {
 
     //---------------------------
     {
-        unlink(testfile);
-        assert_false(logger_init(testfile, eDEBUG));
+        unlink(logging_testfile);
+        assert_false(logger_init(logging_testfile, eDEBUG));
         assert_false(log_error("my warning is %d", 42));
         logger_flush();
 
-        FILE *fd = fopen(testfile, "r");
+        FILE *fd = fopen(logging_testfile, "r");
         char filedata[1024] = {0};
         char testmsg[] = "Error : my warning is 42";
         fread(&filedata, sizeof(filedata), 1, fd);
@@ -90,11 +90,11 @@ static void logger_check_levels(void **state) {
 
     //---------------------------
     {
-        unlink(testfile);
-        assert_false(logger_init(testfile, eDEBUG));
+        unlink(logging_testfile);
+        assert_false(logger_init(logging_testfile, eDEBUG));
         assert_false(log_error("my info is %d", 42));
 
-        FILE *fd = fopen(testfile, "r");
+        FILE *fd = fopen(logging_testfile, "r");
         char filedata[1024] = {0};
         char testmsg[] = "Info : my info is 42";
         fread(&filedata, sizeof(filedata), 1, fd);
@@ -107,7 +107,7 @@ static void logger_check_levels(void **state) {
     {
         assert_false(log_error("my debug is %d", 42));
 
-        FILE *fd = fopen(testfile, "r");
+        FILE *fd = fopen(logging_testfile, "r");
         char filedata[100] = {0};
         char testmsg[] = "Debug : my debug is 42";
         fread(&filedata, sizeof(filedata), 1, fd);
@@ -117,13 +117,13 @@ static void logger_check_levels(void **state) {
     }
 
     assert_false(logger_destroy());
-    unlink(testfile);
+    unlink(logging_testfile);
 }
 
 // see what get accepted, local and global
 static void logger_get_and_set_settings(void **state) {
 
-    assert_false(logger_init(testfile, eDEBUG));
+    assert_false(logger_init(logging_testfile, eDEBUG));
 
     // test if modifying is only local (get a copy)
     tsLogSettings old = logger_get();
@@ -141,9 +141,9 @@ static void logger_get_and_set_settings(void **state) {
 
 // test all loglevels, if they are accepted or not
 static void logger_check_level_filter(void **state) {
-    unlink(testfile);
+    unlink(logging_testfile);
 
-    assert_false(logger_init(testfile, eERROR));
+    assert_false(logger_init(logging_testfile, eERROR));
     assert_false(log_error("my error is %d", 42));
     assert_true(log_warning("my warning is %d", 42));
     assert_true(log_info("my info is %d", 42));
@@ -168,7 +168,7 @@ static void logger_check_level_filter(void **state) {
     assert_false(log_debug("my debug is %d", 42));
 
     assert_false(logger_destroy());
-    unlink(testfile);
+    unlink(logging_testfile);
 
 }
 
@@ -194,8 +194,8 @@ static void *write_log(void *arg) {
 
 // test multithreading of this design
 static void logger_check_mutithreading(void **state) {
-    unlink(testfile);
-    assert_false(logger_init(testfile, eDEBUG));
+    unlink(logging_testfile);
+    assert_false(logger_init(logging_testfile, eDEBUG));
 
     int32_t test_threads = 10;
     struct sThreads {

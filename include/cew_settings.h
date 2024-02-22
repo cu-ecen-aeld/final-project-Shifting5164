@@ -11,6 +11,7 @@ typedef struct sSSettings {
     long lMaxClientsPerThread;
     long lWorkerThreads;
     long lLogLevel;
+    long lPort;
     sds pcLogfile;
 } tsSSettings;
 
@@ -32,5 +33,8 @@ tsSSettings settings_get(void);
 
 /* Set new settings */
 int32_t settings_set(tsSSettings);
+
+/* Flush settings to log */
+void settings_to_log(void);
 
 #endif //CEWSERVER_CEW_SETTINGS_H

@@ -19,9 +19,9 @@ static pthread_mutex_t pLogMutex = PTHREAD_MUTEX_INITIALIZER;
 
 /* Default settings for logging */
 static tsLogSettings sCurrLogSettings = {
-        .iPollingInterval = 100,
+        .iPollingInterval = 1000,
         .iLoggerQueueSize = 50,
-        .iBulkWrite = 10,
+        .iBulkWrite = 0, //streaming
         .iCurrLogLevel = eWARNING,
 };
 
@@ -38,8 +38,8 @@ typedef struct sQEntry {
     sds msg;   /* A sds pointer to log message */
     STAILQ_ENTRY(sQEntry) entries;        /* Singly linked tail queue */
 } tsEntry;
-STAILQ_HEAD(stailhead, sQEntry);
-static struct stailhead Head;
+STAILQ_HEAD(LogMsgQueue, sQEntry);
+static struct LogMsgQueue Head;
 
 // Amount of messages in the queue
 static int32_t iDataInQueueCount = 0;
@@ -100,6 +100,10 @@ static void *logger_thread(void *arg) {
                     }
                 }
 
+#ifdef LOGGER_SHOW_ON_TERMINAL
+                /* Show log Message */
+                fprintf(stderr, "%s", LogMessage);
+#endif
                 /* Write the log entry */
                 fwrite(LogMessage, sdslen(LogMessage), 1, fd);
                 if (ferror(fd) != 0) {

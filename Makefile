@@ -9,6 +9,7 @@ PROJ_NAME=cewserver
 all: submodule libs release
 pipeline_test: submodule libs test
 pipeline_test_mem: submodule libs test_mem
+pipeline_test_mem_hist: submodule libs pipeline_test_mem_hist
 pipeline_check: submodule libs debug check
 
 
@@ -82,7 +83,14 @@ test: debug
 test_mem: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
-	valgrind --leak-check=full --show-leak-kinds=all ./build/debug/cewserver_test
+	valgrind --malloc-fill=0xAB --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver_test
+
+.PHONY: test_mem_hist
+test_mem_hist: debug
+	mkdir -p -- /var/tmp/cew_test/
+	cp -r -- ./test/ini/ /var/tmp/cew_test/
+	valgrind --tool=massif ./build/debug/cewserver_test
+
 
 libs: libini libev cmocka
 
