@@ -100,6 +100,10 @@ static void *logger_thread(void *arg) {
                     }
                 }
 
+#ifdef LOGGER_SHOW_ON_TERMINAL
+                /* Show log Message */
+                fprintf(stderr, "%s", LogMessage);
+#endif
                 /* Write the log entry */
                 fwrite(LogMessage, sdslen(LogMessage), 1, fd);
                 if (ferror(fd) != 0) {
