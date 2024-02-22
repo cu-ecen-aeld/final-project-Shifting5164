@@ -23,7 +23,8 @@ static void worker_happy_client_add(void **state) {
     assert_false(worker_init(10));
 
     for (int i = 0; i < 17; i++) {
-        tsClientStruct *psAddClient = malloc(sizeof(struct sClientStruct));
+        tsClientStruct *psAddClient = NULL;
+        client_init(&psAddClient);
         psAddClient->iId = i;
         assert_false(worker_route_client(psAddClient));
     }
@@ -31,7 +32,6 @@ static void worker_happy_client_add(void **state) {
     assert_false(worker_destroy());
     assert_false(logger_destroy());
 }
-
 
 const struct CMUnitTest test_worker[] = {
         cmocka_unit_test(worker_happy_init),

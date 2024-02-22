@@ -1,7 +1,9 @@
 #include <malloc.h>
 #include <string.h>
+#include <sys/stat.h>
 
 #include <cew_client.h>
+#include <errno.h>
 
 // will malloc psNewClient
 //todo return codes
@@ -16,7 +18,13 @@ void client_destroy(tsClientStruct *psClient) {
         return;
     }
 
-    close(psClient->iSockfd);   //todo check if open
+    struct stat statbuf = {0};
+    if (fstat(psClient->iSockfd, &statbuf) == -1){
+        if (errno != EBADF) {
+            close(psClient->iSockfd);
+        }
+    }
+
     free(psClient);
 }
 

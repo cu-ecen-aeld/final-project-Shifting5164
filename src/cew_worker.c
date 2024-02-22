@@ -44,6 +44,44 @@ typedef struct sWorkerAdmin {
 /* Keep track of everything that happens */
 static tsWorkerAdmin WorkerAdmin = {0};
 
+
+/* Check the waiting client queue for this thread, get the clients
+ * and add them to this thread for serving */
+static int32_t worker_check_waiting(tsWorkerStruct *psArgs) {
+
+    /* Check waiting clients, skip when busy */
+    if (pthread_mutex_trylock(&WorkerAdmin.Mutex[psArgs->uiId]) == 0) {
+
+        /* Add a new client when something is there to add */
+        tsClientEntry *psClientEntry = STAILQ_FIRST(&psArgs->ClientWaitingQueue);
+        if (psClientEntry) {
+
+            /* Get client, and destroy queue entry */
+            tsClientStruct *psNewClient = psClientEntry->psClient;
+            STAILQ_REMOVE_HEAD(&psArgs->ClientWaitingQueue, entries);
+            free(psClientEntry);
+
+            log_debug("thread %d, Got new client %d from the receive queue.", psArgs->uiId, psNewClient->iId);
+
+            // TMP add to thread queue //todo
+            tsClientEntry *psNewEntry = malloc(sizeof(struct sClientEntry));
+            psNewEntry->psClient = psNewClient;
+            STAILQ_INSERT_TAIL(&psArgs->ClientServingQueue, psNewEntry, entries);
+
+            log_debug("thread %d. Serving new client %d", psArgs->uiId, psNewClient->iId);
+
+            return 0;
+        }
+
+        if (pthread_mutex_unlock(&WorkerAdmin.Mutex[psArgs->uiId]) != 0) {
+            pthread_exit(NULL);
+        }
+    }
+
+    return -1;
+}
+
+
 /* Serve the clients that are connected to the server
  *
  */
@@ -62,38 +100,11 @@ static void *worker_thread(void *arg) {
 
         pthread_testcancel();
 
-        tsClientStruct *psNewClient = NULL;
-
-        /* Check waiting clients, skip when busy */
-        if (pthread_mutex_trylock(&WorkerAdmin.Mutex[psArgs->uiId]) == 0) {
-
-            /* Add a new client when something is there to add */
-            tsClientEntry *Entry = STAILQ_FIRST(&psArgs->ClientWaitingQueue);
-            if (Entry) {
-                psNewClient = Entry->psClient;
-                STAILQ_REMOVE_HEAD(&psArgs->ClientWaitingQueue, entries);
-                free(Entry);
-
-                log_debug("thread %d, Got new client %d from the receive queue.", psArgs->uiId, psNewClient->iId);
-            }
-
-            if (pthread_mutex_unlock(&WorkerAdmin.Mutex[psArgs->uiId]) != 0) {
-                pthread_exit(NULL);
-            }
-        } else {
-            pthread_exit(NULL);
-        }
-
-        /* If new client, add it to the serving list */
-        if (psNewClient != NULL) {
-            tsClientEntry *psNewEntry = malloc(sizeof(struct sClientEntry));
-            psNewEntry->psClient = psNewClient;
-            STAILQ_INSERT_TAIL(&psArgs->ClientServingQueue, psNewEntry, entries);
-            log_debug("thread %d. Serving new client %d", psArgs->uiId, psNewClient->iId);
-        }
+        /* Check for waiting clients, and add them to this thread */
+        worker_check_waiting(psArgs);
 
         /* Do some work */
-        char testbuff[100] = "";
+        char testbuff[100] = {0};
         STAILQ_FOREACH(CurrClient, &psArgs->ClientServingQueue, entries) {
             snprintf(testbuff, sizeof(testbuff), "thread %d, serving client %i\n", psArgs->uiId,
                      CurrClient->psClient->iId);
@@ -108,8 +119,8 @@ static void *worker_thread(void *arg) {
     pthread_exit(NULL);
 }
 
-// call from libev, got new client to serve
-// route client to worker that is the least busy
+/* Route an accepted client to a worker that is the least busy. This
+ * thread will serve the client with data */
 int32_t worker_route_client(tsClientStruct *psClient) {
 
     static uint32_t NextWorker = -1; //keep track
@@ -118,7 +129,7 @@ int32_t worker_route_client(tsClientStruct *psClient) {
         return WORKER_EXIT_FAILURE;
     }
 
-    /* Route the client (simple round robbin for now)*/
+    /* Route the client to a worker (simple round robbin for now)*/
     NextWorker = (NextWorker + 1) % WorkerAdmin.uiCurrWorkers;
     uint32_t worker = NextWorker;
 
@@ -141,11 +152,11 @@ int32_t worker_route_client(tsClientStruct *psClient) {
     }
 
     return WORKER_EXIT_SUCCESS;
-
 }
 
-// spinup and configure worker threads
-//NOTE: calloc will break valgrind
+/* spinup and configure worker threads
+ * NOTE: calloc will break valgrind
+ */
 int32_t worker_init(const int32_t iWantedWorkers) {
 
     for (int32_t i = 0; i < iWantedWorkers; i++) {

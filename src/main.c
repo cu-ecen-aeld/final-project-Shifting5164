@@ -222,6 +222,11 @@ int32_t main(int32_t argc, char **argv) {
         do_exit_with_errno(iRet);
     }
 
+    // todo 10 should be settings
+    if ( (iRet = worker_init(10)) != WORKER_EXIT_SUCCESS){
+        do_exit_with_errno(iRet);
+    }
+
     /* Opens a stream socket, failing and returning -1 if any of the socket connection steps fail. */
     if ((iRet = socket_setup((int16_t)sCurrSettings.lPort)) != SOCK_EXIT_SUCCESS) {
         log_error("Exit with %d: %s. Line %d.\n", iRet, strerror(iRet));
@@ -231,8 +236,6 @@ int32_t main(int32_t argc, char **argv) {
     if (!bDeamonize) {
         printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
-
-    worker_init(10); //todo
 
     /* Keep receiving clients */
     while (1) {
