@@ -49,7 +49,6 @@ check: debug
 		--std=c11 \
 		--suppress=missingIncludeSystem \
 		--suppress=unusedFunction \
-		--suppress=unknownMacro \
 		--suppress=*:external/* \
 		--project=./build/debug/compile_commands.json
 

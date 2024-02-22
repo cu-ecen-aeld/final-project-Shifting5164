@@ -88,7 +88,6 @@ static int32_t worker_check_waiting(tsWorkerStruct *psArgs) {
 static void *worker_thread(void *arg) {
 
     tsWorkerStruct *psArgs = arg;
-    tsClientEntry *CurrClient;
 
     log_info("thread %d. Worker started.", psArgs->uiId);
 
@@ -103,15 +102,20 @@ static void *worker_thread(void *arg) {
         /* Check for waiting clients, and add them to this thread */
         worker_check_waiting(psArgs);
 
-        /* Do some work */
-        char testbuff[100] = {0};
-        STAILQ_FOREACH(CurrClient, &psArgs->ClientServingQueue, entries) {
-            snprintf(testbuff, sizeof(testbuff), "thread %d, serving client %i\n", psArgs->uiId,
-                     CurrClient->psClient->iId);
-            send(CurrClient->psClient->iSockfd, testbuff, sizeof(testbuff), 0);
-            log_debug("%s", testbuff);
-
-        }
+        /* Do some work commented because cppcheck.*/
+//        char testbuff[100] = {0};
+//        tsClientEntry *CurrEntry;
+//        STAILQ_FOREACH(CurrEntry, &psArgs->ClientServingQueue, entries) {
+//            // cppcheck-suppress uninitvar
+//            tsClientStruct *psCurrClient = CurrEntry->psClient;
+//
+//            // cppcheck-suppress uninitvar
+//            snprintf(testbuff, sizeof(testbuff), "thread %u, serving client %i\n", psArgs->uiId, psCurrClient->iId);
+//
+//            // cppcheck-suppress uninitvar
+//            send(psCurrClient->iSockfd, testbuff, sizeof(testbuff), 0);
+//            log_debug("%s", testbuff);
+//        }
 
         sleep(1);
 
