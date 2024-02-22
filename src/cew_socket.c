@@ -9,10 +9,43 @@
 
 #include <cew_socket.h>
 #include <cew_logger.h>
+#include <cew_client.h>
 
 /* connect socket */
 static int32_t iFd = 0;
 
+// will malloc psNewClient
+// blocking accept
+int32_t socket_accept_client(tsClientStruct **ppsNewClient) {
+
+    *ppsNewClient = malloc(sizeof(struct sClientStruct));
+    tsClientStruct *psNewClient = *ppsNewClient;
+    memset(psNewClient, 0, sizeof(struct sClientStruct));
+    if (!psNewClient) {
+        psNewClient = NULL;
+        return -1;
+    }
+
+    log_debug("Waiting for accept");
+
+    /* Accept clients, and fill client information struct, BLOCKING  */
+    if ((psNewClient->iSockfd = accept(iFd, (struct sockaddr *) &psNewClient->sTheirAddr, &psNewClient->tAddrSize)) ==
+        -1) {
+        free(psNewClient);
+
+        /* crtl +c */
+        if (errno != EINTR) {
+            exit(0);        //TODO
+        } else {
+            return -1;
+        }
+    }
+
+    psNewClient->iId = (int32_t) random();
+    log_debug("Got client %d from accept.", psNewClient->iId);
+
+    return 0;
+}
 
 int32_t socket_receive_client(void) {
 

@@ -9,6 +9,7 @@
 #include <cew_worker.h>
 #include <cew_logger.h>
 #include <cew_client.h>
+#include <sys/socket.h>
 
 /* Clients queue in thread to serve */
 typedef struct sClientEntry {
@@ -67,7 +68,7 @@ static void *worker_thread(void *arg) {
 
             /* Add a new client when something is there to add */
             tsClientEntry *Entry = STAILQ_FIRST(&psArgs->ClientWaitingQueue);
-            if(Entry) {
+            if (Entry) {
                 psNewClient = Entry->psClient;
                 STAILQ_REMOVE_HEAD(&psArgs->ClientWaitingQueue, entries);
                 free(Entry);
@@ -91,13 +92,18 @@ static void *worker_thread(void *arg) {
         }
 
         /* Do some work */
-        STAILQ_FOREACH(CurrClient, &psArgs->ClientServingQueue, entries)
-            printf("thread %d, serving client %i\n",psArgs->uiId, CurrClient->psClient->iId);
+        char testbuff[100] = "";
+        STAILQ_FOREACH(CurrClient, &psArgs->ClientServingQueue, entries) {
+            snprintf(testbuff, sizeof(testbuff), "thread %d, serving client %i\n", psArgs->uiId,
+                     CurrClient->psClient->iId);
+            send(CurrClient->psClient->iSockfd, testbuff, sizeof(testbuff), 0);
+            log_debug("%s", testbuff);
+
+        }
 
         sleep(1);
 
     }
-
     pthread_exit(NULL);
 }
 
@@ -106,6 +112,10 @@ static void *worker_thread(void *arg) {
 int32_t worker_route_client(tsClientStruct *psClient) {
 
     static uint32_t NextWorker = -1; //keep track
+
+    if (psClient == NULL) {
+        return WORKER_EXIT_FAILURE;
+    }
 
     /* Route the client (simple round robbin for now)*/
     NextWorker = (NextWorker + 1) % WorkerAdmin.uiCurrWorkers;

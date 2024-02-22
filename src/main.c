@@ -60,6 +60,11 @@ void sig_handler(const int32_t ciSigno) {
         return;
     }
 
+    //todo ctlr+c
+    if (ciSigno == SIGINT){
+        exit(0);
+    }
+
     log_warning("Got signal: %d", ciSigno);
 
     bTerminateProg = true;
@@ -231,7 +236,11 @@ int32_t main(int32_t argc, char **argv) {
 
     /* Keep receiving clients */
     while (1) {
-        socket_receive_client();
+        tsClientStruct *psNewClient = NULL;
+
+        if (socket_accept_client(&psNewClient) == 0) {
+            worker_route_client(psNewClient);
+        }
     }
 
     sleep(1);

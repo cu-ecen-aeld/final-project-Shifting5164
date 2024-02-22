@@ -2,6 +2,7 @@
 #define CEWSERVER_CEW_SOCKET_H
 
 #include <stdint.h>
+#include <cew_client.h>
 
 #define BACKLOG 10
 
@@ -12,7 +13,8 @@
 /* Open socket on specified port */
 int32_t socket_setup(uint16_t);
 
-int32_t socket_receive_client(void);
+/* Socket accept, fills client info for worker */
+int32_t socket_accept_client(tsClientStruct **);
 
 /* Close socket */
 int32_t socket_close(void);
