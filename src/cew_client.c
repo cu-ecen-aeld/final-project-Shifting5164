@@ -1,8 +1,26 @@
+#include <malloc.h>
+#include <string.h>
+
 #include <cew_client.h>
 
-void client_stub(void){
-
+// will malloc psNewClient
+//todo return codes
+int32_t client_init(tsClientStruct **ppsNewClient) {
+    *ppsNewClient = malloc(sizeof(struct sClientStruct));
+    memset(*ppsNewClient, 0, sizeof(struct sClientStruct));
+    return 0;
 }
+
+void client_destroy(tsClientStruct *psClient) {
+    if (psClient == NULL) {
+        return;
+    }
+
+    close(psClient->iSockfd);   //todo check if open
+    free(psClient);
+}
+
+
 
 //
 //

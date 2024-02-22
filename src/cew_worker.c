@@ -5,11 +5,12 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/queue.h>
+#include <sys/socket.h>
 
 #include <cew_worker.h>
 #include <cew_logger.h>
 #include <cew_client.h>
-#include <sys/socket.h>
+
 
 /* Clients queue in thread to serve */
 typedef struct sClientEntry {
@@ -209,7 +210,7 @@ int32_t worker_destroy(void) {
             n1 = STAILQ_FIRST(&WorkerAdmin.psWorker[i]->ClientServingQueue);
             while (n1 != NULL) {
                 n2 = STAILQ_NEXT(n1, entries);
-                free(n1->psClient);
+                client_destroy(n1->psClient);
                 free(n1);   // queue item
                 n1 = n2;
             }
@@ -218,7 +219,7 @@ int32_t worker_destroy(void) {
             n1 = STAILQ_FIRST(&WorkerAdmin.psWorker[i]->ClientWaitingQueue);
             while (n1 != NULL) {
                 n2 = STAILQ_NEXT(n1, entries);
-                free(n1->psClient);
+                client_destroy(n1->psClient);
                 free(n1);   // queue item
                 n1 = n2;
             }

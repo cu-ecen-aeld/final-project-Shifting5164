@@ -20,7 +20,7 @@
  * singly linked for minimum space and pointer manipulation overhead at the expense
  * of O(n) removal for arbitrary elements.
  *
- * The design uses only the head and tail entires, thus an O(1) system.
+ * The design uses only the head and tail, thus an O(1) system.
  *
  */
 

@@ -14,15 +14,11 @@
 /* connect socket */
 static int32_t iFd = 0;
 
-// will malloc psNewClient
 // blocking accept
-int32_t socket_accept_client(tsClientStruct **ppsNewClient) {
+//todo libev ?
+int32_t socket_accept_client(tsClientStruct *psNewClient) {
 
-    *ppsNewClient = malloc(sizeof(struct sClientStruct));
-    tsClientStruct *psNewClient = *ppsNewClient;
-    memset(psNewClient, 0, sizeof(struct sClientStruct));
     if (!psNewClient) {
-        psNewClient = NULL;
         return -1;
     }
 
@@ -31,7 +27,6 @@ int32_t socket_accept_client(tsClientStruct **ppsNewClient) {
     /* Accept clients, and fill client information struct, BLOCKING  */
     if ((psNewClient->iSockfd = accept(iFd, (struct sockaddr *) &psNewClient->sTheirAddr, &psNewClient->tAddrSize)) ==
         -1) {
-        free(psNewClient);
 
         /* crtl +c */
         if (errno != EINTR) {
@@ -45,61 +40,6 @@ int32_t socket_accept_client(tsClientStruct **ppsNewClient) {
     log_debug("Got client %d from accept.", psNewClient->iId);
 
     return 0;
-}
-
-int32_t socket_receive_client(void) {
-
-    /* Found a exit signal */
-//    if (bTerminateProg == true) {
-//        break;
-//    }
-
-    /* tmp allocation of client data, to be copied to thead info struct later */
-    int32_t iSockfd;
-    struct sockaddr_storage sTheirAddr;
-    socklen_t tAddrSize = sizeof(sTheirAddr);
-
-    /* Accept clients, and fill client information struct, BLOCKING  */
-    if ((iSockfd = accept(iFd, (struct sockaddr *) &sTheirAddr, &tAddrSize)) < 0) {
-
-        /* crtl +c */
-        if (errno != EINTR) {
-//            do_exit_with_errno(__LINE__, errno);
-            return -1;
-        } else {
-            return -1;
-        }
-    }
-
-    char testbuff[] = "hello\n";
-    send(iSockfd, testbuff, sizeof(testbuff), 0);
-
-    return 0;
-
-//
-//    /* prepare thread  item */
-//    sWorkerThreadEntry *psClientThreadEntry = NULL;
-//    if ((psClientThreadEntry = calloc(sizeof(sWorkerThreadEntry), 1)) == NULL) {
-//        do_exit_with_errno(__LINE__, errno);
-//    }
-//
-//    /* Copy connect data from accept */
-//    psClientThreadEntry->sClient.iSockfd = iSockfd;
-//    psClientThreadEntry->sClient.tAddrSize = tAddrSize;
-//    memcpy(&psClientThreadEntry->sClient.sTheirAddr, &sTheirAddr, sizeof(sTheirAddr));
-//
-//    psClientThreadEntry->sClient.bIsDone = false;
-//
-//    /* Add random ID for tracking */
-//    psClientThreadEntry->lID = random();
-
-//    printf("Spinning up client thread: %ld\n", psClientThreadEntry->lID);
-
-//    /* Spawn new thread and serve the client */
-//    if (pthread_create(&psClientThreadEntry->sThread, NULL, client_serve, &psClientThreadEntry->sClient) < 0) {
-//        do_exit_with_errno(__LINE__, errno);
-//    }
-
 }
 
 

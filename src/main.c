@@ -237,15 +237,12 @@ int32_t main(int32_t argc, char **argv) {
     /* Keep receiving clients */
     while (1) {
         tsClientStruct *psNewClient = NULL;
+        client_init(&psNewClient);
 
-        if (socket_accept_client(&psNewClient) == 0) {
+        if (socket_accept_client(psNewClient) == 0) {
             worker_route_client(psNewClient);
         }
     }
-
-    sleep(1);
-
-    client_stub(); //remove me
 
     do_exit(EXIT_SUCCESS);
 }
