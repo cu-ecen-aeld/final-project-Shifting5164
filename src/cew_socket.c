@@ -50,7 +50,7 @@ static void socket_accept_client(EV_P_ ev_io *w, int revents) {
  *
  * http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#code_ev_io_code_is_this_file_descrip
  */
-void socket_poll(void) {
+int32_t socket_poll(void) {
     struct ev_loop *psLoop = ev_default_loop(0);
     ev_io ClientWatcher;
 
@@ -58,7 +58,9 @@ void socket_poll(void) {
     ev_io_init(&ClientWatcher, socket_accept_client, iFd, EV_READ);
 
     ev_io_start(psLoop, &ClientWatcher);
-    ev_loop(psLoop, 0);
+    ev_run(psLoop, 0);
+
+    return 0;
 }
 
 /* Description:
@@ -90,11 +92,6 @@ int32_t socket_setup(uint16_t iPort) {
         return errno;
     }
 
-    /* non-blocking socket settings */
-    if (fcntl(iFd, F_SETFL, O_NONBLOCK) == -1) {
-        return errno;
-    }
-
     /* lose the pesky "Address already in use" error message */
     int32_t iYes = 1;
     if (setsockopt(iFd, SOL_SOCKET, SO_REUSEADDR, &iYes, sizeof iYes) == -1) {
@@ -112,6 +109,11 @@ int32_t socket_setup(uint16_t iPort) {
         return errno;
     }
 
+    /* non-blocking socket settings */
+    if (fcntl(iFd, F_SETFL, O_NONBLOCK) == -1) {
+        return errno;
+    }
+
     log_info("Socket listing on port %d", iPort);
 
     return SOCK_EXIT_SUCCESS;
@@ -121,11 +123,9 @@ int32_t socket_setup(uint16_t iPort) {
 int32_t socket_close(void) {
 
     /* Close socket */
-    struct stat statbuf = {0};
-    if (fstat(iFd, &statbuf) == -1) {
-        if (errno != EBADF) {
-            close(iFd);
-        }
+    if (iFd > 0) {
+        close(iFd);
+        iFd = 0;
     }
 
     log_info("Stopped socket.");
