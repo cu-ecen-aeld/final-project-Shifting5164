@@ -237,15 +237,8 @@ int32_t main(int32_t argc, char **argv) {
         printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
 
-    /* Keep receiving clients */
-    while (1) {
-        tsClientStruct *psNewClient = NULL;
-        client_init(&psNewClient);
-
-        if (socket_accept_client(psNewClient) == 0) {
-            worker_route_client(psNewClient);
-        }
-    }
+    /* Accept connecting clients here */
+    socket_poll();
 
     do_exit(EXIT_SUCCESS);
 }

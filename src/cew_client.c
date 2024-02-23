@@ -1,9 +1,11 @@
 #include <malloc.h>
 #include <string.h>
+#include <errno.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 
 #include <cew_client.h>
-#include <errno.h>
+
 
 // will malloc psNewClient
 //todo return codes
