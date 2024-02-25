@@ -114,6 +114,11 @@ int32_t socket_setup(uint16_t iPort) {
         return errno;
     }
 
+    /* non-blocking socket settings */
+    if (fcntl(iFd, F_SETFL, O_NONBLOCK) == -1) {
+        return errno;
+    }
+
     log_info("Socket listing on port %d", iPort);
 
     return SOCK_EXIT_SUCCESS;
