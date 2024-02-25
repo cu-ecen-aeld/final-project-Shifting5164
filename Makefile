@@ -21,7 +21,7 @@ submodule:
 	git diff ./external/
 
 docker_build:
-	cd Docker && docker build --tag ${DOCKERTAG} .
+	cd Docker && docker build --no-cache --tag ${DOCKERTAG} .
 
 docker_run:
 	docker run -p 9000:9000 \
