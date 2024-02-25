@@ -85,7 +85,8 @@ target_compile_options(cewserver PRIVATE
         -Wformat
         -Wformat-security
         -Werror=format-security
-        -Wno-unused-parameter   #for threads
+        -Wno-unused-parameter       #for pthreads
+        -Wno-error=strict-aliasing  # for ev
         $<$<CONFIG:DEBUG>:-g3>
         $<$<CONFIG:DEBUG>:-Og>
         $<$<CONFIG:DEBUG>:-ggdb>
@@ -120,6 +121,6 @@ target_link_libraries(cewserver
         libev.a
 )
 
-# Just for testing
+# pthread
 target_link_libraries( cewserver ${CMAKE_THREAD_LIBS_INIT} )
 target_link_libraries( cewserver rt )
