@@ -28,7 +28,7 @@ jobs:
         with:
           images: junkyard6930/projenv
           tags: |
-            "projenv:github_actions"
+            "latest"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -43,7 +43,7 @@ jobs:
     name: Build Release
     runs-on: self-hosted
     container:
-      image: junkyard6930/projenv:github_actions
+      image: junkyard6930/projenv:latest
     needs: build_docker
     steps:
       - name: Checkout code
@@ -56,7 +56,7 @@ jobs:
     name: Build Debug
     runs-on: self-hosted
     container:
-      image: junkyard6930/projenv:github_actions
+      image: junkyard6930/projenv:latest
     needs: build_docker
     steps:
       - name: Checkout code
@@ -69,7 +69,7 @@ jobs:
 #    name: Static Code Check
 #    runs-on: self-hosted
 #    container:
-#      image: junkyard6930/projenv:github_actions
+#      image: junkyard6930/projenv:latest
 #    needs: build_docker
 #    steps:
 #      - name: Checkout code
@@ -82,7 +82,7 @@ jobs:
     name: Unit Testing
     runs-on: self-hosted
     container:
-      image: junkyard6930/projenv:github_actions
+      image: junkyard6930/projenv:latest
     needs: build_docker
     steps:
       - name: Checkout code
@@ -96,7 +96,7 @@ jobs:
 #    name: Memleak test
 #    runs-on: self-hosted
 #    container:
-#      image: junkyard6930/projenv:github_actions
+#      image: junkyard6930/projenv:latest
 #    needs: build_docker
 #    steps:
 #      - name: Checkout code
@@ -110,7 +110,7 @@ jobs:
 #    name: Make Memory Histogram
 #    runs-on: self-hosted
 #    container:
-#      image: junkyard6930/projenv:github_actions
+#      image: junkyard6930/projenv:latest
 #    needs: build_docker
 #    steps:
 #      - name: Checkout code

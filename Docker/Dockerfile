@@ -18,5 +18,6 @@ RUN \
         net-tools \
         netcat-openbsd \
         tmux \
-        libcurl4-gnutls-dev
+        libcurl4-gnutls-dev \
+        libcurl4
 
