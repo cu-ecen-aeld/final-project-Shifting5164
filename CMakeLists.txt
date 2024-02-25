@@ -17,6 +17,7 @@ target_include_directories(cewserver_test PRIVATE
         external/libini
         external/libev
         external/sds
+        /usr/include/x86_64-linux-gnu/curl/
 )
 
 # add library search paths
@@ -33,7 +34,7 @@ target_link_libraries(cewserver_test
 
 # Just for testing
 target_link_libraries(cewserver_test ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(cewserver_test rt cmocka)
+target_link_libraries(cewserver_test rt cmocka curl)
 
 
 #------------------------------------------------

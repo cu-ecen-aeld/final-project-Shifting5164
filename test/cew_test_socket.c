@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <cmocka.h>
+#include <curl/curl.h>
 #include "../src/cew_socket.c"
 
 //happy flow
@@ -18,13 +19,47 @@ static void socket_happy_connect2(void **state) {
     assert_false(socket_close());
 }
 
+//try a connection for something that doesn't exists yet
+static void socket_try_connect(void **state) {
+    CURL *curl = curl_easy_init();
+    assert_non_null(curl);
+    curl_easy_setopt(curl, CURLOPT_URL, "http://127.0.0.1:5001");
+    curl_easy_setopt(curl, CURLOPT_SERVER_RESPONSE_TIMEOUT , 1L);   //1 sec timeout for connect
+    assert_int_not_equal(curl_easy_perform(curl),0);
+    curl_easy_cleanup(curl);
+}
+
+static void *test_socket_listen(void *arg) {
+    assert_false(worker_init(2));
+    assert_false(socket_setup(5001));
+    assert_false(socket_poll());
+}
+
 //accept connection, and disconnect
 static void socket_connect(void **state) {
-    //TODO
+
+    static pthread_t TestSocket;
+    pthread_create(&TestSocket, NULL, test_socket_listen, NULL);
+
+    sleep(1); //give time for socket to be up. just lazy
+
+    CURL *curl = curl_easy_init();
+    assert_non_null(curl);
+    curl_easy_setopt(curl, CURLOPT_URL, "http://127.0.0.1:5001");
+    curl_easy_setopt(curl, CURLOPT_SERVER_RESPONSE_TIMEOUT , 1L);   //1 sec timeout for connect
+    assert_int_equal(curl_easy_perform(curl),1);        //curl will give a CURLE_UNSUPPORTED_PROTOCOL, expected
+    curl_easy_cleanup(curl);
+
+    pthread_cancel(TestSocket);
+    pthread_join(TestSocket, NULL);
+
+    assert_false(socket_close());
+    assert_false(worker_destroy());
 }
 
 const struct CMUnitTest test_socket[] = {
         cmocka_unit_test(socket_happy_connect),
         cmocka_unit_test(socket_happy_connect2),
+        cmocka_unit_test(socket_try_connect),
         cmocka_unit_test(socket_connect),
 };

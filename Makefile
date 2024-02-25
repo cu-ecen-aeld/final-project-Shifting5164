@@ -77,7 +77,7 @@ release:
 test: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
-	./build/debug/cewserver_test
+	CMOCKA_TEST_ABORT='1' ./build/debug/cewserver_test
 
 .PHONY: test_mem
 test_mem: debug

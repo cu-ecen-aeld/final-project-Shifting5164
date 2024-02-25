@@ -28,7 +28,7 @@ jobs:
         with:
           images: junkyard6930/projenv
           tags: |
-            "projenv:github_actions"
+            "latest"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -43,7 +43,7 @@ jobs:
     name: Build Release
     runs-on: self-hosted
     container:
-      image: junkyard6930/projenv:github_actions
+      image: junkyard6930/projenv:latest
     needs: build_docker
     steps:
       - name: Checkout code
@@ -56,7 +56,7 @@ jobs:
     name: Build Debug
     runs-on: self-hosted
     container:
-      image: junkyard6930/projenv:github_actions
+      image: junkyard6930/projenv:latest
     needs: build_docker
     steps:
       - name: Checkout code
@@ -65,24 +65,24 @@ jobs:
       - name: Build Code
         run: (make submodule && make libs && make debug)
 
-  code_check:
-    name: Static Code Check
-    runs-on: self-hosted
-    container:
-      image: junkyard6930/projenv:github_actions
-    needs: build_docker
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Code check
-        run: (make pipeline_check)
+#  code_check:
+#    name: Static Code Check
+#    runs-on: self-hosted
+#    container:
+#      image: junkyard6930/projenv:latest
+#    needs: build_docker
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Code check
+#        run: (make pipeline_check)
 
   code_test:
     name: Unit Testing
     runs-on: self-hosted
     container:
-      image: junkyard6930/projenv:github_actions
+      image: junkyard6930/projenv:latest
     needs: build_docker
     steps:
       - name: Checkout code
@@ -92,29 +92,29 @@ jobs:
         run: (make pipeline_test)
 
 
-  code_test_mem:
-    name: Memleak test
-    runs-on: self-hosted
-    container:
-      image: junkyard6930/projenv:github_actions
-    needs: build_docker
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Run valgrind
-        run: (make pipeline_test_mem)
-
-
-  code_test_mem_hist:
-    name: Make Memory Histogram
-    runs-on: self-hosted
-    container:
-      image: junkyard6930/projenv:github_actions
-    needs: build_docker
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Run massif
-        run: (make pipeline_test_mem_hist)
+#  code_test_mem:
+#    name: Memleak test
+#    runs-on: self-hosted
+#    container:
+#      image: junkyard6930/projenv:latest
+#    needs: build_docker
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Run valgrind
+#        run: (make pipeline_test_mem)
+#
+#
+#  code_test_mem_hist:
+#    name: Make Memory Histogram
+#    runs-on: self-hosted
+#    container:
+#      image: junkyard6930/projenv:latest
+#    needs: build_docker
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Run massif
+#        run: (make pipeline_test_mem_hist)

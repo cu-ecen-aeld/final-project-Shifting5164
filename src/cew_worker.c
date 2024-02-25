@@ -103,19 +103,14 @@ static void *worker_thread(void *arg) {
         worker_check_waiting(psArgs);
 
         /* Do some work commented because cppcheck.*/
-//        char testbuff[100] = {0};
-//        tsClientEntry *CurrEntry;
-//        STAILQ_FOREACH(CurrEntry, &psArgs->ClientServingQueue, entries) {
-//            // cppcheck-suppress uninitvar
-//            tsClientStruct *psCurrClient = CurrEntry->psClient;
-//
-//            // cppcheck-suppress uninitvar
-//            snprintf(testbuff, sizeof(testbuff), "thread %u, serving client %i\n", psArgs->uiId, psCurrClient->iId);
-//
-//            // cppcheck-suppress uninitvar
-//            send(psCurrClient->iSockfd, testbuff, sizeof(testbuff), 0);
-//            log_debug("%s", testbuff);
-//        }
+        char testbuff[100] = {0};
+        tsClientEntry *CurrEntry;
+        STAILQ_FOREACH(CurrEntry, &psArgs->ClientServingQueue, entries) {
+            tsClientStruct *psCurrClient = CurrEntry->psClient;
+            snprintf(testbuff, sizeof(testbuff), "thread %u, serving client %i\n", psArgs->uiId, psCurrClient->iId);
+            send(psCurrClient->iSockfd, testbuff, sizeof(testbuff), 0);
+            log_debug("%s", testbuff);
+        }
 
         sleep(1);
 

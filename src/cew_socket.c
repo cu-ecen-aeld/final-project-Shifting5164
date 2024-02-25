@@ -98,6 +98,11 @@ int32_t socket_setup(uint16_t iPort) {
         return errno;
     }
 
+    /* non-blocking socket settings */
+    if (fcntl(iFd, F_SETFL, O_NONBLOCK) == -1) {
+        return errno;
+    }
+
     if (bind(iFd, psServinfo->ai_addr, psServinfo->ai_addrlen) < 0) {
         return errno;
     }
