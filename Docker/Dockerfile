@@ -17,5 +17,6 @@ RUN \
         valgrind \
         net-tools \
         netcat-openbsd \
-        tmux
+        tmux \
+        libcurl4-gnutls-dev
 
