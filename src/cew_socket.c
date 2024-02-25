@@ -1,12 +1,17 @@
 #include <stdint.h>
 #include <unistd.h>
-#include <sys/socket.h>
 #include <netdb.h>
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
 
+#include <ev.h>
+
+#include <cew_worker.h>
 #include <cew_socket.h>
 #include <cew_logger.h>
 #include <cew_client.h>
@@ -14,34 +19,49 @@
 /* connect socket */
 static int32_t iFd = 0;
 
-// blocking accept
-//todo libev ?
-int32_t socket_accept_client(tsClientStruct *psNewClient) {
+/* Callback function for ev polling. Accepts the clients, makes a new fd, and routes the
+ * client to a worker. */
+static void socket_accept_client(EV_P_ ev_io *w, int revents) {
 
-    if (!psNewClient) {
-        return -1;
+    tsClientStruct *psNewClient = NULL;
+    client_init(&psNewClient);
+
+    log_debug("Got Callback from ev about a client.");
+
+    /* Accept clients, and fill client information struct */
+    psNewClient->iSockfd = accept(iFd, (struct sockaddr *) &psNewClient->sTheirAddr, &psNewClient->tAddrSize);
+    if (psNewClient->iSockfd == -1) {
+        free(psNewClient);
+        log_error("Error with accepting client.");
     }
 
-    log_debug("Waiting for accept");
+    psNewClient->iId = (int32_t) random(); // TODO move to client_init
 
-    /* Accept clients, and fill client information struct, BLOCKING  */
-    if ((psNewClient->iSockfd = accept(iFd, (struct sockaddr *) &psNewClient->sTheirAddr, &psNewClient->tAddrSize)) ==
-        -1) {
+    log_debug("Got client %d from accept. Going to route it to a worker.", psNewClient->iId);
 
-        /* crtl +c */
-        if (errno != EINTR) {
-            exit(0);        //TODO
-        } else {
-            return -1;
-        }
-    }
+    /* Route new client to a worker */
+    worker_route_client(psNewClient);
+}
 
-    psNewClient->iId = (int32_t) random();
-    log_debug("Got client %d from accept.", psNewClient->iId);
+/* Setup the polling and callback for new clients. New clients will be received on the
+ * non-blocking, already open iFd.
+ *
+ * This function should never return.
+ *
+ * http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#code_ev_io_code_is_this_file_descrip
+ */
+int32_t socket_poll(void) {
+    struct ev_loop *psLoop = ev_default_loop(0);
+    ev_io ClientWatcher;
+
+    /* Setup the callback for client notification */
+    ev_io_init(&ClientWatcher, socket_accept_client, iFd, EV_READ);
+
+    ev_io_start(psLoop, &ClientWatcher);
+    ev_run(psLoop, 0);
 
     return 0;
 }
-
 
 /* Description:
  * Setup socket handling
@@ -72,7 +92,7 @@ int32_t socket_setup(uint16_t iPort) {
         return errno;
     }
 
-    // lose the pesky "Address already in use" error message
+    /* lose the pesky "Address already in use" error message */
     int32_t iYes = 1;
     if (setsockopt(iFd, SOL_SOCKET, SO_REUSEADDR, &iYes, sizeof iYes) == -1) {
         return errno;
@@ -86,6 +106,11 @@ int32_t socket_setup(uint16_t iPort) {
     freeaddrinfo(psServinfo);
 
     if (listen(iFd, BACKLOG) < 0) {
+        return errno;
+    }
+
+    /* non-blocking socket settings */
+    if (fcntl(iFd, F_SETFL, O_NONBLOCK) == -1) {
         return errno;
     }
 
