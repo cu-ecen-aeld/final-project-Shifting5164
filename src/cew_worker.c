@@ -90,11 +90,19 @@ static tsWorkerAdmin WorkerAdmin = {0};
  */
 _Noreturn static void worker_process(uint32_t uiId) {
 
+    /* Destroy the old logger because this is inherited from a different process,
+     * re-open the logger to get a working thread for this process. */
+    logger_destroy();
+    tsSSettings  sCurrSSettings = settings_get();
+    logger_init(sCurrSSettings.pcLogfile, sCurrSSettings.lLogLevel);
+
+    log_debug("Worker %d is running.", uiId);
+
     while (1) {
 
-        if (log_debug("I am worker %d", uiId) != 0)
+        if (log_debug("I am worker %d", uiId) != 0) {
             exit(EXIT_FAILURE);
-        logger_flush();
+        }
 
         sleep(1);
     }
@@ -144,7 +152,7 @@ int32_t worker_route_client(tsClientStruct *psClient) {
     /* Route the client to a worker (simple round robbin for now)*/
     NextWorker = (NextWorker + 1) % WorkerAdmin.uiCurrWorkers;
     uint32_t worker = NextWorker;
-    worker++;
+    worker++; // workaround todo
 
     log_debug("Adding client %d to worker %d", psClient->iId, NextWorker);
 
@@ -167,6 +175,7 @@ int32_t worker_route_client(tsClientStruct *psClient) {
 //        return WORKER_EXIT_FAILURE;
 //    }
 
+    free(psClientEntry);
     return WORKER_EXIT_SUCCESS;
 }
 
@@ -175,6 +184,7 @@ int32_t worker_route_client(tsClientStruct *psClient) {
  */
 int32_t worker_init(const int32_t iWantedWorkers, const char *pcLogfilePath, tLoggerType Loglevel) {
 
+    WorkerAdmin.uiCurrWorkers = 0;
 
     for (int32_t i = 0; i < iWantedWorkers; i++) {
 
@@ -197,15 +207,6 @@ int32_t worker_init(const int32_t iWantedWorkers, const char *pcLogfilePath, tLo
                 break;
 
             case 0: //child
-//                settings_destroy();
-//                logger_destroy();
-//
-//                if (pcLogfilePath != NULL) {
-//                    if (logger_init(pcLogfilePath, Loglevel) != 0){
-//                        exit(EXIT_FAILURE);
-//                    }
-//                }
-
                 /* Goto worker processing */
                 worker_process(WorkerAdmin.psWorker[i]->uiId);
 
@@ -242,25 +243,9 @@ int32_t worker_init(const int32_t iWantedWorkers, const char *pcLogfilePath, tLo
         return WORKER_EXIT_FAILURE;
     }
 
-    // monitor
-    while (1) {
-        for (uint32_t i = 0; i < WorkerAdmin.uiCurrWorkers++; i++) {
-            int status;
-            if (WorkerAdmin.psWorker[i]->Pid != 0) {
-                if (waitpid(WorkerAdmin.psWorker[i]->Pid, &status, WNOHANG) != 0) {
-                    log_error("pid exit :%d", WorkerAdmin.psWorker[i]->Pid);
-                    WorkerAdmin.psWorker[i]->Pid = 0;
-                }
-            }
-
-        }
-
-        sleep(1);
-
-    }
-
     return WORKER_EXIT_SUCCESS;
 }
+
 
 //NOTE: calloc will break valgrind
 int32_t worker_destroy(void) {
@@ -308,4 +293,27 @@ int32_t worker_destroy(void) {
     log_info("Destroyed workers.");
 
     return WORKER_EXIT_SUCCESS;
+}
+
+
+_Noreturn void worker_monitor(void){
+
+    int32_t iMonitoring = WorkerAdmin.uiCurrWorkers;
+    while (1) {
+        for (uint32_t i = 0; i < WorkerAdmin.uiCurrWorkers; i++) {
+            int status;
+            if (WorkerAdmin.psWorker[i]->Pid != 0) {
+                if (waitpid(WorkerAdmin.psWorker[i]->Pid, &status, WNOHANG) != 0) {
+                    log_error("pid exit :%d", WorkerAdmin.psWorker[i]->Pid);
+                    WorkerAdmin.psWorker[i]->Pid = 0;
+                    iMonitoring--;
+                }
+            }
+
+        }
+
+        log_debug("Monitoring %d worker processes", iMonitoring);
+        sleep(1);
+    }
+
 }

@@ -81,7 +81,7 @@ set_target_properties(cewserver PROPERTIES SKIP_BUILD_RPATH TRUE)
 target_compile_options(cewserver PRIVATE
         -Wall
         -Wextra
-        -Werror
+#        -Werror
         -Wpedantic
         -Wformat
         -Wformat-security

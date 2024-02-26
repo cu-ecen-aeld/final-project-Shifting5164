@@ -33,6 +33,7 @@ static void socket_accept_client(EV_P_ ev_io *w, int revents) {
     if (psNewClient->iSockfd == -1) {
         free(psNewClient);
         log_error("Error with accepting client.");
+        return;
     }
 
     psNewClient->iId = (int32_t) random(); // TODO move to client_init

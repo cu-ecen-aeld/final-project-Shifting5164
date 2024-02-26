@@ -224,7 +224,7 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     // todo 10 should be settings
-    if ( (iRet = worker_init(10, sCurrSettings.pcLogfile, (tLoggerType)sCurrSettings.lLogLevel)) != WORKER_EXIT_SUCCESS){
+    if ( (iRet = worker_init(4, sCurrSettings.pcLogfile, (tLoggerType)sCurrSettings.lLogLevel)) != WORKER_EXIT_SUCCESS){
         do_exit_with_errno(iRet);
     }
 
@@ -238,8 +238,10 @@ int32_t main(int32_t argc, char **argv) {
         printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
 
+    worker_monitor();
+
     /* Accept connecting clients here */
-//    socket_poll();
+    socket_poll();
     while(1){
         sleep(100);
     }

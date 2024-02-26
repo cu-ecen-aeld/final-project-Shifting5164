@@ -148,7 +148,7 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
     /* Add timestamp, IEC compatible */
     time_t t = time(NULL);
     tzset();    // needed for localtime_r
-    struct tm local_tm ;
+    struct tm local_tm;
     struct tm *tz = localtime_r(&t, &local_tm);
     char acTime[64];
     strftime(acTime, sizeof(acTime), "%a, %d %b %Y %T %z", tz);
@@ -233,7 +233,10 @@ int32_t log_msg(tLoggerType eType, const char *message, ...) {
 int32_t logger_flush(void) {
     /* Force flush queue */
     iDoForceFlush = 1;
-    while (iDataInQueueCount) {
+
+    /* Prevent blocking, when nothing got flushed after this then just lose the data */
+    int32_t MaxLoops = 5;
+    while (iDataInQueueCount && MaxLoops--) {
         usleep(100);
     }
 

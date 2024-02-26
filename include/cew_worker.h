@@ -27,4 +27,6 @@ int32_t worker_destroy(void);
 
 int32_t worker_route_client(tsClientStruct *);
 
+_Noreturn void worker_monitor(void);
+
 #endif //CEWSERVER_CEW_WORKER_H

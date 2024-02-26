@@ -1,6 +1,8 @@
 .SILENT:
 .PHONY:
 
+#SHELL := /bin/bash
+
 DOCKERTAG=projenv
 DIR_DEBUG=build/debug
 DIR_RELEASE=build/release
@@ -114,4 +116,7 @@ cmocka:
 		&& make install
 
 gef:
-	bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+	bash -c "$$(curl -fsSL https://gef.blah.cat/sh)"
+
+kill:
+	./tools/killall
