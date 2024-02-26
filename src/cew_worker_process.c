@@ -101,7 +101,6 @@ _Noreturn static void worker_process_entry(uint32_t uiId) {
     /* Destroy the old logger because this is inherited from a different process,
      * re-open the logger to get a working thread for this process. */
     logger_destroy();
-    socket_close();
 
     tsSSettings sCurrSSettings = settings_get();
     logger_init(sCurrSSettings.pcLogfile, sCurrSSettings.lLogLevel);
