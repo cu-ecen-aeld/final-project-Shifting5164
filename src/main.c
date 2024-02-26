@@ -54,6 +54,12 @@ static void exit_cleanup(void) {
     logger_destroy();
 }
 
+static void do_exit(const int32_t ciExitval) {
+    log_info("Goodbye!");
+    exit_cleanup();
+    exit(ciExitval);
+}
+
 /* Signal actions */
 void sig_handler(const int32_t ciSigno) {
 
@@ -61,20 +67,14 @@ void sig_handler(const int32_t ciSigno) {
         return;
     }
 
-    //todo ctlr+c
-    if (ciSigno == SIGINT){
-        exit(0);
-    }
-
     log_warning("Got signal: %d", ciSigno);
 
-    bTerminateProg = true;
-}
+    //todo ctlr+c
+    if (ciSigno == SIGINT) {
+        do_exit(ciSigno);
+    }
 
-static void do_exit(const int32_t ciExitval) {
-    log_info("Goodbye!");
-    exit_cleanup();
-    exit(ciExitval);
+    bTerminateProg = true;
 }
 
 //static void do_thread_exit_with_errno(const int32_t ciLine, const int32_t ciErrno) {
@@ -202,7 +202,7 @@ int32_t main(int32_t argc, char **argv) {
     /* Get a copy of the current settings */
     tsSSettings sCurrSettings = settings_get();
 
-    if ((iRet = logger_init(sCurrSettings.pcLogfile, (tLoggerType)sCurrSettings.lLogLevel)) != 0) {
+    if ((iRet = logger_init(sCurrSettings.pcLogfile, (tLoggerType) sCurrSettings.lLogLevel)) != 0) {
         do_exit_with_errno(iRet);
     }
 
@@ -224,12 +224,13 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     // todo 10 should be settings
-    if ( (iRet = worker_init(4, sCurrSettings.pcLogfile, (tLoggerType)sCurrSettings.lLogLevel)) != WORKER_EXIT_SUCCESS){
+    if ((iRet = worker_init(4, sCurrSettings.pcLogfile, (tLoggerType) sCurrSettings.lLogLevel)) !=
+        WORKER_EXIT_SUCCESS) {
         do_exit_with_errno(iRet);
     }
 
     /* Opens a stream socket, failing and returning -1 if any of the socket connection steps fail. */
-    if ((iRet = socket_setup((int16_t)sCurrSettings.lPort)) != SOCK_EXIT_SUCCESS) {
+    if ((iRet = socket_setup((int16_t) sCurrSettings.lPort)) != SOCK_EXIT_SUCCESS) {
         log_error("Exit with %d: %s. Line %d.\n", iRet, strerror(iRet));
         do_exit(SOCKET_FAIL);
     }
@@ -242,7 +243,7 @@ int32_t main(int32_t argc, char **argv) {
 
     /* Accept connecting clients here */
     socket_poll();
-    while(1){
+    while (1) {
         sleep(100);
     }
 

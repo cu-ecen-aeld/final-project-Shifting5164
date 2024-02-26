@@ -6,12 +6,12 @@
 #include <errno.h>
 #include <sys/queue.h>
 #include <sys/socket.h>
+#include <sys/wait.h>
 
 #include <cew_settings.h>
 #include <cew_worker.h>
 #include <cew_logger.h>
 #include <cew_client.h>
-#include <sys/wait.h>
 
 
 /* Clients queue in thread to serve */
@@ -45,15 +45,17 @@ typedef struct sWorkerAdmin {
 } tsWorkerAdmin;
 
 /* Keep track of everything that happens */
-static tsWorkerAdmin WorkerAdmin = {0};
+static tsWorkerAdmin gWorkerAdmin = {0};
 
+/* Global ID for the workerprocess, only available in workers */
+static uint32_t guiWorkerID;
 
 /* Check the waiting client queue for this thread, get the clients
  * and add them to this thread for serving */
 //static int32_t worker_check_waiting(tsWorkerStruct *psArgs) {
 //
 //    /* Check waiting clients, skip when busy */
-//    if (pthread_mutex_trylock(&WorkerAdmin.Mutex[psArgs->uiId]) == 0) {
+//    if (pthread_mutex_trylock(&gWorkerAdmin.Mutex[psArgs->uiId]) == 0) {
 //
 //        /* Add a new client when something is there to add */
 //        tsClientEntry *psClientEntry = STAILQ_FIRST(&psArgs->ClientWaitingQueue);
@@ -76,7 +78,7 @@ static tsWorkerAdmin WorkerAdmin = {0};
 //            return 0;
 //        }
 //
-//        if (pthread_mutex_unlock(&WorkerAdmin.Mutex[psArgs->uiId]) != 0) {
+//        if (pthread_mutex_unlock(&gWorkerAdmin.Mutex[psArgs->uiId]) != 0) {
 //            pthread_exit(NULL);
 //        }
 //    }
@@ -85,7 +87,46 @@ static tsWorkerAdmin WorkerAdmin = {0};
 //}
 
 
-/* Serve the clients that are connected to the server
+/* Exit the worker process */
+static void worker_process_stop(void) {
+    settings_destroy();
+    logger_destroy();
+    exit(0);
+}
+
+static void worker_signal_handler(const int32_t ciSigno) {
+
+    if (ciSigno != SIGINT && ciSigno != SIGTERM) {
+        return;
+    }
+
+    log_warning("Worker %d. Got signal: %d", guiWorkerID, ciSigno);
+
+    if (ciSigno == SIGINT) {
+        worker_process_stop();
+    }
+}
+
+/* Setup signals for workers only */
+static int32_t worker_setup_signal(void) {
+
+    /* SIGINT or SIGTERM terminates the program with cleanup */
+    struct sigaction sSigAction;
+
+    sigemptyset(&sSigAction.sa_mask);
+
+    sSigAction.sa_flags = 0;
+    sSigAction.sa_handler = worker_signal_handler;
+
+    if (sigaction(SIGINT, &sSigAction, NULL) != 0) {
+        return errno;
+    }
+
+    return EXIT_SUCCESS;
+}
+
+/* Serve the clients that are connected to the server.
+ * NOTE: this is only called from a fork();
  *
  */
 _Noreturn static void worker_process(uint32_t uiId) {
@@ -93,10 +134,14 @@ _Noreturn static void worker_process(uint32_t uiId) {
     /* Destroy the old logger because this is inherited from a different process,
      * re-open the logger to get a working thread for this process. */
     logger_destroy();
-    tsSSettings  sCurrSSettings = settings_get();
+    tsSSettings sCurrSSettings = settings_get();
     logger_init(sCurrSSettings.pcLogfile, sCurrSSettings.lLogLevel);
 
+    guiWorkerID = uiId;
     log_debug("Worker %d is running.", uiId);
+
+    /* Setup new signal handlers for my worker process */
+    worker_setup_signal();
 
     while (1) {
 
@@ -150,7 +195,7 @@ int32_t worker_route_client(tsClientStruct *psClient) {
     }
 
     /* Route the client to a worker (simple round robbin for now)*/
-    NextWorker = (NextWorker + 1) % WorkerAdmin.uiCurrWorkers;
+    NextWorker = (NextWorker + 1) % gWorkerAdmin.uiCurrWorkers;
     uint32_t worker = NextWorker;
     worker++; // workaround todo
 
@@ -164,14 +209,14 @@ int32_t worker_route_client(tsClientStruct *psClient) {
 
     //TODO pid fd pass
 
-//    if (pthread_mutex_lock(&WorkerAdmin.Mutex[worker]) != 0) {
+//    if (pthread_mutex_lock(&gWorkerAdmin.Mutex[worker]) != 0) {
 //        free(psClientEntry);
 //        return WORKER_EXIT_FAILURE;
 //    }
 //
-//    STAILQ_INSERT_TAIL(&WorkerAdmin.psWorker[worker]->ClientWaitingQueue, psClientEntry, entries);
+//    STAILQ_INSERT_TAIL(&gWorkerAdmin.psWorker[worker]->ClientWaitingQueue, psClientEntry, entries);
 //
-//    if (pthread_mutex_unlock(&WorkerAdmin.Mutex[worker]) != 0) {
+//    if (pthread_mutex_unlock(&gWorkerAdmin.Mutex[worker]) != 0) {
 //        return WORKER_EXIT_FAILURE;
 //    }
 
@@ -184,20 +229,20 @@ int32_t worker_route_client(tsClientStruct *psClient) {
  */
 int32_t worker_init(const int32_t iWantedWorkers, const char *pcLogfilePath, tLoggerType Loglevel) {
 
-    WorkerAdmin.uiCurrWorkers = 0;
+    gWorkerAdmin.uiCurrWorkers = 0;
 
     for (int32_t i = 0; i < iWantedWorkers; i++) {
 
         log_debug("Adding worker %d to system.", i);
 
         /* Allocate mem for worker and thread args */
-        if ((WorkerAdmin.psWorker[i] = malloc(sizeof(struct sWorkerStruct))) == NULL) {
+        if ((gWorkerAdmin.psWorker[i] = malloc(sizeof(struct sWorkerStruct))) == NULL) {
             goto exit_no_worker;
         }
-        memset(WorkerAdmin.psWorker[i], 0, sizeof(struct sWorkerStruct));
+        memset(gWorkerAdmin.psWorker[i], 0, sizeof(struct sWorkerStruct));
 
         /* Add thread args to pass */
-        WorkerAdmin.psWorker[i]->uiId = i;
+        gWorkerAdmin.psWorker[i]->uiId = i;
 
         pid_t pid = fork();
         switch (pid) {
@@ -208,37 +253,37 @@ int32_t worker_init(const int32_t iWantedWorkers, const char *pcLogfilePath, tLo
 
             case 0: //child
                 /* Goto worker processing */
-                worker_process(WorkerAdmin.psWorker[i]->uiId);
+                worker_process(gWorkerAdmin.psWorker[i]->uiId);
 
                 /* Worker should never exit */
                 exit(EXIT_FAILURE);
 
             default: //parent
                 /* Archive pid for monitoring alter */
-                WorkerAdmin.psWorker[i]->Pid = pid;
-                log_debug("Worker %d has pid %d.", i, pid);
+                gWorkerAdmin.psWorker[i]->Pid = pid;
+                log_debug("New worker %d has pid %d.", i, pid);
                 break;
         }
 
 //        /* Init mutext */
-//        if (pthread_mutex_init(&WorkerAdmin.Mutex[i], NULL) != 0)
+//        if (pthread_mutex_init(&gWorkerAdmin.Mutex[i], NULL) != 0)
 //            goto exit_after_worker;
 //
 //        /* Init queues */
-//        STAILQ_INIT(&WorkerAdmin.psWorker[i]->ClientWaitingQueue);
-//        STAILQ_INIT(&WorkerAdmin.psWorker[i]->ClientServingQueue);
+//        STAILQ_INIT(&gWorkerAdmin.psWorker[i]->ClientWaitingQueue);
+//        STAILQ_INIT(&gWorkerAdmin.psWorker[i]->ClientServingQueue);
 
         /* Spin up worker thread */
-//        if (pthread_create(&WorkerAdmin.psWorker[i]->th, NULL, worker_thread, WorkerAdmin.psWorker[i]) != 0) {
+//        if (pthread_create(&gWorkerAdmin.psWorker[i]->th, NULL, worker_thread, gWorkerAdmin.psWorker[i]) != 0) {
 //            goto exit_after_worker;
 //        }
 
-        WorkerAdmin.uiCurrWorkers++;
+        gWorkerAdmin.uiCurrWorkers++;
         continue;
 
         /* exit conditions */
         exit_no_worker:
-        WorkerAdmin.psWorker[i] = NULL;
+        gWorkerAdmin.psWorker[i] = NULL;
 
         return WORKER_EXIT_FAILURE;
     }
@@ -251,21 +296,22 @@ int32_t worker_init(const int32_t iWantedWorkers, const char *pcLogfilePath, tLo
 int32_t worker_destroy(void) {
 
     /* Remove worker entries */
-    for (uint32_t i = 0; i < WorkerAdmin.uiCurrWorkers; i++) {
+    for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
 
-        if (WorkerAdmin.psWorker[i]) {
+        if (gWorkerAdmin.psWorker[i]) {
 
             log_debug("Destroying worker %d.", i);
 
-            /* stop threads */
-//            pthread_cancel(WorkerAdmin.psWorker[i]->th);
-//            pthread_join(WorkerAdmin.psWorker[i]->th, NULL);
-
-//            pthread_mutex_destroy(&WorkerAdmin.Mutex[i]);
+            /* stop process */
+            if (kill(gWorkerAdmin.psWorker[i]->Pid, SIGINT) == 0) {
+                log_debug("Successfully killed worker: %d", gWorkerAdmin.psWorker[i]->Pid);
+            } else {
+                log_debug("Error killing worker: %d", gWorkerAdmin.psWorker[i]->Pid);
+            }
 
             /* Free serving clients queue */
             tsClientEntry *n1, *n2;
-            n1 = STAILQ_FIRST(&WorkerAdmin.psWorker[i]->ClientServingQueue);
+            n1 = STAILQ_FIRST(&gWorkerAdmin.psWorker[i]->ClientServingQueue);
             while (n1 != NULL) {
                 n2 = STAILQ_NEXT(n1, entries);
                 client_destroy(n1->psClient);
@@ -273,22 +319,13 @@ int32_t worker_destroy(void) {
                 n1 = n2;
             }
 
-//            /* Free waiting clients and queue */
-//            n1 = STAILQ_FIRST(&WorkerAdmin.psWorker[i]->ClientWaitingQueue);
-//            while (n1 != NULL) {
-//                n2 = STAILQ_NEXT(n1, entries);
-//                client_destroy(n1->psClient);
-//                free(n1);   // queue item
-//                n1 = n2;
-//            }
-
             /* free mem */
-            free(WorkerAdmin.psWorker[i]);
-            WorkerAdmin.psWorker[i] = NULL;
+            free(gWorkerAdmin.psWorker[i]);
+            gWorkerAdmin.psWorker[i] = NULL;
         }
     }
 
-    WorkerAdmin.uiCurrWorkers = 0;
+    gWorkerAdmin.uiCurrWorkers = 0;
 
     log_info("Destroyed workers.");
 
@@ -296,24 +333,23 @@ int32_t worker_destroy(void) {
 }
 
 
-_Noreturn void worker_monitor(void){
+/* Does nothing yet, only monitoring workers and outputting a log */
+_Noreturn void worker_monitor(void) {
 
-    int32_t iMonitoring = WorkerAdmin.uiCurrWorkers;
+    int32_t iMonitoring = gWorkerAdmin.uiCurrWorkers;
     while (1) {
-        for (uint32_t i = 0; i < WorkerAdmin.uiCurrWorkers; i++) {
+        for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
             int status;
-            if (WorkerAdmin.psWorker[i]->Pid != 0) {
-                if (waitpid(WorkerAdmin.psWorker[i]->Pid, &status, WNOHANG) != 0) {
-                    log_error("pid exit :%d", WorkerAdmin.psWorker[i]->Pid);
-                    WorkerAdmin.psWorker[i]->Pid = 0;
+            if (gWorkerAdmin.psWorker[i]->Pid != 0) {
+                if (waitpid(gWorkerAdmin.psWorker[i]->Pid, &status, WNOHANG) != 0) {
+                    log_error("pid exit :%d", gWorkerAdmin.psWorker[i]->Pid);
+                    gWorkerAdmin.psWorker[i]->Pid = 0;
                     iMonitoring--;
                 }
             }
-
         }
 
         log_debug("Monitoring %d worker processes", iMonitoring);
         sleep(1);
     }
-
 }
