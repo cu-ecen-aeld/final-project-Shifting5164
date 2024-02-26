@@ -2,6 +2,8 @@
 #define CEWSERVER_CEW_WORKER_H
 
 #include <stdlib.h>
+
+#include <cew_logger.h>
 #include <cew_client.h>
 
 /* The config will define the current workers and clients dynamically
@@ -19,7 +21,7 @@
 #define WORKER_EXIT_FAILURE EXIT_FAILURE   // + errno usually
 
 
-int32_t worker_init(const int32_t);
+int32_t worker_init(const int32_t ,const char *, tLoggerType);
 
 int32_t worker_destroy(void);
 

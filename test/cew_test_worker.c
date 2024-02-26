@@ -10,7 +10,7 @@
 
 //happy flow, memcheck
 static void worker_happy_init(void **state) {
-    assert_false(worker_init(1));
+    assert_false(worker_init(1,NULL,0));
     assert_false(worker_destroy());
 }
 
@@ -20,7 +20,7 @@ static void worker_happy_client_add(void **state) {
     unlink(worker_testfile);
 
     assert_false(logger_init("logging_testfile", eDEBUG));
-    assert_false(worker_init(10));
+    assert_false(worker_init(10,NULL,0));
 
     for (int i = 0; i < 17; i++) {
         tsClientStruct *psAddClient = NULL;

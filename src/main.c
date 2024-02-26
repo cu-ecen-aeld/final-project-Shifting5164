@@ -44,6 +44,7 @@ https://github.com/cu-ecen-aeld/final-project-Shifting5164
 
 bool bTerminateProg = false; /* terminating program gracefully */
 
+
 /* completing any open connection operations,
  * closing any open sockets, and deleting the file /var/tmp/aesdsocketdata*/
 static void exit_cleanup(void) {
@@ -223,7 +224,7 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     // todo 10 should be settings
-    if ( (iRet = worker_init(10)) != WORKER_EXIT_SUCCESS){
+    if ( (iRet = worker_init(10, sCurrSettings.pcLogfile, (tLoggerType)sCurrSettings.lLogLevel)) != WORKER_EXIT_SUCCESS){
         do_exit_with_errno(iRet);
     }
 
@@ -238,7 +239,10 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     /* Accept connecting clients here */
-    socket_poll();
+//    socket_poll();
+    while(1){
+        sleep(100);
+    }
 
     do_exit(EXIT_SUCCESS);
 }
