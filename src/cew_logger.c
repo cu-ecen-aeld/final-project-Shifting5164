@@ -235,7 +235,7 @@ int32_t logger_flush(void) {
     iDoForceFlush = 1;
 
     /* Prevent blocking, when nothing got flushed after this then just lose the data */
-    int32_t MaxLoops = 5;
+    int32_t MaxLoops = 50;
     while (iDataInQueueCount && MaxLoops--) {
         usleep(100);
     }
@@ -247,7 +247,7 @@ int32_t logger_flush(void) {
  *
  * Return:
  * LOG_NOINIT: Init already done
- * 0: Sucessfull
+ * 0: Successful
  * errno on error
  */
 int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
