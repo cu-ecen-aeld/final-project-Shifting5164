@@ -20,8 +20,10 @@
 #define WORKER_EXIT_SUCCESS EXIT_SUCCESS
 #define WORKER_EXIT_FAILURE EXIT_FAILURE   // + errno usually
 
+#define WORKER_IPC_FILE "/run/cew_worker"
 
-int32_t worker_init(const int32_t ,const char *, tLoggerType);
+
+int32_t worker_init(const int32_t);
 
 int32_t worker_destroy(void);
 

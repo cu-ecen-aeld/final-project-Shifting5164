@@ -30,7 +30,7 @@ static void socket_try_connect(void **state) {
 }
 
 static void *test_socket_listen(void *arg) {
-    assert_false(worker_init(2,NULL,0));
+    assert_false(worker_init(2));
     assert_false(socket_setup(5001));
     assert_false(socket_poll());
 }

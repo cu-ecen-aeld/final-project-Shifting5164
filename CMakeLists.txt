@@ -55,7 +55,6 @@ add_executable(cewserver
         include/cew_socket.h
         include/cew_worker.h
         src/cew_worker.c
-        src/cew_worker_process.c
 )
 
 target_include_directories(cewserver PRIVATE

@@ -32,6 +32,7 @@
 #include <cew_socket.h>
 #include <cew_worker.h>
 #include <cew_client.h>
+#include <sys/time.h>
 
 /*
 https://github.com/cu-ecen-aeld/final-project-Shifting5164
@@ -49,9 +50,9 @@ bool bTerminateProg = false; /* terminating program gracefully */
  * closing any open sockets, and deleting the file /var/tmp/aesdsocketdata*/
 static void exit_cleanup(void) {
     socket_close();
-    settings_destroy();
     worker_destroy();
     logger_destroy();
+    settings_destroy();
 }
 
 static void do_exit(const int32_t ciExitval) {
@@ -182,6 +183,12 @@ static int32_t daemonize(void) {
     return RET_OK;
 }
 
+static void seed_random(void){
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    srand(t.tv_usec * t.tv_sec);
+}
+
 int32_t main(int32_t argc, char **argv) {
 
     bool bDeamonize = false;
@@ -190,6 +197,8 @@ int32_t main(int32_t argc, char **argv) {
     if ((argc > 1) && strcmp(argv[0], "-d")) {
         bDeamonize = true;
     }
+
+    seed_random();
 
     if ((iRet = settings_init()) != 0) {
         do_exit_with_errno(iRet);
@@ -224,7 +233,7 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     // todo 10 should be settings
-    if ((iRet = worker_init(4, sCurrSettings.pcLogfile, (tLoggerType) sCurrSettings.lLogLevel)) !=
+    if ((iRet = worker_init(2)) !=
         WORKER_EXIT_SUCCESS) {
         do_exit_with_errno(iRet);
     }
