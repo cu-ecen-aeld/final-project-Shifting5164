@@ -1,5 +1,5 @@
 .SILENT:
-.PHONY:
+#.PHONY:
 
 #SHELL := /bin/bash
 
@@ -68,6 +68,15 @@ debug:
 	file ${DIR_DEBUG}/${PROJ_NAME}
 	checksec --file=${DIR_DEBUG}/${PROJ_NAME}
 
+debug_strace: debug
+	strace -f -e 'trace=!clock_nanosleep' -s1000 -y ./build/debug/cewserver
+
+debug_mem: debug
+	valgrind --malloc-fill=0xAB --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver_test
+
+debug_run: debug
+	./build/debug/cewserver
+
 release:
 	mkdir --parents -- ${DIR_RELEASE}
 	cmake -S . -B ${DIR_RELEASE} -DCMAKE_BUILD_TYPE=Release
@@ -75,19 +84,16 @@ release:
 	file ${DIR_RELEASE}/${PROJ_NAME}
 	checksec --file=${DIR_RELEASE}/${PROJ_NAME}
 
-.PHONY: test
 test: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
 	CMOCKA_TEST_ABORT='1' ./build/debug/cewserver_test
 
-.PHONY: test_mem
 test_mem: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
 	valgrind --malloc-fill=0xAB --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver_test
 
-.PHONY: test_mem_hist
 test_mem_hist: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
