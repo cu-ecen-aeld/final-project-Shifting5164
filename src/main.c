@@ -235,9 +235,8 @@ int32_t main(int32_t argc, char **argv) {
         do_exit_with_errno(iRet);
     }
 
-    // todo 10 should be settings
-    if ((iRet = worker_init(2)) !=
-        WORKER_EXIT_SUCCESS) {
+    // TODO, should be settings
+    if ((iRet = worker_init(2)) != WORKER_EXIT_SUCCESS) {
         do_exit_with_errno(iRet);
     }
 
@@ -251,10 +250,11 @@ int32_t main(int32_t argc, char **argv) {
         printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
 
+    worker_dummy_send();
     worker_monitor();
 
     /* Accept connecting clients here */
-    socket_poll();
+    socket_poll(); //TODO pass only FD
     while (1) {
         sleep(100);
     }

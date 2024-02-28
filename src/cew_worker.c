@@ -17,23 +17,24 @@
 #include <sys/stat.h>
 
 /* Clients queue in thread to serve */
-typedef struct sClientEntry {
-    tsClientStruct *psClient;               // client to serve in the thread
-    STAILQ_ENTRY(sClientEntry) entries;     // Singly linked tail queue
-} tsClientEntry;
-STAILQ_HEAD(ClientQueue, sClientEntry);
+//typedef struct sClientEntry {
+//    tsClientStruct *psClient;               // client to serve in the thread
+//    STAILQ_ENTRY(sClientEntry) entries;     // Singly linked tail queue
+//} tsClientEntry;
+//STAILQ_HEAD(ClientQueue, sClientEntry);
 
 /* Worker struct */
 typedef struct sWorkerStruct {
-    uint32_t uiId;                            // Worker id
-//    int32_t iClientsServing;                // Connected clients
-    pid_t Pid;                                // PID of the worker
-    int32_t iIPC;                             // socket to accept data from
-    sds IPCFile;                              // location of IPC unix named socket
-
+    uint32_t uiId;              // Worker id
+//    int32_t iClientsServing;  // Connected clients
+    pid_t Pid;                  // PID of the worker
+    int32_t iMasterIPCAccept;               // master <> worker IPC
+    int32_t iMasterIPCfd;               // master <> worker IPC
+    int32_t iWorkerIPCfd;             // worker <> master IPC
+    sds IPCFile;                // location of IPC unix named socket
     /* Clients that are being actively served by the thread
      * Tail append, pop head */
-    struct ClientQueue ClientServingQueue;
+//    struct ClientQueue ClientServingQueue;
 
     /* Clients that are pending to be added to the thread
      * Tail append, pop head */
@@ -46,6 +47,14 @@ typedef struct sWorkerAdmin {
     tsWorkerStruct *psWorker[WORKER_MAX_WORKERS];   // Registered workers
 } tsWorkerAdmin;
 
+#define IPC_MAGIC_HEADER 0x936C
+typedef struct sIPCmsg {
+    int16_t iHeader;
+    int32_t iSize;
+    int32_t iFd;
+//    int16_t sCRC16;         //TODO
+} tsIPCmsg;
+
 /* Keep track of everything that happens */
 static tsWorkerAdmin gWorkerAdmin = {0};
 
@@ -55,60 +64,6 @@ static uint32_t guiWorkerID;
 //#############################################################################################
 //#######       Worker process functions
 //#############################################################################################
-
-
-/* iSocket is populated when EXIT_SUCCESS */
-static int32_t workerp_create_parent_socket(tsWorkerStruct *psWorker) {
-
-    log_debug("Creating IPC socket for worker %d, file %s", psWorker->uiId, psWorker->IPCFile);
-
-    /* Create local socket. */
-    int32_t iFd = socket(AF_UNIX, SOCK_SEQPACKET, 0);
-    if (iFd == -1) {
-        printf("exit 1\n");
-        return EXIT_FAILURE;
-    }
-
-    /* Bind socket to socket sName.
-     * Make sure the string fits first */
-    struct sockaddr_un sName = {0};
-    sName.sun_family = AF_UNIX;
-    if (sdslen(psWorker->IPCFile) < sizeof(sName.sun_path)) {
-        memcpy(sName.sun_path, psWorker->IPCFile, sdslen(psWorker->IPCFile));
-    } else {
-        return EXIT_FAILURE;
-    }
-
-    /* Make sure the IPC folder exists */
-    struct stat st = {0};
-    if (stat(WORKER_IPC_FOLDER, &st) == -1) {
-        if (mkdir(WORKER_IPC_FOLDER, 0700) == -1){
-            return EXIT_FAILURE;
-        }
-    }
-
-    /* In case something was leftover from another startup */
-    unlink(psWorker->IPCFile);
-
-    if (bind(iFd, (const struct sockaddr *) &sName, sizeof(sName.sun_path) - 1) == -1) {
-        printf("exit 2\n");
-        return EXIT_FAILURE;
-    }
-
-    /* Secure the IPC file */
-    if (chmod(psWorker->IPCFile, S_IRUSR|S_IWUSR) == -1){
-        return EXIT_FAILURE;
-    }
-
-    if (listen(iFd, 20) == -1) {
-        printf("exit 3\n");
-        return EXIT_FAILURE;
-    }
-
-    psWorker->iIPC = iFd;
-//    printf("exit OK\n");
-    return EXIT_SUCCESS;
-}
 
 
 /* Check the waiting client queue for this thread, get the clients
@@ -152,6 +107,7 @@ static int32_t workerp_create_parent_socket(tsWorkerStruct *psWorker) {
 static void workerp_process_stop(void) {
     settings_destroy();
     logger_destroy();
+    worker_destroy(); //TODO
     exit(0);
 }
 
@@ -186,15 +142,46 @@ static int32_t workerp_setup_signal(void) {
     return EXIT_SUCCESS;
 }
 
-static void worker_setup_ipc(void) {
+static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
 
+    log_debug("Connecting to IPC socket for worker %d on file %s", psWorker->uiId, psWorker->IPCFile);
+
+    /* Wait for the master to finish the file socket */
+    while (access(psWorker->IPCFile, F_OK) != 0);
+
+    log_debug("worker %d. Master made the socket file available", psWorker->uiId);
+
+    /* Create local socket. */
+    if ((psWorker->iWorkerIPCfd = socket(AF_UNIX, SOCK_SEQPACKET, 0)) == -1) {
+        perror("Socket");
+        return EXIT_FAILURE;
+    }
+
+    struct sockaddr_un sName = {0};
+    sName.sun_family = AF_UNIX;
+    if (sdslen(psWorker->IPCFile) < sizeof(sName.sun_path)) {
+        memcpy(sName.sun_path, psWorker->IPCFile, sdslen(psWorker->IPCFile));
+    } else {
+        perror("memcpy");
+        return EXIT_FAILURE;
+    }
+
+    /* Connect */
+    if ((connect(psWorker->iWorkerIPCfd, (const struct sockaddr *) &sName, sizeof(sName))) == -1) {
+        perror("Connect");
+        return (EXIT_FAILURE);
+    }
+
+    log_debug("Worker %d, connected with master through fd %d", psWorker->uiId, psWorker->iWorkerIPCfd);
+
+    return EXIT_SUCCESS;
 }
 
 /* Serve the clients that are connected to the server.
  * NOTE: this is only called from a fork();
  *
  */
-_Noreturn static void workerp_entry(uint32_t uiId) {
+_Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
 
     /* Destroy the old logger because this is inherited from a different process,
      * re-open the logger to get a working thread for this process. */
@@ -203,19 +190,39 @@ _Noreturn static void workerp_entry(uint32_t uiId) {
     tsSSettings sCurrSSettings = settings_get();
     logger_init(sCurrSSettings.pcLogfile, sCurrSSettings.lLogLevel);
 
-    guiWorkerID = uiId;
-    log_debug("Worker %d is running.", uiId);
+    log_debug("Worker %d is running.", psWorker->uiId);
 
     /* Setup new signal handlers for my worker process */
     workerp_setup_signal();
 
+    /* Connect to parent IPC */
+    if (workerp_connect_ipc_socket(psWorker) != 0) {
+        exit(EXIT_FAILURE);
+    }
+
     while (1) {
 
-        if (log_debug("I am worker %d", uiId) != 0) {
+        if (log_debug("I am worker %d", psWorker->uiId) != 0) {
             exit(EXIT_FAILURE);
         }
 
+        log_debug("worker %d. Waiting for data.", psWorker->uiId);
+
+        char buffer[100] = {0};
+        int ret = read(psWorker->iWorkerIPCfd, buffer, sizeof(buffer) - 1);
+
+        if (ret == -1) {
+            perror("worker read");
+            exit(EXIT_FAILURE); //TODO
+        } else {
+
+            if (ret > 0) {
+                log_debug("worker %d. received:%s", psWorker->uiId, buffer);
+            }
+        }
+
         sleep(1);
+
     }
 
 
@@ -254,6 +261,66 @@ _Noreturn static void workerp_entry(uint32_t uiId) {
 //#############################################################################################
 //#############################################################################################
 
+static int32_t worker_create_ipc_socket(tsWorkerStruct *psWorker) {
+
+    log_debug("Creating IPC socket for worker %d, file %s", psWorker->uiId, psWorker->IPCFile);
+
+    /* Create local socket. */
+    if ((psWorker->iMasterIPCAccept = socket(AF_UNIX, SOCK_SEQPACKET, 0)) == -1) {
+        perror("Socket");
+        return EXIT_FAILURE;
+    }
+
+    /* Bind socket to socket sName.
+     * Make sure the string fits first */
+    struct sockaddr_un sName = {0};
+    sName.sun_family = AF_UNIX;
+    if (sdslen(psWorker->IPCFile) < sizeof(sName.sun_path)) {
+        memcpy(sName.sun_path, psWorker->IPCFile, sdslen(psWorker->IPCFile));
+    } else {
+        perror("memcpy");
+        return EXIT_FAILURE;
+    }
+
+    /* Make sure the IPC folder exists */
+    struct stat st = {0};
+    if (stat(WORKER_IPC_FOLDER, &st) == -1) {
+        if (mkdir(WORKER_IPC_FOLDER, 0700) == -1) {
+            perror("mkdir");
+            return EXIT_FAILURE;
+        }
+    }
+
+    /* In case something was leftover from another startup */
+    unlink(psWorker->IPCFile);
+
+    if (bind(psWorker->iMasterIPCAccept, (const struct sockaddr *) &sName, sizeof(sName.sun_path) - 1) == -1) {
+        perror("bind");
+        return EXIT_FAILURE;
+    }
+
+    /* Secure the IPC file */
+    if (chmod(psWorker->IPCFile, S_IRUSR | S_IWUSR) == -1) {
+        perror("chmod");
+        return EXIT_FAILURE;
+    }
+
+    if (listen(psWorker->iMasterIPCAccept, 20) == -1) {
+        perror("listen");
+        return EXIT_FAILURE;
+    }
+
+    /* Wait for client to accept */
+    if ((psWorker->iWorkerIPCfd = accept(psWorker->iMasterIPCAccept, NULL, NULL)) == -1) {
+        perror("accept");
+        exit(EXIT_FAILURE);
+    }
+
+    log_info("Created IPC socket for worker %d, with fd %d", psWorker->uiId, psWorker->iMasterIPCfd);
+
+    return EXIT_SUCCESS;
+}
+
 /* Route an accepted client to a worker that is the least busy. This
  * thread will serve the client with data */
 int32_t worker_route_client(tsClientStruct *psClient) {
@@ -267,14 +334,14 @@ int32_t worker_route_client(tsClientStruct *psClient) {
     /* Route the client to a worker (simple round robbin for now)*/
     NextWorker = (NextWorker + 1) % gWorkerAdmin.uiCurrWorkers;
     uint32_t worker = NextWorker;
-    worker++; // workaround todo
+    worker++; // workaround //TODO
 
     log_debug("Adding client %d to worker %d", psClient->iId, NextWorker);
 
     /* Add client to the queue, free at popping from queue */
-    tsClientEntry *psClientEntry = malloc(sizeof(struct sClientEntry));
-    memset(psClientEntry, 0, sizeof(struct sClientEntry));
-    psClientEntry->psClient = psClient;
+//    tsClientEntry *psClientEntry = malloc(sizeof(struct sClientEntry));
+//    memset(psClientEntry, 0, sizeof(struct sClientEntry));
+//    psClientEntry->psClient = psClient;
 
 
     //TODO pid fd pass
@@ -290,7 +357,7 @@ int32_t worker_route_client(tsClientStruct *psClient) {
 //        return WORKER_EXIT_FAILURE;
 //    }
 
-    free(psClientEntry);    //todo
+//    free(psClientEntry);    //todo
     return WORKER_EXIT_SUCCESS;
 }
 
@@ -312,7 +379,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
         tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];
         memset(psWorker, 0, sizeof(struct sWorkerStruct));
 
-        log_debug("psWorker %d @0x%X\n", i, psWorker);
+        log_debug("psWorker %d @ 0x%X\n", i, psWorker);
 
         /* Add thread args to pass */
         psWorker->uiId = i;
@@ -330,7 +397,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
 
             case 0: //child
                 /* Goto worker processing */
-                workerp_entry(psWorker->uiId);
+                workerp_entry(psWorker);
 
                 /* Worker should never exit */
                 exit(EXIT_FAILURE);
@@ -343,7 +410,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
         }
 
         /* Create IPC for child worker */
-        if (workerp_create_parent_socket(psWorker) != 0) {
+        if (worker_create_ipc_socket(psWorker) != 0) {
             goto exit_free_worker;
         }
 
@@ -386,9 +453,9 @@ int32_t worker_destroy(void) {
             }
 
             /* Cleanup IPC */
-            if (psWorker->iIPC != 0) {
-                close(psWorker->iIPC);
-                psWorker->iIPC = 0;
+            if (psWorker->iMasterIPCfd != 0) {
+                close(psWorker->iMasterIPCfd);
+                psWorker->iMasterIPCfd = 0;
             }
 
             unlink(psWorker->IPCFile);
@@ -399,14 +466,14 @@ int32_t worker_destroy(void) {
             }
 
             /* Free serving clients queue */
-            tsClientEntry *n1, *n2;
-            n1 = STAILQ_FIRST(&psWorker->ClientServingQueue);
-            while (n1 != NULL) {
-                n2 = STAILQ_NEXT(n1, entries);
-                client_destroy(n1->psClient);
-                free(n1);   // queue item
-                n1 = n2;
-            }
+//            tsClientEntry *n1, *n2;
+//            n1 = STAILQ_FIRST(&psWorker->ClientServingQueue);
+//            while (n1 != NULL) {
+//                n2 = STAILQ_NEXT(n1, entries);
+//                client_destroy(n1->psClient);
+//                free(n1);   // queue item
+//                n1 = n2;
+//            }
 
             /* free mem */
             free(gWorkerAdmin.psWorker[i]);
@@ -447,3 +514,33 @@ _Noreturn void worker_monitor(void) {
         sleep(1);
     }
 }
+
+
+_Noreturn void worker_dummy_send(void) {
+
+    int32_t iMonitoring = gWorkerAdmin.uiCurrWorkers;
+    log_debug("Sending data to worker %d.", iMonitoring);
+    while (1) {
+        for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
+            if (gWorkerAdmin.psWorker[i]) {
+                tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];
+
+                if (psWorker->Pid != 0) {
+
+                    log_debug("Doing worker %d.", i);
+
+                    char buffer[100] = {0};
+                    snprintf(buffer, sizeof(buffer), "Data for worker %d\n", psWorker->uiId);
+
+                    int ret = write(psWorker->iMasterIPCfd, buffer, strlen(buffer) + 1);
+                    if (ret == -1) {
+                        perror("write main");
+//                        exit(EXIT_FAILURE);
+                    }
+                }
+            }
+        }
+        sleep(1);
+    }
+}
+
