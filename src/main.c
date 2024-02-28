@@ -23,6 +23,7 @@
 #include <sys/stat.h>
 #include <sys/random.h>
 #include <sys/resource.h>
+#include <sys/time.h>
 
 #include <ev.h>
 
@@ -32,7 +33,7 @@
 #include <cew_socket.h>
 #include <cew_worker.h>
 #include <cew_client.h>
-#include <sys/time.h>
+
 
 /*
 https://github.com/cu-ecen-aeld/final-project-Shifting5164
@@ -183,10 +184,12 @@ static int32_t daemonize(void) {
     return RET_OK;
 }
 
+/* Seed the random system based on time and pid.
+ * Noting cryptografically safe. Its good enough for some "random" */
 static void seed_random(void){
     struct timeval t;
     gettimeofday(&t, NULL);
-    srand(t.tv_usec * t.tv_sec);
+    srand(t.tv_usec * t.tv_sec * getpid());
 }
 
 int32_t main(int32_t argc, char **argv) {
