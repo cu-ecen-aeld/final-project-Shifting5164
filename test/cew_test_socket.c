@@ -49,6 +49,7 @@ static void socket_connect(void **state) {
     curl_easy_setopt(curl, CURLOPT_SERVER_RESPONSE_TIMEOUT, 0.5L);   //1 sec timeout for connect
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 1L);   //1 sec timeout for connect
 
+    /* https://curl.se/libcurl/c/libcurl-errors.html */
     switch (curl_easy_perform(curl), 1) {
         case CURLE_UNSUPPORTED_PROTOCOL:    // returning just data
         case CURLE_OPERATION_TIMEDOUT:      // return nothing
