@@ -28,7 +28,7 @@ typedef struct sWorkerStruct {
     uint32_t uiId;              // Worker id
 //    int32_t iClientsServing;  // Connected clients
     pid_t Pid;                  // PID of the worker
-    int32_t iMasterIPCAccept;               // master <> worker IPC
+    int32_t iMasterIPCAccept;               // master main fd for accepting the client
     int32_t iMasterIPCfd;               // master <> worker IPC
     int32_t iWorkerIPCfd;             // worker <> master IPC
     sds IPCFile;                // location of IPC unix named socket
@@ -106,8 +106,8 @@ static uint32_t guiWorkerID;
 /* Exit the worker process, only by signal handling */
 static void workerp_process_stop(void) {
     settings_destroy();
+    worker_destroy();
     logger_destroy();
-    worker_destroy(); //TODO
     exit(0);
 }
 
@@ -142,16 +142,18 @@ static int32_t workerp_setup_signal(void) {
     return EXIT_SUCCESS;
 }
 
+
 static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
 
     log_debug("Connecting to IPC socket for worker %d on file %s", psWorker->uiId, psWorker->IPCFile);
 
-    /* Wait for the master to finish the file socket */
+    /* Wait for the master to finish setting-up the file socket */
     while (access(psWorker->IPCFile, F_OK) != 0);
 
     log_debug("worker %d. Master made the socket file available", psWorker->uiId);
 
     /* Create local socket. */
+    /* https://www.man7.org/linux/man-pages/man2/socket.2.html */
     if ((psWorker->iWorkerIPCfd = socket(AF_UNIX, SOCK_SEQPACKET, 0)) == -1) {
         perror("Socket");
         return EXIT_FAILURE;
@@ -186,14 +188,13 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
     /* Destroy the old logger because this is inherited from a different process,
      * re-open the logger to get a working thread for this process. */
     logger_destroy();
-
     tsSSettings sCurrSSettings = settings_get();
     logger_init(sCurrSSettings.pcLogfile, sCurrSSettings.lLogLevel);
 
-    log_debug("Worker %d is running.", psWorker->uiId);
-
     /* Setup new signal handlers for my worker process */
     workerp_setup_signal();
+
+    log_debug("Worker %d is running.", psWorker->uiId);
 
     /* Connect to parent IPC */
     if (workerp_connect_ipc_socket(psWorker) != 0) {
@@ -208,16 +209,16 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
 
         log_debug("worker %d. Waiting for data.", psWorker->uiId);
 
-        char buffer[100] = {0};
-        int ret = read(psWorker->iWorkerIPCfd, buffer, sizeof(buffer) - 1);
+        char buffer[WORKER_IPC_MSG_SIZE] = {0};
+        int ret = read(psWorker->iWorkerIPCfd, buffer, sizeof(buffer) -1 );
 
         if (ret == -1) {
             perror("worker read");
-            exit(EXIT_FAILURE); //TODO
+            exit(EXIT_FAILURE);
         } else {
 
             if (ret > 0) {
-                log_debug("worker %d. received:%s", psWorker->uiId, buffer);
+                log_debug("worker %d. received: %s", psWorker->uiId, buffer);
             }
         }
 
@@ -310,8 +311,8 @@ static int32_t worker_create_ipc_socket(tsWorkerStruct *psWorker) {
         return EXIT_FAILURE;
     }
 
-    /* Wait for client to accept */
-    if ((psWorker->iWorkerIPCfd = accept(psWorker->iMasterIPCAccept, NULL, NULL)) == -1) {
+    /* Wait for client worker to accept */
+    if ((psWorker->iMasterIPCfd = accept(psWorker->iMasterIPCAccept, NULL, NULL)) == -1) {
         perror("accept");
         exit(EXIT_FAILURE);
     }
@@ -458,6 +459,16 @@ int32_t worker_destroy(void) {
                 psWorker->iMasterIPCfd = 0;
             }
 
+            if (psWorker->iMasterIPCAccept != 0) {
+                close(psWorker->iMasterIPCAccept);
+                psWorker->iMasterIPCAccept = 0;
+            }
+
+            if (psWorker->iWorkerIPCfd != 0) {
+                close(psWorker->iWorkerIPCfd);
+                psWorker->iWorkerIPCfd = 0;
+            }
+
             unlink(psWorker->IPCFile);
 
             if (psWorker->IPCFile != NULL) {
@@ -519,7 +530,6 @@ _Noreturn void worker_monitor(void) {
 _Noreturn void worker_dummy_send(void) {
 
     int32_t iMonitoring = gWorkerAdmin.uiCurrWorkers;
-    log_debug("Sending data to worker %d.", iMonitoring);
     while (1) {
         for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
             if (gWorkerAdmin.psWorker[i]) {
@@ -527,15 +537,15 @@ _Noreturn void worker_dummy_send(void) {
 
                 if (psWorker->Pid != 0) {
 
-                    log_debug("Doing worker %d.", i);
+                    char buffer[WORKER_IPC_MSG_SIZE] = {0};
+                    snprintf(buffer, sizeof(buffer) -1, "Data for worker %d %ld", psWorker->uiId, random());
 
-                    char buffer[100] = {0};
-                    snprintf(buffer, sizeof(buffer), "Data for worker %d\n", psWorker->uiId);
+                    log_debug("Master: Sending data to worker %d : %s.", i, buffer);
 
-                    int ret = write(psWorker->iMasterIPCfd, buffer, strlen(buffer) + 1);
+                    int ret = write(psWorker->iMasterIPCfd, buffer, strlen(buffer) +1 );
                     if (ret == -1) {
                         perror("write main");
-//                        exit(EXIT_FAILURE);
+                        exit(EXIT_FAILURE);
                     }
                 }
             }

@@ -20,5 +20,6 @@ RUN \
         tmux \
         libcurl4-gnutls-dev \
         libcurl4 \
-        psmisc
+        psmisc \
+        htop
 
