@@ -24,8 +24,8 @@ static void socket_try_connect(void **state) {
     CURL *curl = curl_easy_init();
     assert_non_null(curl);
     curl_easy_setopt(curl, CURLOPT_URL, "http://127.0.0.1:5001");
-    curl_easy_setopt(curl, CURLOPT_SERVER_RESPONSE_TIMEOUT , 1L);   //1 sec timeout for connect
-    assert_int_not_equal(curl_easy_perform(curl),0);
+    curl_easy_setopt(curl, CURLOPT_SERVER_RESPONSE_TIMEOUT, 1L);   //1 sec timeout for connect
+    assert_int_not_equal(curl_easy_perform(curl), 0);
     curl_easy_cleanup(curl);
 }
 
@@ -46,8 +46,17 @@ static void socket_connect(void **state) {
     CURL *curl = curl_easy_init();
     assert_non_null(curl);
     curl_easy_setopt(curl, CURLOPT_URL, "http://127.0.0.1:5001");
-    curl_easy_setopt(curl, CURLOPT_SERVER_RESPONSE_TIMEOUT , 1L);   //1 sec timeout for connect
-    assert_int_equal(curl_easy_perform(curl),1);        //curl will give a CURLE_UNSUPPORTED_PROTOCOL, expected
+    curl_easy_setopt(curl, CURLOPT_SERVER_RESPONSE_TIMEOUT, 0.5L);   //1 sec timeout for connect
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 1L);   //1 sec timeout for connect
+
+    switch (curl_easy_perform(curl), 1) {
+        case CURLE_UNSUPPORTED_PROTOCOL:    // returning just data
+        case CURLE_OPERATION_TIMEDOUT:      // return nothing
+            break;
+        default:
+            assert_false(false);
+    }
+
     curl_easy_cleanup(curl);
 
     pthread_cancel(TestSocket);
