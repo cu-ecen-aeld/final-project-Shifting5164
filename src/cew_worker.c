@@ -14,6 +14,7 @@
 #include <cew_logger.h>
 #include <cew_client.h>
 #include <cew_socket.h>
+#include <sys/stat.h>
 
 /* Clients queue in thread to serve */
 typedef struct sClientEntry {
@@ -64,6 +65,7 @@ static int32_t workerp_create_parent_socket(tsWorkerStruct *psWorker) {
     /* Create local socket. */
     int32_t iFd = socket(AF_UNIX, SOCK_SEQPACKET, 0);
     if (iFd == -1) {
+        printf("exit 1\n");
         return EXIT_FAILURE;
     }
 
@@ -77,15 +79,34 @@ static int32_t workerp_create_parent_socket(tsWorkerStruct *psWorker) {
         return EXIT_FAILURE;
     }
 
+    /* Make sure the IPC folder exists */
+    struct stat st = {0};
+    if (stat(WORKER_IPC_FOLDER, &st) == -1) {
+        if (mkdir(WORKER_IPC_FOLDER, 0700) == -1){
+            return EXIT_FAILURE;
+        }
+    }
+
+    /* In case something was leftover from another startup */
+    unlink(psWorker->IPCFile);
+
     if (bind(iFd, (const struct sockaddr *) &sName, sizeof(sName.sun_path) - 1) == -1) {
+        printf("exit 2\n");
+        return EXIT_FAILURE;
+    }
+
+    /* Secure the IPC file */
+    if (chmod(psWorker->IPCFile, S_IRUSR|S_IWUSR) == -1){
         return EXIT_FAILURE;
     }
 
     if (listen(iFd, 20) == -1) {
+        printf("exit 3\n");
         return EXIT_FAILURE;
     }
 
     psWorker->iIPC = iFd;
+//    printf("exit OK\n");
     return EXIT_SUCCESS;
 }
 
@@ -297,14 +318,14 @@ int32_t worker_init(const int32_t iWantedWorkers) {
         psWorker->uiId = i;
 
         /* Define worker IPC file */
-        psWorker->IPCFile = sdscatprintf(sdsempty(), "%s_%ld", WORKER_IPC_FILE, random());
+        psWorker->IPCFile = sdscatprintf(sdsempty(), "%s/%s_%ld", WORKER_IPC_FOLDER, WORKER_IPC_FILE, random());
 
         /* Spin-up a worker child process */
         pid_t pid = fork();
         switch (pid) {
             case -1: //error
                 log_error("Error forking for worker %d.", i);
-                return WORKER_EXIT_FAILURE;
+                goto exit_free_worker;
                 break;
 
             case 0: //child
@@ -323,13 +344,18 @@ int32_t worker_init(const int32_t iWantedWorkers) {
 
         /* Create IPC for child worker */
         if (workerp_create_parent_socket(psWorker) != 0) {
-            return WORKER_EXIT_FAILURE;
+            goto exit_free_worker;
         }
 
         gWorkerAdmin.uiCurrWorkers++;
         continue;
 
         /* Exit conditions */
+
+        exit_free_worker:
+        free(gWorkerAdmin.psWorker[i]);
+        gWorkerAdmin.psWorker[i] = 0;
+
         exit_no_worker:
         psWorker = NULL;
 

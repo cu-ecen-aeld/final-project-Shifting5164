@@ -20,7 +20,8 @@
 #define WORKER_EXIT_SUCCESS EXIT_SUCCESS
 #define WORKER_EXIT_FAILURE EXIT_FAILURE   // + errno usually
 
-#define WORKER_IPC_FILE "/run/cew_worker"
+#define WORKER_IPC_FOLDER "/run/cewserver"
+#define WORKER_IPC_FILE "cew_worker"     // + some random number, it will look like cew_worker_%d
 
 
 int32_t worker_init(const int32_t);
