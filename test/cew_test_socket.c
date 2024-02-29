@@ -27,6 +27,7 @@ static void socket_try_connect(void **state) {
     curl_easy_setopt(curl, CURLOPT_SERVER_RESPONSE_TIMEOUT, 1L);   //1 sec timeout for connect
     assert_int_not_equal(curl_easy_perform(curl), 0);
     curl_easy_cleanup(curl);
+    curl_global_cleanup();  // for valgrind
 }
 
 static void *test_socket_listen(void *arg) {
@@ -59,6 +60,7 @@ static void socket_connect(void **state) {
     }
 
     curl_easy_cleanup(curl);
+    curl_global_cleanup();  // for valgrind
 
     pthread_cancel(TestSocket);
     pthread_join(TestSocket, NULL);
