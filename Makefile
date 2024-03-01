@@ -72,7 +72,7 @@ debug_strace: debug
 	strace -f -e 'trace=!clock_nanosleep' -s1000 -y ./build/debug/cewserver
 
 debug_mem: debug
-	valgrind --malloc-fill=0xAB --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver_test
+	valgrind --malloc-fill=0xAB --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver
 
 debug_run: debug
 	./build/debug/cewserver
@@ -99,6 +99,8 @@ test_mem_hist: debug
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
 	valgrind --tool=massif ./build/debug/cewserver_test
 
+test_strace: debug
+	strace -f -e 'trace=!clock_nanosleep' -s1000 -y ./build/debug/cewserver_test
 
 libs: libini libev cmocka
 

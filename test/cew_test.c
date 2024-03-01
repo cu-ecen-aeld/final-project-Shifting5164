@@ -14,8 +14,8 @@ int main(void) {
 
     iRet += cmocka_run_group_tests(test_settings, NULL, NULL);
     iRet += cmocka_run_group_tests(test_logging, NULL, NULL);
-    iRet += cmocka_run_group_tests(test_socket, NULL, NULL);
-//    iRet += cmocka_run_group_tests(test_worker, NULL, NULL);
+//    iRet += cmocka_run_group_tests(test_socket, NULL, NULL);
+    iRet += cmocka_run_group_tests(test_worker, NULL, NULL);
 
     return iRet;
 }

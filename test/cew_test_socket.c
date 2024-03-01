@@ -30,10 +30,24 @@ static void socket_try_connect(void **state) {
     curl_global_cleanup();  // for valgrind
 }
 
+static void test_socket_listen_cleanup(void *arg) {
+    assert_false(socket_close());
+    assert_false(worker_destroy());
+}
+
 static void *test_socket_listen(void *arg) {
+
+    int oldtype;
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &oldtype);
+
+    pthread_cleanup_push(test_socket_listen_cleanup, NULL) ;
+
     assert_false(worker_init(2));
     assert_false(socket_setup(5001));
     assert_false(socket_poll());
+
+    pthread_cleanup_pop(0);
+    return NULL;
 }
 
 //accept connection, and disconnect
@@ -65,8 +79,6 @@ static void socket_connect(void **state) {
     pthread_cancel(TestSocket);
     pthread_join(TestSocket, NULL);
 
-    assert_false(socket_close());
-    assert_false(worker_destroy());
 }
 
 const struct CMUnitTest test_socket[] = {

@@ -31,14 +31,8 @@ typedef struct sWorkerStruct {
     int32_t iMasterIPCAccept;               // master main fd for accepting the client
     int32_t iMasterIPCfd;               // master <> worker IPC
     int32_t iWorkerIPCfd;             // worker <> master IPC
+    int32_t iMaster;                    // master or worker ?
     sds IPCFile;                // location of IPC unix named socket
-    /* Clients that are being actively served by the thread
-     * Tail append, pop head */
-//    struct ClientQueue ClientServingQueue;
-
-    /* Clients that are pending to be added to the thread
-     * Tail append, pop head */
-//    struct ClientQueue ClientWaitingQueue;
 } tsWorkerStruct;
 
 /* Worker administration struct */
@@ -59,12 +53,11 @@ typedef struct sIPCmsg {
 static tsWorkerAdmin gWorkerAdmin = {0};
 
 /* Global ID for the worker process, only available in workers */
-static uint32_t guiWorkerID;
+static uint32_t guiWorkerID = 0;
 
 //#############################################################################################
 //#######       Worker process functions
 //#############################################################################################
-
 
 /* Check the waiting client queue for this thread, get the clients
  * and add them to this thread for serving */
@@ -102,13 +95,15 @@ static uint32_t guiWorkerID;
 //    return -1;
 //}
 
-
 /* Exit the worker process, only by signal handling */
 static void workerp_process_stop(void) {
     settings_destroy();
     worker_destroy();
+
+    log_info("Goodbye from worker %d, on pid %d", guiWorkerID, getpid());
     logger_destroy();
-    exit(0);
+
+    exit(EXIT_SUCCESS);
 }
 
 static void workerp_signal_handler(const int32_t ciSigno) {
@@ -117,23 +112,25 @@ static void workerp_signal_handler(const int32_t ciSigno) {
         return;
     }
 
-    log_warning("Worker %d. Got signal: %d", guiWorkerID, ciSigno);
+    log_info("Worker %d. Got signal: %d", guiWorkerID, ciSigno);
 
-    if (ciSigno == SIGINT) {
-        workerp_process_stop();
-    }
+    workerp_process_stop();
 }
 
 /* Setup signals for workers only */
 static int32_t workerp_setup_signal(void) {
 
-    /* SIGINT or SIGTERM terminates the program with cleanup */
+    /* SIGTERM or SIGTERM terminates the program with cleanup */
     struct sigaction sSigAction;
 
     sigemptyset(&sSigAction.sa_mask);
 
     sSigAction.sa_flags = 0;
     sSigAction.sa_handler = workerp_signal_handler;
+
+    if (sigaction(SIGTERM, &sSigAction, NULL) != 0) {
+        return errno;
+    }
 
     if (sigaction(SIGINT, &sSigAction, NULL) != 0) {
         return errno;
@@ -186,13 +183,22 @@ static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
 _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
 
     /* Destroy the old logger because this is inherited from a different process,
-     * re-open the logger to get a working thread for this process. */
+    * re-open the logger to get a working logging thread for this process. */
     logger_destroy();
     tsSSettings sCurrSSettings = settings_get();
     logger_init(sCurrSSettings.pcLogfile, sCurrSSettings.lLogLevel);
 
     /* Setup new signal handlers for my worker process */
     workerp_setup_signal();
+
+    /* Close everything that we don't need */
+    close(psWorker->iMasterIPCAccept);
+    psWorker->iMasterIPCAccept = 0;
+    close(psWorker->iMasterIPCfd);
+    psWorker->iMasterIPCAccept = 0;
+
+    psWorker->Pid = getpid();
+    guiWorkerID = psWorker->uiId;
 
     log_debug("Worker %d is running.", psWorker->uiId);
 
@@ -210,7 +216,7 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
         log_debug("worker %d. Waiting for data.", psWorker->uiId);
 
         char buffer[WORKER_IPC_MSG_SIZE] = {0};
-        int ret = read(psWorker->iWorkerIPCfd, buffer, sizeof(buffer) -1 );
+        int ret = read(psWorker->iWorkerIPCfd, buffer, sizeof(buffer) - 1);
 
         if (ret == -1) {
             perror("worker read");
@@ -225,7 +231,7 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
         sleep(1);
 
     }
-
+}
 
 //    tsWorkerStruct *psArgs = arg;
 //
@@ -256,7 +262,7 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
 //
 //    }
 //    pthread_exit(NULL);
-}
+
 
 //#############################################################################################
 //#############################################################################################
@@ -394,10 +400,10 @@ int32_t worker_init(const int32_t iWantedWorkers) {
             case -1: //error
                 log_error("Error forking for worker %d.", i);
                 goto exit_free_worker;
-                break;
 
             case 0: //child
                 /* Goto worker processing */
+                printf("fork: I am PID %d\n", getpid());
                 workerp_entry(psWorker);
 
                 /* Worker should never exit */
@@ -406,7 +412,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
             default: //parent
                 /* Archive pid for monitoring alter */
                 psWorker->Pid = pid;
-                log_debug("New worker %d has pid %d.", i, pid);
+                printf("New worker %d has pid %d.\n", i, pid);
                 break;
         }
 
@@ -415,6 +421,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
             goto exit_free_worker;
         }
 
+        psWorker->iMaster = 1;
         gWorkerAdmin.uiCurrWorkers++;
         continue;
 
@@ -436,32 +443,51 @@ int32_t worker_init(const int32_t iWantedWorkers) {
 }
 
 //NOTE: calloc will break valgrind
+// will be called from master and worker
+// reentrent function
 int32_t worker_destroy(void) {
 
-    /* Remove worker entries */
-    for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
+    /* Remove worker entries.
+     * NOTE: taking WORKER_MAX_WORKERS here to make sure every possible worker is cleaned, even
+     * if something remains after a bad init, and a good destroy from the worker itself. */
+    for (uint32_t i = 0; i < WORKER_MAX_WORKERS; i++) {
         tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];
 
         if (psWorker) {
 
-            log_debug("Destroying worker %d.", i);
+            if (psWorker->iMaster == 1) {
 
-            /* Stop worker process, let it do its own cleanup */
-            if (kill(psWorker->Pid, SIGINT) == 0) {
-                log_debug("Successfully killed worker: %d", psWorker->Pid);
+                log_info("Destroying worker %d from master.", i);
+                if (psWorker->Pid) {
+                    /* Stop worker process, let it do its own cleanup */
+                    if (kill(psWorker->Pid, SIGTERM) == 0) {
+                        log_debug("Successfully stopped worker: %d", psWorker->Pid);
+                    } else {
+                        log_error("Error stopping worker: %d. killing it forcefully now!", psWorker->Pid);
+                        kill(psWorker->Pid, SIGKILL);
+                    }
+
+                    /* Get latest exit info, avoiding zombie, and for information */
+                    int status;
+                    waitpid(psWorker->Pid, &status, WUNTRACED | WCONTINUED);
+                    log_debug("Exit info from pid %d:%d", psWorker->Pid, status);
+                }
+
+                unlink(psWorker->IPCFile);
+
+                /* Cleanup IPC */
+                if (psWorker->iMasterIPCfd != 0) {
+                    close(psWorker->iMasterIPCfd);
+                    psWorker->iMasterIPCfd = 0;
+                }
+
+                if (psWorker->iMasterIPCAccept != 0) {
+                    close(psWorker->iMasterIPCAccept);
+                    psWorker->iMasterIPCAccept = 0;
+                }
+
             } else {
-                log_debug("Error killing worker: %d", psWorker->Pid);
-            }
-
-            /* Cleanup IPC */
-            if (psWorker->iMasterIPCfd != 0) {
-                close(psWorker->iMasterIPCfd);
-                psWorker->iMasterIPCfd = 0;
-            }
-
-            if (psWorker->iMasterIPCAccept != 0) {
-                close(psWorker->iMasterIPCAccept);
-                psWorker->iMasterIPCAccept = 0;
+                log_debug("Destroying worker %d from worker pid %d", i, psWorker->Pid);
             }
 
             if (psWorker->iWorkerIPCfd != 0) {
@@ -469,27 +495,18 @@ int32_t worker_destroy(void) {
                 psWorker->iWorkerIPCfd = 0;
             }
 
-            unlink(psWorker->IPCFile);
-
             if (psWorker->IPCFile != NULL) {
                 sdsfree(psWorker->IPCFile);
                 psWorker->IPCFile = NULL;
             }
 
-            /* Free serving clients queue */
-//            tsClientEntry *n1, *n2;
-//            n1 = STAILQ_FIRST(&psWorker->ClientServingQueue);
-//            while (n1 != NULL) {
-//                n2 = STAILQ_NEXT(n1, entries);
-//                client_destroy(n1->psClient);
-//                free(n1);   // queue item
-//                n1 = n2;
-//            }
+            log_info("Destroyed worker %d.", psWorker->uiId);
 
             /* free mem */
             free(gWorkerAdmin.psWorker[i]);
             gWorkerAdmin.psWorker[i] = NULL;
         }
+
     }
 
     gWorkerAdmin.uiCurrWorkers = 0;
@@ -529,7 +546,6 @@ _Noreturn void worker_monitor(void) {
 
 _Noreturn void worker_dummy_send(void) {
 
-    int32_t iMonitoring = gWorkerAdmin.uiCurrWorkers;
     while (1) {
         for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
             if (gWorkerAdmin.psWorker[i]) {
@@ -538,11 +554,11 @@ _Noreturn void worker_dummy_send(void) {
                 if (psWorker->Pid != 0) {
 
                     char buffer[WORKER_IPC_MSG_SIZE] = {0};
-                    snprintf(buffer, sizeof(buffer) -1, "Data for worker %d %ld", psWorker->uiId, random());
+                    snprintf(buffer, sizeof(buffer) - 1, "Data for worker %d %ld", psWorker->uiId, random());
 
                     log_debug("Master: Sending data to worker %d : %s.", i, buffer);
 
-                    int ret = write(psWorker->iMasterIPCfd, buffer, strlen(buffer) +1 );
+                    int ret = write(psWorker->iMasterIPCfd, buffer, strlen(buffer) + 1);
                     if (ret == -1) {
                         perror("write main");
                         exit(EXIT_FAILURE);

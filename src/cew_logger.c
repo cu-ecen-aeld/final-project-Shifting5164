@@ -41,6 +41,9 @@ typedef struct sQEntry {
 STAILQ_HEAD(LogMsgQueue, sQEntry);
 static struct LogMsgQueue Head;
 
+// Logfile
+static FILE *LogfileFd = NULL;
+
 // Amount of messages in the queue
 static int32_t iDataInQueueCount = 0;
 
@@ -59,11 +62,9 @@ static int32_t iDoForceFlush = 0;
  */
 static void *logger_thread(void *arg) {
 
-    static FILE *fd = NULL;
-
     while (1) {
 
-        /* Thread may canceled before and after the sleep, no mallocs or open fd
+        /* Thread may canceled before and after the sleep, no mallocs or open LogfileFd
          * thus no cleanup needed. Can take some extra time tho.*/
         pthread_testcancel();
         usleep(sCurrLogSettings.iPollingInterval);
@@ -72,7 +73,7 @@ static void *logger_thread(void *arg) {
         if ((iDataInQueueCount > sCurrLogSettings.iBulkWrite) || (iDoForceFlush && iDataInQueueCount)) {
 
             /* Open file for writing */
-            if ((fd = fopen(gpcLogfile, "a")) == NULL) {
+            if ((LogfileFd = fopen(gpcLogfile, "a")) == NULL) {
                 exit(errno);
             }
 
@@ -105,8 +106,8 @@ static void *logger_thread(void *arg) {
                 fprintf(stderr, "%s", LogMessage);
 #endif
                 /* Write the log entry */
-                fwrite(LogMessage, sdslen(LogMessage), 1, fd);
-                if (ferror(fd) != 0) {
+                fwrite(LogMessage, sdslen(LogMessage), 1, LogfileFd);
+                if (ferror(LogfileFd) != 0) {
                     exit(errno);
                 }
 
@@ -119,13 +120,14 @@ static void *logger_thread(void *arg) {
             iDoForceFlush = 0;
 
             /* Flush and close file after bulk write */
-            if (fflush(fd) != 0) {
+            if (fflush(LogfileFd) != 0) {
                 exit(errno);
             }
 
-            if (fclose(fd) != 0) {
+            if (fclose(LogfileFd) != 0) {
                 exit(errno);
             }
+            LogfileFd = NULL;
         }
     }
 }
@@ -297,12 +299,18 @@ int32_t logger_destroy(void) {
         return LOG_NOINIT;
     }
 
-    log_debug("Destroying the logger.");
+    log_debug("Destroying the logger from pid %d.", getpid());
     logger_flush();
 
     /* End logger thread */
     pthread_cancel(LoggerThread);
     pthread_join(LoggerThread, NULL);
+
+    /* We don't know if everything got flushed and closed in the logger */
+    if (LogfileFd != NULL) {
+        fclose(LogfileFd);
+        LogfileFd = NULL;
+    }
 
     if (gpcLogfile != NULL) {
         sdsfree(gpcLogfile);
@@ -312,7 +320,7 @@ int32_t logger_destroy(void) {
     /* Not needed, still for safety */
     pthread_mutex_unlock(&pLogMutex);
 
-    /* TailQ deletion */
+    /* TailQ deletion, if there is still data left */
     tsEntry *n1, *n2;
     n1 = STAILQ_FIRST(&Head);
     while (n1 != NULL) {
