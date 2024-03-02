@@ -12,6 +12,7 @@
 #include <sds.h>
 #include <banned.h>
 #include <cew_logger.h>
+#include <cew_exit.h>
 
 static sds gpcLogfile = NULL;
 static pthread_t LoggerThread;
@@ -45,7 +46,7 @@ static struct LogMsgQueue Head;
 static FILE *LogfileFd = NULL;
 
 // Amount of messages in the queue
-static int32_t iDataInQueueCount = 0;
+static int32_t iDataInQueueCount = 0;       //mutex safe pLogMutex
 
 // Set when logging system has been set up
 static int32_t iIsInitDone = 0;
@@ -64,23 +65,39 @@ static int32_t iShuttingDown = 0;
  */
 static void *logger_thread(void *arg) {
 
+    int32_t iOldCancelState;
+    int32_t iDataToWrite;
+    int32_t iDataWritten;
+
     while (1) {
 
-        /* Thread may canceled before and after the sleep, no mallocs or open LogfileFd
-         * thus no cleanup needed. Can take some extra time tho.*/
-        pthread_testcancel();
-        usleep(sCurrLogSettings.iPollingInterval);
-        pthread_testcancel();
+        /* Thread cancelation block. The thread is only allowed to cancel here. Byond this point
+         * dynamic memory safety is a problem, cleanup function will be complex, so
+         * allow the thread to only cancel here, where we know its alwasy safe to do
+         */
+        {
+            pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &iOldCancelState);
+            pthread_testcancel();
+            usleep(sCurrLogSettings.iPollingInterval);
+            pthread_testcancel();
+            pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &iOldCancelState);
+        }
 
         int32_t iGo = 0;
-        // mutex block for iDataInQueueCount
+        /* MUTEX block for iDataInQueueCount */
         {
-            if (pthread_mutex_lock(&pLogMutex) != 0) {
+            int32_t iRet;
+            if ((iRet = pthread_mutex_trylock(&pLogMutex)) != 0) {
+                if (iRet == EBUSY) {
+                    continue;
+                }
                 exit(errno);
             }
 
             if ((iDataInQueueCount > sCurrLogSettings.iBulkWrite) || (iDoForceFlush && iDataInQueueCount)) {
                 iGo = 1;
+                iDataToWrite = iDataInQueueCount;
+                iDataWritten = 0;
             }
 
             if (pthread_mutex_unlock(&pLogMutex) != 0) {
@@ -88,10 +105,11 @@ static void *logger_thread(void *arg) {
             }
         }
 
-
+        /* If we have a go, then we are going to write the logs in the queue defined by iDataToWrite.
+         * When we written everything, then we will update the message queue waiting size.*/
         if (iGo) {
 
-            /* Open file for writing */
+            /* Open logfile for writing */
             if ((LogfileFd = fopen(gpcLogfile, "a")) == NULL) {
                 exit(errno);
             }
@@ -104,7 +122,7 @@ static void *logger_thread(void *arg) {
                 tsEntry *Entry = STAILQ_FIRST(&Head);
                 LogMessage = Entry->msg;
 
-                // mutex block, only for removing the entry
+                /* mutex block, only for removing the queue head entry */
                 {
                     if (pthread_mutex_lock(&pLogMutex) != 0) {
                         exit(errno);
@@ -113,18 +131,17 @@ static void *logger_thread(void *arg) {
                     /* Delete entry from the head */
                     STAILQ_REMOVE_HEAD(&Head, entries);
                     free(Entry);
-                    iDataInQueueCount--;
 
                     if (pthread_mutex_unlock(&pLogMutex) != 0) {
                         exit(errno);
                     }
                 }
 
-#ifdef LOGGER_SHOW_ON_TERMINAL
-                /* Show log Message */
+#ifdef LOGGER_DEBUG_SHOW_ON_TERMINAL
+                /* Show log message of stderr */
                 fprintf(stderr, "%s", LogMessage);
 #endif
-                /* Write the log entry */
+                /* Write the log entry to the file */
                 fwrite(LogMessage, sdslen(LogMessage), 1, LogfileFd);
                 if (ferror(LogfileFd) != 0) {
                     exit(errno);
@@ -133,10 +150,10 @@ static void *logger_thread(void *arg) {
                 /* Free the allocated message */
                 sdsfree(LogMessage);
 
-            } while (iDataInQueueCount);
+                /* keep track of the actual written data */
+                iDataWritten++;
 
-            /* Make sure we only flush once when set */
-            iDoForceFlush = 0;
+            } while (--iDataToWrite);
 
             /* Flush and close file after bulk write */
             if (fflush(LogfileFd) != 0) {
@@ -147,6 +164,23 @@ static void *logger_thread(void *arg) {
                 exit(errno);
             }
             LogfileFd = NULL;
+
+            /* MUTEX block to update iDataInQueueCount */
+            {
+                if (pthread_mutex_lock(&pLogMutex) != 0) {
+                    exit(errno);
+                }
+
+                /* Make sure we only flush once when set */
+                iDoForceFlush = 0;
+
+                /* Update total message count */
+                iDataInQueueCount -= iDataWritten;
+
+                if (pthread_mutex_unlock(&pLogMutex) != 0) {
+                    exit(errno);
+                }
+            }
         }
     }
 }
@@ -156,7 +190,7 @@ static void *logger_thread(void *arg) {
  * Return:
  * - LOG_EXIT_FAILURE, errno will be set. Probably no log message added to queue, and discarded.
  * - LOG_EXIT_SUCCESS, when all good.
- *
+
  */
 static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_list args) {
 
@@ -212,18 +246,27 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
     return LOG_EXIT_SUCCESS;
 }
 
-
+/* Determine if a message is allowed in the logger block or not */
 static inline int32_t is_msg_allowed(tLoggerType eType) {
+
+    /* If the program is shutting down, no msg accepted */
+    if (bTerminateProg) {
+        return LOG_SHUTTING_DOWN;
+    }
+
+    /* If the logger module is shutting down, no msg accepted */
+    if (iShuttingDown) {
+        return LOG_SHUTTING_DOWN;
+    }
+
+    /* Without init no msg */
     if (!iIsInitDone) {
         return LOG_NOLVL;
     }
 
+    /* Check current loglevel */
     if (sCurrLogSettings.iCurrLogLevel < eType) {
         return LOG_NOINIT;
-    }
-
-    if (iShuttingDown){
-        return LOG_SHUTTING_DOWN;
     }
 
     return LOG_EXIT_SUCCESS;
@@ -240,6 +283,14 @@ static inline int32_t is_msg_allowed(tLoggerType eType) {
  */
 int32_t log_msg(tLoggerType eType, const char *message, ...) {
 
+#ifdef LOGGER_DEBUG_SHOW_ON_TERMINAL_NO_QUEUE
+    va_list(args);
+    va_start(args, message);
+    vfprintf(stdout, message, args);
+    va_end(args);
+    fprintf(stdout,"\n");
+#else
+
     if (is_msg_allowed(eType)) {
         return LOG_EXIT_FAILURE;
     }
@@ -250,6 +301,9 @@ int32_t log_msg(tLoggerType eType, const char *message, ...) {
     va_end(args);
 
     return ret;
+
+#endif
+
 }
 
 
@@ -257,6 +311,7 @@ int32_t log_msg(tLoggerType eType, const char *message, ...) {
  * Return: Always LOG_EXIT_SUCCESS
  */
 int32_t logger_flush(void) {
+
     /* Force flush queue */
     iDoForceFlush = 1;
 
@@ -288,6 +343,7 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
     /* Set logfile */
     gpcLogfile = sdsnew(pcLogfilePath);
 
+    /* Set loglevel */
     sCurrLogSettings.iCurrLogLevel = Loglevel;
 
     /* Test access, and create datafile */
@@ -302,8 +358,8 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
     STAILQ_INIT(&Head);
     iDataInQueueCount = 0;
 
-    /* No flushing yet */
     iDoForceFlush = 0;
+    iShuttingDown = 0;
 
     /* Spin up writing thread */
     if (pthread_create(&LoggerThread, NULL, logger_thread, NULL) != 0) {
@@ -312,7 +368,6 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
     }
 
     iIsInitDone = 1;
-    iShuttingDown = 0;
 
     return LOG_EXIT_SUCCESS;
 }
@@ -330,8 +385,8 @@ int32_t logger_destroy(void) {
     }
 
     log_debug("Destroying the logger from pid %d.", getpid());
-    logger_flush();
     iShuttingDown = 1;
+    logger_flush();
 
     /* End logger thread */
     pthread_cancel(LoggerThread);

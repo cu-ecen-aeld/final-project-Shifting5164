@@ -9,18 +9,17 @@
 #include <cew_worker.h>
 #include <cew_client.h>
 
-
 bool bTerminateProg = false;
 
 static void exit_cleanup(void) {
     socket_close();
     worker_destroy();
-    logger_destroy();
     settings_destroy();
+    logger_destroy();
 }
 
 void do_exit(const int32_t ciExitval) {
-    log_info("Goodbye!");
+    log_info("Goodbye pid %d!", getpid());
     exit_cleanup();
     exit(ciExitval);
 }
@@ -31,6 +30,6 @@ void do_exit(const int32_t ciExitval) {
 //}
 
 void do_exit_with_errno(const int32_t ciErrno) {
-    log_error("Exit with %d: %s. Line %d.\n", ciErrno, strerror(ciErrno));
+    log_error("Exit pid %d with %d: %s. Line %d.\n",getpid(), ciErrno, strerror(ciErrno));
     do_exit(ciErrno);
 }

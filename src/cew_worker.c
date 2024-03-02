@@ -97,16 +97,16 @@ static uint32_t guiWorkerID = 0;
 //    return -1;
 //}
 
-/* Exit the worker process, only by signal handling */
-static void workerp_process_stop(void) {
-    settings_destroy();
-    worker_destroy();
-
-    log_info("Goodbye from worker %d, on pid %d", guiWorkerID, getpid());
-    logger_destroy();
-
-    exit(EXIT_SUCCESS);
-}
+///* Exit the worker process, only by signal handling */
+//static void workerp_process_stop(void) {
+//    settings_destroy();
+//    worker_destroy();
+//
+//    log_info("Goodbye from worker %d, on pid %d", guiWorkerID, getpid());
+//    logger_destroy();
+//
+//    exit(EXIT_SUCCESS);
+//}
 
 static void workerp_signal_handler(const int32_t ciSigno) {
 
@@ -212,7 +212,7 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
     while (1) {
 
         if (bTerminateProg) {
-            workerp_process_stop();
+            do_exit(0);
         }
 
         if (log_debug("I am worker %d", psWorker->uiId) != 0) {
@@ -409,7 +409,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
 
             case 0: //child
                 /* Goto worker processing */
-                printf("fork: I am PID %d\n", getpid());
+                log_debug("fork: I am PID %d\n", getpid());
                 workerp_entry(psWorker);
 
                 /* Worker should never exit */
@@ -418,7 +418,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
             default: //parent
                 /* Archive pid for monitoring alter */
                 psWorker->Pid = pid;
-                printf("New worker %d has pid %d.\n", i, pid);
+                log_debug("New worker %d has pid %d.\n", i, pid);
                 break;
         }
 
@@ -432,7 +432,6 @@ int32_t worker_init(const int32_t iWantedWorkers) {
         continue;
 
         /* Exit conditions */
-
         exit_free_worker:
         free(gWorkerAdmin.psWorker[i]);
         gWorkerAdmin.psWorker[i] = 0;
@@ -460,23 +459,21 @@ int32_t worker_destroy(void) {
         tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];
 
         if (psWorker) {
-
-            if (psWorker->iMaster == 1) {
-
-                log_info("Destroying worker %d from master.", i);
+            if (psWorker->iMaster) {
+                log_info("pid %d, master: Destroying worker %d from master.",getpid(), i);
                 if (psWorker->Pid) {
                     /* Stop worker process, let it do its own cleanup */
                     if (kill(psWorker->Pid, SIGTERM) == 0) {
-                        log_debug("Successfully stopped worker: %d", psWorker->Pid);
+                        log_debug("pid %d, master: Successfully stopped worker: %d",getpid(), psWorker->Pid);
                     } else {
-                        log_error("Error stopping worker: %d. killing it forcefully now!", psWorker->Pid);
+                        log_error("pid %d, master: Error stopping worker: %d. killing it forcefully now!",getpid(), psWorker->Pid);
                         kill(psWorker->Pid, SIGKILL);
                     }
 
                     /* Get latest exit info, avoiding zombie, and for information */
                     int status;
                     waitpid(psWorker->Pid, &status, WUNTRACED | WCONTINUED);
-                    log_debug("Exit info from pid %d:%d", psWorker->Pid, status);
+                    log_debug("pid %d, master: Exit info from pid %d:%d",getpid(), psWorker->Pid, status);
                 }
 
                 unlink(psWorker->IPCFile);
@@ -493,7 +490,7 @@ int32_t worker_destroy(void) {
                 }
 
             } else {
-                log_debug("Destroying worker %d from worker pid %d", i, psWorker->Pid);
+                log_debug("pid %d, worker: Destroying worker %d from worker pid %d",getpid(), i, psWorker->Pid);
             }
 
             if (psWorker->iWorkerIPCfd != 0) {
@@ -506,18 +503,17 @@ int32_t worker_destroy(void) {
                 psWorker->IPCFile = NULL;
             }
 
-            log_info("Destroyed worker %d.", psWorker->uiId);
+            log_info("pid %d, Destroyed worker %d.",getpid(), psWorker->uiId);
 
             /* free mem */
             free(gWorkerAdmin.psWorker[i]);
             gWorkerAdmin.psWorker[i] = NULL;
         }
-
     }
 
     gWorkerAdmin.uiCurrWorkers = 0;
 
-    log_info("Destroyed all workers. All done!");
+    log_info("pid %d, Destroyed all workers. All done!",getpid());
 
     return WORKER_EXIT_SUCCESS;
 }
@@ -529,6 +525,11 @@ _Noreturn void worker_monitor(void) {
     int32_t iMonitoring = gWorkerAdmin.uiCurrWorkers;
     log_debug("Trying to monitor %d workers.", iMonitoring);
     while (1) {
+
+        if (bTerminateProg) {
+            do_exit(0);
+        }
+
         for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
             if (gWorkerAdmin.psWorker[i]) {
                 tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];
