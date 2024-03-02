@@ -28,6 +28,7 @@
 #include <ev.h>
 
 #include <banned.h>
+#include <cew_exit.h>
 #include <cew_settings.h>
 #include <cew_logger.h>
 #include <cew_socket.h>
@@ -44,23 +45,6 @@ https://github.com/cu-ecen-aeld/final-project-Shifting5164
 #define RET_OK 0 //todo
 #define SOCKET_FAIL -2 //todo
 
-bool bTerminateProg = false; /* terminating program gracefully */
-
-
-/* completing any open connection operations,
- * closing any open sockets, and deleting the file /var/tmp/aesdsocketdata*/
-static void exit_cleanup(void) {
-    socket_close();
-    worker_destroy();
-    logger_destroy();
-    settings_destroy();
-}
-
-static void do_exit(const int32_t ciExitval) {
-    log_info("Goodbye!");
-    exit_cleanup();
-    exit(ciExitval);
-}
 
 /* Signal actions */
 void sig_handler(const int32_t ciSigno) {
@@ -71,22 +55,7 @@ void sig_handler(const int32_t ciSigno) {
 
     log_warning("Got signal: %d", ciSigno);
 
-    //todo ctlr+c
-    if (ciSigno == SIGINT) {
-        do_exit(ciSigno);
-    }
-
     bTerminateProg = true;
-}
-
-//static void do_thread_exit_with_errno(const int32_t ciLine, const int32_t ciErrno) {
-//    log_error("Exit with %d: %s. Line %d.", ciErrno, strerror(ciErrno), ciLine);
-//    pthread_exit((void *) ciErrno);
-//}
-
-static void do_exit_with_errno(const int32_t ciErrno) {
-    log_error("Exit with %d: %s. Line %d.\n", ciErrno, strerror(ciErrno));
-    do_exit(ciErrno);
 }
 
 /* Description:

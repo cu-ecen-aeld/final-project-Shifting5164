@@ -8,13 +8,15 @@
 #include <sys/socket.h>
 #include <sys/wait.h>
 #include <sys/un.h>
+#include <sys/stat.h>
 
 #include <cew_settings.h>
 #include <cew_worker.h>
 #include <cew_logger.h>
 #include <cew_client.h>
 #include <cew_socket.h>
-#include <sys/stat.h>
+#include <cew_exit.h>
+
 
 /* Clients queue in thread to serve */
 //typedef struct sClientEntry {
@@ -114,7 +116,7 @@ static void workerp_signal_handler(const int32_t ciSigno) {
 
     log_info("Worker %d. Got signal: %d", guiWorkerID, ciSigno);
 
-    workerp_process_stop();
+    bTerminateProg = true;
 }
 
 /* Setup signals for workers only */
@@ -208,6 +210,10 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
     }
 
     while (1) {
+
+        if (bTerminateProg) {
+            workerp_process_stop();
+        }
 
         if (log_debug("I am worker %d", psWorker->uiId) != 0) {
             exit(EXIT_FAILURE);
@@ -511,7 +517,7 @@ int32_t worker_destroy(void) {
 
     gWorkerAdmin.uiCurrWorkers = 0;
 
-    log_info("Destroyed workers.");
+    log_info("Destroyed all workers. All done!");
 
     return WORKER_EXIT_SUCCESS;
 }
@@ -547,6 +553,11 @@ _Noreturn void worker_monitor(void) {
 _Noreturn void worker_dummy_send(void) {
 
     while (1) {
+
+        if (bTerminateProg) {
+            do_exit(0);
+        }
+
         for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
             if (gWorkerAdmin.psWorker[i]) {
                 tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];

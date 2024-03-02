@@ -8,6 +8,7 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(cewserver_test
         ./test/cew_test.c
+        ./src/cew_exit.c
         external/sds/sds.c
         external/sds/sds.h
 )
@@ -40,7 +41,7 @@ target_link_libraries(cewserver_test rt cmocka curl)
 #------------------------------------------------
 
 add_executable(cewserver
-        src/main.c
+        src/cew_main.c
         src/cew_settings.c
         include/cew_settings.h
         external/sds/sds.c
@@ -55,6 +56,8 @@ add_executable(cewserver
         include/cew_socket.h
         include/cew_worker.h
         src/cew_worker.c
+        src/cew_exit.c
+        include/cew_exit.h
 )
 
 target_include_directories(cewserver PRIVATE
