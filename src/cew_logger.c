@@ -53,6 +53,8 @@ static int32_t iIsInitDone = 0;
 // Force a flush of the message queue to the datafile
 static int32_t iDoForceFlush = 0;
 
+static int32_t iShuttingDown = 0;
+
 /*  Log writing thread.
  *
  * Will try to write the queued logging messages in bulk defined by sCurrLogSettings.iBulkWrite.
@@ -70,7 +72,24 @@ static void *logger_thread(void *arg) {
         usleep(sCurrLogSettings.iPollingInterval);
         pthread_testcancel();
 
-        if ((iDataInQueueCount > sCurrLogSettings.iBulkWrite) || (iDoForceFlush && iDataInQueueCount)) {
+        int32_t iGo = 0;
+        // mutex block for iDataInQueueCount
+        {
+            if (pthread_mutex_lock(&pLogMutex) != 0) {
+                exit(errno);
+            }
+
+            if ((iDataInQueueCount > sCurrLogSettings.iBulkWrite) || (iDoForceFlush && iDataInQueueCount)) {
+                iGo = 1;
+            }
+
+            if (pthread_mutex_unlock(&pLogMutex) != 0) {
+                exit(errno);
+            }
+        }
+
+
+        if (iGo) {
 
             /* Open file for writing */
             if ((LogfileFd = fopen(gpcLogfile, "a")) == NULL) {
@@ -203,6 +222,10 @@ static inline int32_t is_msg_allowed(tLoggerType eType) {
         return LOG_NOINIT;
     }
 
+    if (iShuttingDown){
+        return LOG_SHUTTING_DOWN;
+    }
+
     return LOG_EXIT_SUCCESS;
 }
 
@@ -229,6 +252,7 @@ int32_t log_msg(tLoggerType eType, const char *message, ...) {
     return ret;
 }
 
+
 /* Force a blocking flush of the current message queue to the datafile
  * Return: Always LOG_EXIT_SUCCESS
  */
@@ -238,7 +262,10 @@ int32_t logger_flush(void) {
 
     /* Prevent blocking, when nothing got flushed after this then just lose the data */
     int32_t MaxLoops = 50;
-    while (iDataInQueueCount && MaxLoops--) {
+    while (MaxLoops--) {
+        if (!iDataInQueueCount) {
+            break;
+        }
         usleep(100);
     }
 
@@ -271,18 +298,21 @@ int32_t logger_init(const char *pcLogfilePath, tLoggerType Loglevel) {
     }
     fclose(fd);
 
+    /* Setup queue */
+    STAILQ_INIT(&Head);
+    iDataInQueueCount = 0;
+
+    /* No flushing yet */
+    iDoForceFlush = 0;
+
     /* Spin up writing thread */
     if (pthread_create(&LoggerThread, NULL, logger_thread, NULL) != 0) {
         sdsfree(gpcLogfile);
         return LOG_EXIT_FAILURE;
     }
 
-    /* Setup queue */
-    STAILQ_INIT(&Head);
-    iDataInQueueCount = 0;
-
-    iDoForceFlush = 0;
     iIsInitDone = 1;
+    iShuttingDown = 0;
 
     return LOG_EXIT_SUCCESS;
 }
@@ -301,6 +331,7 @@ int32_t logger_destroy(void) {
 
     log_debug("Destroying the logger from pid %d.", getpid());
     logger_flush();
+    iShuttingDown = 1;
 
     /* End logger thread */
     pthread_cancel(LoggerThread);

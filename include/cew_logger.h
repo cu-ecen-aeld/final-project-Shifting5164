@@ -56,6 +56,7 @@ typedef struct sLogSettings {
 #define LOG_EXIT_FAILURE EXIT_FAILURE   // + errno usually
 #define LOG_NOINIT (-1)
 #define LOG_NOLVL (-2)
+#define LOG_SHUTTING_DOWN (-4)
 
 
 /* Log types */
