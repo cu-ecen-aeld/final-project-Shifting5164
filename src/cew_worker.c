@@ -110,7 +110,7 @@ static uint32_t guiWorkerID = 0;
 
 static void workerp_signal_handler(const int32_t ciSigno) {
 
-    if (ciSigno != SIGINT && ciSigno != SIGTERM) {
+    if (ciSigno != SIGTERM) {
         return;
     }
 
@@ -131,10 +131,6 @@ static int32_t workerp_setup_signal(void) {
     sSigAction.sa_handler = workerp_signal_handler;
 
     if (sigaction(SIGTERM, &sSigAction, NULL) != 0) {
-        return errno;
-    }
-
-    if (sigaction(SIGINT, &sSigAction, NULL) != 0) {
         return errno;
     }
 
@@ -381,6 +377,9 @@ int32_t worker_route_client(tsClientStruct *psClient) {
  */
 int32_t worker_init(const int32_t iWantedWorkers) {
 
+    /* safety clean */
+    memset(&gWorkerAdmin, 0, sizeof(struct sWorkerAdmin));
+
     gWorkerAdmin.uiCurrWorkers = 0;
 
     for (int32_t i = 0; i < iWantedWorkers; i++) {
@@ -394,7 +393,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
         tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];
         memset(psWorker, 0, sizeof(struct sWorkerStruct));
 
-        log_debug("psWorker %d @ 0x%X\n", i, psWorker);
+        log_debug("psWorker %d @ 0x%X", i, psWorker);
 
         /* Add thread args to pass */
         psWorker->uiId = i;
@@ -411,7 +410,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
 
             case 0: //child
                 /* Goto worker processing */
-                log_debug("fork: I am PID %d\n", getpid());
+                log_debug("fork: I am PID %d", getpid());
                 workerp_entry(psWorker);
 
                 /* Worker should never exit */
@@ -420,7 +419,7 @@ int32_t worker_init(const int32_t iWantedWorkers) {
             default: //parent
                 /* Archive pid for monitoring alter */
                 psWorker->Pid = pid;
-                log_debug("New worker %d has pid %d.\n", i, pid);
+                log_debug("New worker %d has pid %d.", i, pid);
                 break;
         }
 

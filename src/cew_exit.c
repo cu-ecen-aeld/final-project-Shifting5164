@@ -33,3 +33,4 @@ void do_exit_with_errno(const int32_t ciErrno) {
     log_error("Exit pid %d with %d: %s. Line %d.\n",getpid(), ciErrno, strerror(ciErrno));
     do_exit(ciErrno);
 }
+

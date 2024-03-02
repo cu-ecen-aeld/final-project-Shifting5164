@@ -72,7 +72,7 @@ debug_strace: debug
 	strace -f -e 'trace=!clock_nanosleep' -s1000 -y ./build/debug/cewserver
 
 debug_mem: debug
-	valgrind --malloc-fill=0xAB --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver
+	valgrind --check-stack-var=yes --free-is-write=yes --show-stack-usage=yes --free-is-write=yes --malloc-fill=0xAA --free-fill=0x88 --fair-sched=yes --read-var-info=yes --read-inline-info=yes --show-error-list=yes --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver
 
 debug_run: debug
 	./build/debug/cewserver
@@ -92,7 +92,7 @@ test: debug
 test_mem: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
-	valgrind --malloc-fill=0xAB --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver_test
+	valgrind --malloc-fill=0xAA --free-fill=0x88 --fair-sched=yes --read-var-info=yes --read-inline-info=yes --show-error-list=yes --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver_test
 
 test_mem_hist: debug
 	mkdir -p -- /var/tmp/cew_test/

@@ -402,8 +402,8 @@ int32_t logger_destroy(void) {
     }
 
     log_debug("Destroying the logger from pid %d.", getpid());
-    logger_flush();
     iShuttingDown = 1;
+    logger_flush();
 
     /* End logger thread */
     pthread_cancel(LoggerThread);
