@@ -8,6 +8,7 @@ static char logging_testfile[] = "/var/tmp/testlog";
 //no acess to file, should fail
 static void logger_no_file(void **state) {
     assert_true(logger_init("/a/path/that/doesnt/exists", eDEBUG));
+
     logger_destroy();
 }
 

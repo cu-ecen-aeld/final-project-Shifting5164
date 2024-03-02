@@ -249,6 +249,11 @@ static int32_t log_add_to_queue(const tLoggerType eType, const char *pcMsg, va_l
 /* Determine if a message is allowed in the logger block or not */
 static inline int32_t is_msg_allowed(tLoggerType eType) {
 
+    /* Without init no msg */
+    if (!iIsInitDone) {
+        return LOG_NOLVL;
+    }
+
     /* If the program is shutting down, no msg accepted */
     if (bTerminateProg) {
         return LOG_SHUTTING_DOWN;
@@ -259,11 +264,6 @@ static inline int32_t is_msg_allowed(tLoggerType eType) {
         return LOG_SHUTTING_DOWN;
     }
 
-    /* Without init no msg */
-    if (!iIsInitDone) {
-        return LOG_NOLVL;
-    }
-
     /* Check current loglevel */
     if (sCurrLogSettings.iCurrLogLevel < eType) {
         return LOG_NOINIT;
@@ -272,6 +272,26 @@ static inline int32_t is_msg_allowed(tLoggerType eType) {
     return LOG_EXIT_SUCCESS;
 }
 
+#ifdef LOGGER_DEBUG_SHOW_ON_TERMINAL_NO_QUEUE
+
+static void log_msg_stdout(const tLoggerType eType, const char *pcMsg, va_list args) {
+
+    /* Add timestamp, IEC compatible */
+    time_t t = time(NULL);
+    tzset();    // needed for localtime_r
+    struct tm local_tm;
+    struct tm *tz = localtime_r(&t, &local_tm);
+    char acTime[64];
+    strftime(acTime, sizeof(acTime), "%a, %d %b %Y %T %z", tz);
+
+    /* Parse the users message */
+    char cUserMsg[LOGGER_MAX_USER_MSG_LEN] = {0};
+    vsnprintf(cUserMsg, sizeof(cUserMsg), pcMsg, args);
+
+    fprintf(stdout,"%s\n", cUserMsg);
+}
+
+#endif
 
 /* Write message on this level
  *
@@ -283,27 +303,24 @@ static inline int32_t is_msg_allowed(tLoggerType eType) {
  */
 int32_t log_msg(tLoggerType eType, const char *message, ...) {
 
-#ifdef LOGGER_DEBUG_SHOW_ON_TERMINAL_NO_QUEUE
+    int32_t iRet;
+
     va_list(args);
     va_start(args, message);
-    vfprintf(stdout, message, args);
-    va_end(args);
-    fprintf(stdout,"\n");
-#else
 
-    if (is_msg_allowed(eType)) {
-        return LOG_EXIT_FAILURE;
-    }
-
-    va_list args;
-    va_start(args, message);
-    int32_t ret = log_add_to_queue(eType, message, args);
-    va_end(args);
-
-    return ret;
-
+#ifdef LOGGER_DEBUG_SHOW_ON_TERMINAL_NO_QUEUE
+    log_msg_stdout(eType, message, args);
 #endif
 
+    if (is_msg_allowed(eType) == LOG_EXIT_SUCCESS) {
+        iRet = log_add_to_queue(eType, message, args);
+    } else {
+        iRet = LOG_EXIT_FAILURE;
+    }
+
+    va_end(args);
+
+    return iRet;
 }
 
 
@@ -385,8 +402,8 @@ int32_t logger_destroy(void) {
     }
 
     log_debug("Destroying the logger from pid %d.", getpid());
-    iShuttingDown = 1;
     logger_flush();
+    iShuttingDown = 1;
 
     /* End logger thread */
     pthread_cancel(LoggerThread);

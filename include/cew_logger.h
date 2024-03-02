@@ -34,7 +34,7 @@
 
 // Show messages on terminal on stdout. Good for debugging. Only works good when iBulkWrite=0
 //#define LOGGER_DEBUG_SHOW_ON_TERMINAL
-#define LOGGER_DEBUG_SHOW_ON_TERMINAL_NO_QUEUE
+//#define LOGGER_DEBUG_SHOW_ON_TERMINAL_NO_QUEUE
 
 // Loglevels
 typedef enum {

@@ -33,7 +33,7 @@ typedef struct sWorkerStruct {
     int32_t iMasterIPCAccept;               // master main fd for accepting the client
     int32_t iMasterIPCfd;               // master <> worker IPC
     int32_t iWorkerIPCfd;             // worker <> master IPC
-    int32_t iMaster;                    // master or worker ?
+    int32_t iMe;                    // a worker has set the me, so it will only cleanup its zelf, and not others
     sds IPCFile;                // location of IPC unix named socket
 } tsWorkerStruct;
 
@@ -184,6 +184,8 @@ static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
  */
 _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
 
+    psWorker->iMe = 1;
+
     /* Destroy the old logger because this is inherited from a different process,
     * re-open the logger to get a working logging thread for this process. */
     logger_destroy();
@@ -197,7 +199,7 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
     close(psWorker->iMasterIPCAccept);
     psWorker->iMasterIPCAccept = 0;
     close(psWorker->iMasterIPCfd);
-    psWorker->iMasterIPCAccept = 0;
+    psWorker->iMasterIPCfd = 0;
 
     psWorker->Pid = getpid();
     guiWorkerID = psWorker->uiId;
@@ -427,7 +429,6 @@ int32_t worker_init(const int32_t iWantedWorkers) {
             goto exit_free_worker;
         }
 
-        psWorker->iMaster = 1;
         gWorkerAdmin.uiCurrWorkers++;
         continue;
 
@@ -459,24 +460,25 @@ int32_t worker_destroy(void) {
         tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];
 
         if (psWorker) {
-            if (psWorker->iMaster) {
-                log_info("pid %d, master: Destroying worker %d from master.",getpid(), i);
-                if (psWorker->Pid) {
-                    /* Stop worker process, let it do its own cleanup */
-                    if (kill(psWorker->Pid, SIGTERM) == 0) {
-                        log_debug("pid %d, master: Successfully stopped worker: %d",getpid(), psWorker->Pid);
-                    } else {
-                        log_error("pid %d, master: Error stopping worker: %d. killing it forcefully now!",getpid(), psWorker->Pid);
-                        kill(psWorker->Pid, SIGKILL);
-                    }
 
-                    /* Get latest exit info, avoiding zombie, and for information */
-                    int status;
-                    waitpid(psWorker->Pid, &status, WUNTRACED | WCONTINUED);
-                    log_debug("pid %d, master: Exit info from pid %d:%d",getpid(), psWorker->Pid, status);
+            /* Only the main process may kill workers, not the workers themselfs. But a
+             * worker should cleanup all the other mess it inherited from the fork(). */
+            if (!psWorker->iMe) {
+
+                log_info("pid %d, master: Destroying worker %d from master.", getpid(), i);
+                /* Stop worker process, let it do its own cleanup */
+                if (kill(psWorker->Pid, SIGTERM) == 0) {
+                    log_debug("pid %d, master: Successfully stopped worker: %d", getpid(), psWorker->Pid);
+                } else {
+                    log_error("pid %d, master: Error stopping worker: %d. killing it forcefully now!", getpid(),
+                              psWorker->Pid);
+                    kill(psWorker->Pid, SIGKILL);
                 }
 
-                unlink(psWorker->IPCFile);
+                /* Get latest exit info, avoiding zombie, and for information */
+                int status;
+                waitpid(psWorker->Pid, &status, WUNTRACED | WCONTINUED);
+                log_debug("pid %d, master: Exit info from pid %d:%d", getpid(), psWorker->Pid, status);
 
                 /* Cleanup IPC */
                 if (psWorker->iMasterIPCfd != 0) {
@@ -489,8 +491,11 @@ int32_t worker_destroy(void) {
                     psWorker->iMasterIPCAccept = 0;
                 }
 
+                /* remove IPC file */
+                unlink(psWorker->IPCFile);
+
             } else {
-                log_debug("pid %d, worker: Destroying worker %d from worker pid %d",getpid(), i, psWorker->Pid);
+                log_debug("pid %d, worker: Destroying myself %d from worker pid %d", getpid(), i, psWorker->Pid);
             }
 
             if (psWorker->iWorkerIPCfd != 0) {
@@ -503,7 +508,7 @@ int32_t worker_destroy(void) {
                 psWorker->IPCFile = NULL;
             }
 
-            log_info("pid %d, Destroyed worker %d.",getpid(), psWorker->uiId);
+            log_info("pid %d, Destroyed worker %d.", getpid(), psWorker->uiId);
 
             /* free mem */
             free(gWorkerAdmin.psWorker[i]);
@@ -513,7 +518,7 @@ int32_t worker_destroy(void) {
 
     gWorkerAdmin.uiCurrWorkers = 0;
 
-    log_info("pid %d, Destroyed all workers. All done!",getpid());
+    log_info("pid %d, Destroyed all workers. All done!", getpid());
 
     return WORKER_EXIT_SUCCESS;
 }
