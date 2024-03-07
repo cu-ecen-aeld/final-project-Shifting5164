@@ -2,6 +2,7 @@
 #define CEWSERVER_CEW_EXIT_H
 
 #include <stdbool.h>
+#include <stdint.h>
 
 extern bool bTerminateProg;
 

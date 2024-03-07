@@ -410,8 +410,7 @@ int32_t worker_route_client(tsClientStruct *psClient) {
 
     /* Route the client to a worker (simple round robbin for now)*/
     NextWorker = (NextWorker + 1) % gWorkerAdmin.uiCurrWorkers;
-    uint32_t worker = NextWorker;
-    worker++; // workaround //TODO
+//    uint32_t worker = NextWorker;
 
     log_debug("Adding client %d to worker %d", psClient->iId, NextWorker);
 
