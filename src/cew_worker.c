@@ -179,7 +179,7 @@ static int32_t get_fd_from_ipc(const tsIPCmsg *psIPC, int32_t *piFd, pid_t *Pid)
             *piFd = psIPC->iFd;
             *Pid = psIPC->Pid;
 
-            log_debug("IPC Received data: %d", psIPC->iFd);
+            log_debug("IPC Received data. fd:%d, pid:%d", psIPC->iFd, psIPC->Pid);
 
             return WORKER_EXIT_SUCCESS;
 
@@ -200,8 +200,8 @@ static int32_t read_ipc_from_socket(const tsWorkerStruct *psWorker, int32_t *piF
     int32_t iRead = read(psWorker->iWorkerIPCfd, &RecevedIPC, sizeof(RecevedIPC));
 
     if (iRead == -1) {
-        perror("worker read");
-    } else if (iRead >= sizeof(struct sIPCmsg)) {
+        log_debug("worker read error");
+    } else if (iRead == sizeof(struct sIPCmsg)) {
         if (get_fd_from_ipc(&RecevedIPC, piFd, Pid) == WORKER_EXIT_SUCCESS) {
             return WORKER_EXIT_SUCCESS;
         }
@@ -280,18 +280,19 @@ static void workerp_ipc_callback(struct ev_loop *loop, ev_io *w_, int revents) {
     int32_t fd;
     pid_t pid;
 
-    read_ipc_from_socket(psWorker, &fd, &pid);
+    if (read_ipc_from_socket(psWorker, &fd, &pid) == WORKER_EXIT_SUCCESS) {
 
-    log_debug("Got callback with fd:%d from pid:%d", fd, pid);
+        log_debug("Got callback with fd:%d from pid:%d", fd, pid);
 
-    /* https://man7.org/linux/man-pages/man2/pidfd_getfd.2.html */
-    int32_t newfd;
-    if ( (newfd = syscall(SYS_pidfd_getfd, pid, fd, 0)) == -1 ){
-        log_debug("Error in syscall: %d", errno);
-        perror("newfd");
-    }else{
-
-        log_debug("Got new fd:%d", newfd);
+        /* https://man7.org/linux/man-pages/man2/pidfd_getfd.2.html */
+        int32_t newfd;
+        if ((newfd = syscall(SYS_pidfd_getfd, pid, fd, 0)) == -1) {
+            log_debug("Error in syscall. errorno:%d", errno);
+        } else {
+            log_debug("Got new fd:%d", newfd);
+        }
+    } else {
+        log_debug("reading from ipc failed !");
     }
 
 

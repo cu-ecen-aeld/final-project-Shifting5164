@@ -27,18 +27,20 @@ void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents){
     socklen_t tAddrSize;
     int32_t iSockfd;
 
-    log_debug("Got Callback from ev about a client.");
+    log_debug("Master. Got Callback from ev about a client.");
 
     /* Accept clients, and fill client information struct */
     iSockfd = accept(iFd, (struct sockaddr *) &sTheirAddr, &tAddrSize);
     if (iSockfd == -1) {
-        log_error("Error with accepting client.");
+        log_error("Master. Error with accepting client.");
         return;
     }
 
+    log_debug("Sending fd:%d to the worker.", iSockfd);
+
     /* Route new client to a worker */
     if (worker_route_client(&iSockfd) != WORKER_EXIT_SUCCESS){
-        log_warning("Couldn't route client to worker!");
+        log_warning("Master. Couldn't route client to worker!");
     }
 }
 
