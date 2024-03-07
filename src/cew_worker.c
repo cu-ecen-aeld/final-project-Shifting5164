@@ -43,12 +43,12 @@ typedef struct sWorkerAdmin {
     tsWorkerStruct *psWorker[WORKER_MAX_WORKERS];   // Registered workers
 } tsWorkerAdmin;
 
-#define IPC_MAGIC_HEADER 0x936C
+#define IPC_MAGIC_HEADER ((int16_t)0x936C)
 typedef struct sIPCmsg {
     int16_t iHeader;
     int32_t iSize;
     int32_t iFd;
-//    int16_t sCRC16;         //TODO
+    uint32_t uiChecksum;
 } tsIPCmsg;
 
 /* Keep track of everything that happens */
@@ -174,6 +174,84 @@ static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
     return EXIT_SUCCESS;
 }
 
+
+/*
+    https://en.wikipedia.org/wiki/Adler-32
+    where data is the location of the data in physical memory and
+    len is the length of the data in bytes
+*/
+static uint32_t adler32(const uint8_t *data, size_t len) {
+    const uint32_t MOD_ADLER = 65521;
+    uint32_t a = 1, b = 0;
+    size_t index;
+
+    // Process each byte of the data in order
+    for (index = 0; index < len; ++index) {
+        a = (a + data[index]) % MOD_ADLER;
+        b = (b + a) % MOD_ADLER;
+    }
+
+    return (b << 16) | a;
+}
+
+/* Checksum calculation over the complete struct sIPCmsg, with
+ * uiChecksum init as 0 using adler32
+ */
+static int32_t set_fd_in_ipc(tsIPCmsg *psIPC, const int32_t *piFd) {
+    memset(psIPC, 0, sizeof(struct sIPCmsg));
+
+    psIPC->iHeader = IPC_MAGIC_HEADER;
+    psIPC->iSize = sizeof(struct sIPCmsg);
+    psIPC->iFd = *piFd;
+    psIPC->uiChecksum = adler32((unsigned char *) psIPC, sizeof(struct sIPCmsg));
+
+    return WORKER_EXIT_SUCCESS;
+}
+
+static int32_t get_fd_from_ipc(const tsIPCmsg *psIPC, int32_t *piFd) {
+
+    /* Copy because we need to set the checksum to 0 */
+    tsIPCmsg sMsg;
+    memcpy(&sMsg, psIPC, sizeof(struct sIPCmsg));
+
+    if ((sMsg.iHeader == IPC_MAGIC_HEADER) && (sMsg.iSize == sizeof(struct sIPCmsg))) {
+
+        uint32_t uiOldChecksum = sMsg.uiChecksum;
+        sMsg.uiChecksum = 0;
+        uint32_t uiNewChecksum = adler32((unsigned char *) &sMsg, sizeof(struct sIPCmsg));
+
+        if (uiOldChecksum == uiNewChecksum) {
+            *piFd = psIPC->iFd;
+            log_debug("IPC Received data: %d", psIPC->iFd);
+            return WORKER_EXIT_SUCCESS;
+        } else {
+            log_debug("IPC checksum error");
+        }
+    } else {
+        log_debug("IPC no header or wrong size");
+    }
+
+    return WORKER_EXIT_FAILURE;
+}
+
+static int32_t read_ipc_from_socket(const tsWorkerStruct *psWorker, int32_t *piFd) {
+
+    tsIPCmsg RecevedIPC = {0};
+    int32_t iRead = read(psWorker->iWorkerIPCfd, &RecevedIPC, sizeof(RecevedIPC));
+
+    if (iRead == -1) {
+        perror("worker read");
+    } else if (iRead >= sizeof(struct sIPCmsg)) {
+        if (get_fd_from_ipc(&RecevedIPC, piFd) == WORKER_EXIT_SUCCESS) {
+            return WORKER_EXIT_SUCCESS;
+        }
+    } else {
+        log_debug("worker %d. received something with size %d, but not a ipc msg", psWorker->uiId, iRead);
+    }
+
+    return WORKER_EXIT_FAILURE;
+}
+
 /* Serve the clients that are connected to the server.
  * NOTE: this is only called from a fork();
  *
@@ -219,21 +297,9 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
 
         log_debug("worker %d. Waiting for data.", psWorker->uiId);
 
-        char buffer[WORKER_IPC_MSG_SIZE] = {0};
-        int ret = read(psWorker->iWorkerIPCfd, buffer, sizeof(buffer) - 1);
-
-        if (ret == -1) {
-            perror("worker read");
-            exit(EXIT_FAILURE);
-        } else {
-
-            if (ret > 0) {
-                log_debug("worker %d. received: %s", psWorker->uiId, buffer);
-            }
-        }
-
+        int32_t fd = 0;
+        read_ipc_from_socket(psWorker, &fd);
         sleep(1);
-
     }
 }
 
@@ -569,15 +635,16 @@ _Noreturn void worker_dummy_send(void) {
 
                 if (psWorker->Pid != 0) {
 
-                    char buffer[WORKER_IPC_MSG_SIZE] = {0};
-                    snprintf(buffer, sizeof(buffer) - 1, "Data for worker %d %ld", psWorker->uiId, random());
+                    tsIPCmsg IPCSend = {0};
+                    int32_t fd = 42;
+                    set_fd_in_ipc(&IPCSend, &fd);
 
-                    log_debug("Master: Sending data to worker %d : %s.", i, buffer);
+                    log_debug("Master: Sending data to worker %d. data=%d", i, IPCSend.iFd);
 
-                    int ret = write(psWorker->iMasterIPCfd, buffer, strlen(buffer) + 1);
+                    int ret = write(psWorker->iMasterIPCfd, &IPCSend, sizeof(IPCSend));
                     if (ret == -1) {
                         perror("write main");
-                        exit(EXIT_FAILURE);
+//                        exit(EXIT_FAILURE);
                     }
                 }
             }

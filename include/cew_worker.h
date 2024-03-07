@@ -22,9 +22,8 @@
 
 #define WORKER_IPC_FOLDER "/run/cewserver"
 #define WORKER_IPC_FILE "cew_worker"     // + some random number, it will look like cew_worker_%d
-#define WORKER_IPC_MSG_SIZE 50
 
-int32_t worker_init(const int32_t);
+int32_t worker_init(int32_t);
 
 int32_t worker_destroy(void);
 
