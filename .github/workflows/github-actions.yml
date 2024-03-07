@@ -65,18 +65,18 @@ jobs:
       - name: Build Code
         run: (make submodule && make libs && make debug)
 
-#  code_check:
-#    name: Static Code Check
-#    runs-on: self-hosted
-#    container:
-#      image: junkyard6930/projenv:latest
-#    needs: build_docker
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Code check
-#        run: (make pipeline_check)
+  code_check:
+    name: Static Code Check
+    runs-on: self-hosted
+    container:
+      image: junkyard6930/projenv:latest
+    needs: build_docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Code check
+        run: (make pipeline_check)
 
   code_test:
     name: Unit Testing
