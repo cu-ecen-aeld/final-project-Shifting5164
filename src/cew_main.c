@@ -185,10 +185,14 @@ int32_t main(int32_t argc, char **argv) {
     struct ev_loop *psLoop;
     psLoop = ev_default_loop(0);
 
-    /* exit sig */
-    ev_signal exitsig;
-    ev_signal_init (&exitsig, callback_exitsig, SIGINT);
-    ev_signal_start(psLoop, &exitsig);
+    /* exit sigs */
+    ev_signal sigint;
+    ev_signal_init (&sigint, callback_exitsig, SIGINT);
+    ev_signal_start(psLoop, &sigint);
+
+    ev_signal sigterm;
+    ev_signal_init (&sigterm, callback_exitsig, SIGTERM);
+    ev_signal_start(psLoop, &sigterm);
 
     /* Setup the callback for client notification */
     ev_io ClientWatcher;

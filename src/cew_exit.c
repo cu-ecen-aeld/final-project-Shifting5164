@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #include <banned.h>
 #include <cew_exit.h>
@@ -8,6 +9,7 @@
 #include <cew_socket.h>
 #include <cew_worker.h>
 #include <cew_client.h>
+
 
 bool bTerminateProg = false;
 
@@ -21,6 +23,7 @@ static void exit_cleanup(void) {
 void do_exit(const int32_t ciExitval) {
     log_info("Goodbye pid %d!", getpid());
     exit_cleanup();
+    printf("Bye :-)\n");
     exit(ciExitval);
 }
 

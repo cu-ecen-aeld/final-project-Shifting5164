@@ -9,6 +9,7 @@
 #include <sys/wait.h>
 #include <sys/un.h>
 #include <sys/stat.h>
+#include <sys/syscall.h>
 
 #include <ev.h>
 
@@ -225,35 +226,6 @@ static int32_t write_ipc_to_socket(const tsWorkerStruct *psWorker, tsIPCmsg *psI
 //                     workerp functions
 //#################################################################
 
-
-//static void workerp_signal_handler(const int32_t ciSigno) {
-//
-//    if (ciSigno != SIGTERM) {
-//        return;
-//    }
-//
-//    bTerminateProg = true;
-//}
-//
-///* Setup signals for workers only */
-//static int32_t workerp_setup_signal(void) {
-//
-//    /* SIGTERM or SIGTERM terminates the program with cleanup */
-//    struct sigaction sSigAction;
-//
-//    sigemptyset(&sSigAction.sa_mask);
-//
-//    sSigAction.sa_flags = 0;
-//    sSigAction.sa_handler = workerp_signal_handler;
-//
-//    if (sigaction(SIGTERM, &sSigAction, NULL) != 0) {
-//        return errno;
-//    }
-//
-//    return EXIT_SUCCESS;
-//}
-
-
 static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
 
     log_debug("Connecting to IPC socket for worker %d on file %s", psWorker->uiId, psWorker->IPCFile);
@@ -295,6 +267,7 @@ static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
     return EXIT_SUCCESS;
 }
 
+/* Exit signal callback from ev. Kill ev loop */
 static void workerp_callback_exitsig(struct ev_loop *loop, ev_signal *w, int revents) {
     ev_break(loop, EVBREAK_ALL);
 }
@@ -309,14 +282,23 @@ static void workerp_ipc_callback(struct ev_loop *loop, ev_io *w_, int revents) {
 
     read_ipc_from_socket(psWorker, &fd, &pid);
 
-    // own fd
+    log_debug("Got callback with fd:%d from pid:%d", fd, pid);
 
+    /* https://man7.org/linux/man-pages/man2/pidfd_getfd.2.html */
+    int32_t newfd;
+    if ( (newfd = syscall(SYS_pidfd_getfd, pid, fd, 0)) == -1 ){
+        log_debug("Error in syscall: %d", errno);
+        perror("newfd");
+    }else{
+
+        log_debug("Got new fd:%d", newfd);
+    }
 
 
     // add io watcher + callback
 
 
-    log_debug("Got callback with fd:%d from pid:%d", fd, pid);
+
 
 }
 
@@ -337,9 +319,6 @@ static void workerp_entry(tsWorkerStruct *psWorker) {
     tsSSettings sCurrSSettings = settings_get();
     logger_init(sCurrSSettings.pcLogfile, sCurrSSettings.lLogLevel);
 
-    /* Setup new signal handlers for my worker process */
-//    workerp_setup_signal();
-
     /* Close everything that we don't need */
     close(psWorker->iMasterIPCAccept);
     psWorker->iMasterIPCAccept = 0;
@@ -348,11 +327,15 @@ static void workerp_entry(tsWorkerStruct *psWorker) {
 
     psWorker->Pid = getpid();
 
+    if (chdir("/") < 0) {
+        do_exit(EXIT_FAILURE);
+    }
+
     log_debug("Worker %d is running.", psWorker->uiId);
 
     /* Connect to parent IPC */
     if (workerp_connect_ipc_socket(psWorker) != 0) {
-        exit(EXIT_FAILURE);
+        do_exit(EXIT_FAILURE);
     }
 
     struct ev_loop *psLoop;
@@ -738,3 +721,4 @@ _Noreturn void worker_dummy_send(void) {
 }
 
 #endif
+
