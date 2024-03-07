@@ -64,7 +64,6 @@ static void worker_ipc_bad(void **state) {
     memcpy(&sIPCBad, &sIPCGood, sizeof(sIPCBad));
     sIPCBad.uiChecksum = 1;
     assert_true(get_fd_from_ipc(&sIPCBad, &iFD, &pid));
-
 }
 
 const struct CMUnitTest test_worker[] = {

@@ -46,6 +46,7 @@ typedef struct sWorkerAdmin {
     tsWorkerStruct *psWorker[WORKER_MAX_WORKERS];   // Registered workers
 } tsWorkerAdmin;
 
+/* ipc definition for master > worker fd handover */
 #define IPC_MAGIC_HEADER ((int16_t)0x936C)
 typedef struct sIPCmsg {
     int16_t iHeader;
@@ -55,6 +56,7 @@ typedef struct sIPCmsg {
     uint32_t uiChecksum;
 } tsIPCmsg;
 
+/* ev callback definition */
 typedef struct sWorkerEv {
     ev_io io;
     tsWorkerStruct *psWorker;
@@ -63,8 +65,6 @@ typedef struct sWorkerEv {
 /* Keep track of everything that happens */
 static tsWorkerAdmin gWorkerAdmin = {0};
 
-/* Global ID for the worker process, only available in workers */
-static uint32_t guiWorkerID = 0;
 
 //#############################################################################################
 //#######       Worker process functions
@@ -141,7 +141,9 @@ static uint32_t adler32(const uint8_t *data, size_t len) {
     return (b << 16) | a;
 }
 
-/* Checksum calculation over the complete struct sIPCmsg, with
+/* Send an open fd from master > worker
+ *
+ * Checksum calculation over the complete struct sIPCmsg, with
  * uiChecksum init as 0 using adler32
  */
 static int32_t set_fd_in_ipc(tsIPCmsg *psIPC, const int32_t *piFd) {
@@ -156,23 +158,30 @@ static int32_t set_fd_in_ipc(tsIPCmsg *psIPC, const int32_t *piFd) {
     return WORKER_EXIT_SUCCESS;
 }
 
+/* On the worker size, get the fd and pid from and ipc message transmitted from the master */
 static int32_t get_fd_from_ipc(const tsIPCmsg *psIPC, int32_t *piFd, pid_t *Pid) {
 
-    /* Copy because we need to set the checksum to 0 */
+    /* Copy ipc because we need to set the checksum to 0, don't modify the received data. */
     tsIPCmsg sMsg;
     memcpy(&sMsg, psIPC, sizeof(struct sIPCmsg));
 
     if ((sMsg.iHeader == IPC_MAGIC_HEADER) && (sMsg.iSize == sizeof(struct sIPCmsg))) {
 
+        /* calc and match ipc checksum */
         uint32_t uiOldChecksum = sMsg.uiChecksum;
         sMsg.uiChecksum = 0;
         uint32_t uiNewChecksum = adler32((unsigned char *) &sMsg, sizeof(struct sIPCmsg));
 
         if (uiOldChecksum == uiNewChecksum) {
+
+            /* All good, return what we need */
             *piFd = psIPC->iFd;
             *Pid = psIPC->Pid;
+
             log_debug("IPC Received data: %d", psIPC->iFd);
+
             return WORKER_EXIT_SUCCESS;
+
         } else {
             log_debug("IPC checksum error");
         }
@@ -183,6 +192,7 @@ static int32_t get_fd_from_ipc(const tsIPCmsg *psIPC, int32_t *piFd, pid_t *Pid)
     return WORKER_EXIT_FAILURE;
 }
 
+/* On the worker side, read the ipc transmitted from the master, and return the fd and pid */
 static int32_t read_ipc_from_socket(const tsWorkerStruct *psWorker, int32_t *piFd, pid_t *Pid) {
 
     tsIPCmsg RecevedIPC = {0};
@@ -201,6 +211,7 @@ static int32_t read_ipc_from_socket(const tsWorkerStruct *psWorker, int32_t *piF
     return WORKER_EXIT_FAILURE;
 }
 
+/* From master side, send and ipc to the worker with the fd */
 static int32_t write_ipc_to_socket(const tsWorkerStruct *psWorker, tsIPCmsg *psIPCmsg) {
 
     if (write(psWorker->iMasterIPCfd, psIPCmsg, sizeof(struct sIPCmsg)) > 0) {
@@ -215,32 +226,32 @@ static int32_t write_ipc_to_socket(const tsWorkerStruct *psWorker, tsIPCmsg *psI
 //#################################################################
 
 
-static void workerp_signal_handler(const int32_t ciSigno) {
-
-    if (ciSigno != SIGTERM) {
-        return;
-    }
-
-    bTerminateProg = true;
-}
-
-/* Setup signals for workers only */
-static int32_t workerp_setup_signal(void) {
-
-    /* SIGTERM or SIGTERM terminates the program with cleanup */
-    struct sigaction sSigAction;
-
-    sigemptyset(&sSigAction.sa_mask);
-
-    sSigAction.sa_flags = 0;
-    sSigAction.sa_handler = workerp_signal_handler;
-
-    if (sigaction(SIGTERM, &sSigAction, NULL) != 0) {
-        return errno;
-    }
-
-    return EXIT_SUCCESS;
-}
+//static void workerp_signal_handler(const int32_t ciSigno) {
+//
+//    if (ciSigno != SIGTERM) {
+//        return;
+//    }
+//
+//    bTerminateProg = true;
+//}
+//
+///* Setup signals for workers only */
+//static int32_t workerp_setup_signal(void) {
+//
+//    /* SIGTERM or SIGTERM terminates the program with cleanup */
+//    struct sigaction sSigAction;
+//
+//    sigemptyset(&sSigAction.sa_mask);
+//
+//    sSigAction.sa_flags = 0;
+//    sSigAction.sa_handler = workerp_signal_handler;
+//
+//    if (sigaction(SIGTERM, &sSigAction, NULL) != 0) {
+//        return errno;
+//    }
+//
+//    return EXIT_SUCCESS;
+//}
 
 
 static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
@@ -284,6 +295,9 @@ static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
     return EXIT_SUCCESS;
 }
 
+static void workerp_callback_exitsig(struct ev_loop *loop, ev_signal *w, int revents) {
+    ev_break(loop, EVBREAK_ALL);
+}
 
 static void workerp_ipc_callback(struct ev_loop *loop, ev_io *w_, int revents) {
 
@@ -295,6 +309,13 @@ static void workerp_ipc_callback(struct ev_loop *loop, ev_io *w_, int revents) {
 
     read_ipc_from_socket(psWorker, &fd, &pid);
 
+    // own fd
+
+
+
+    // add io watcher + callback
+
+
     log_debug("Got callback with fd:%d from pid:%d", fd, pid);
 
 }
@@ -303,9 +324,11 @@ static void workerp_ipc_callback(struct ev_loop *loop, ev_io *w_, int revents) {
 /* Serve the clients that are connected to the server.
  * NOTE: this is only called from a fork();
  *
+ *  https://linux.die.net/man/3/ev
  */
-_Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
+static void workerp_entry(tsWorkerStruct *psWorker) {
 
+    /* Mark psWorker as owned, needing this for the cleanup later */
     psWorker->iMe = 1;
 
     /* Destroy the old logger because this is inherited from a different process,
@@ -315,7 +338,7 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
     logger_init(sCurrSSettings.pcLogfile, sCurrSSettings.lLogLevel);
 
     /* Setup new signal handlers for my worker process */
-    workerp_setup_signal();
+//    workerp_setup_signal();
 
     /* Close everything that we don't need */
     close(psWorker->iMasterIPCAccept);
@@ -324,7 +347,6 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
     psWorker->iMasterIPCfd = 0;
 
     psWorker->Pid = getpid();
-    guiWorkerID = psWorker->uiId;
 
     log_debug("Worker %d is running.", psWorker->uiId);
 
@@ -334,17 +356,22 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
     }
 
     struct ev_loop *psLoop;
-
     psLoop = ev_default_loop(0);
+
+    /* SIGINT Signal */
+    ev_signal exitsig;
+    ev_signal_init (&exitsig, workerp_callback_exitsig, SIGINT);
+    ev_signal_start(psLoop, &exitsig);
+
+    /* IPC */
     tsWorkerEv sWorkerEv = {0};
     sWorkerEv.psWorker = psWorker;
-
-    /* Setup the callback for client notification */
     ev_io_init(&sWorkerEv.io, workerp_ipc_callback, psWorker->iWorkerIPCfd, EV_READ);
-
     ev_io_start(psLoop, &sWorkerEv.io);
+
     ev_run(psLoop, 0);
 
+    do_exit(0);
 }
 
 //
@@ -610,7 +637,7 @@ int32_t worker_destroy(void) {
 
             } else {
 
-                ev_loop_destroy (EV_DEFAULT_UC);        //TODO ??
+                ev_loop_destroy(EV_DEFAULT_UC);        //TODO ??
 
                 log_debug("pid %d, worker: Destroying myself %d from worker pid %d", getpid(), i, psWorker->Pid);
             }

@@ -21,7 +21,7 @@ static int32_t iFd = 0;
 
 /* Callback function for ev polling. Accepts the clients, makes a new fd, and routes the
  * client to a worker. */
-static void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents){
+void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents){
 
     struct sockaddr_storage sTheirAddr;
     socklen_t tAddrSize;
@@ -42,29 +42,6 @@ static void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents){
     }
 }
 
-/* Setup the polling and callback for new clients. New clients will be received on the
- * non-blocking, already open iFd.
- *
- * This function should never return.
- *
- * http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#code_ev_io_code_is_this_file_descrip
- */
-int32_t socket_poll(void) {
-
-    struct ev_loop *psLoop;
-
-    psLoop = ev_default_loop(0);
-    ev_io ClientWatcher;
-
-    /* Setup the callback for client notification */
-    ev_io_init(&ClientWatcher, socket_accept_client, iFd, EV_READ);
-
-    ev_io_start(psLoop, &ClientWatcher);
-    ev_run(psLoop, 0);
-
-    return 0;
-}
-
 /* Description:
  * Setup socket handling
  * https://beej.us/guide/bgnet/html/split/system-calls-or-bust.html#system-calls-or-bust
@@ -73,7 +50,7 @@ int32_t socket_poll(void) {
  * - errno on error
  * - RET_OK when succeeded
  */
-int32_t socket_setup(uint16_t iPort) {
+int32_t socket_setup(uint16_t iPort, int32_t *iRetFd) {
 
     struct addrinfo sHints = {0};
     struct addrinfo *psServinfo = NULL;
@@ -122,6 +99,8 @@ int32_t socket_setup(uint16_t iPort) {
     }
 
     log_info("Socket listing on port %d", iPort);
+
+    *iRetFd = iFd;
 
     return SOCK_EXIT_SUCCESS;
 }
