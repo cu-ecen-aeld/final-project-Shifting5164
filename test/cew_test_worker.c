@@ -26,37 +26,45 @@ static void worker_happy_init(void **state) {
 static void worker_ipc_good(void **state) {
     tsIPCmsg sIPC;
     int32_t iFD = 42;
+    pid_t pid;
 
     assert_false(set_fd_in_ipc(&sIPC, &iFD));
-    assert_false(get_fd_from_ipc(&sIPC, &iFD));
+    assert_false(get_fd_from_ipc(&sIPC, &iFD, &pid));
 }
 
 
 static void worker_ipc_bad(void **state) {
     tsIPCmsg sIPCGood, sIPCBad;
     int32_t iFD = 42;
+    pid_t pid;
 
     assert_false(set_fd_in_ipc(&sIPCGood, &iFD));
 
     // bad header
     memcpy(&sIPCBad, &sIPCGood, sizeof(sIPCBad));
     sIPCBad.iHeader = 1;
-    assert_true(get_fd_from_ipc(&sIPCBad, &iFD));
+    assert_true(get_fd_from_ipc(&sIPCBad, &iFD, &pid));
 
     // bad size
     memcpy(&sIPCBad, &sIPCGood, sizeof(sIPCBad));
     sIPCBad.iSize = 1;
-    assert_true(get_fd_from_ipc(&sIPCBad, &iFD));
+    assert_true(get_fd_from_ipc(&sIPCBad, &iFD, &pid));
 
     // bad payload
     memcpy(&sIPCBad, &sIPCGood, sizeof(sIPCBad));
     sIPCBad.iFd = 1;
-    assert_true(get_fd_from_ipc(&sIPCBad, &iFD));
+    assert_true(get_fd_from_ipc(&sIPCBad, &iFD, &pid));
+
+    // bad pid
+    memcpy(&sIPCBad, &sIPCGood, sizeof(sIPCBad));
+    sIPCBad.Pid = 1;
+    assert_true(get_fd_from_ipc(&sIPCBad, &iFD, &pid));
 
     // bad checksum
     memcpy(&sIPCBad, &sIPCGood, sizeof(sIPCBad));
     sIPCBad.uiChecksum = 1;
-    assert_true(get_fd_from_ipc(&sIPCBad, &iFD));
+    assert_true(get_fd_from_ipc(&sIPCBad, &iFD, &pid));
+
 }
 
 const struct CMUnitTest test_worker[] = {

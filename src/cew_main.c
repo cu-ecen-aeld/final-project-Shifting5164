@@ -53,8 +53,6 @@ void sig_handler(const int32_t ciSigno) {
         return;
     }
 
-    log_warning("Got signal: %d", ciSigno);
-
     bTerminateProg = true;
 }
 
@@ -219,14 +217,11 @@ int32_t main(int32_t argc, char **argv) {
         printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
 
-    worker_dummy_send();
-    worker_monitor();
+//    worker_dummy_send();
+//    worker_monitor();
 
     /* Accept connecting clients here */
-    socket_poll(); //TODO pass only FD
-    while (1) {
-        sleep(100);
-    }
+    socket_poll();
 
     do_exit(EXIT_SUCCESS);
 }

@@ -21,27 +21,25 @@ static int32_t iFd = 0;
 
 /* Callback function for ev polling. Accepts the clients, makes a new fd, and routes the
  * client to a worker. */
-static void socket_accept_client(EV_P_ ev_io *w, int revents) {
+static void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents){
 
-    tsClientStruct *psNewClient = NULL;
-    client_init(&psNewClient);
+    struct sockaddr_storage sTheirAddr;
+    socklen_t tAddrSize;
+    int32_t iSockfd;
 
     log_debug("Got Callback from ev about a client.");
 
     /* Accept clients, and fill client information struct */
-    psNewClient->iSockfd = accept(iFd, (struct sockaddr *) &psNewClient->sTheirAddr, &psNewClient->tAddrSize);
-    if (psNewClient->iSockfd == -1) {
-        free(psNewClient);
+    iSockfd = accept(iFd, (struct sockaddr *) &sTheirAddr, &tAddrSize);
+    if (iSockfd == -1) {
         log_error("Error with accepting client.");
         return;
     }
 
-    psNewClient->iId = (int32_t) random(); // TODO move to client_init
-
-    log_debug("Got client %d from accept. Going to route it to a worker.", psNewClient->iId);
-
     /* Route new client to a worker */
-    worker_route_client(psNewClient);
+    if (worker_route_client(&iSockfd) != WORKER_EXIT_SUCCESS){
+        log_warning("Couldn't route client to worker!");
+    }
 }
 
 /* Setup the polling and callback for new clients. New clients will be received on the
@@ -53,7 +51,7 @@ static void socket_accept_client(EV_P_ ev_io *w, int revents) {
  */
 int32_t socket_poll(void) {
 
-    static struct ev_loop *psLoop;
+    struct ev_loop *psLoop;
 
     psLoop = ev_default_loop(0);
     ev_io ClientWatcher;

@@ -33,7 +33,7 @@
 #define LOGGER_MAX_USER_MSG_LEN 1024
 
 // Show messages on terminal on stdout. Good for debugging. Only works good when iBulkWrite=0
-//#define LOGGER_DEBUG_SHOW_ON_TERMINAL
+#define LOGGER_DEBUG_SHOW_ON_TERMINAL
 //#define LOGGER_DEBUG_SHOW_ON_TERMINAL_NO_QUEUE
 
 // Loglevels
