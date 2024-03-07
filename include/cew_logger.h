@@ -33,7 +33,8 @@
 #define LOGGER_MAX_USER_MSG_LEN 1024
 
 // Show messages on terminal on stdout. Good for debugging. Only works good when iBulkWrite=0
-//#define LOGGER_SHOW_ON_TERMINAL
+//#define LOGGER_DEBUG_SHOW_ON_TERMINAL
+//#define LOGGER_DEBUG_SHOW_ON_TERMINAL_NO_QUEUE
 
 // Loglevels
 typedef enum {
@@ -56,6 +57,7 @@ typedef struct sLogSettings {
 #define LOG_EXIT_FAILURE EXIT_FAILURE   // + errno usually
 #define LOG_NOINIT (-1)
 #define LOG_NOLVL (-2)
+#define LOG_SHUTTING_DOWN (-3)
 
 
 /* Log types */

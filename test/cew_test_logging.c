@@ -8,6 +8,7 @@ static char logging_testfile[] = "/var/tmp/testlog";
 //no acess to file, should fail
 static void logger_no_file(void **state) {
     assert_true(logger_init("/a/path/that/doesnt/exists", eDEBUG));
+
     logger_destroy();
 }
 
@@ -48,6 +49,11 @@ static void logger_error_entry(void **state) {
 // log message without init
 static void logger_no_init(void **state) {
     assert_true(log_error("my error is %d", 42));
+}
+
+// no init but do destroy
+static void logger_no_init_and_destroy(void **state) {
+    assert_true(logger_destroy());
 }
 
 // see if things get written on the correct levels
@@ -225,6 +231,7 @@ const struct CMUnitTest test_logging[] = {
         cmocka_unit_test(logger_error_entry),
         cmocka_unit_test(logger_no_init),
         cmocka_unit_test(logger_check_levels),
+        cmocka_unit_test(logger_no_init_and_destroy),
         cmocka_unit_test(logger_get_and_set_settings),
         cmocka_unit_test(logger_check_level_filter),
         cmocka_unit_test(logger_check_mutithreading),

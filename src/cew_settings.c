@@ -9,6 +9,7 @@
 
 #include <cew_settings.h>
 #include <cew_logger.h>
+#include <unistd.h>
 
 /* Defaults when nothing is loaded*/
 static tsSSettings sCurrSSettings = {0};
@@ -216,7 +217,7 @@ int32_t settings_destroy(void) {
 
     memset(&sCurrSSettings, 0, sizeof(tsSSettings));
 
-    log_info("Destroying settings");
+    log_info("Destroying settings from pid %d", getpid());
 
     return SET_EXIT_SUCCESS;
 

@@ -33,6 +33,7 @@ static void socket_accept_client(EV_P_ ev_io *w, int revents) {
     if (psNewClient->iSockfd == -1) {
         free(psNewClient);
         log_error("Error with accepting client.");
+        return;
     }
 
     psNewClient->iId = (int32_t) random(); // TODO move to client_init
@@ -51,7 +52,10 @@ static void socket_accept_client(EV_P_ ev_io *w, int revents) {
  * http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#code_ev_io_code_is_this_file_descrip
  */
 int32_t socket_poll(void) {
-    struct ev_loop *psLoop = ev_default_loop(0);
+
+    static struct ev_loop *psLoop;
+
+    psLoop = ev_default_loop(0);
     ev_io ClientWatcher;
 
     /* Setup the callback for client notification */
@@ -132,6 +136,8 @@ int32_t socket_close(void) {
         close(iFd);
         iFd = 0;
     }
+
+    ev_loop_destroy (EV_DEFAULT_UC);
 
     log_info("Stopped socket.");
 

@@ -23,15 +23,18 @@
 #include <sys/stat.h>
 #include <sys/random.h>
 #include <sys/resource.h>
+#include <sys/time.h>
 
 #include <ev.h>
 
 #include <banned.h>
+#include <cew_exit.h>
 #include <cew_settings.h>
 #include <cew_logger.h>
 #include <cew_socket.h>
 #include <cew_worker.h>
 #include <cew_client.h>
+
 
 /*
 https://github.com/cu-ecen-aeld/final-project-Shifting5164
@@ -42,16 +45,6 @@ https://github.com/cu-ecen-aeld/final-project-Shifting5164
 #define RET_OK 0 //todo
 #define SOCKET_FAIL -2 //todo
 
-bool bTerminateProg = false; /* terminating program gracefully */
-
-/* completing any open connection operations,
- * closing any open sockets, and deleting the file /var/tmp/aesdsocketdata*/
-static void exit_cleanup(void) {
-    socket_close();
-    settings_destroy();
-    worker_destroy();
-    logger_destroy();
-}
 
 /* Signal actions */
 void sig_handler(const int32_t ciSigno) {
@@ -60,30 +53,9 @@ void sig_handler(const int32_t ciSigno) {
         return;
     }
 
-    //todo ctlr+c
-    if (ciSigno == SIGINT){
-        exit(0);
-    }
-
     log_warning("Got signal: %d", ciSigno);
 
     bTerminateProg = true;
-}
-
-static void do_exit(const int32_t ciExitval) {
-    log_info("Goodbye!");
-    exit_cleanup();
-    exit(ciExitval);
-}
-
-//static void do_thread_exit_with_errno(const int32_t ciLine, const int32_t ciErrno) {
-//    log_error("Exit with %d: %s. Line %d.", ciErrno, strerror(ciErrno), ciLine);
-//    pthread_exit((void *) ciErrno);
-//}
-
-static void do_exit_with_errno(const int32_t ciErrno) {
-    log_error("Exit with %d: %s. Line %d.\n", ciErrno, strerror(ciErrno));
-    do_exit(ciErrno);
 }
 
 /* Description:
@@ -181,6 +153,14 @@ static int32_t daemonize(void) {
     return RET_OK;
 }
 
+/* Seed the random system based on time and pid.
+ * Noting cryptografically safe. Its good enough for some "random" */
+static void seed_random(void){
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    srand(t.tv_usec * t.tv_sec * getpid());
+}
+
 int32_t main(int32_t argc, char **argv) {
 
     bool bDeamonize = false;
@@ -189,6 +169,8 @@ int32_t main(int32_t argc, char **argv) {
     if ((argc > 1) && strcmp(argv[0], "-d")) {
         bDeamonize = true;
     }
+
+    seed_random();
 
     if ((iRet = settings_init()) != 0) {
         do_exit_with_errno(iRet);
@@ -201,7 +183,7 @@ int32_t main(int32_t argc, char **argv) {
     /* Get a copy of the current settings */
     tsSSettings sCurrSettings = settings_get();
 
-    if ((iRet = logger_init(sCurrSettings.pcLogfile, (tLoggerType)sCurrSettings.lLogLevel)) != 0) {
+    if ((iRet = logger_init(sCurrSettings.pcLogfile, (tLoggerType) sCurrSettings.lLogLevel)) != 0) {
         do_exit_with_errno(iRet);
     }
 
@@ -222,13 +204,13 @@ int32_t main(int32_t argc, char **argv) {
         do_exit_with_errno(iRet);
     }
 
-    // todo 10 should be settings
-    if ( (iRet = worker_init(10)) != WORKER_EXIT_SUCCESS){
+    // TODO, should be settings
+    if ((iRet = worker_init(2)) != WORKER_EXIT_SUCCESS) {
         do_exit_with_errno(iRet);
     }
 
     /* Opens a stream socket, failing and returning -1 if any of the socket connection steps fail. */
-    if ((iRet = socket_setup((int16_t)sCurrSettings.lPort)) != SOCK_EXIT_SUCCESS) {
+    if ((iRet = socket_setup((int16_t) sCurrSettings.lPort)) != SOCK_EXIT_SUCCESS) {
         log_error("Exit with %d: %s. Line %d.\n", iRet, strerror(iRet));
         do_exit(SOCKET_FAIL);
     }
@@ -237,8 +219,14 @@ int32_t main(int32_t argc, char **argv) {
         printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
 
+    worker_dummy_send();
+    worker_monitor();
+
     /* Accept connecting clients here */
-    socket_poll();
+    socket_poll(); //TODO pass only FD
+    while (1) {
+        sleep(100);
+    }
 
     do_exit(EXIT_SUCCESS);
 }

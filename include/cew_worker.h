@@ -2,6 +2,8 @@
 #define CEWSERVER_CEW_WORKER_H
 
 #include <stdlib.h>
+
+#include <cew_logger.h>
 #include <cew_client.h>
 
 /* The config will define the current workers and clients dynamically
@@ -18,11 +20,17 @@
 #define WORKER_EXIT_SUCCESS EXIT_SUCCESS
 #define WORKER_EXIT_FAILURE EXIT_FAILURE   // + errno usually
 
+#define WORKER_IPC_FOLDER "/run/cewserver"
+#define WORKER_IPC_FILE "cew_worker"     // + some random number, it will look like cew_worker_%d
+#define WORKER_IPC_MSG_SIZE 50
 
 int32_t worker_init(const int32_t);
 
 int32_t worker_destroy(void);
 
 int32_t worker_route_client(tsClientStruct *);
+
+_Noreturn void worker_monitor(void);
+_Noreturn void worker_dummy_send(void);
 
 #endif //CEWSERVER_CEW_WORKER_H

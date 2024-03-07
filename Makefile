@@ -1,5 +1,7 @@
 .SILENT:
-.PHONY:
+#.PHONY:
+
+#SHELL := /bin/bash
 
 DOCKERTAG=projenv
 DIR_DEBUG=build/debug
@@ -66,6 +68,15 @@ debug:
 	file ${DIR_DEBUG}/${PROJ_NAME}
 	checksec --file=${DIR_DEBUG}/${PROJ_NAME}
 
+debug_strace: debug
+	strace -f -e 'trace=!clock_nanosleep' -s1000 -y ./build/debug/cewserver
+
+debug_mem: debug
+	valgrind --check-stack-var=yes --free-is-write=yes --show-stack-usage=yes --free-is-write=yes --malloc-fill=0xAA --free-fill=0x88 --fair-sched=yes --read-var-info=yes --read-inline-info=yes --show-error-list=yes --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver
+
+debug_run: debug
+	./build/debug/cewserver
+
 release:
 	mkdir --parents -- ${DIR_RELEASE}
 	cmake -S . -B ${DIR_RELEASE} -DCMAKE_BUILD_TYPE=Release
@@ -73,24 +84,23 @@ release:
 	file ${DIR_RELEASE}/${PROJ_NAME}
 	checksec --file=${DIR_RELEASE}/${PROJ_NAME}
 
-.PHONY: test
 test: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
 	CMOCKA_TEST_ABORT='1' ./build/debug/cewserver_test
 
-.PHONY: test_mem
 test_mem: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
-	valgrind --malloc-fill=0xAB --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver_test
+	valgrind --malloc-fill=0xAA --free-fill=0x88 --fair-sched=yes --read-var-info=yes --read-inline-info=yes --show-error-list=yes --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver_test
 
-.PHONY: test_mem_hist
 test_mem_hist: debug
 	mkdir -p -- /var/tmp/cew_test/
 	cp -r -- ./test/ini/ /var/tmp/cew_test/
 	valgrind --tool=massif ./build/debug/cewserver_test
 
+test_strace: debug
+	strace -f -e 'trace=!clock_nanosleep' -s1000 -y ./build/debug/cewserver_test
 
 libs: libini libev cmocka
 
@@ -114,4 +124,8 @@ cmocka:
 		&& make install
 
 gef:
-	bash -c "$(curl -fsSL https://gef.blah.cat/sh)"
+	bash -c "$$(curl -fsSL https://gef.blah.cat/sh)"
+	echo "** Installed **"
+
+kill:
+	./tools/killall
