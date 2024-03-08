@@ -21,7 +21,7 @@ static int32_t iFd = 0;
 
 /* Callback function for ev polling. Accepts the clients, makes a new fd, and routes the
  * client to a worker. */
-void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents){
+void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents) {
 
     struct sockaddr_storage sTheirAddr;
     socklen_t tAddrSize;
@@ -39,7 +39,7 @@ void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents){
     log_debug("Sending fd:%d to the worker.", iSockfd);
 
     /* Route new client to a worker */
-    if (worker_route_client(&iSockfd) != WORKER_EXIT_SUCCESS){
+    if (worker_route_client(&iSockfd) != WORKER_EXIT_SUCCESS) {
         log_warning("Master. Couldn't route client to worker!");
     }
 }
@@ -76,6 +76,12 @@ int32_t socket_setup(uint16_t iPort, int32_t *iRetFd) {
     /* lose the pesky "Address already in use" error message */
     int32_t iYes = 1;
     if (setsockopt(iFd, SOL_SOCKET, SO_REUSEADDR, &iYes, sizeof iYes) == -1) {
+        return errno;
+    }
+
+    // https://www.man7.org/linux/man-pages/man7/socket.7.html
+    // Permits multiple AF_INET or AF_INET6 sockets to be bound to an identical socket address.
+    if (setsockopt(iFd, SOL_SOCKET, SO_REUSEPORT, &iYes, sizeof iYes) == -1) {
         return errno;
     }
 
@@ -116,11 +122,8 @@ int32_t socket_close(void) {
         iFd = 0;
     }
 
-    ev_loop_destroy (EV_DEFAULT_UC);
-
     log_info("Stopped socket.");
 
     return 0;
-
 }
 
