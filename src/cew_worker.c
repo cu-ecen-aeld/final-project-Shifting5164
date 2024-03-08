@@ -4,11 +4,16 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <sys/queue.h>
 #include <sys/socket.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/un.h>
 #include <sys/stat.h>
+#include <sys/syscall.h>
+
+#include <ev.h>
 
 #include <cew_settings.h>
 #include <cew_worker.h>
@@ -43,100 +48,84 @@ typedef struct sWorkerAdmin {
     tsWorkerStruct *psWorker[WORKER_MAX_WORKERS];   // Registered workers
 } tsWorkerAdmin;
 
-#define IPC_MAGIC_HEADER ((int16_t)0x936C)
-typedef struct sIPCmsg {
-    int16_t iHeader;
-    int32_t iSize;
-    int32_t iFd;
-    uint32_t uiChecksum;
-} tsIPCmsg;
+/* ev callback definition */
+typedef struct sWorkerEv {
+    ev_io io;
+    tsWorkerStruct *psWorker;
+} tsWorkerEv;
 
 /* Keep track of everything that happens */
 static tsWorkerAdmin gWorkerAdmin = {0};
 
-/* Global ID for the worker process, only available in workers */
-static uint32_t guiWorkerID = 0;
 
-//#############################################################################################
-//#######       Worker process functions
-//#############################################################################################
+//#################################################################
+//                               IPC
+//#################################################################
+// background info : https://www.sobyte.net/post/2022-01/pass-fd-over-domain-socket/
 
-/* Check the waiting client queue for this thread, get the clients
- * and add them to this thread for serving */
-//static int32_t worker_check_waiting(tsWorkerStruct *psArgs) {
-//
-//    /* Check waiting clients, skip when busy */
-//    if (pthread_mutex_trylock(&gWorkerAdmin.Mutex[psArgs->uiId]) == 0) {
-//
-//        /* Add a new client when something is there to add */
-//        tsClientEntry *psClientEntry = STAILQ_FIRST(&psArgs->ClientWaitingQueue);
-//        if (psClientEntry) {
-//
-//            /* Get client, and destroy queue entry */
-//            tsClientStruct *psNewClient = psClientEntry->psClient;
-//            STAILQ_REMOVE_HEAD(&psArgs->ClientWaitingQueue, entries);
-//            free(psClientEntry);
-//
-//            log_debug("thread %d, Got new client %d from the receive queue.", psArgs->uiId, psNewClient->iId);
-//
-//            // TMP add to thread queue //todo
-//            tsClientEntry *psNewEntry = malloc(sizeof(struct sClientEntry));
-//            psNewEntry->psClient = psNewClient;
-//            STAILQ_INSERT_TAIL(&psArgs->ClientServingQueue, psNewEntry, entries);
-//
-//            log_debug("thread %d. Serving new client %d", psArgs->uiId, psNewClient->iId);
-//
-//            return 0;
-//        }
-//
-//        if (pthread_mutex_unlock(&gWorkerAdmin.Mutex[psArgs->uiId]) != 0) {
-//            pthread_exit(NULL);
-//        }
-//    }
-//
-//    return -1;
-//}
+static int32_t send_fd_to_worker(const tsWorkerStruct *psWorker, const int32_t *piFd) {
 
-///* Exit the worker process, only by signal handling */
-//static void workerp_process_stop(void) {
-//    settings_destroy();
-//    worker_destroy();
-//
-//    log_info("Goodbye from worker %d, on pid %d", guiWorkerID, getpid());
-//    logger_destroy();
-//
-//    exit(EXIT_SUCCESS);
-//}
+    struct sockaddr_un sAd;
+    sAd.sun_family = AF_UNIX;
 
-static void workerp_signal_handler(const int32_t ciSigno) {
+    uint8_t cDst[] = "worker";
+    memcpy(sAd.sun_path, cDst, strlen(cDst));
 
-    if (ciSigno != SIGTERM) {
-        return;
+    /* Not sending data */
+    struct iovec sData = {0};
+
+    /* Reserve space for one fd */
+    uint8_t ucMsg[CMSG_SPACE(sizeof(int32_t))];
+
+    /* Make and fill the msg header */
+    struct msghdr sHeader = {(void *) &sAd, sizeof(sAd), &sData, 1, ucMsg, sizeof(ucMsg), 0};
+    struct cmsghdr *psHeader = CMSG_FIRSTHDR(&sHeader);
+    if (psHeader) {
+
+        psHeader->cmsg_level = SOL_SOCKET;
+        psHeader->cmsg_type = SCM_RIGHTS;
+        psHeader->cmsg_len = CMSG_LEN(sizeof(int32_t));
+
+        /* set fd */
+        *(int32_t *) CMSG_DATA(psHeader) = *piFd;
+
+        if (sendmsg(psWorker->iMasterIPCfd, &sHeader, 0) != -1) {
+            return WORKER_EXIT_SUCCESS;
+        }
     }
 
-    log_info("Worker %d. Got signal: %d", guiWorkerID, ciSigno);
-
-    bTerminateProg = true;
+    return WORKER_EXIT_FAILURE;
 }
 
-/* Setup signals for workers only */
-static int32_t workerp_setup_signal(void) {
+/* On the worker side, read the ipc transmitted from the master, and return the fd and pid */
+static int32_t receive_fd_from_worker(const tsWorkerStruct *psWorker, int32_t *piFd) {
 
-    /* SIGTERM or SIGTERM terminates the program with cleanup */
-    struct sigaction sSigAction;
+    /* Reserve enough space to get a whole package */
+    int8_t cBuff[32] = {0};
+    struct iovec sData = {cBuff, sizeof(cBuff)};
 
-    sigemptyset(&sSigAction.sa_mask);
+    /* Space for fd size */
+    int8_t cMsg[CMSG_SPACE(sizeof(int32_t))];
 
-    sSigAction.sa_flags = 0;
-    sSigAction.sa_handler = workerp_signal_handler;
+    struct msghdr sHeader = {NULL, 0, &sData, 1, cMsg, sizeof(cMsg), 0};
 
-    if (sigaction(SIGTERM, &sSigAction, NULL) != 0) {
-        return errno;
+    if (recvmsg(psWorker->iWorkerIPCfd, &sHeader, 0) != -1) {
+
+        /* Distill the fd from the package */
+        struct cmsghdr *psHeader = CMSG_FIRSTHDR(&sHeader);
+
+        if (psHeader) {
+            *piFd = *(int32_t *) CMSG_DATA(psHeader);
+            return WORKER_EXIT_SUCCESS;
+        }
     }
 
-    return EXIT_SUCCESS;
+    return WORKER_EXIT_FAILURE;
 }
 
+//#################################################################
+//                     workerp functions
+//#################################################################
 
 static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
 
@@ -169,95 +158,56 @@ static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
         return (EXIT_FAILURE);
     }
 
+    /* non-blocking socket settings */
+    if (fcntl(psWorker->iWorkerIPCfd, F_SETFL, O_NONBLOCK) == -1) {
+        return errno;
+    }
+
     log_debug("Worker %d, connected with master through fd %d", psWorker->uiId, psWorker->iWorkerIPCfd);
 
     return EXIT_SUCCESS;
 }
 
-
-/*
-    https://en.wikipedia.org/wiki/Adler-32
-    where data is the location of the data in physical memory and
-    len is the length of the data in bytes
-*/
-static uint32_t adler32(const uint8_t *data, size_t len) {
-    const uint32_t MOD_ADLER = 65521;
-    uint32_t a = 1, b = 0;
-    size_t index;
-
-    // Process each byte of the data in order
-    for (index = 0; index < len; ++index) {
-        a = (a + data[index]) % MOD_ADLER;
-        b = (b + a) % MOD_ADLER;
-    }
-
-    return (b << 16) | a;
+/* Exit signal callback from ev. Kill ev loop */
+static void workerp_callback_exitsig(struct ev_loop *loop, ev_signal *w, int revents) {
+    ev_break(loop, EVBREAK_ALL);
 }
 
-/* Checksum calculation over the complete struct sIPCmsg, with
- * uiChecksum init as 0 using adler32
- */
-static int32_t set_fd_in_ipc(tsIPCmsg *psIPC, const int32_t *piFd) {
-    memset(psIPC, 0, sizeof(struct sIPCmsg));
+static void workerp_ipc_callback(struct ev_loop *loop, ev_io *w_, int revents) {
 
-    psIPC->iHeader = IPC_MAGIC_HEADER;
-    psIPC->iSize = sizeof(struct sIPCmsg);
-    psIPC->iFd = *piFd;
-    psIPC->uiChecksum = adler32((unsigned char *) psIPC, sizeof(struct sIPCmsg));
+    tsWorkerEv *psWorkerEv = (tsWorkerEv *) w_;
+    tsWorkerStruct *psWorker = psWorkerEv->psWorker;
 
-    return WORKER_EXIT_SUCCESS;
-}
+    int32_t fd;
 
-static int32_t get_fd_from_ipc(const tsIPCmsg *psIPC, int32_t *piFd) {
+    if (receive_fd_from_worker(psWorker, &fd) == WORKER_EXIT_SUCCESS) {
+        log_debug("Got callback with fd:%d", fd);
 
-    /* Copy because we need to set the checksum to 0 */
-    tsIPCmsg sMsg;
-    memcpy(&sMsg, psIPC, sizeof(struct sIPCmsg));
+        char msg[] = "sending...\n";
+        while (1) {
+            if (send(fd, msg, strlen(msg), 0) == -1) {
+                close(fd);
+                log_debug("Disconnect");
+            }
 
-    if ((sMsg.iHeader == IPC_MAGIC_HEADER) && (sMsg.iSize == sizeof(struct sIPCmsg))) {
-
-        uint32_t uiOldChecksum = sMsg.uiChecksum;
-        sMsg.uiChecksum = 0;
-        uint32_t uiNewChecksum = adler32((unsigned char *) &sMsg, sizeof(struct sIPCmsg));
-
-        if (uiOldChecksum == uiNewChecksum) {
-            *piFd = psIPC->iFd;
-            log_debug("IPC Received data: %d", psIPC->iFd);
-            return WORKER_EXIT_SUCCESS;
-        } else {
-            log_debug("IPC checksum error");
+            sleep(1);
         }
+
     } else {
-        log_debug("IPC no header or wrong size");
+        log_debug("reading from ipc failed !");
     }
 
-    return WORKER_EXIT_FAILURE;
 }
 
-static int32_t read_ipc_from_socket(const tsWorkerStruct *psWorker, int32_t *piFd) {
-
-    tsIPCmsg RecevedIPC = {0};
-    int32_t iRead = read(psWorker->iWorkerIPCfd, &RecevedIPC, sizeof(RecevedIPC));
-
-    if (iRead == -1) {
-        perror("worker read");
-    } else if (iRead >= sizeof(struct sIPCmsg)) {
-        if (get_fd_from_ipc(&RecevedIPC, piFd) == WORKER_EXIT_SUCCESS) {
-            return WORKER_EXIT_SUCCESS;
-        }
-    } else {
-        log_debug("worker %d. received something with size %d, but not a ipc msg", psWorker->uiId, iRead);
-    }
-
-    return WORKER_EXIT_FAILURE;
-}
 
 /* Serve the clients that are connected to the server.
  * NOTE: this is only called from a fork();
  *
+ *  https://linux.die.net/man/3/ev
  */
-_Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
+static void workerp_entry(tsWorkerStruct *psWorker) {
 
+    /* Mark psWorker as owned, needing this for the cleanup later */
     psWorker->iMe = 1;
 
     /* Destroy the old logger because this is inherited from a different process,
@@ -266,9 +216,6 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
     tsSSettings sCurrSSettings = settings_get();
     logger_init(sCurrSSettings.pcLogfile, sCurrSSettings.lLogLevel);
 
-    /* Setup new signal handlers for my worker process */
-    workerp_setup_signal();
-
     /* Close everything that we don't need */
     close(psWorker->iMasterIPCAccept);
     psWorker->iMasterIPCAccept = 0;
@@ -276,32 +223,57 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
     psWorker->iMasterIPCfd = 0;
 
     psWorker->Pid = getpid();
-    guiWorkerID = psWorker->uiId;
+
+    if (chdir("/") < 0) {
+        do_exit(EXIT_FAILURE);
+    }
 
     log_debug("Worker %d is running.", psWorker->uiId);
 
     /* Connect to parent IPC */
     if (workerp_connect_ipc_socket(psWorker) != 0) {
-        exit(EXIT_FAILURE);
+        do_exit(EXIT_FAILURE);
     }
 
-    while (1) {
+    struct ev_loop *psLoop;
+    psLoop = ev_default_loop(0);
 
-        if (bTerminateProg) {
-            do_exit(0);
-        }
+    /* SIGINT Signal */
+    ev_signal exitsig;
+    ev_signal_init (&exitsig, workerp_callback_exitsig, SIGINT);
+    ev_signal_start(psLoop, &exitsig);
 
-        if (log_debug("I am worker %d", psWorker->uiId) != 0) {
-            exit(EXIT_FAILURE);
-        }
+    /* IPC */
+    tsWorkerEv sWorkerEv = {0};
+    sWorkerEv.psWorker = psWorker;
+    ev_io_init(&sWorkerEv.io, workerp_ipc_callback, psWorker->iWorkerIPCfd, EV_READ);
+    ev_io_start(psLoop, &sWorkerEv.io);
 
-        log_debug("worker %d. Waiting for data.", psWorker->uiId);
+    ev_run(psLoop, 0);
 
-        int32_t fd = 0;
-        read_ipc_from_socket(psWorker, &fd);
-        sleep(1);
-    }
+    do_exit(0);
 }
+
+//
+//
+//
+//    while (1) {
+//
+//        if (bTerminateProg) {
+//            do_exit(0);
+//        }
+//
+//        if (log_debug("I am worker %d", psWorker->uiId) != 0) {
+//            exit(EXIT_FAILURE);
+//        }
+//
+//        log_debug("worker %d. Waiting for data.", psWorker->uiId);
+//
+//        int32_t fd = 0;
+//        read_ipc_from_socket(psWorker, &fd);
+//        sleep(1);
+//    }
+//}
 
 //    tsWorkerStruct *psArgs = arg;
 //
@@ -334,9 +306,10 @@ _Noreturn static void workerp_entry(tsWorkerStruct *psWorker) {
 //    pthread_exit(NULL);
 
 
-//#############################################################################################
-//#############################################################################################
-//#############################################################################################
+//#################################################################
+//                     worker functions
+//#################################################################
+
 
 static int32_t worker_create_ipc_socket(tsWorkerStruct *psWorker) {
 
@@ -344,7 +317,6 @@ static int32_t worker_create_ipc_socket(tsWorkerStruct *psWorker) {
 
     /* Create local socket. */
     if ((psWorker->iMasterIPCAccept = socket(AF_UNIX, SOCK_SEQPACKET, 0)) == -1) {
-        perror("Socket");
         return EXIT_FAILURE;
     }
 
@@ -355,7 +327,6 @@ static int32_t worker_create_ipc_socket(tsWorkerStruct *psWorker) {
     if (sdslen(psWorker->IPCFile) < sizeof(sName.sun_path)) {
         memcpy(sName.sun_path, psWorker->IPCFile, sdslen(psWorker->IPCFile));
     } else {
-        perror("memcpy");
         return EXIT_FAILURE;
     }
 
@@ -363,7 +334,6 @@ static int32_t worker_create_ipc_socket(tsWorkerStruct *psWorker) {
     struct stat st = {0};
     if (stat(WORKER_IPC_FOLDER, &st) == -1) {
         if (mkdir(WORKER_IPC_FOLDER, 0700) == -1) {
-            perror("mkdir");
             return EXIT_FAILURE;
         }
     }
@@ -372,24 +342,20 @@ static int32_t worker_create_ipc_socket(tsWorkerStruct *psWorker) {
     unlink(psWorker->IPCFile);
 
     if (bind(psWorker->iMasterIPCAccept, (const struct sockaddr *) &sName, sizeof(sName.sun_path) - 1) == -1) {
-        perror("bind");
         return EXIT_FAILURE;
     }
 
     /* Secure the IPC file */
     if (chmod(psWorker->IPCFile, S_IRUSR | S_IWUSR) == -1) {
-        perror("chmod");
         return EXIT_FAILURE;
     }
 
     if (listen(psWorker->iMasterIPCAccept, 20) == -1) {
-        perror("listen");
         return EXIT_FAILURE;
     }
 
     /* Wait for client worker to accept */
     if ((psWorker->iMasterIPCfd = accept(psWorker->iMasterIPCAccept, NULL, NULL)) == -1) {
-        perror("accept");
         exit(EXIT_FAILURE);
     }
 
@@ -400,41 +366,22 @@ static int32_t worker_create_ipc_socket(tsWorkerStruct *psWorker) {
 
 /* Route an accepted client to a worker that is the least busy. This
  * thread will serve the client with data */
-int32_t worker_route_client(tsClientStruct *psClient) {
+int32_t worker_route_client(int32_t *iSockfd) {
 
     static uint32_t NextWorker = -1; //keep track
 
-    if (psClient == NULL) {
-        return WORKER_EXIT_FAILURE;
-    }
-
     /* Route the client to a worker (simple round robbin for now)*/
     NextWorker = (NextWorker + 1) % gWorkerAdmin.uiCurrWorkers;
-//    uint32_t worker = NextWorker;
+    tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[NextWorker];
 
-    log_debug("Adding client %d to worker %d", psClient->iId, NextWorker);
+    log_debug("Adding new client to worker %d", NextWorker);
 
-    /* Add client to the queue, free at popping from queue */
-//    tsClientEntry *psClientEntry = malloc(sizeof(struct sClientEntry));
-//    memset(psClientEntry, 0, sizeof(struct sClientEntry));
-//    psClientEntry->psClient = psClient;
+    /* Send to worker */
+    if (send_fd_to_worker(psWorker, iSockfd) == WORKER_EXIT_SUCCESS) {
+        return WORKER_EXIT_SUCCESS;
+    }
 
-
-    //TODO pid fd pass
-
-//    if (pthread_mutex_lock(&gWorkerAdmin.Mutex[worker]) != 0) {
-//        free(psClientEntry);
-//        return WORKER_EXIT_FAILURE;
-//    }
-//
-//    STAILQ_INSERT_TAIL(&gWorkerAdmin.psWorker[worker]->ClientWaitingQueue, psClientEntry, entries);
-//
-//    if (pthread_mutex_unlock(&gWorkerAdmin.Mutex[worker]) != 0) {
-//        return WORKER_EXIT_FAILURE;
-//    }
-
-//    free(psClientEntry);    //todo
-    return WORKER_EXIT_SUCCESS;
+    return WORKER_EXIT_FAILURE;
 }
 
 /* spinup and configure worker threads
@@ -559,6 +506,9 @@ int32_t worker_destroy(void) {
                 unlink(psWorker->IPCFile);
 
             } else {
+
+                ev_loop_destroy(EV_DEFAULT_UC);        //TODO ??
+
                 log_debug("pid %d, worker: Destroying myself %d from worker pid %d", getpid(), i, psWorker->Pid);
             }
 
@@ -587,6 +537,11 @@ int32_t worker_destroy(void) {
     return WORKER_EXIT_SUCCESS;
 }
 
+//#################################################################
+//                     worker debug functions
+//#################################################################
+
+#ifdef INCLUDE_WORKER_DEBUG_FUNCTIONS
 
 /* Does nothing yet, only monitoring workers and outputting a log */
 _Noreturn void worker_monitor(void) {
@@ -619,36 +574,38 @@ _Noreturn void worker_monitor(void) {
     }
 }
 
+//
+//_Noreturn void worker_dummy_send(void) {
+//
+//    while (1) {
+//
+//        if (bTerminateProg) {
+//            do_exit(0);
+//        }
+//
+//        for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
+//            if (gWorkerAdmin.psWorker[i]) {
+//                tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];
+//
+//                if (psWorker->Pid != 0) {
+//
+//                    tsIPCmsg IPCSend = {0};
+//                    int32_t fd = 42;
+//                    set_fd_in_ipc(&IPCSend, &fd);
+//
+//                    log_debug("Master: Sending data to worker %d. data=%d", i, IPCSend.iFd);
+//
+//                    int ret = write(psWorker->iMasterIPCfd, &IPCSend, sizeof(IPCSend));
+//                    if (ret == -1) {
+//                        perror("write main");
+////                        exit(EXIT_FAILURE);
+//                    }
+//                }
+//            }
+//        }
+//        sleep(1);
+//    }
+//}
 
-_Noreturn void worker_dummy_send(void) {
-
-    while (1) {
-
-        if (bTerminateProg) {
-            do_exit(0);
-        }
-
-        for (uint32_t i = 0; i < gWorkerAdmin.uiCurrWorkers; i++) {
-            if (gWorkerAdmin.psWorker[i]) {
-                tsWorkerStruct *psWorker = gWorkerAdmin.psWorker[i];
-
-                if (psWorker->Pid != 0) {
-
-                    tsIPCmsg IPCSend = {0};
-                    int32_t fd = 42;
-                    set_fd_in_ipc(&IPCSend, &fd);
-
-                    log_debug("Master: Sending data to worker %d. data=%d", i, IPCSend.iFd);
-
-                    int ret = write(psWorker->iMasterIPCfd, &IPCSend, sizeof(IPCSend));
-                    if (ret == -1) {
-                        perror("write main");
-//                        exit(EXIT_FAILURE);
-                    }
-                }
-            }
-        }
-        sleep(1);
-    }
-}
+#endif
 

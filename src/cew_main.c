@@ -45,45 +45,8 @@ https://github.com/cu-ecen-aeld/final-project-Shifting5164
 #define RET_OK 0 //todo
 #define SOCKET_FAIL -2 //todo
 
-
-/* Signal actions */
-void sig_handler(const int32_t ciSigno) {
-
-    if (ciSigno != SIGINT && ciSigno != SIGTERM) {
-        return;
-    }
-
-    log_warning("Got signal: %d", ciSigno);
-
-    bTerminateProg = true;
-}
-
-/* Description:
- * Setup signals to catch
- *
- * Return:
- * - errno on error
- * - RET_OK when succeeded
- */
-static int32_t setup_signals(void) {
-
-    /* SIGINT or SIGTERM terminates the program with cleanup */
-    struct sigaction sSigAction;
-
-    sigemptyset(&sSigAction.sa_mask);
-
-    sSigAction.sa_flags = 0;
-    sSigAction.sa_handler = sig_handler;
-
-    if (sigaction(SIGINT, &sSigAction, NULL) != 0) {
-        return errno;
-    }
-
-    if (sigaction(SIGTERM, &sSigAction, NULL) != 0) {
-        return errno;
-    }
-
-    return RET_OK;
+static void callback_exitsig(struct ev_loop *loop, ev_signal *w, int revents) {
+    ev_break(loop, EVBREAK_ALL);
 }
 
 static int32_t daemonize(void) {
@@ -155,7 +118,7 @@ static int32_t daemonize(void) {
 
 /* Seed the random system based on time and pid.
  * Noting cryptografically safe. Its good enough for some "random" */
-static void seed_random(void){
+static void seed_random(void) {
     struct timeval t;
     gettimeofday(&t, NULL);
     srand(t.tv_usec * t.tv_sec * getpid());
@@ -200,17 +163,14 @@ int32_t main(int32_t argc, char **argv) {
         }
     }
 
-    if ((iRet = setup_signals()) != RET_OK) {
-        do_exit_with_errno(iRet);
-    }
-
     // TODO, should be settings
     if ((iRet = worker_init(2)) != WORKER_EXIT_SUCCESS) {
         do_exit_with_errno(iRet);
     }
 
     /* Opens a stream socket, failing and returning -1 if any of the socket connection steps fail. */
-    if ((iRet = socket_setup((int16_t) sCurrSettings.lPort)) != SOCK_EXIT_SUCCESS) {
+    int32_t iFd = 0;
+    if ((iRet = socket_setup((int16_t) sCurrSettings.lPort, &iFd)) != SOCK_EXIT_SUCCESS) {
         log_error("Exit with %d: %s. Line %d.\n", iRet, strerror(iRet));
         do_exit(SOCKET_FAIL);
     }
@@ -219,14 +179,27 @@ int32_t main(int32_t argc, char **argv) {
         printf("Waiting for connections on port %ld...\n", sCurrSettings.lPort);
     }
 
-    worker_dummy_send();
-    worker_monitor();
+//    worker_dummy_send();
+//    worker_monitor();
 
-    /* Accept connecting clients here */
-    socket_poll(); //TODO pass only FD
-    while (1) {
-        sleep(100);
-    }
+    struct ev_loop *psLoop;
+    psLoop = ev_default_loop(0);
+
+    /* exit sigs */
+    ev_signal sigint;
+    ev_signal_init (&sigint, callback_exitsig, SIGINT);
+    ev_signal_start(psLoop, &sigint);
+
+    ev_signal sigterm;
+    ev_signal_init (&sigterm, callback_exitsig, SIGTERM);
+    ev_signal_start(psLoop, &sigterm);
+
+    /* Setup the callback for client notification */
+    ev_io ClientWatcher;
+    ev_io_init(&ClientWatcher, socket_accept_client, iFd, EV_READ);
+
+    ev_io_start(psLoop, &ClientWatcher);
+    ev_run(psLoop, 0);
 
     do_exit(EXIT_SUCCESS);
 }

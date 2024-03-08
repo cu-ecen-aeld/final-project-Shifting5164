@@ -21,50 +21,27 @@ static int32_t iFd = 0;
 
 /* Callback function for ev polling. Accepts the clients, makes a new fd, and routes the
  * client to a worker. */
-static void socket_accept_client(EV_P_ ev_io *w, int revents) {
+void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents) {
 
-    tsClientStruct *psNewClient = NULL;
-    client_init(&psNewClient);
+    struct sockaddr_storage sTheirAddr;
+    socklen_t tAddrSize;
+    int32_t iSockfd;
 
-    log_debug("Got Callback from ev about a client.");
+    log_debug("Master. Got Callback from ev about a client.");
 
     /* Accept clients, and fill client information struct */
-    psNewClient->iSockfd = accept(iFd, (struct sockaddr *) &psNewClient->sTheirAddr, &psNewClient->tAddrSize);
-    if (psNewClient->iSockfd == -1) {
-        free(psNewClient);
-        log_error("Error with accepting client.");
+    iSockfd = accept(iFd, (struct sockaddr *) &sTheirAddr, &tAddrSize);
+    if (iSockfd == -1) {
+        log_error("Master. Error with accepting client.");
         return;
     }
 
-    psNewClient->iId = (int32_t) random(); // TODO move to client_init
-
-    log_debug("Got client %d from accept. Going to route it to a worker.", psNewClient->iId);
+    log_debug("Sending fd:%d to the worker.", iSockfd);
 
     /* Route new client to a worker */
-    worker_route_client(psNewClient);
-}
-
-/* Setup the polling and callback for new clients. New clients will be received on the
- * non-blocking, already open iFd.
- *
- * This function should never return.
- *
- * http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#code_ev_io_code_is_this_file_descrip
- */
-int32_t socket_poll(void) {
-
-    static struct ev_loop *psLoop;
-
-    psLoop = ev_default_loop(0);
-    ev_io ClientWatcher;
-
-    /* Setup the callback for client notification */
-    ev_io_init(&ClientWatcher, socket_accept_client, iFd, EV_READ);
-
-    ev_io_start(psLoop, &ClientWatcher);
-    ev_run(psLoop, 0);
-
-    return 0;
+    if (worker_route_client(&iSockfd) != WORKER_EXIT_SUCCESS) {
+        log_warning("Master. Couldn't route client to worker!");
+    }
 }
 
 /* Description:
@@ -75,7 +52,7 @@ int32_t socket_poll(void) {
  * - errno on error
  * - RET_OK when succeeded
  */
-int32_t socket_setup(uint16_t iPort) {
+int32_t socket_setup(uint16_t iPort, int32_t *iRetFd) {
 
     struct addrinfo sHints = {0};
     struct addrinfo *psServinfo = NULL;
@@ -102,6 +79,12 @@ int32_t socket_setup(uint16_t iPort) {
         return errno;
     }
 
+    // https://www.man7.org/linux/man-pages/man7/socket.7.html
+    // Permits multiple AF_INET or AF_INET6 sockets to be bound to an identical socket address.
+    if (setsockopt(iFd, SOL_SOCKET, SO_REUSEPORT, &iYes, sizeof iYes) == -1) {
+        return errno;
+    }
+
     /* non-blocking socket settings */
     if (fcntl(iFd, F_SETFL, O_NONBLOCK) == -1) {
         return errno;
@@ -125,6 +108,8 @@ int32_t socket_setup(uint16_t iPort) {
 
     log_info("Socket listing on port %d", iPort);
 
+    *iRetFd = iFd;
+
     return SOCK_EXIT_SUCCESS;
 }
 
@@ -137,11 +122,8 @@ int32_t socket_close(void) {
         iFd = 0;
     }
 
-    ev_loop_destroy (EV_DEFAULT_UC);
-
     log_info("Stopped socket.");
 
     return 0;
-
 }
 
