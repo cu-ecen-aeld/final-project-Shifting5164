@@ -61,47 +61,66 @@ static tsWorkerAdmin gWorkerAdmin = {0};
 //#################################################################
 //                               IPC
 //#################################################################
+// background info : https://www.sobyte.net/post/2022-01/pass-fd-over-domain-socket/
 
 static int32_t send_fd_to_worker(const tsWorkerStruct *psWorker, const int32_t *piFd) {
 
-    struct sockaddr_un ad;
-    ad.sun_family = AF_UNIX;
-    char dst[] = "worker";
-    memcpy(ad.sun_path, dst, strlen(dst));
+    struct sockaddr_un sAd;
+    sAd.sun_family = AF_UNIX;
 
-    struct iovec e = {NULL, 0};
+    uint8_t cDst[] = "worker";
+    memcpy(sAd.sun_path, cDst, strlen(cDst));
 
-    char cmsg[CMSG_SPACE(sizeof(int))];
+    /* Not sending data */
+    struct iovec sData = {0};
 
-    struct msghdr m = {(void *) &ad, sizeof(ad), &e, 1, cmsg, sizeof(cmsg), 0};
+    /* Reserve space for one fd */
+    uint8_t ucMsg[CMSG_SPACE(sizeof(int32_t))];
 
-    struct cmsghdr *c = CMSG_FIRSTHDR(&m);
-    c->cmsg_level = SOL_SOCKET;
-    c->cmsg_type = SCM_RIGHTS;
-    c->cmsg_len = CMSG_LEN(sizeof(int));
-    *(int *) CMSG_DATA(c) = *piFd; // set file descriptor
+    /* Make and fill the msg header */
+    struct msghdr sHeader = {(void *) &sAd, sizeof(sAd), &sData, 1, ucMsg, sizeof(ucMsg), 0};
+    struct cmsghdr *psHeader = CMSG_FIRSTHDR(&sHeader);
+    if (psHeader) {
 
-    sendmsg(psWorker->iMasterIPCfd, &m, 0);
+        psHeader->cmsg_level = SOL_SOCKET;
+        psHeader->cmsg_type = SCM_RIGHTS;
+        psHeader->cmsg_len = CMSG_LEN(sizeof(int32_t));
 
-    return WORKER_EXIT_SUCCESS;
+        /* set fd */
+        *(int32_t *) CMSG_DATA(psHeader) = *piFd;
+
+        if (sendmsg(psWorker->iMasterIPCfd, &sHeader, 0) != -1) {
+            return WORKER_EXIT_SUCCESS;
+        }
+    }
+
+    return WORKER_EXIT_FAILURE;
 }
 
 /* On the worker side, read the ipc transmitted from the master, and return the fd and pid */
 static int32_t receive_fd_from_worker(const tsWorkerStruct *psWorker, int32_t *piFd) {
 
-    char buf[512];
-    struct iovec e = {buf, 512};
-    char cmsg[CMSG_SPACE(sizeof(int))];
-    struct msghdr m = {NULL, 0, &e, 1, cmsg, sizeof(cmsg), 0};
+    /* Reserve enough space to get a whole package */
+    int8_t cBuff[32] = {0};
+    struct iovec sData = {cBuff, sizeof(cBuff)};
 
-    int n = recvmsg(psWorker->iWorkerIPCfd, &m, 0);
+    /* Space for fd size */
+    int8_t cMsg[CMSG_SPACE(sizeof(int32_t))];
 
-    struct cmsghdr *c = CMSG_FIRSTHDR(&m);
-    int cfd = *(int *) CMSG_DATA(c); // receive file descriptor
+    struct msghdr sHeader = {NULL, 0, &sData, 1, cMsg, sizeof(cMsg), 0};
 
-    *piFd = cfd;
+    if (recvmsg(psWorker->iWorkerIPCfd, &sHeader, 0) != -1) {
 
-    return WORKER_EXIT_SUCCESS;
+        /* Distill the fd from the package */
+        struct cmsghdr *psHeader = CMSG_FIRSTHDR(&sHeader);
+
+        if (psHeader) {
+            *piFd = *(int32_t *) CMSG_DATA(psHeader);
+            return WORKER_EXIT_SUCCESS;
+        }
+    }
+
+    return WORKER_EXIT_FAILURE;
 }
 
 //#################################################################
