@@ -22,14 +22,6 @@
 #include <cew_socket.h>
 #include <cew_exit.h>
 
-
-/* Clients queue in thread to serve */
-//typedef struct sClientEntry {
-//    tsClientStruct *psClient;               // client to serve in the thread
-//    STAILQ_ENTRY(sClientEntry) entries;     // Singly linked tail queue
-//} tsClientEntry;
-//STAILQ_HEAD(ClientQueue, sClientEntry);
-
 /* Worker struct */
 typedef struct sWorkerStruct {
     uint32_t uiId;              // Worker id
@@ -57,6 +49,8 @@ typedef struct sWorkerEv {
 /* Keep track of everything that happens */
 static tsWorkerAdmin gWorkerAdmin = {0};
 
+/* Workers default EV loop, used by workers and clients on that worker */
+struct ev_loop *psWorkerEVLoop = NULL;
 
 //#################################################################
 //                               IPC
@@ -139,7 +133,6 @@ static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
     /* Create local socket. */
     /* https://www.man7.org/linux/man-pages/man2/socket.2.html */
     if ((psWorker->iWorkerIPCfd = socket(AF_UNIX, SOCK_SEQPACKET, 0)) == -1) {
-        perror("Socket");
         return EXIT_FAILURE;
     }
 
@@ -148,19 +141,17 @@ static int32_t workerp_connect_ipc_socket(tsWorkerStruct *psWorker) {
     if (sdslen(psWorker->IPCFile) < sizeof(sName.sun_path)) {
         memcpy(sName.sun_path, psWorker->IPCFile, sdslen(psWorker->IPCFile));
     } else {
-        perror("memcpy");
         return EXIT_FAILURE;
     }
 
     /* Connect */
     if ((connect(psWorker->iWorkerIPCfd, (const struct sockaddr *) &sName, sizeof(sName))) == -1) {
-        perror("Connect");
-        return (EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
 
     /* non-blocking socket settings */
     if (fcntl(psWorker->iWorkerIPCfd, F_SETFL, O_NONBLOCK) == -1) {
-        return errno;
+        return EXIT_FAILURE;
     }
 
     log_debug("Worker %d, connected with master through fd %d", psWorker->uiId, psWorker->iWorkerIPCfd);
@@ -173,32 +164,26 @@ static void workerp_callback_exitsig(struct ev_loop *loop, ev_signal *w, int rev
     ev_break(loop, EVBREAK_ALL);
 }
 
+/* receive the IPC from the master, get the fd for the client to serve,
+ * and the register a new client.
+ */
 static void workerp_ipc_callback(struct ev_loop *loop, ev_io *w_, int revents) {
-
     tsWorkerEv *psWorkerEv = (tsWorkerEv *) w_;
     tsWorkerStruct *psWorker = psWorkerEv->psWorker;
 
-    int32_t fd;
+    /* Get the iFd for the new client */
+    int32_t iFd;
+    if (receive_fd_from_worker(psWorker, &iFd) == WORKER_EXIT_SUCCESS) {
+        log_debug("Got callback with iFd:%d", iFd);
 
-    if (receive_fd_from_worker(psWorker, &fd) == WORKER_EXIT_SUCCESS) {
-        log_debug("Got callback with fd:%d", fd);
-
-        char msg[] = "sending...\n";
-        while (1) {
-            if (send(fd, msg, strlen(msg), 0) == -1) {
-                close(fd);
-                log_debug("Disconnect");
-            }
-
-            sleep(1);
+        if (client_register_ev(iFd) != EXIT_SUCCESS) {
+            log_error("Client registering failed");
         }
 
     } else {
-        log_debug("reading from ipc failed !");
+        log_error("reading from ipc failed !");
     }
-
 }
-
 
 /* Serve the clients that are connected to the server.
  * NOTE: this is only called from a fork();
@@ -207,7 +192,7 @@ static void workerp_ipc_callback(struct ev_loop *loop, ev_io *w_, int revents) {
  */
 static void workerp_entry(tsWorkerStruct *psWorker) {
 
-    /* Mark psWorker as owned, needing this for the cleanup later */
+    /* Mark psWorker as owned by this worker, needing this for the cleanup later */
     psWorker->iMe = 1;
 
     /* Destroy the old logger because this is inherited from a different process,
@@ -228,82 +213,35 @@ static void workerp_entry(tsWorkerStruct *psWorker) {
         do_exit(EXIT_FAILURE);
     }
 
-    log_debug("Worker %d is running.", psWorker->uiId);
+    log_info("Worker %d is running.", psWorker->uiId);
 
     /* Connect to parent IPC */
     if (workerp_connect_ipc_socket(psWorker) != 0) {
         do_exit(EXIT_FAILURE);
     }
 
-    struct ev_loop *psLoop;
-    psLoop = ev_default_loop(0);
+    /* Prepare main ev loop */
+    psWorkerEVLoop = ev_default_loop(0);
 
     /* SIGINT Signal */
     ev_signal exitsig;
     ev_signal_init (&exitsig, workerp_callback_exitsig, SIGINT);
-    ev_signal_start(psLoop, &exitsig);
+    ev_signal_start(psWorkerEVLoop, &exitsig);
 
-    /* IPC */
+    /* IPC for getting clients */
     tsWorkerEv sWorkerEv = {0};
     sWorkerEv.psWorker = psWorker;
     ev_io_init(&sWorkerEv.io, workerp_ipc_callback, psWorker->iWorkerIPCfd, EV_READ);
-    ev_io_start(psLoop, &sWorkerEv.io);
+    ev_io_start(psWorkerEVLoop, &sWorkerEv.io);
 
-    ev_run(psLoop, 0);
+    /* Start serving facilities on this worker */
+    ev_run(psWorkerEVLoop, 0);
 
+    log_info("Worker %d done.", psWorker->uiId);
+
+    /* Actually quiting the process and cleanup */
     do_exit(0);
 }
-
-//
-//
-//
-//    while (1) {
-//
-//        if (bTerminateProg) {
-//            do_exit(0);
-//        }
-//
-//        if (log_debug("I am worker %d", psWorker->uiId) != 0) {
-//            exit(EXIT_FAILURE);
-//        }
-//
-//        log_debug("worker %d. Waiting for data.", psWorker->uiId);
-//
-//        int32_t fd = 0;
-//        read_ipc_from_socket(psWorker, &fd);
-//        sleep(1);
-//    }
-//}
-
-//    tsWorkerStruct *psArgs = arg;
-//
-//    log_info("thread %d. Worker started.", psArgs->uiId);
-//
-//    //TODO security
-//    //chroot
-//    // drop privileges ?
-//
-//    while (1) {
-//
-//        pthread_testcancel();
-//
-//        /* Check for waiting clients, and add them to this thread */
-//        worker_check_waiting(psArgs);
-//
-//        /* Do some work commented because cppcheck.*/
-//        char testbuff[100] = {0};
-//        tsClientEntry *CurrEntry;
-//        STAILQ_FOREACH(CurrEntry, &psArgs->ClientServingQueue, entries) {
-//            tsClientStruct *psCurrClient = CurrEntry->psClient;
-//            snprintf(testbuff, sizeof(testbuff), "thread %u, serving client %i\n", psArgs->uiId, psCurrClient->iId);
-//            send(psCurrClient->iSockfd, testbuff, sizeof(testbuff), 0);
-//            log_debug("%s", testbuff);
-//        }
-//
-//        sleep(1);
-//
-//    }
-//    pthread_exit(NULL);
 
 
 //#################################################################
@@ -474,7 +412,21 @@ int32_t worker_destroy(void) {
 
             /* Only the main process may kill workers, not the workers themselfs. But a
              * worker should cleanup all the other mess it inherited from the fork(). */
-            if (!psWorker->iMe) {
+            if (psWorker->iMe) {
+
+                /* Clean clients */
+
+                /* Probably already did this, just to make sure */
+                ev_loop_destroy(EV_DEFAULT_UC);
+
+                if (psWorkerEVLoop != NULL) {
+                    free(psWorkerEVLoop);
+                    psWorkerEVLoop = NULL;
+                }
+
+                log_debug("pid %d, worker: Destroying myself %d from worker pid %d", getpid(), i, psWorker->Pid);
+
+            } else {
 
                 log_info("pid %d, master: Destroying worker %d from master.", getpid(), i);
                 /* Stop worker process, let it do its own cleanup */
@@ -505,11 +457,6 @@ int32_t worker_destroy(void) {
                 /* remove IPC file */
                 unlink(psWorker->IPCFile);
 
-            } else {
-
-                ev_loop_destroy(EV_DEFAULT_UC);        //TODO ??
-
-                log_debug("pid %d, worker: Destroying myself %d from worker pid %d", getpid(), i, psWorker->Pid);
             }
 
             if (psWorker->iWorkerIPCfd != 0) {
