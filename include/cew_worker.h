@@ -26,6 +26,9 @@
 #define WORKER_IPC_FOLDER "/run/cewserver"
 #define WORKER_IPC_FILE "cew_worker"     // + some random number, it will look like cew_worker_%d
 
+/* Workers default EV loop, used by workers and clients on that worker */
+extern struct ev_loop *psWorkerEVLoop;
+
 int32_t worker_init(int32_t);
 
 int32_t worker_destroy(void);

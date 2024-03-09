@@ -73,7 +73,7 @@ debug_strace: debug
 	strace -f -e 'trace=!clock_nanosleep' -s1000 -y ./build/debug/cewserver
 
 debug_mem: debug
-	valgrind --check-stack-var=yes --free-is-write=yes --show-stack-usage=yes --free-is-write=yes --malloc-fill=0xAA --free-fill=0x88 --fair-sched=yes --read-var-info=yes --read-inline-info=yes --show-error-list=yes --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver
+	valgrind --malloc-fill=0xAA --free-fill=0x88 --fair-sched=yes --read-var-info=yes --read-inline-info=yes --show-error-list=yes --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver
 
 debug_run: debug
 	./build/debug/cewserver
