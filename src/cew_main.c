@@ -164,7 +164,7 @@ int32_t main(int32_t argc, char **argv) {
     }
 
     // TODO, should be settings
-    if ((iRet = worker_init(2)) != WORKER_EXIT_SUCCESS) {
+    if ((iRet = worker_init(4)) != WORKER_EXIT_SUCCESS) {
         do_exit_with_errno(iRet);
     }
 

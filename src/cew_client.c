@@ -43,7 +43,16 @@ static int32_t client_deregister(tsClientEv *psClientEv) {
     ev_timer_stop(psWorkerEVLoop, &psClientEv->timer);
     ev_io_stop(psWorkerEVLoop, &psClientEv->io);
 
+    /* First shutdown the socket, this will send and end to the client. Reading and writing will
+     * be disallowed. After disallowing, make sure we read all the data that presists on the socket
+     * before doing a close, to make sure it's a clean close.
+     *
+     * Without a shutdown, the client still things its connected, and waits for data.
+     * */
     if (psClientEv->sClient.iSockfd) {
+        shutdown(psClientEv->sClient.iSockfd, SHUT_RDWR);
+        int8_t trash[100];
+        while (read(psClientEv->sClient.iSockfd,&trash, sizeof(trash)));
         close(psClientEv->sClient.iSockfd);
         psClientEv->sClient.iSockfd = 0;
     }
@@ -82,9 +91,9 @@ static void client_callback_serve(struct ev_loop *loop, ev_io *w, int revents) {
         /* This is the only way a client can disconnect */
         log_debug("Disconnecting client %d", psClient->iId);
         client_deregister(psClientEv);
-    } else if (iReceived) {
+    } else {
         /* Got data from client, do stuff */
-        log_debug("Received %s", psClient->acRecvBuff);
+        log_debug("Received data %s", psClient->acRecvBuff);
 
         ev_timer_again(psWorkerEVLoop, &psClientEv->timer);
 

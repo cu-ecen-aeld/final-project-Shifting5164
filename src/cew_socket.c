@@ -16,7 +16,7 @@
 #include <cew_logger.h>
 #include <cew_client.h>
 
-/* connect socket */
+/* Connect socket */
 static int32_t iFd = 0;
 
 /* Callback function for ev polling. Accepts the clients, makes a new fd, and routes the
@@ -33,14 +33,14 @@ void socket_accept_client(struct ev_loop *loop, ev_io *w_, int revents) {
     iSockfd = accept(iFd, (struct sockaddr *) &sTheirAddr, &tAddrSize);
     if (iSockfd == -1) {
         log_error("Master. Error with accepting client.");
-        return;
-    }
+    }else {
 
-    log_debug("Sending fd:%d to the worker.", iSockfd);
+        log_debug("Sending fd:%d to the worker.", iSockfd);
 
-    /* Route new client to a worker */
-    if (worker_route_client(&iSockfd) != WORKER_EXIT_SUCCESS) {
-        log_warning("Master. Couldn't route client to worker!");
+        /* Route new client to a worker */
+        if (worker_route_client(&iSockfd) != WORKER_EXIT_SUCCESS) {
+            log_warning("Master. Couldn't route client to worker!");
+        }
     }
 }
 

@@ -343,8 +343,6 @@ int32_t logger_flush(void) {
         usleep(500);
     }
 
-    printf("DONE\n");
-
     return LOG_EXIT_SUCCESS;
 }
 
