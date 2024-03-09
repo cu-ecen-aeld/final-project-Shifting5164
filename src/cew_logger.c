@@ -332,13 +332,15 @@ int32_t logger_flush(void) {
     /* Force flush queue */
     iDoForceFlush = 1;
 
-    /* Prevent blocking, when nothing got flushed after this then just lose the data */
-    int32_t MaxLoops = 50;
+    /* Prevent blocking, when nothing got flushed after this then just lose the data
+     * NOTE: when we fork the thread doesn't run, so don't block.
+     * */
+    int32_t MaxLoops = 20;
     while (MaxLoops--) {
         if (!iDataInQueueCount) {
             break;
         }
-        usleep(100);
+        usleep(500);
     }
 
     return LOG_EXIT_SUCCESS;

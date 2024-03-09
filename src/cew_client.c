@@ -2,26 +2,27 @@
 #include <string.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 #include <ev.h>
+#include <sds.h>
 
 #include <cew_client.h>
 #include <cew_logger.h>
 #include <cew_worker.h>
+#include <cew_http.h>
 
 /* socket send and recv buffers, per client */
-#define RECV_BUFF_SIZE 1024     /* Bytes */
-#define SEND_BUFF_SIZE 1024     /* Bytes */
+#define RECV_BUFF_SIZE 4096     /* Bytes */
 
 typedef struct sClientStruct {
     int32_t iId;                            // unique random id
     int32_t iSockfd;         /* socket clients connected on */
-    bool bIsDone;             /* client disconnected  ? */
-    struct sockaddr_storage sTheirAddr;
-    socklen_t tAddrSize;
-    char acSendBuff[SEND_BUFF_SIZE];    /* Data sending */
+    struct sockaddr_in sTheirAddr;
+    int8_t cIP[INET_ADDRSTRLEN];
+    sds acSendBuff;    /* Data sending */
     char acRecvBuff[RECV_BUFF_SIZE];    /* Data reception */
-    int32_t iReceived;
 } tsClientStruct;
 
 /* ev composit block
@@ -42,9 +43,23 @@ static int32_t client_deregister(tsClientEv *psClientEv) {
     ev_timer_stop(psWorkerEVLoop, &psClientEv->timer);
     ev_io_stop(psWorkerEVLoop, &psClientEv->io);
 
+    /* First shutdown the socket, this will send and end to the client. Reading and writing will
+     * be disallowed. After disallowing, make sure we read all the data that presists on the socket
+     * before doing a close, to make sure it's a clean close.
+     *
+     * Without a shutdown, the client still things its connected, and waits for data.
+     * */
     if (psClientEv->sClient.iSockfd) {
+        shutdown(psClientEv->sClient.iSockfd, SHUT_RDWR);
+        int8_t trash[100];
+        while (read(psClientEv->sClient.iSockfd,&trash, sizeof(trash)));
         close(psClientEv->sClient.iSockfd);
         psClientEv->sClient.iSockfd = 0;
+    }
+
+    if (psClientEv->sClient.acSendBuff) {
+        sdsfree(psClientEv->sClient.acSendBuff);
+        psClientEv->sClient.acSendBuff = NULL;
     }
 
     free(psClientEv);
@@ -68,23 +83,32 @@ static void client_callback_serve(struct ev_loop *loop, ev_io *w, int revents) {
     tsClientEv *psClientEv = (struct sClientEv *) (((uint8_t *) w) - offsetof (struct sClientEv, io));
     tsClientStruct *psClient = &psClientEv->sClient;
 
-    psClient->iReceived = recv(psClient->iSockfd, psClient->acRecvBuff, RECV_BUFF_SIZE, 0);
-    if (psClient->iReceived < 0) {
+    int32_t iReceived = recv(psClient->iSockfd, psClient->acRecvBuff, RECV_BUFF_SIZE, 0);
+    if (iReceived < 0) {
         /* Error */
         log_error("Receive error on client %d.", psClient->iId);
-    } else if (psClient->iReceived == 0) {
+    } else if (iReceived == 0) {
         /* This is the only way a client can disconnect */
         log_debug("Disconnecting client %d", psClient->iId);
         client_deregister(psClientEv);
-    } else if (psClient->iReceived) {
+    } else {
         /* Got data from client, do stuff */
+        log_debug("Received data %s", psClient->acRecvBuff);
 
         ev_timer_again(psWorkerEVLoop, &psClientEv->timer);
 
-        snprintf(psClient->acSendBuff, sizeof(psClient->acSendBuff), "id:%d. got data...\n", psClient->iId);
-        if (send(psClient->iSockfd, psClient->acSendBuff, strlen(psClient->acSendBuff), 0) == -1) {
+        psClient->acSendBuff = sdsempty();
+        http_basic_response(&psClient->acSendBuff);
+
+        if (send(psClient->iSockfd, psClient->acSendBuff, sdslen(psClient->acSendBuff), 0) == -1) {
             log_debug("Sending error on client %d", psClient->iId);
         }
+
+        sdsfree(psClient->acSendBuff);
+        psClient->acSendBuff = NULL;
+
+        client_deregister(psClientEv);
+
     }
 }
 
@@ -97,7 +121,18 @@ int32_t client_register_ev(int32_t iSockfd) {
     psClientEv->sClient.iSockfd = iSockfd;
     psClientEv->sClient.iId = (int32_t) random();
 
-    log_info("Added callback for client %d", psClientEv->sClient.iId);
+    // https://beej.us/guide/bgnet/html/#close-and-shutdownget-outta-my-face
+    uint32_t uiLen = sizeof(psClientEv->sClient.sTheirAddr);
+
+    if (getpeername(psClientEv->sClient.iSockfd, (struct sockaddr *)&psClientEv->sClient.sTheirAddr, &uiLen) == -1) {
+        return EXIT_FAILURE;
+    }
+
+    if (inet_ntop(AF_INET, &(psClientEv->sClient.sTheirAddr.sin_addr), psClientEv->sClient.cIP, sizeof(psClientEv->sClient.cIP)) == NULL) {
+        return EXIT_FAILURE;
+    }
+
+    log_info("Added callback for client %d from %s ", psClientEv->sClient.iId, psClientEv->sClient.cIP);
 
     /* Client receive timeout timer */
     ev_timer_init (&psClientEv->timer, client_callback_timeout, CLIENT_TIMEOUT, CLIENT_TIMEOUT);

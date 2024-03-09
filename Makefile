@@ -28,6 +28,7 @@ docker_build:
 docker_run:
 	docker run -p 9000:9000 \
 		--privileged \
+		--network host \
 		--rm \
 		--volume $(shell pwd):/work \
 		--workdir /work \

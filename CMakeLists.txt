@@ -48,6 +48,7 @@ add_executable(cewserver
         src/cew_socket.c
         src/cew_worker.c
         src/cew_exit.c
+        src/cew_http.c
 )
 
 target_include_directories(cewserver PRIVATE
