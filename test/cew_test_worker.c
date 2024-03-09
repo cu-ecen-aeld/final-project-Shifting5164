@@ -5,6 +5,7 @@
 #include <cmocka.h>
 #include "../src/cew_worker.c"
 #include "../src/cew_client.c"
+#include "../src/cew_http.c"
 #include "../include/cew_logger.h"
 #include "../include/cew_client.h"
 

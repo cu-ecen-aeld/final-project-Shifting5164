@@ -79,17 +79,6 @@ int32_t socket_setup(uint16_t iPort, int32_t *iRetFd) {
         return errno;
     }
 
-    // https://www.man7.org/linux/man-pages/man7/socket.7.html
-    // Permits multiple AF_INET or AF_INET6 sockets to be bound to an identical socket address.
-    if (setsockopt(iFd, SOL_SOCKET, SO_REUSEPORT, &iYes, sizeof iYes) == -1) {
-        return errno;
-    }
-
-    /* non-blocking socket settings */
-    if (fcntl(iFd, F_SETFL, O_NONBLOCK) == -1) {
-        return errno;
-    }
-
     if (bind(iFd, psServinfo->ai_addr, psServinfo->ai_addrlen) < 0) {
         return errno;
     }

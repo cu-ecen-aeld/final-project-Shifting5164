@@ -351,6 +351,9 @@ int32_t worker_init(const int32_t iWantedWorkers) {
         /* Define worker IPC file */
         psWorker->IPCFile = sdscatprintf(sdsempty(), "%s/%s_%ld", WORKER_IPC_FOLDER, WORKER_IPC_FILE, random());
 
+        /* flush logger, because after the child forks we lose the pthread */
+        logger_flush();
+
         /* Spin-up a worker child process */
         pid_t pid = fork();
         switch (pid) {
