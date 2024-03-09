@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #include <sds.h>
 
 #include <cew_http.h>
+
 
 //static int32_t http_header_generator(uint8_t *buff, int32_t size)
 
@@ -20,5 +22,7 @@ int32_t http_basic_response(sds *response) {
     *response = sdscat(*response, "<h1>Hello, World!</h1>\r\n");
     *response = sdscat(*response, "</body>\r\n");
     *response = sdscat(*response, "</html>\r\n");
+
+    return EXIT_SUCCESS;
 
 }
