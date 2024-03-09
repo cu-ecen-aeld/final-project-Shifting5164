@@ -414,10 +414,9 @@ int32_t worker_destroy(void) {
              * worker should cleanup all the other mess it inherited from the fork(). */
             if (psWorker->iMe) {
 
-                /* Clean clients */
-
                 /* Probably already did this, just to make sure */
-                ev_loop_destroy(EV_DEFAULT_UC);
+                ev_suspend(psWorkerEVLoop);
+                ev_loop_destroy(psWorkerEVLoop);
 
                 if (psWorkerEVLoop != NULL) {
                     free(psWorkerEVLoop);
