@@ -13,25 +13,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
-
-static int32_t http_basic_response(sds *response) {
-
-    *response = sdscat(*response, "HTTP/1.1 200 OK\r\n");
-//    *response = sdscat(*response, "Date: Mon, 27 Jul 2009 12:28:53 GMT\r\n");
-//    *response = sdscat(*response, "Content-Length: 88\r\n");
-//    *response = sdscat(*response, "Server: Apache/2.2.14 (Win32)\r\n");
-    *response = sdscat(*response, "Content-Type: text/html\r\n");
-    *response = sdscat(*response, "Connection: Closed\r\n\r\n");
-    *response = sdscat(*response, "<html>\r\n");
-    *response = sdscat(*response, "<body>\r\n");
-    *response = sdscat(*response, "<h1>Hello, World!</h1>\r\n");
-    *response = sdscat(*response, "</body>\r\n");
-    *response = sdscat(*response, "</html>\r\n");
-
-    return EXIT_SUCCESS;
-}
-
-/* Parse the header, return the file requested
+/* Parse the request header from the client, return the file requested to the caller
  *
  * https://linux.die.net/man/3/regcomp
  * */
@@ -72,6 +54,7 @@ static int32_t http_parse_request(tsClientStruct *psClient, sds *sFileName) {
     return EXIT_FAILURE;
 }
 
+/* Return a complete 404 as a response */
 static int32_t http_404(sds *sResponse) {
 
     log_debug("sending 404");
@@ -153,22 +136,26 @@ static int32_t http_determine_mime(sds *sFileName, sds *sMime) {
     return EXIT_FAILURE;
 }
 
+/* Parse the request and send back data */
 int32_t http_handle_client_request(tsClientStruct *psClient) {
 
     psClient->acSendBuff = sdsempty();
 
+    /* Check wat is requested */
     sds sFileName = sdsempty();
     if (http_parse_request(psClient, &sFileName) == EXIT_SUCCESS) {
 
+        /* Check if we have the request */
         sds sPath = sdsempty();
         if (http_check_access_file(&sFileName, &sPath) == EXIT_SUCCESS) {
 
+            /* What we need to return to the client */
             sds sMime = sdsempty();
-
             if (http_determine_mime(&sFileName, &sMime) == EXIT_SUCCESS) {
 
-                log_info("Client requested: %s",sPath);
+                log_info("Client requested: %s",sFileName);
 
+                /* Add default header info */
                 psClient->acSendBuff = sdscat(psClient->acSendBuff, "HTTP/1.1 200 OK\r\n");
                 psClient->acSendBuff = sdscatprintf(psClient->acSendBuff, "Content-Type: %s\r\n", sMime);
                 psClient->acSendBuff = sdscat(psClient->acSendBuff, "Connection: Closed\r\n");
@@ -182,11 +169,10 @@ int32_t http_handle_client_request(tsClientStruct *psClient) {
                     fstat(fd, &file_stat);
                     psClient->acSendBuff = sdscatprintf(psClient->acSendBuff, "Content-Length: %ld\r\n",
                                                         file_stat.st_size);
-
-                    /* Delimiter */
+                    /* Delimiter from header to body */
                     psClient->acSendBuff = sdscat(psClient->acSendBuff, "\r\n");
 
-                    /* read and add content to send buffer */
+                    /* Read from disk and add content to send buffer */
                     // https://github.com/antirez/sds?tab=readme-ov-file#zero-copy-append-from-syscalls
                     int oldlen = sdslen(psClient->acSendBuff);
                     psClient->acSendBuff = sdsMakeRoomFor(psClient->acSendBuff, file_stat.st_size);
@@ -196,7 +182,6 @@ int32_t http_handle_client_request(tsClientStruct *psClient) {
                     log_debug("Responding with: \n%s", psClient->acSendBuff);
                 }
             }
-
             sdsfree(sMime);
 
         } else { // 404
@@ -215,5 +200,4 @@ int32_t http_handle_client_request(tsClientStruct *psClient) {
     psClient->acSendBuff = NULL;
 
     return EXIT_SUCCESS;
-
 }

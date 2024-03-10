@@ -52,7 +52,7 @@ static int32_t client_deregister(tsClientEv *psClientEv) {
 
     free(psClientEv);
 
-    log_info("Deregistered client %d.", iId);
+    log_debug("Deregistered client %d.", iId);
 
     return EXIT_SUCCESS;
 }
@@ -112,7 +112,7 @@ int32_t client_register_ev(int32_t iSockfd) {
         return EXIT_FAILURE;
     }
 
-    log_info("Added callback for client %d from %s ", psClientEv->sClient.iId, psClientEv->sClient.cIP);
+    log_debug("Added callback for client %d from %s ", psClientEv->sClient.iId, psClientEv->sClient.cIP);
 
     /* Client receive timeout timer */
     ev_timer_init (&psClientEv->timer, client_callback_timeout, CLIENT_TIMEOUT, CLIENT_TIMEOUT);
