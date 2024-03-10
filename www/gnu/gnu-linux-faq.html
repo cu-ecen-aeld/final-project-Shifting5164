@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- Mirrored from www.gnu.org/gnu/gnu-linux-faq.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="author" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="../graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<link rel="stylesheet" type="text/css" href="../layout.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../print.min.css" media="print" />
+
+
+
+<!-- Parent-Version: 1.98 -->
+<!-- This page is derived from /server/standards/boilerplate.html -->
+
+
+<title>GNU/Linux FAQ
+- GNU Project - Free Software Foundation</title>
+<!-- begin translist file -->
+
+<link rel="alternate" type="text/html" href="gnu-linux-faq.html" hreflang="x-default" />
+<link rel="alternate" type="text/html" lang="en" hreflang="en" href="https://www.gnu.org/gnu/gnu-linux-faq.en.html" title="English" />
+<link rel="alternate" type="text/html" lang="ar" hreflang="ar" href="https://www.gnu.org/gnu/gnu-linux-faq.ar.html" title="العربية" />
+<link rel="alternate" type="text/html" lang="ca" hreflang="ca" href="https://www.gnu.org/gnu/gnu-linux-faq.ca.html" title="català" />
+<link rel="alternate" type="text/html" lang="de" hreflang="de" href="https://www.gnu.org/gnu/gnu-linux-faq.de.html" title="Deutsch" />
+<link rel="alternate" type="text/html" lang="es" hreflang="es" href="https://www.gnu.org/gnu/gnu-linux-faq.es.html" title="español" />
+<link rel="alternate" type="text/html" lang="fr" hreflang="fr" href="https://www.gnu.org/gnu/gnu-linux-faq.fr.html" title="français" />
+<link rel="alternate" type="text/html" lang="hr" hreflang="hr" href="https://www.gnu.org/gnu/gnu-linux-faq.hr.html" title="hrvatski" />
+<link rel="alternate" type="text/html" lang="it" hreflang="it" href="https://www.gnu.org/gnu/gnu-linux-faq.it.html" title="italiano" />
+<link rel="alternate" type="text/html" lang="ja" hreflang="ja" href="https://www.gnu.org/gnu/gnu-linux-faq.ja.html" title="日本語" />
+<link rel="alternate" type="text/html" lang="ko" hreflang="ko" href="https://www.gnu.org/gnu/gnu-linux-faq.ko.html" title="한국어" />
+<link rel="alternate" type="text/html" lang="nl" hreflang="nl" href="https://www.gnu.org/gnu/gnu-linux-faq.nl.html" title="Nederlands" />
+<link rel="alternate" type="text/html" lang="pl" hreflang="pl" href="https://www.gnu.org/gnu/gnu-linux-faq.pl.html" title="polski" />
+<link rel="alternate" type="text/html" lang="pt-br" hreflang="pt-br" href="https://www.gnu.org/gnu/gnu-linux-faq.pt-br.html" title="português" />
+<link rel="alternate" type="text/html" lang="ru" hreflang="ru" href="https://www.gnu.org/gnu/gnu-linux-faq.ru.html" title="русский" />
+<link rel="alternate" type="text/html" lang="sq" hreflang="sq" href="https://www.gnu.org/gnu/gnu-linux-faq.sq.html" title="Shqip" />
+<link rel="alternate" type="text/html" lang="sr" hreflang="sr" href="https://www.gnu.org/gnu/gnu-linux-faq.sr.html" title="српски" />
+<link rel="alternate" type="text/html" lang="tr" hreflang="tr" href="https://www.gnu.org/gnu/gnu-linux-faq.tr.html" title="Türkçe" />
+<link rel="alternate" type="text/html" lang="uk" hreflang="uk" href="https://www.gnu.org/gnu/gnu-linux-faq.uk.html" title="українська" />
+<link rel="alternate" type="text/html" lang="zh-cn" hreflang="zh-cn" href="https://www.gnu.org/gnu/gnu-linux-faq.zh-cn.html" title="简体中文" />
+<!-- end translist file -->
+
+<!-- start of server/banner.html -->
+<!-- start of head-include-2.html -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- end of head-include-2.html -->
+
+</head>
+<body>
+<div class="inner">
+<!-- start of server/body-include-1.html -->
+<div id="top">
+<a class="skip" href="#content"><b>Skip to main text</b></a>
+</div>
+
+<div id="fsf-frame" role="complementary">
+<form id="fssbox" action="https://my.fsf.org/civicrm/profile/create?reset=1&amp;gid=31"
+      method="post">
+ <div>
+  <input name="postURL" type="hidden" value="" />
+  <input type="hidden" name="group[25]" value="1" />
+  <input name="cancelURL" type="hidden" value="https://crm.fsf.org/civicrm/profile?reset=1&amp;gid=31" />
+  <input name="_qf_default" type="hidden" value="Edit:cancel" />
+  <label for="frmEmail">
+   <a href="http://www.fsf.org/fss">Free Software Supporter</a>:
+  </label>
+  <input type="text" id="frmEmail" name="email-Primary" size="18" maxlength="80"
+         value="email address" onfocus="this.value=''"/>
+  <input type="submit" name="_qf_Edit_next" value="Sign up" />
+ </div>
+</form>
+
+<div id="join-fsf" class="button"><a
+href="https://www.fsf.org/associate/support_freedom?referrer=4052">JOIN&nbsp;THE&nbsp;FSF</a>
+</div>
+</div>
+
+<div id="header" role="banner">
+<p id="gnu-banner">
+ <a href="../index.html">
+ <img src="../graphics/heckert_gnu.transp.small.png" height="48" width="49"
+      alt="&nbsp;[A GNU head]&nbsp;" /><strong>GNU</strong> <span
+ class="hide">Operating System</span></a><br />
+ <small id="fsf-support">Supported by the
+ <a href="#mission-statement">Free Software Foundation</a></small>
+</p>
+
+<div id="switches">
+ <div  id="search-button" class="switch">
+  <a href="../cgi-bin/estseek.cgi">
+  <img id="search-icon" height="30" width="30"
+       src="../graphics/icons/search.png"
+       alt="&nbsp;[Search www.gnu.org]&nbsp;" /></a>
+ </div>
+
+ <div id="language-button" class="switch">
+  <a href="#language-container">
+  <img id="language-icon" height="30" width="37"
+       src="../graphics/icons/translations.png"
+       alt="&nbsp;[Other languages]&nbsp;" /></a>
+ </div>
+
+</div>
+</div>
+<!-- end of server/body-include-1.html -->
+
+<!-- start of server/body-include-2 -->
+
+
+<div style="clear: both"></div>
+
+<div id="navigation" role="navigation">
+ <a id="more-links" href="#navigation" title="More...">
+   <span>Site navigation</span></a>
+ <a id="less-links" href="#content"><b>Skip</b></a>
+ <ul>
+
+  <li id="tabAboutGNU" class="active">
+     <span class='no-display'>=</span> 
+    <a href="gnu.html">ABOUT&nbsp;GNU</a>
+    <span class="gnun-split"></span>
+     <span class='no-display'>=</span> 
+  </li>
+
+
+  <li id="tabPhilosophy"><a href="../philosophy/philosophy.html">PHILOSOPHY</a></li>
+
+
+  <li id="tabLicenses"><a href="../licenses/licenses.html">LICENSES</a></li>
+
+
+  <li id="tabEducation"><a href="../education/education.html">EDUCATION</a></li>
+
+
+  <li id="tabSoftware"><a href="../software/software.html">SOFTWARE</a></li>
+
+
+  <li id="tabDistros"><a href="../distros/distros.html">DISTROS</a></li>
+
+
+  <li id="tabDoc"><a href="../doc/doc.html">DOCS</a></li>
+
+
+  <li id="tabMalware"><a href="../proprietary/proprietary.html">MALWARE</a></li>
+
+
+  <li id="tabHelp"><a href="../help/help.html">HELP&nbsp;GNU</a></li>
+
+
+  <li id="tabAV"><a href="../audio-video/audio-video.html">AUDIO&nbsp;&amp;&nbsp;VIDEO</a></li>
+
+
+  <li id="tabArt"><a href="../graphics/graphics.html">GNU&nbsp;ART</a></li>
+
+
+  <li id="tabFun"><a href="../fun/humor.html">FUN</a></li>
+
+
+  <li id="tabPeople"><a href="../people/people.html">GNU'S&nbsp;WHO?</a></li>
+
+  <li><a href="http://directory.fsf.org/">SOFTWARE&nbsp;DIRECTORY</a></li>
+  <li><a href="https://h-node.org/">HARDWARE</a></li>
+  <li><a href="../server/sitemap.html">SITEMAP</a></li>
+ </ul>
+ <div style="clear: both"></div>
+</div><!-- /"navigation -->
+<!-- end of server/body-include-2 -->
+
+<div id="content" role="main">
+<!-- end of server/banner.html -->
+
+<div class="breadcrumb" role="navigation">
+<a href="../index.html"><img src="https://www.gnu.org/graphics/icons/home.png" height="26" width="26"
+   alt="GNU Home" title="GNU Home" /><span
+ class="gnun-split"></span></a>&nbsp;/<span class="gnun-split"></span>
+<a href="gnu.html#content">About&nbsp;GNU<span
+ class="gnun-split"></span></a>&nbsp;/<span class="gnun-split"></span>
+<a href="gnu.html#gnulinux">GNU&nbsp;&amp;&nbsp;Linux<span
+ class="gnun-split"></span></a>&nbsp;/<span class="gnun-split"></span>
+</div>
+
+<!--GNUN: OUT-OF-DATE NOTICE-->
+
+
+
+<div class="article reduced-width">
+<h2>GNU/Linux FAQ</h2>
+
+<address class="byline">by Richard Stallman</address>
+
+<div class="introduction">
+<p>
+When people see that we use and recommend the name GNU/Linux for a
+system that many others call just &ldquo;Linux,&rdquo; they ask many questions.
+Here are common questions, and our answers.</p>
+</div>
+
+<div class="toc">
+<hr class="no-display" />
+<h3 class="no-display">Table of Contents</h3>
+<ul>
+
+<li><a href="#why">Why do you call the system we use GNU/Linux and not Linux?</a></li>
+
+<li><a href="#whycare">Why is the name important?</a></li>
+
+<li><a href="#what">What is the real relationship between GNU and Linux?</a></li>
+
+<li><a href="#howerror">How did it come about that most
+    people call the system &ldquo;Linux&rdquo;?</a></li>
+
+<li><a href="#always">Should we always say
+&ldquo;GNU/Linux&rdquo; instead of &ldquo;Linux&rdquo;?</a></li>
+
+<li><a href="#linuxalone">Would Linux have achieved
+    the same success if there had been no GNU?</a></li>
+
+<li><a href="#divide">Wouldn't it be better for the
+    community if you did not divide people with this request?</a></li>
+
+<li><a href="#freespeech">Doesn't the GNU project
+    support an individual's free speech rights to call the system by
+    any name that individual chooses?</a></li>
+
+<li><a href="#everyoneknows">Since everyone
+    knows the role of GNU in developing the system, doesn't the
+    &ldquo;GNU/&rdquo; in the name go without saying?</a></li>
+
+<li><a href="#everyoneknows2">Since I know the role of
+    GNU in this system, why does it matter what name I use?</a></li>
+
+<li><a href="#windows">Isn't shortening
+    &ldquo;GNU/Linux&rdquo; to &ldquo;Linux&rdquo; just like
+    shortening &ldquo;Microsoft Windows&rdquo; to
+    &ldquo;Windows&rdquo;?</a></li>
+
+<li><a href="#tools">Isn't GNU a collection of programming
+    tools that were included in Linux?</a></li>
+
+<li><a href="#osvskernel">What is the difference between an operating
+    system and a kernel?</a></li>
+
+<li><a href="#house">The kernel of a system is like the foundation
+    of a house.  How can a house be almost complete when it doesn't have a
+    foundation?</a></li>
+
+<li><a href="#brain">Isn't the kernel the brain of the
+    system?</a></li>
+
+<li><a href="#kernelmost">Isn't writing the kernel
+    most of the work in an operating system?</a></li>
+
+<li><a href="#nokernel">An operating system requires a kernel.
+    Since the GNU Project didn't develop a kernel, how can
+    the system be GNU?</a></li>
+
+<li><a href="#notinstallable">How can GNU be an
+    operating system, if I can't get something called &ldquo;GNU&rdquo;
+    and install it?</a></li>
+
+<li><a href="#afterkernel">We're calling the whole
+    system after the kernel, Linux.  Isn't it normal to name an
+    operating system after a kernel?</a></li>
+
+<li><a href="#feel">Can another system have &ldquo;the
+    feel of Linux&rdquo;?</a></li>
+
+<li><a href="#long">The problem with
+    &ldquo;GNU/Linux&rdquo; is that it is too long.  How about
+    recommending a shorter name?</a></li>
+
+<li><a href="#long1">How about calling the system
+    &ldquo;GliNUx&rdquo; (instead of &ldquo;GNU/Linux&rdquo;)?</a></li>
+
+<li><a href="#long2">The problem with
+    &ldquo;GNU/Linux&rdquo; is that it is too long.  Why should
+    I go to the trouble of saying &ldquo;GNU/&rdquo;?</a></li>
+
+<li><a href="#long3">Unfortunately,
+    &ldquo;GNU/Linux&rdquo; is five syllables. People won't use such a
+    long term. Shouldn't you find a shorter one?</a></li>
+
+<li><a href="#long4">Stallman doesn't ask us to call him
+    &ldquo;Richard Matthew Stallman&rdquo; every the time.
+    So why ask us to say &ldquo;GNU/Linux&rdquo; every time?</a></li>
+
+<li><a href="#justgnu">Since Linux is a secondary
+    contribution, would it be false to the facts to call the system
+    simply &ldquo;GNU&rdquo;?</a></li>
+
+<li><a href="#trademarkfee">I would have to pay a
+    fee if I use &ldquo;Linux&rdquo; in the name of a product, and
+    that would also apply if I say &ldquo;GNU/Linux.&rdquo;  Is it
+    wrong if I use &ldquo;GNU&rdquo; without &ldquo;Linux,&rdquo; to
+    save the fee?</a></li>
+
+<li><a href="#many">Many other projects contributed to the
+    system as it is today; it includes TeX, X11, Apache, Perl, and many
+    more programs.  Don't your arguments imply we have to give them
+    credit too?  (But that would lead to a name so long it is
+    absurd.)</a></li>
+
+<li><a href="#systemd">systemd plays an important role in the GNU/Linux
+    system as it is today; are we obligated to call it
+    GNU/systemd/Linux?</a></li>
+
+<li><a href="#others">Many other projects contributed to
+    the system as it is today, but they don't insist on calling it
+    XYZ/Linux.  Why should we treat GNU specially?</a></li>
+
+<li><a href="#allsmall">GNU is a small fraction of the system
+    nowadays, so why should we mention it?</a></li>
+
+<li><a href="#manycompanies">Many companies
+    contributed to the system as it is today; doesn't that mean
+    we ought to call it GNU/Red&nbsp;Hat/Novell/Linux?</a></li>
+
+<li><a href="#whyslash">Why do you write
+    &ldquo;GNU/Linux&rdquo; instead of &ldquo;GNU
+    Linux&rdquo;?</a></li>
+
+<li><a href="#linuxlibre">Does GNU have its own version of Linux,
+    the kernel?</a></li>
+
+<li><a href="#pronounce">How is the name &ldquo;GNU/Linux&rdquo;
+pronounced?</a></li>
+
+<li><a href="#whynoslash">Why do you write
+    &ldquo;GNU Emacs&rdquo; rather than &ldquo;GNU/Emacs&rdquo;?</a></li>
+
+<li><a href="#whyorder">Why &ldquo;GNU/Linux&rdquo;
+rather than &ldquo;Linux/GNU&rdquo;?</a></li>
+
+<li><a href="#distronames0">My distro's developers call it
+    &ldquo;Foobar Linux,&rdquo; but that doesn't say anything about
+    what the system consists of.  Why shouldn't they call it whatever
+    they like?</a></li>
+
+<li><a href="#distronames">My distro is called
+    &ldquo;Foobar Linux&rdquo;; doesn't that show it's really
+    Linux?</a></li>
+
+<li><a href="#distronames1">My distro's official
+    name is &ldquo;Foobar Linux&rdquo;; isn't it wrong to call the
+    distro anything but &ldquo;Foobar Linux&rdquo;?</a></li>
+
+<li><a href="#companies">Wouldn't it be more
+    effective to ask companies such as Mandrake, Red Hat and IBM to
+    call their distributions &ldquo;GNU/Linux&rdquo; rather than
+    asking individuals?</a></li>
+
+<li><a href="#reserve">Wouldn't it be better to
+    reserve the name &ldquo;GNU/Linux&rdquo; for distributions that
+    are purely free software?  After all, that is the ideal of
+    GNU.</a></li>
+
+<li><a href="#gnudist">Why not make a GNU distribution of
+    Linux (sic) and call that GNU/Linux?</a></li>
+
+<li><a href="#linuxgnu">Why not just say &ldquo;Linux
+    is the GNU kernel&rdquo; and release some existing version of
+    GNU/Linux under the name &ldquo;GNU&rdquo;?</a></li>
+
+<li><a href="#condemn">Did the GNU Project condemn and
+    oppose use of Linux in the early days?</a></li>
+
+<li><a href="#wait">Why did you wait so long before
+    asking people to use the name GNU/Linux?</a></li>
+
+<li><a href="#allgpled">Should the GNU/<i>name</i> convention
+    be applied to all programs that are GPL'ed?</a></li>
+
+<li><a href="#unix">Since much of GNU comes from Unix,
+    shouldn't GNU give credit to Unix by using &ldquo;Unix&rdquo; in
+    its name?</a></li>
+
+<li><a href="#bsd">Should we say &ldquo;GNU/BSD&rdquo;
+too?</a></li>
+
+<li><a href="#othersys">If I install the GNU tools on
+    Windows, does that mean I am running a GNU/Windows system?</a></li>
+
+<li><a href="#justlinux">Can't Linux be used without
+GNU?</a></li>
+
+<li><a href="#howmuch">How much of the GNU system
+is needed for the system to be GNU/Linux?</a></li>
+
+<li><a href="#linuxsyswithoutgnu">Are there complete Linux systems [sic] without GNU?</a></li>
+
+<li><a href="#usegnulinuxandandroid">Is it correct to say &ldquo;using
+    Linux&rdquo; if it refers to using GNU/Linux and using Android?</a></li>
+
+<li><a href="#helplinus">Why not call the system
+    &ldquo;Linux&rdquo; anyway, and strengthen Linus Torvalds' role as
+    posterboy for our community?</a></li>
+
+<li><a href="#claimlinux">Isn't it wrong for us to label Linus
+    Torvalds' work as GNU?</a></li>
+
+<li><a href="#linusagreed">Does Linus Torvalds
+    agree that Linux is just the kernel?</a></li>
+
+<li><a href="#finishhurd">Why not finish
+    the GNU Hurd kernel, release the GNU system as a whole,
+    and forget the question of what to call GNU/Linux?</a></li>
+
+<li><a href="#lost">The battle is already
+    lost&mdash;society has made its decision and we can't change it,
+    so why even think about it?</a></li>
+
+<li><a href="#whatgood">Society has made its decision
+    and we can't change it, so what good does it do if I say
+    &ldquo;GNU/Linux&rdquo;?</a></li>
+
+<li><a href="#explain">Wouldn't it be better to call
+    the system &ldquo;Linux&rdquo; and teach people its real origin
+    with a ten-minute explanation?</a></li>
+
+<li><a href="#treatment">Some people laugh at you when
+    you ask them to call the system GNU/Linux.  Why do you subject yourself
+    to this treatment?</a></li>
+
+<li><a href="#alienate">Some people condemn you when you
+    ask them to call the system GNU/Linux.  Don't you lose by
+    alienating them?</a></li>
+
+<li><a href="#rename">Whatever you contributed,
+    is it legitimate to rename the operating system?</a></li>
+
+<li><a href="#force">Isn't it wrong to force people to call
+    the system &ldquo;GNU/Linux&rdquo;?</a></li>
+
+<li><a href="#whynotsue">Why not sue people who call
+    the whole system &ldquo;Linux&rdquo;?</a></li>
+
+<li><a href="#BSDlicense">Since you objected to the original
+    BSD license's advertising requirement to give credit to the University of
+    California, isn't it hypocritical to demand credit for the GNU project?</a></li>
+
+<li><a href="#require">Shouldn't you put something in
+    the GNU GPL to require people to call the system
+    &ldquo;GNU&rdquo;?</a></li>
+
+<li><a href="#deserve">Since you failed to put
+    something in the GNU GPL to require people to call the system
+    &ldquo;GNU,&rdquo; you deserve what happened; why are you
+    complaining now?</a></li>
+
+<li><a href="#contradict">Wouldn't you be better off
+    not contradicting what so many people believe?</a></li>
+
+<li><a href="#somanyright">Since many people call it
+    &ldquo;Linux,&rdquo; doesn't that make it right?</a></li>
+
+<li><a href="#knownname">Isn't it better to call the
+    system by the name most users already know?</a></li>
+
+<li><a href="#winning">Many people care about what's convenient or
+    who's winning, not about arguments of right or wrong.  Couldn't you
+    get more of their support by a different road?</a></li>
+
+</ul>
+</div>
+
+<div class="announcement comment" role="complementary">
+<p>To learn more about this issue, you can also read
+our page on <a href="linux-and-gnu.html">Linux and the GNU System</a>, our
+ page on <a href="https://www.gnu.org/gnu/why-gnu-linux.html">Why GNU/Linux?</a>
+and our page on <a href="https://www.gnu.org/gnu/gnu-users-never-heard-of-gnu.html">GNU
+Users Who Have Never Heard of GNU</a>.</p>
+<hr class="no-display" />
+</div>
+
+<dl>
+
+<dt id="why">Why do you call the system we use GNU/Linux and not
+    Linux? <span class="anchor-reference-id">(<a href="#why">#why</a>)</span></dt>
+
+<dd>Most operating system distributions based on Linux as kernel are
+basically modified versions of the GNU operating system.  We began
+developing GNU in 1984, years before Linus Torvalds started to write
+his kernel.  Our goal was to develop a complete free operating system.
+Of course, we did not develop all the parts ourselves&mdash;but we led the way.
+We developed most of the central components, forming the largest single
+contribution to the whole system.  The basic vision was ours too.
+<p>
+In fairness, we ought to get at least equal mention.</p>
+
+<p>See <a href="linux-and-gnu.html">Linux and the GNU System</a>
+and <a href="https://www.gnu.org/gnu/gnu-users-never-heard-of-gnu.html">GNU Users Who Have
+Never Heard of GNU</a> for more explanation, and <a
+href="https://www.gnu.org/gnu/the-gnu-project.html">The GNU Project</a> for the
+history.</p> </dd>
+
+<dt id="whycare">Why is the name
+    important? <span class="anchor-reference-id">(<a href="#whycare">#whycare</a>)</span></dt>
+
+<dd>Although the developers of Linux, the kernel, are contributing to
+the free software community, many of them do not care about freedom.
+People who think the whole system is Linux tend to get confused and
+assign to those developers a role in the history of our community
+which they did not actually play.  Then they give inordinate weight to
+those developers' views.
+<p>
+Calling the system GNU/Linux recognizes the role that our idealism
+played in building our community, and
+<a href="https://www.gnu.org/gnu/why-gnu-linux.html">helps the public recognize the
+practical importance of these ideals</a>.</p>
+</dd>
+
+<dt id="what">What is the real relationship between GNU and Linux? <span class="anchor-reference-id">(<a href="#what">#what</a>)</span></dt>
+
+<dd>
+<p>The GNU operating system and the kernel named Linux are separate
+software projects that do complementary jobs.  Typically they are
+packaged in a <a href="../distros/distros.html">GNU/Linux distribution</a>, and used
+together.</p>
+</dd>
+
+<dt id="howerror">How did it come about that most
+    people call the system &ldquo;Linux&rdquo;? <span class="anchor-reference-id">(<a href="#howerror">#howerror</a>)</span></dt>
+
+<dd>Calling the system &ldquo;Linux&rdquo; is a confusion that has spread faster
+than the corrective information.
+<p>
+The people who combined Linux with the GNU system were not aware that
+that's what their activity amounted to.  They focused their attention
+on the piece that was Linux and did not realize that more of the
+combination was GNU.  They started calling it &ldquo;Linux&rdquo; even though that
+name did not fit what they had.  It took a few years for us to realize
+what a problem this was and ask people to correct the practice.  By
+that time, the confusion had a big head start.</p>
+<p>
+Most of the people who call the system &ldquo;Linux&rdquo; have never heard why
+that's not the right thing.  They saw others using that name and
+assume it must be right.  The name &ldquo;Linux&rdquo; also spreads a false
+picture of the system's origin, because people tend to suppose that
+the system's history was such as to fit that name.  For
+instance, they often believe its development was started by Linus
+Torvalds in 1991.  This false picture tends to reinforce the idea
+that the system should be called &ldquo;Linux.&rdquo;</p>
+<p>
+Many of the questions in this file represent people's attempts to
+justify the name they are accustomed to using.</p>
+</dd>
+
+<dt id="always">Should we always say
+    &ldquo;GNU/Linux&rdquo; instead of &ldquo;Linux&rdquo;? <span class="anchor-reference-id">(<a href="#always">#always</a>)</span></dt>
+<dd>
+Not always&mdash;only when you're talking about the whole system.  When
+you're referring specifically to the kernel, you should call it
+&ldquo;Linux,&rdquo; the name its developer chose.
+<p>
+When people call the whole system &ldquo;Linux,&rdquo; as a consequence
+they call the whole system by the same name as the kernel.
+This causes many kinds of confusion, because only experts can tell
+whether a statement is about the kernel or the whole system.
+By calling the whole system &ldquo;GNU/Linux,&rdquo; and calling the kernel
+&ldquo;Linux,&rdquo; you avoid the ambiguity.</p>
+</dd>
+
+<dt id="linuxalone">Would Linux have
+    achieved the same success if there had been no
+    GNU? <span class="anchor-reference-id">(<a href="#linuxalone">#linuxalone</a>)</span></dt>
+
+<dd>
+In that alternative world, there would be nothing today like the
+GNU/Linux system, and probably no free operating system at all.  No
+one attempted to develop a free operating system in the 1980s except
+the GNU Project and (later) Berkeley CSRG, which had been specifically
+asked by the GNU Project to start freeing its code.
+<p>
+Linus Torvalds was partly influenced by a speech about GNU in Finland
+in 1990.  It's possible that even without this influence he might have
+written a Unix-like kernel, but it probably would not have been free
+software.  Linux became free in 1992 when Linus rereleased it under
+the GNU GPL.  (See the release notes for version 0.12.)</p>
+<p>
+Even if Torvalds had released Linux under some other free software
+license, a free kernel alone would not have made much difference to
+the world.  The significance of Linux came from  fitting into a larger
+framework, a complete free operating system: GNU/Linux.</p>
+</dd>
+
+<dt id="divide">Wouldn't it be better for the
+    community if you did not divide people with this request? <span class="anchor-reference-id">(<a href="#divide">#divide</a>)</span></dt>
+
+<dd>
+When we ask people to say &ldquo;GNU/Linux,&rdquo; we are not dividing people.  We
+are asking them to give the GNU Project credit for the GNU operating
+system.  This does not criticize anyone or push anyone away.
+<p>
+However, there are people who do not like our saying this.  Sometimes
+those people push us away in response.  On occasion they are so rude
+that one wonders if they are intentionally trying to intimidate us
+into silence.  It doesn't silence us, but it does tend to divide the
+community, so we hope you can convince them to stop.</p>
+<p>
+However, this is only a secondary cause of division in our community.
+The largest division in the community is between people who appreciate
+free software as a social and ethical issue and consider proprietary
+software a social problem (supporters of the free software movement),
+and those who cite only practical benefits and present free software
+only as an efficient development model (the open source movement).</p>
+<p>
+This disagreement is not just a matter of names&mdash;it is a matter
+of differing basic values.  It is essential for the community to see
+and think about this disagreement.  The names &ldquo;free
+software&rdquo; and &ldquo;open source&rdquo; are the banners of the
+two positions.
+See <a href="https://www.gnu.org/philosophy/open-source-misses-the-point.html">Why Open
+Source misses the point of Free Software</a>.</p>
+<p>
+The disagreement over values partially aligns with the amount of
+attention people pay to the GNU Project's role in our community.
+People who value freedom are more likely to call the system
+&ldquo;GNU/Linux,&rdquo; and people who learn that the system is &ldquo;GNU/Linux&rdquo; are
+more likely to pay attention to our philosophical arguments for
+freedom and community (which is why the choice of name for the system
+makes a real difference for society).  However, the disagreement would
+probably exist even if everyone knew the system's real origin and its
+proper name, because the issue is a real one.  It can only go away if
+we who value freedom either persuade everyone (which won't be easy) or
+are defeated entirely (let's hope not).</p>
+</dd>
+
+<dt id="freespeech">Doesn't the GNU project
+          support an individual's free speech rights to call the system by
+          any name that individual chooses? <span class="anchor-reference-id">(<a href="#freespeech">#freespeech</a>)</span></dt>
+<dd>
+<p>
+Yes, indeed, we believe you have a free speech right to call the
+operating system by any name you wish.  We ask that people call it
+GNU/Linux as a matter of doing justice to the GNU project, to promote
+the values of freedom that GNU stands for, and to inform others that
+those values of freedom brought the system into existence.</p>
+</dd>
+
+<dt id="everyoneknows">Since everyone knows the role
+    of GNU in developing the system, doesn't the &ldquo;GNU/&rdquo; in the
+    name go without saying? <span class="anchor-reference-id">(<a href="#everyoneknows">#everyoneknows</a>)</span></dt>
+
+<dd>Experience shows that the system's users, and the computer-using
+public in general, often know nothing about the GNU system.  Most
+articles about the system do not mention the name &ldquo;GNU,&rdquo; or the ideals
+that GNU stands for.  <a
+href="https://www.gnu.org/gnu/gnu-users-never-heard-of-gnu.html">GNU Users Who Have Never
+Heard of GNU</a> explains further.
+<p>
+The people who say this are probably geeks thinking of the geeks they
+know.  Geeks often do know about GNU, but many have a completely wrong
+idea of what GNU is.  For instance, many think it is a collection
+of &ldquo;<a href="#tools">tools</a>,&rdquo; or a project to develop tools.</p>
+<p>
+The wording of this question, which is typical, illustrates another
+common misconception.  To speak of &ldquo;GNU's role&rdquo; in developing
+something assumes that GNU is a group of people.  GNU is an operating
+system.  It would make sense to talk about the GNU Project's role in
+this or some other activity, but not that of GNU.</p>
+</dd>
+
+<dt id="everyoneknows2">Since I know the role of GNU in this system,
+    why does it matter what name I use? <span class="anchor-reference-id">(<a href="#everyoneknows2">#everyoneknows2</a>)</span></dt>
+
+<dd>
+<p>
+If your words don't reflect your knowledge, you don't teach others.
+Most people who have heard of the GNU/Linux system think it is
+&ldquo;Linux,&rdquo; that it was started by Linus Torvalds, and that
+it was intended to be &ldquo;open source.&rdquo;  If you don't tell
+them, who will?</p>
+</dd>
+
+<dt id="windows">Isn't shortening &ldquo;GNU/Linux&rdquo;
+    to &ldquo;Linux&rdquo; just like shortening &ldquo;Microsoft Windows&rdquo; to &ldquo;Windows&rdquo;? <span class="anchor-reference-id">(<a href="#windows">#windows</a>)</span></dt>
+
+<dd>
+It's useful to shorten a frequently-used name, but not if the
+abbreviation is misleading.
+<p>
+Almost everyone in developed countries really does know that the
+&ldquo;Windows&rdquo; system is made by Microsoft, so shortening &ldquo;Microsoft
+Windows&rdquo; to &ldquo;Windows&rdquo; does not mislead anyone as to that system's
+nature and origin.  Shortening &ldquo;GNU/Linux&rdquo; to &ldquo;Linux&rdquo; does give the
+wrong idea of where the system comes from.</p>
+<p>
+The question is itself misleading because GNU and Microsoft are
+not the same kind of thing.  Microsoft is a company;
+GNU is an operating system.</p>
+</dd>
+
+<dt id="tools">Isn't GNU a collection of
+    programming tools that were included in Linux? <span class="anchor-reference-id">(<a href="#tools">#tools</a>)</span></dt>
+
+<dd>
+People who think that Linux is an entire operating system, if they
+hear about GNU at all, often get a wrong idea of what GNU is.  They
+may think that GNU is the name of a collection of programs&mdash;often they
+say &ldquo;programming tools,&rdquo; since some of our programming tools became
+popular on their own.  The idea that &ldquo;GNU&rdquo; is the name of an operating
+system is hard to fit into a conceptual framework in which that
+operating system is labeled &ldquo;Linux.&rdquo;
+<p>
+The GNU Project was named after the GNU operating system&mdash;it's the project
+to develop the GNU system.  (See <a
+href="https://www.gnu.org/gnu/initial-announcement.html">the 1983 initial announcement</a>.)</p>
+<p>
+We developed programs such as GCC, GNU Emacs, GAS, GLIBC, BASH, etc.,
+because we needed them for the GNU operating system.  GCC, the GNU
+Compiler Collection is the compiler that we wrote for the GNU
+operating system.  We, the many people working on the GNU Project,
+developed Ghostscript, GNUCash, GNU Chess and GNOME for the GNU system
+too.</p>
+</dd>
+
+<dt id="osvskernel">What is the difference
+between an operating system and a kernel? <span class="anchor-reference-id">(<a href="#osvskernel">#osvskernel</a>)</span></dt>
+
+<dd>
+An operating system, as we use the term, means a collection of
+programs that are sufficient to use the computer to do a wide variety
+of jobs.  A general purpose operating system, to be complete, ought to
+handle all the jobs that many users may want to do.
+<p>
+The kernel is one of the programs in an operating system&mdash;the program
+that allocates the machine's resources to the other programs that are
+running.  The kernel also takes care of starting and stopping other
+programs.</p>
+<p>
+To confuse matters, some people use the term &ldquo;operating system&rdquo; to
+mean &ldquo;kernel.&rdquo;  Both uses of the term go back many years.  The
+use of &ldquo;operating system&rdquo; to mean &ldquo;kernel&rdquo; is found in a number of
+textbooks on system design, going back to the 80s.  At the same time,
+in the 80s, the &ldquo;Unix operating system&rdquo; was understood to include all
+the system programs, and Berkeley's version of Unix included even
+games. Since we intended GNU to be a Unix-like operating system, we
+use the term &ldquo;operating system&rdquo; in the same way.</p>
+<p>
+Most of the time when people speak of the &ldquo;Linux operating system&rdquo;
+they are using &ldquo;operating system&rdquo; in the same sense we use: they mean
+the whole collection of programs.  If that's what you are referring
+to, please call it &ldquo;GNU/Linux.&rdquo;  If you mean just the kernel, then
+&ldquo;Linux&rdquo; is the right name for it, but please say &ldquo;kernel&rdquo; also to
+avoid ambiguity about which body of software you mean.</p>
+<p>
+If you prefer to use some other term such as &ldquo;system distribution&rdquo; for
+the entire collection of programs, instead of &ldquo;operating system,&rdquo;
+that's fine.  Then you would talk about GNU/Linux system
+distributions.</p>
+</dd>
+
+<dt id="house">The kernel of a system is like the foundation of a
+    house.  How can a house be almost complete when it doesn't have a
+    foundation? <span class="anchor-reference-id">(<a href="#house">#house</a>)</span></dt>
+
+<dd>
+A kernel is not much like the foundation of a house because building
+an operating system is not much like building a house.
+
+<p>A house is built from lots of little general parts that are cut and
+put together in situ.  They have to be put together from the bottom
+up.  Thus, when the foundation has not been built, no substantial part
+has been built; all you have is a hole in the ground.</p>
+
+<p>
+By contrast, an operating system consists of complex
+components that can be developed in any order.  When you have
+developed most of the components, most of the work is done.  This is
+much more like the International Space Station than like a house.  If
+most of the Space Station modules were in orbit but awaiting one other
+essential module, that would be like the GNU system in 1992.
+</p>
+</dd>
+
+<dt id="brain">Isn't the kernel the brain of the system? <span class="anchor-reference-id">(<a href="#brain">#brain</a>)</span></dt>
+
+<dd>
+<p>
+A computer system is not much like a human body,
+and no part of it plays a role comparable to that of
+the brain in a human.</p>
+</dd>
+
+<dt id="kernelmost">Isn't writing the kernel most of the work in an
+operating system? <span class="anchor-reference-id">(<a href="#kernelmost">#kernelmost</a>)</span></dt>
+
+<dd>
+<p>
+No, many components take a lot of work.</p>
+</dd>
+
+<dt id="nokernel">An operating system requires a kernel.
+    Since the GNU Project didn't develop a kernel, how can
+    the system be GNU?<span class="anchor-reference-id">(<a href="#nokernel">#nokernel</a>)</span></dt>
+
+<dd>
+The people who argue that way for calling the system
+&ldquo;Linux&rdquo; are using a double standard.  An operating system
+requires compilers, editors, window systems, libraries, and much
+more&mdash;hundreds of programs, even to match what BSD systems included
+in 1983.  Since Torvalds didn't develop any of those, how can the
+system be &ldquo;Linux&rdquo;?
+
+<p>
+That standard is too strict, not the right way to judge the
+contributions of any contributor.</p>
+
+<p>
+Linus Torvalds made an important contribution to the operating system
+we use; the GNU Project started earlier and contributed much more.
+The name &ldquo;GNU/Linux&rdquo; gives credit to each.</p>
+</dd>
+
+<dt id="notinstallable">How can GNU be an
+    operating system, if I can't get something called &ldquo;GNU&rdquo;
+    and install it? <span class="anchor-reference-id">(<a href="#notinstallable">#notinstallable</a>)</span></dt>
+
+<dd>
+Many <a href="../distros/distros.html"> packaged and installable
+versions of GNU</a> are available.  None of them is called simply
+&ldquo;GNU,&rdquo; but GNU is what they basically are.
+
+<p>
+We expected to release the GNU system packaged for installation, but
+this plan was overtaken by events: in 1992 others were already
+packaging GNU variants containing Linux.  Starting in 1993 we
+sponsored an effort to make a better and freer GNU/Linux distribution,
+called <a href="https://www.gnu.org/distros/common-distros.html#Debian">Debian
+GNU/Linux</a>.  The founder of Debian had already chosen that name.
+We did not ask him to call it just &ldquo;GNU&rdquo; because that was
+to be the name of a system version with the GNU Hurd kernel&mdash;which
+wasn't ready yet.</p>
+
+<p>
+The GNU Hurd kernel never became sufficiently ready; we only recommend
+it to those interested in working on it.  So we never packaged GNU
+with the GNU Hurd kernel.  However, Debian packaged this combination
+as Debian GNU/Hurd.</p>
+
+<p>
+We are now developing an advanced Scheme-based package manager called
+Guix and a complete system distribution based on it called the
+<a href="https://www.gnu.org/software/guix">Guix System Distribution</a> or GuixSD.
+This includes repackaging a substantial part of the GNU system.</p>
+
+<p>
+We never took the last step of packaging GNU under the name
+&ldquo;GNU,&rdquo; but that doesn't alter what kind of thing GNU is.
+GNU is an operating system.</p>
+</dd>
+
+<dt id="afterkernel">We're calling the
+    whole system after the kernel, Linux.  Isn't it normal to name an
+    operating system after a kernel? <span class="anchor-reference-id">(<a href="#afterkernel">#afterkernel</a>)</span></dt>
+
+<dd>
+That practice seems to be very rare&mdash;we can't find any examples other
+than the misuse of the name &ldquo;Linux.&rdquo;  Normally an operating system is
+developed as a single unified project, and the developers choose a
+name for the system as a whole.  The kernel usually does not have a
+name of its own&mdash;instead, people say &ldquo;the kernel of such-and-such&rdquo; or
+&ldquo;the such-and-such kernel.&rdquo;
+<p>
+Because those two constructions are used synonymously, the expression
+&ldquo;the Linux kernel&rdquo; can easily be misunderstood as meaning &ldquo;the kernel
+of Linux&rdquo; and implying that Linux must be more than a kernel.  You can
+avoid the possibility of this misunderstanding by saying or writing
+&ldquo;the kernel, Linux&rdquo; or &ldquo;Linux, the kernel.&rdquo;</p>
+</dd>
+
+<dt id="feel">Can another system have &ldquo;the
+    feel of Linux&rdquo;? <span class="anchor-reference-id">(<a href="#feel">#feel</a>)</span></dt>
+
+<dd>
+<p>
+There is no such thing as the &ldquo;feel of Linux&rdquo; because
+Linux has no user interfaces.  Like any modern kernel, Linux is a base
+for running programs; user interfaces belong elsewhere in the system.
+Human interaction with GNU/Linux always goes through other programs,
+and the &ldquo;feel&rdquo; comes from them.</p>
+</dd>
+
+<dt id="long">The problem with &ldquo;GNU/Linux&rdquo; is that it is too long.
+    How about recommending a shorter name? <span class="anchor-reference-id">(<a href="#long">#long</a>)</span></dt>
+
+<dd>
+For a while we tried the name &ldquo;LiGNUx,&rdquo; which combines the words &ldquo;GNU&rdquo;
+and &ldquo;Linux.&rdquo;  The reaction was very bad.  People accept &ldquo;GNU/Linux&rdquo;
+much better.
+<p>
+The shortest legitimate name for this system is &ldquo;GNU,&rdquo; but
+we call it &ldquo;GNU/Linux&rdquo; <a href="#justgnu"> for the reasons
+given below</a>.</p>
+</dd>
+
+<dt id="long1">How about calling the system
+    &ldquo;GliNUx&rdquo; (instead of &ldquo;GNU/Linux&rdquo;)?
+   <span class="anchor-reference-id">(<a href="#long1">#long1</a>)</span></dt>
+
+<dd>
+<p>The name &ldquo;GNU&rdquo; does not visibly appear in
+&ldquo;Glinux,&rdquo; so most people would not notice it is there.
+Even if it is capitalized as &ldquo;GliNUx,&rdquo; most people would
+not realize that it contains a reference to GNU.</p>
+
+<p>It would be comparable to writing &ldquo;GNU/Linux,&rdquo; but
+putting &ldquo;GNU/&rdquo; in print so small that most people could
+not read it.</p>
+</dd>
+
+<dt id="long2">The problem with &ldquo;GNU/Linux&rdquo; is that it is too long.
+    Why should I go to the trouble of saying &ldquo;GNU/&rdquo;?
+    <span class="anchor-reference-id">(<a href="#long2">#long2</a>)</span></dt>
+
+<dd>
+<p>It only takes a second to say or type &ldquo;GNU/.&rdquo;  If you
+appreciate the system that we developed, can't you take one second
+to recognize our work?</p>
+</dd>
+
+<dt id="long3">Unfortunately, &ldquo;GNU/Linux&rdquo; is five
+  syllables. People won't use such a long term. Shouldn't you find a
+  shorter one?
+  <span class="anchor-reference-id">(<a href="#long3">#long3</a>)</span></dt>
+<dd><p>Actually, &ldquo;GNU/Linux&rdquo; is only four syllables.
+  &ldquo;Unfortunately&rdquo; is five syllables, yet people show no
+  sign of reluctance to use that word.</p></dd>
+
+<dt id="long4">Stallman doesn't ask us to call him
+    &ldquo;Richard Matthew Stallman&rdquo; every the time.
+    So why ask us to say &ldquo;GNU/Linux&rdquo; every time?
+  <span class="anchor-reference-id">(<a href="#long4">#long4</a>)</span></dt>
+<dd>
+<p>Omitting &ldquo;Matthew&rdquo; does not misrepresent anything
+important about Stallman's nature, origin, ideas or purpose.  Omitting
+&ldquo;GNU&rdquo; does misrepresent those things about the GNU/Linux
+system.</p>
+
+<p>This is an example of a frequent way of hiding a fallacy: to bury
+it inside a misleading analogy.  A better analogy would be, &ldquo;Why
+shouldn't we call Stallman &lsquo;Torvalds&rsquo;?&rdquo;
+</p></dd>
+
+<dt id="justgnu">Since Linux is a secondary
+    contribution, would it be false to the facts to call the system simply
+    &ldquo;GNU&rdquo;? <span class="anchor-reference-id">(<a href="#justgnu">#justgnu</a>)</span></dt>
+
+<dd>
+It would not be false to the facts, but it is not the best thing to
+do.  Here are the reasons we call that system version &ldquo;GNU/Linux&rdquo;
+rather than just &ldquo;GNU&rdquo;:
+
+<ul>
+<li>
+It's not exactly GNU&mdash;it has a different kernel (that is, Linux).
+Distinguishing GNU/Linux from GNU is useful.</li>
+<li>
+It would be ungentlemanly to ask people to <em>stop</em> giving any
+credit to Linus Torvalds.  He did write an important component of the
+system.  We want to get credit for launching and sustaining the
+system's development, but this doesn't mean we should treat Linus the
+same way those who call the system &ldquo;Linux&rdquo; treat us.  We strongly
+disagree with his political views, but we deal with that disagreement
+honorably and openly, rather than by trying to cut him out of the
+credit for his contribution to the system.</li>
+<li>
+Since many people know of the system as &ldquo;Linux,&rdquo; if we say &ldquo;GNU&rdquo; they
+may simply not recognize we're talking about the same system.  If we
+say &ldquo;GNU/Linux,&rdquo; they can make a connection to what they have heard
+about.</li>
+</ul>
+</dd>
+
+<dt id="trademarkfee">I would have
+    to pay a fee if I use &ldquo;Linux&rdquo; in the name of a product, and that
+    would also apply if I say &ldquo;GNU/Linux.&rdquo;  Is it wrong if I use &ldquo;GNU&rdquo;
+    without &ldquo;Linux,&rdquo; to save the fee? <span class="anchor-reference-id">(<a href="#trademarkfee">#trademarkfee</a>)</span></dt>
+<dd>
+There's nothing wrong in calling the system &ldquo;GNU&rdquo;; basically, that's
+what it is.  It is nice to give Linus Torvalds a share of the credit
+as well, but you have no obligation to pay for the privilege of doing
+so.
+<p>
+So if you want to refer to the system simply as &ldquo;GNU,&rdquo; to avoid paying
+the fee for calling it &ldquo;Linux,&rdquo; we won't criticize you.</p>
+</dd>
+
+<dt id="many">Many other projects contributed to
+    the system as it is today; it includes TeX, X11, Apache, Perl, and many
+    more programs.  Don't your arguments imply we have to give them credit
+    too?  (But that would lead to a name so long it is
+    absurd.) <span class="anchor-reference-id">(<a href="#many">#many</a>)</span></dt>
+
+<dd>
+What we say is that you ought to give the system's principal developer
+a share of the credit.  The principal developer is the GNU Project,
+and the system is basically GNU.
+<p>
+If you feel even more strongly about giving credit where it is due,
+you might feel that some secondary contributors also deserve credit in
+the system's name.  If so, far be it from us to argue against it.  If
+you feel that X11 deserves credit in the system's name, and you want
+to call the system GNU/X11/Linux, please do.  If you feel that Perl
+simply cries out for mention, and you want to write GNU/Linux/Perl, go
+ahead.</p>
+<p>
+Since a long name such as GNU/X11/Apache/Linux/TeX/Perl/Python/FreeCiv
+becomes absurd, at some point you will have to set a threshold and
+omit the names of the many other secondary contributions.  There is no
+one obvious right place to set the threshold, so wherever you set it,
+we won't argue against it.</p>
+<p>
+Different threshold levels would lead to different choices of name for
+the system.  But one name that cannot result from concerns of fairness
+and giving credit, not for any possible threshold level, is &ldquo;Linux.&rdquo;
+It can't be fair to give all the credit to one secondary contribution
+(Linux) while omitting the principal contribution (GNU).</p>
+</dd>
+
+<dt id="systemd">systemd plays an important role in the GNU/Linux
+    system as it is today; are we obligated to call it
+    GNU/systemd/Linux? <span class="anchor-reference-id">(<a href="#others">#others</a>)</span></dt>
+
+<dd>
+<p>
+systemd is a fairly important component, but not as important as the
+kernel (Linux), nor as important as the basis of the system as a whole
+(GNU).  However, if you want to emphasize the presence of systemd
+by calling the system &ldquo;GNU/systemd/Linux,&rdquo; there is nothing
+wrong with doing so.</p>
+</dd>
+
+<dt id="others">Many other projects contributed to
+    the system as it is today, but they don't insist on calling it
+    XYZ/Linux.  Why should we treat GNU specially? <span class="anchor-reference-id">(<a href="#others">#others</a>)</span></dt>
+
+<dd>
+Thousands of projects have developed programs commonly included in
+today's GNU/Linux systems.  They all deserve credit for their
+contributions, but they aren't the principal developers of the system
+as a whole, so they don't ask to be credited as such.
+<p>
+GNU is different because it is more than just a contributed program,
+more than just a collection of contributed programs.  GNU is the
+framework on which the system was made.</p>
+</dd>
+
+<dt id="allsmall">GNU is a small fraction of the system nowadays,
+    so why should we mention it? <span class="anchor-reference-id">(<a href="#allsmall">#allsmall</a>)</span></dt>
+<dd>
+In 2008, we found that GNU packages made up 15% of the
+&ldquo;main&rdquo; repository of the gNewSense GNU/Linux distribution.
+Linux made up 1.5%.  So the same argument would apply even more
+strongly to calling it &ldquo;Linux.&rdquo;
+
+<p>
+GNU is a small fraction of the system nowadays, and Linux is an
+even smaller fraction.  But they are the system's core; the system
+was made by combining them.  Thus, the name &ldquo;GNU/Linux&rdquo;
+remains appropriate.
+</p>
+</dd>
+
+<dt id="manycompanies">Many companies
+    contributed to the system as it is today; doesn't that mean
+    we ought to call it GNU/Red&nbsp;Hat/Novell/Linux? <span
+    class="anchor-reference-id">(<a
+    href="#manycompanies">#manycompanies</a>)</span></dt>
+
+<dd>
+<p>
+GNU is not comparable to Red Hat or Novell; it is not a company, or an
+organization, or even an activity.  GNU is an operating system.  (When
+we speak of the GNU Project, that refers to the project to develop the
+GNU system.)  The GNU/Linux system is based on GNU, and that's why GNU
+ought to appear in its name.
+</p>
+<p>
+Much of those companies' contribution to the GNU/Linux system lies in
+the code they have contributed to various GNU packages including GCC
+and GNOME.  Saying GNU/Linux gives credit to those companies along
+with all the rest of the GNU developers.
+</p>
+</dd>
+
+<dt id="whyslash">Why do you write &ldquo;GNU/Linux&rdquo;
+instead of &ldquo;GNU Linux&rdquo;? <span class="anchor-reference-id">(<a href="#whyslash">#whyslash</a>)</span></dt>
+
+<dd>
+Following the rules of English, in the construction &ldquo;GNU Linux&rdquo; the
+word &ldquo;GNU&rdquo; modifies &ldquo;Linux.&rdquo;  This can mean either &ldquo;GNU's version of
+Linux&rdquo; or &ldquo;Linux, which is a GNU package.&rdquo;  Neither of those meanings
+fits the situation at hand.
+<p>
+Linux is not a GNU package; that is, it wasn't developed under the GNU
+Project's aegis or contributed specifically to the GNU Project.  Linus
+Torvalds wrote Linux independently, as his own project.  So the
+&ldquo;Linux, which is a GNU package&rdquo; meaning is not right.</p>
+<p>
+We're not talking about a distinct GNU version of Linux, the kernel.
+The free GNU/Linux distros do have
+a <a href="https://directory.fsf.org/wiki/Linux-libre">separate version of
+Linux</a>, since the &ldquo;standard&rdquo; version contains nonfree
+firmware &ldquo;blobs.&rdquo;  If this were part of the GNU Project,
+it could be considered &ldquo;GNU Linux&rdquo;; but we would not want
+to call it that, because it would be too confusing.</p>
+<p>
+We're talking about a version of GNU, the operating system,
+distinguished by having Linux as the kernel.  A slash fits the
+situation because it means &ldquo;combination.&rdquo; (Think of
+&ldquo;Input/Output.&rdquo;)  It's the GNU system, with the kernel
+Linux underneath; hence, &ldquo;GNU/Linux.&rdquo;</p>
+<p>
+There are other ways to express &ldquo;combination.&rdquo;  If you
+think that a plus-sign is clearer, please use that.  In French, a
+hyphen is clear: &ldquo;GNU-Linux.&rdquo;  In Spanish, we sometimes
+say &ldquo;GNU con Linux.&rdquo;</p>
+</dd>
+
+<dt id="linuxlibre">Does GNU have its own version of Linux, the kernel? <span class="anchor-reference-id">(<a href="#linuxlibre">#linuxlibre</a>)</span></dt>
+
+<dd>
+Yes and no.  The free GNU/Linux distros use slightly modified versions
+of Linux, modified to remove the nonfree firmware &ldquo;blobs&rdquo;
+contained in the &ldquo;standard&rdquo; release of Linux.  Some of
+them use <a href="https://directory.fsf.org/wiki/Linux-libre">GNU
+Linux-Libre</a>, which is the GNU Project's freed version of Linux.
+But this is not a fork; rather, it is a version of Linux&mdash;we
+take the source of each standard Linux release and de-blob it.
+<p>
+Other free distros make their own arrangements to remove the blobs
+from Linux.</p>
+</dd>
+
+<dt id="pronounce">How is the name &ldquo;GNU/Linux&rdquo;
+pronounced? <span class="anchor-reference-id">(<a href="#pronounce">#pronounce</a>)</span></dt>
+<dd>
+<p>
+Please pronounce it as &ldquo;GNU slash Linux.&rdquo;  If you don't pronounce
+the slash, people will think you are saying &ldquo;GNU Linux,&rdquo;
+which is <a href="#whyslash">not a suitable name for the combination</a>.
+</p>
+</dd>
+
+<dt id="whynoslash">Why do you write &ldquo;GNU Emacs&rdquo;
+rather than &ldquo;GNU/Emacs&rdquo;? <span class="anchor-reference-id">(<a href="#whynoslash">#whynoslash</a>)</span></dt>
+
+<dd>
+<p>
+Following the rules of English, in the construction &ldquo;GNU
+Emacs&rdquo; the word &ldquo;GNU&rdquo; modifies &ldquo;Emacs.&rdquo;
+That is the right way to describe a program called Emacs which is a
+GNU package.</p>
+<p>
+&ldquo;GNU/Emacs&rdquo; would mean the combination of GNU, the
+operating system, and the program Emacs.  That doesn't fit this
+program, so &ldquo;GNU/Emacs&rdquo; is the wrong way to refer to it.</p>
+</dd>
+
+<dt id="whyorder">Why &ldquo;GNU/Linux&rdquo; rather
+than &ldquo;Linux/GNU&rdquo;? <span class="anchor-reference-id">(<a href="#whyorder">#whyorder</a>)</span></dt>
+
+<dd>
+<p>
+It is right and proper to mention the principal contribution first.
+The GNU contribution to the system is not only bigger than Linux and
+prior to Linux, we actually started the whole activity.</p>
+<p>
+In addition, &ldquo;GNU/Linux&rdquo; fits the fact that Linux is the
+lowest level of the system and GNU fills technically higher levels.</p>
+<p>
+However, if you prefer to call the system &ldquo;Linux/GNU,&rdquo; that is a lot
+better than what people usually do, which is to omit GNU entirely and
+make it seem that the whole system is Linux.</p>
+</dd>
+
+<dt id="distronames0">My distro's developers call it
+    &ldquo;Foobar Linux,&rdquo; but that doesn't say anything about
+    what the system consists of.  Why shouldn't they call it whatever
+    they like? <span class="anchor-reference-id">(<a href="#distronames0">#distronames0</a>)</span></dt>
+<dd>
+Calling a system &ldquo;Foobar Linux&rdquo; implies that it's a flavor
+of &ldquo;Linux,&rdquo; and people <a href="#distronames">understand
+it that way</a>.
+
+<p>
+If they called a GNU/Linux distro &ldquo;Foobar BSD,&rdquo; you would
+call that a mistake.  &ldquo;This system is not BSD,&rdquo; you
+would tell them.  Well, it's not Linux either.</p>
+</dd>
+
+<dt id="distronames">My distro is called
+    &ldquo;Foobar Linux&rdquo;; doesn't that show it's really Linux? <span class="anchor-reference-id">(<a href="#distronames">#distronames</a>)</span></dt>
+
+<dd>
+<p>It means that the people who make the &ldquo;Foobar Linux&rdquo; distro are
+repeating the common mistake. We appreciate that distributions like Debian, Dragora, Musix, Trisquel, and Venenux have adopted
+GNU/Linux as part of their official name, and we hope that if you are involved with a different distribution, you will
+encourage it to do the same.</p>
+</dd>
+
+<dt id="distronames1">My distro's official name is &ldquo;Foobar
+    Linux&rdquo;; isn't it wrong to call the distro
+    anything but &ldquo;Foobar Linux&rdquo;? <span class="anchor-reference-id">(<a href="#distronames1">#distronames1</a>)</span></dt>
+
+<dd><p>When they spread misinformation by changing &ldquo;GNU&rdquo;
+to &ldquo;Linux,&rdquo; and call their version of it &ldquo;Foobar
+Linux,&rdquo; it's proper for you to correct the misinformation by
+calling it &ldquo;Foobar GNU/Linux.&rdquo;</p></dd>
+
+<dt id="companies">Wouldn't it be more
+    effective to ask companies such as Mandrake, Red Hat and IBM to
+    call their distributions &ldquo;GNU/Linux&rdquo; rather than asking
+    individuals? <span class="anchor-reference-id">(<a href="#companies">#companies</a>)</span></dt>
+
+<dd>
+It isn't a choice of one or the other&mdash;we ask companies and
+organizations and individuals to help spread the word about this.  In
+fact, we have asked all three of those companies.  Mandrake said it
+would use the term &ldquo;GNU/Linux&rdquo; some of the time, but IBM
+and Red Hat were unwilling to help.  One executive said, &ldquo;This
+is a pure commercial decision; we expect to make more money calling it
+&lsquo;Linux&rsquo;.&rdquo; In other words, that company did not care
+what was right.
+<p>
+We can't make them do this right, but we're not the sort to give up
+just because the road isn't easy.  You may not have as much influence
+at your disposal as IBM or Red Hat, but you can still help.  Together
+we can change the situation to the point where companies will make
+more profit calling it &ldquo;GNU/Linux.&rdquo;</p>
+</dd>
+
+<dt id="reserve">Wouldn't it be better to
+    reserve the name &ldquo;GNU/Linux&rdquo; for distributions that are purely
+    free software?  After all, that is the ideal of GNU. <span class="anchor-reference-id">(<a href="#reserve">#reserve</a>)</span></dt>
+
+<dd>
+The widespread practice of adding nonfree software to the GNU/Linux
+system is a major problem for our community.  It teaches the users
+that nonfree software is ok, and that using it is part of the spirit
+of &ldquo;Linux.&rdquo;  Many &ldquo;Linux&rdquo; User Groups make it part of their mission to
+help users use nonfree add-ons, and may even invite salesmen to come
+and make sales pitches for them.  They adopt goals such as &ldquo;helping
+the users&rdquo; of GNU/Linux (including helping them use nonfree
+applications and drivers), or making the system more popular even at
+the cost of freedom.
+<p>
+The question is how to try to change this.</p>
+<p>
+Given that most of the community which uses GNU with Linux already
+does not realize that's what it is, for us to disown these adulterated
+versions, saying they are not really GNU, would not teach the users to
+value freedom more.  They would not get the intended message.  They
+would only respond they never thought these systems were GNU in the
+first place.</p>
+<p>
+The way to lead these users to see a connection with freedom is
+exactly the opposite: to inform them that all these system
+versions <em>are</em> versions of GNU, that they all are based on a
+system that exists specifically for the sake of the users' freedom.
+With this understanding, they can start to recognize the distributions
+that include nonfree software as perverted, adulterated versions of
+GNU, instead of thinking they are proper and appropriate &ldquo;versions of
+Linux.&rdquo;</p>
+<p>
+It is very useful to start GNU/Linux User Groups, which call the
+system GNU/Linux and adopt the ideals of the GNU Project as a basis
+for their activities.  If the Linux User Group in your area has the
+problems described above, we suggest you either campaign within the
+group to change its orientation (and name) or start a new group.  The
+people who focus on the more superficial goals have a right to their
+views, but don't let them drag you along!</p>
+</dd>
+
+<dt id="gnudist">Why not make a GNU
+    distribution of Linux (sic) and call that GNU/Linux? <span class="anchor-reference-id">(<a href="#gnudist">#gnudist</a>)</span></dt>
+
+<dd>
+All the &ldquo;Linux&rdquo; distributions are actually versions of the GNU system
+with Linux as the kernel.  The purpose of the term &ldquo;GNU/Linux&rdquo; is to
+communicate this point.  To develop one new distribution and call that
+alone &ldquo;GNU/Linux&rdquo; would obscure the point we want to make.
+<p>
+As for developing a distribution of GNU/Linux, we already did this
+once, when we funded the early development of Debian GNU/Linux.  To do
+it again now does not seem useful; it would be a lot of work, and
+unless the new distribution had substantial practical advantages over
+other distributions, it would serve no purpose.</p>
+<p>
+Instead we help the developers of 100% free GNU/Linux distributions,
+such as Trisquel and Parabola.</p>
+</dd>
+
+<dt id="linuxgnu">Why not just say &ldquo;Linux is
+    the GNU kernel&rdquo; and release some existing version of GNU/Linux under
+    the name &ldquo;GNU&rdquo;? <span class="anchor-reference-id">(<a href="#linuxgnu">#linuxgnu</a>)</span></dt>
+
+<dd>
+It might have been a good idea to adopt Linux as the GNU kernel back
+in 1992.  If we had realized, then, how long it would take to get the
+GNU Hurd to work, we might have done that.  (Alas, that is hindsight.)
+<p>
+If we were to take an existing version of GNU/Linux and relabel it as
+&ldquo;GNU,&rdquo; that would be somewhat like making a version of the GNU system
+and labeling it &ldquo;Linux.&rdquo;  That wasn't right, and we don't
+want to act like that.</p>
+</dd>
+
+<dt id="condemn">Did the GNU Project condemn
+    and oppose use of Linux in the early days? <span class="anchor-reference-id">(<a href="#condemn">#condemn</a>)</span></dt>
+
+<dd>
+We did not adopt Linux as our kernel, but we didn't condemn or oppose
+it.  In 1993 we started discussing the arrangements to sponsor the
+development of Debian GNU/Linux.  We also sought to cooperate with the
+people who were changing some GNU packages for use with Linux.  We
+wanted to include their changes in the standard releases so that these
+GNU packages would work out-of-the-box in combination with Linux.  But
+the changes were often ad-hoc and nonportable; they needed to be cleaned
+up for installation.
+<p>
+The people who had made the changes showed little interest in
+cooperating with us.  One of them actually told us that he didn't care
+about working with the GNU Project because he was a &ldquo;Linux user.&rdquo;
+That came as a shock, because the people who ported GNU packages to
+other systems had generally wanted to work with us to get their
+changes installed.  Yet these people, developing a system that was
+primarily based on GNU, were the first (and still practically the
+only) group that was unwilling to work with us.</p>
+<p>
+It was this experience that first showed us that people were calling a
+version of the GNU system &ldquo;Linux,&rdquo; and that this confusion was
+obstructing our work.  Asking you to call the system &ldquo;GNU/Linux&rdquo; is
+our response to that problem, and to the other problems caused by the
+&ldquo;Linux&rdquo; misnomer.</p>
+</dd>
+
+<dt id="wait">Why did you wait so
+    long before asking people to use the name GNU/Linux? <span class="anchor-reference-id">(<a href="#wait">#wait</a>)</span></dt>
+
+<dd>
+<p>Actually we didn't.  We began talking privately with developers and
+distributors about this in 1994, and made a more public campaign in
+1996.  We will continue for as long as it's necessary.</p>
+</dd>
+
+<dt id="allgpled">Should the GNU/<i>name</i>
+    convention be applied to all programs that are GPL'ed? <span class="anchor-reference-id">(<a href="#allgpled">#allgpled</a>)</span></dt>
+
+<dd>
+We never refer to individual programs as &ldquo;GNU/<i>name</i>.&rdquo;  When a program
+is a GNU package, we may call it &ldquo;GNU <i>name</i>.&rdquo;
+<p>
+GNU, the operating system, is made up of many different programs.
+Some of the programs in GNU were written as part of the GNU Project or
+specifically contributed to it; these are the GNU packages, and we
+often use &ldquo;GNU&rdquo; in their names.</p>
+<p>
+It's up to the developers of a program to decide if they want to contribute
+it and make it a GNU package.  If you have developed a program and you
+would like it to be a GNU package, please write to
+<a href="mailto:gnu@gnu.org">&lt;gnu@gnu.org&gt;</a>, so we can evaluate it
+and decide whether we want it.</p>
+<p>
+It wouldn't be fair to put the name GNU on every individual program
+that is released under the GPL.  If you write a program and release it
+under the GPL, that doesn't mean the GNU Project wrote it or that you
+wrote it for us.  For instance, the kernel, Linux, is released under
+the GNU GPL, but Linus did not write it as part of the GNU Project&mdash;he
+did the work independently.  If something is not a GNU package, the
+GNU Project can't take credit for it, and putting &ldquo;GNU&rdquo; in its name
+would be improper.</p>
+<p>
+In contrast, we do deserve the overall credit for the GNU operating
+system as a whole, even though not for each and every program in it.
+The system exists as a system because of our determination and
+persistence, starting in 1984, many years before Linux was begun.</p>
+<p>
+The operating system in which Linux became popular was basically the
+same as the GNU operating system.  It was not entirely the same,
+because it had a different kernel, but it was mostly the same system.
+It was a variant of GNU.  It was the GNU/Linux system.</p>
+<p>
+Linux continues to be used primarily in derivatives of that system&mdash;in
+today's versions of the GNU/Linux system.  What gives these systems
+their identity is GNU and Linux at the center of them, not particularly
+Linux alone.</p>
+</dd>
+
+<dt id="unix">Since much of GNU comes
+from Unix, shouldn't GNU give credit
+to Unix by using &ldquo;Unix&rdquo; in its name? <span class="anchor-reference-id">(<a href="#unix">#unix</a>)</span></dt>
+
+<dd>
+Actually, none of GNU comes from Unix.  Unix was proprietary software
+(and still is), so using any of its code in GNU would have been
+illegal.  This is not a coincidence; this is why we developed GNU:
+since you could not have freedom in using Unix, or any of the other
+operating systems of the day, we needed a free system to replace it.
+We could not copy programs, or even parts of them, from Unix;
+everything had to be written afresh.
+<p>
+No code in GNU comes from Unix, but GNU is a Unix-compatible system;
+therefore, many of the ideas and specifications of GNU do come from
+Unix.  The name &ldquo;GNU,&rdquo; which stands for &ldquo;GNU's Not
+Unix,&rdquo; is a humorous way of giving credit to Unix for this,
+following a hacker tradition of recursive acronyms that started in the
+70s.</p>
+<p>
+The first such recursive acronym was TINT, &ldquo;TINT Is Not
+TECO.&rdquo;  The author of TINT wrote another implementation of TECO
+(there were already many of them, for various systems), but instead of
+calling it by a dull name like &ldquo;<em>somethingorother</em> TECO,&rdquo; he
+thought of a clever amusing name.  (That's what hacking
+means: <a href="https://stallman.org/articles/on-hacking.html">playful
+cleverness</a>.)</p>
+<p>
+Other hackers enjoyed that name so much that we imitated the approach.
+It became a tradition that, when you were writing from scratch a
+program that was similar to some existing program (let's imagine its
+name was &ldquo;Klever&rdquo;), you could give it a recursive acronym name, such
+as &ldquo;MINK&rdquo; for &ldquo;MINK Is Not Klever.&rdquo;  In this same spirit we called our
+replacement for Unix &ldquo;GNU's Not Unix.&rdquo;</p>
+<p>
+Historically, AT&amp;T which developed Unix did not want anyone to
+give it credit by using &ldquo;Unix&rdquo; in the name of a similar
+system, not even in a system 99% copied from Unix.  AT&amp;T actually
+threatened to sue anyone giving AT&amp;T credit in that way.  This is
+why each of the various modified versions of Unix (all proprietary,
+like Unix) had a completely different name that didn't include
+&ldquo;Unix.&rdquo;</p>
+</dd>
+
+<dt id="bsd">Should we say &ldquo;GNU/BSD&rdquo;
+too? <span class="anchor-reference-id">(<a href="#bsd">#bsd</a>)</span></dt>
+
+<dd>
+We don't call the BSD systems (FreeBSD, etc.) &ldquo;GNU/BSD&rdquo; systems,
+because that term does not fit the history of the BSD systems.
+<p>
+The BSD system was developed by UC Berkeley as nonfree software in
+the 80s, and became free in the early 90s.  A free operating system
+that exists today is almost certainly either a variant of the GNU
+system, or a kind of BSD system.</p>
+<p>
+People sometimes ask whether BSD too is a variant of GNU, as GNU/Linux
+is.  It is not.  The BSD developers were inspired to make their code
+free software by the example of the GNU Project, and explicit appeals
+from GNU activists helped convince them to start, but the code had
+little overlap with GNU.</p>
+<p>
+BSD systems today use some GNU packages, just as the GNU system and
+its variants use some BSD programs; however, taken as wholes, they are
+two different systems that evolved separately.  The BSD developers did
+not write a kernel and add it to the GNU system, so a name like
+GNU/BSD would not fit the situation.</p>
+<p>
+The connection between GNU/Linux and GNU is much closer, and that's
+why the name &ldquo;GNU/Linux&rdquo; is appropriate for it.</p>
+<p>
+There is a version of GNU which uses the kernel from NetBSD.  Its
+developers call it &ldquo;Debian GNU/NetBSD,&rdquo; but &ldquo;GNU/kernelofNetBSD&rdquo;
+would be more accurate, since NetBSD is an entire system, not just
+the kernel.  This is not a BSD system, since most of the system
+is the same as the GNU/Linux system.</p>
+</dd>
+
+<dt id="othersys">If I install the GNU tools
+on Windows, does that mean I am running a GNU/Windows system? <span class="anchor-reference-id">(<a href="#othersys">#othersys</a>)</span></dt>
+
+<dd>
+<p>
+Not in the same sense that we mean by &ldquo;GNU/Linux.&rdquo;  The tools of GNU
+are just a part of the GNU software, which is just a part of the GNU
+system, and underneath them you would still have another complete
+operating system which has no code in common with GNU.  All in all,
+that's a very different situation from GNU/Linux.</p>
+</dd>
+
+<dt id="justlinux">Can't Linux be used without GNU? <span class="anchor-reference-id">(<a href="#justlinux">#justlinux</a>)</span></dt>
+
+<dd>
+<p>
+Linux is used by itself, or with small other programs, in some
+appliances.  These small software systems are a far cry from the
+GNU/Linux system.  Users do not install them on PCs, for instance, and
+would find them rather disappointing.  It is useful to say that these
+appliances run just Linux, to show how different those small platforms
+are from GNU/Linux.</p>
+</dd>
+
+<dt id="howmuch">How much of the GNU system is needed for the system
+to be
+GNU/Linux? <span class="anchor-reference-id">(<a href="#howmuch">#howmuch</a>)</span></dt>
+
+<dd>
+&ldquo;How much&rdquo; is not a meaningful question because the GNU
+system does not have precise boundaries.
+<p>
+GNU is an operating system maintained by a community.  It includes far
+more than just the GNU software packages (of which we have a specific
+list), and people add more packages constantly.  Despite these
+changes, it remains the GNU system, and adding Linux to that yields
+GNU/Linux.  If you use part of the GNU system and omit part, there is
+no meaningful way to say &ldquo;how much&rdquo; you used.</p>
+<p>
+If we look at the level of packages, Linux is one important package in
+the GNU/Linux system.  The inclusion of one important GNU package is
+enough to justify our request for equal mention.
+</p>
+</dd>
+
+<dt id="linuxsyswithoutgnu">Are there complete Linux systems [sic] without GNU? <span class="anchor-reference-id">(<a href="#linuxsyswithoutgnu">#linuxsyswithoutgnu</a>)</span></dt>
+
+<dd>
+There are complete systems that contain Linux and not GNU; Android is
+an example.  But it is a mistake to call them &ldquo;Linux&rdquo;
+systems, just as it is a mistake to call GNU a &ldquo;Linux&rdquo; system.
+<p>
+Android is very different from the GNU/Linux system&mdash;because
+the two have very little code in common.  In fact, the only thing they
+have in common is Linux.</p>
+<p>
+If you call the whole GNU/Linux system &ldquo;Linux,&rdquo;
+you will find it necessary to say things like, &ldquo;Android contains
+Linux, but it isn't Linux, because it doesn't have the usual Linux
+[sic] libraries and utilities [meaning the GNU system].&rdquo;</p>
+<p>
+Android contains just as much of Linux as GNU/Linux does.  What it
+doesn't have is the GNU system.  Android replaces that with Google
+software that works quite differently.  What makes Android different
+from GNU/Linux is the absence of GNU.</p>
+</dd>
+
+<dt id="usegnulinuxandandroid">Is it correct to say &ldquo;using Linux&rdquo; if it refers to using GNU/Linux and
+using Android? <span class="anchor-reference-id">(<a href="#usegnulinuxandandroidlinuxsyswithoutgnu">#usegnulinuxandandroidlinuxsyswithoutgnu</a>)</span></dt>
+
+<dd>
+Far from it.  That usage is so strained that
+people will not understand the intended meaning.
+<p>
+The public will find it very strange to speak of using Android as
+&ldquo;using Linux.&rdquo;  It's like having a conversation, then
+saying you were conversing with the person's intestines or the
+person's circulatory system.</p>
+<p>
+The public <em>will</em> understand the idea of &ldquo;using
+Linux&rdquo; when it's really GNU/Linux, by way of the usual
+misunderstanding: thinking of the whole system as
+&ldquo;Linux.&rdquo;</p>
+<p>
+Use of Android and use of GNU/Linux are totally different, as
+different as driving a car and riding a bicycle.  The fact that the
+first two both contain Linux is irrelevant to using them, just as the
+fact that a car and a bicycle both have a structure of metal is
+irrelevant to using those two.  If you wish to talk about using cars
+and bikes, you wouldn't speak of &ldquo;riding metal objects&rdquo;&mdash;not
+unless you're playing games with the reader.  You would
+say, &ldquo;using cars and bikes.&rdquo; Likewise, the clear way to
+talk about using GNU/Linux and Android is to say &ldquo;using
+GNU/Linux and Android.&rdquo;</p>
+</dd>
+
+<dt id="helplinus">Why not call the system
+    &ldquo;Linux&rdquo; anyway, and strengthen Linus Torvalds' role as posterboy for our
+    community? <span class="anchor-reference-id">(<a href="#helplinus">#helplinus</a>)</span></dt>
+
+<dd>
+Linus Torvalds is the &ldquo;posterboy&rdquo; (other people's choice of word, not
+ours) for his goals, not ours.  His goal is to make the system more
+popular, and he believes its value to society lies merely in the
+practical advantages it offers: its power, reliability and easy
+availability.  He has never advocated
+<a href="https://www.gnu.org/philosophy/why-free.html">freedom to cooperate</a> as an
+ethical principle, which is why the public does not connect the name
+&ldquo;Linux&rdquo; with that principle.
+<p>
+Linus publicly states his disagreement with the free software
+movement's ideals.  He developed nonfree software in his job for many
+years (and said so to a large audience at a &ldquo;Linux&rdquo;World show), and
+publicly invited fellow developers of Linux, the kernel, to use
+nonfree software to work on it with him.  He goes even further, and
+rebukes people who suggest that engineers and scientists should
+consider social consequences of our technical work&mdash;rejecting the
+lessons society learned from the development of the atom bomb.</p>
+<p>
+There is nothing wrong with writing a free program for the motivations
+of learning and having fun; the kernel Linus wrote for those reasons
+was an important contribution to our community.  But those motivations
+are not the reason why the complete free system, GNU/Linux, exists,
+and they won't secure our freedom in the future.  The public needs to
+know this.  Linus has the right to promote his views; however, people
+should be aware that the operating system in question
+stems from ideals of freedom, not from his views.</p>
+</dd>
+
+<dt id="claimlinux">Isn't it wrong for us to label Linus Torvalds'
+    work as GNU? <span class="anchor-reference-id">(<a href="#claimlinux">#claimlinux</a>)</span></dt>
+
+<dd>
+<p>
+It would be wrong, so we don't do that.  Torvalds' work is Linux, the
+kernel; we are careful not to attribute that work to the GNU Project
+or label it as &ldquo;GNU.&rdquo;  When we talk about the whole
+system, the name &ldquo;GNU/Linux&rdquo; gives him a share of the
+credit.</p>
+</dd>
+
+
+<dt id="linusagreed">Does Linus Torvalds
+    agree that Linux is just the kernel? <span class="anchor-reference-id">(<a href="#linusagreed">#linusagreed</a>)</span></dt>
+
+<dd>
+<p>He recognized this at the beginning.  The <a
+href="https://ftp.funet.fi/pub/linux/historical/kernel/old-versions/RELNOTES-0.01">
+earliest Linux release notes</a> said:</p>
+<blockquote><p>
+Most of the tools used with linux are GNU software and are under the
+GNU copyleft. These tools aren't in the distribution - ask me (or GNU)
+for more info.
+</p></blockquote>
+</dd>
+
+<dt id="finishhurd">Why not finish the GNU Hurd kernel, release the GNU system
+    as a whole, and forget the question of what to call GNU/Linux?
+    <span class="anchor-reference-id">(<a href="#finishhurd">#finishhurd</a>)</span></dt>
+
+<dd>
+We would like credit for the GNU operating system no matter which
+kernel is used with it.
+
+<p>Making the GNU Hurd work well enough to compete with Linux would be
+a big job, and it's not clearly necessary.  The only thing ethically
+wrong with Linux as a kernel is its inclusion of firmware
+&ldquo;blobs&rdquo;; the best fix for that problem
+is <a href="https://www.fsf.org/campaigns/priority-projects"> developing
+free replacement for the blobs</a>.</p>
+</dd>
+
+<dt id="lost">The battle is already lost&mdash;society
+    has made its decision and we can't change it, so why even think about
+    it? <span class="anchor-reference-id">(<a href="#lost">#lost</a>)</span></dt>
+
+<dd>
+<p>
+This isn't a battle, it is a campaign of education.  What to call the
+system is not a single decision, to be made at one moment by
+&ldquo;society&rdquo;: each person, each organization, can decide what
+name to use.  You can't make others say &ldquo;GNU/Linux,&rdquo; but
+you can decide to call the system &ldquo;GNU/Linux&rdquo;
+yourself&mdash;and by doing so, you will help educate others.</p>
+</dd>
+
+<dt id="whatgood">Society has made its
+    decision and we can't change it, so what good does it do if I say
+    &ldquo;GNU/Linux&rdquo;? <span class="anchor-reference-id">(<a href="#whatgood">#whatgood</a>)</span></dt>
+
+<dd>
+<p>
+This is not an all-or-nothing situation: correct and incorrect
+pictures are being spread more or less by various people.  If you call
+the system &ldquo;GNU/Linux,&rdquo; you will help others learn the system's true
+history, origin, and reason for being.  You can't correct the misnomer
+everywhere on your own, any more than we can, but you can help.  If
+only a few hundred people see you use the term &ldquo;GNU/Linux,&rdquo; you will
+have educated a substantial number of people with very little work.
+And some of them will spread the correction to others.</p>
+</dd>
+
+<dt id="explain">Wouldn't it be better to call
+    the system &ldquo;Linux&rdquo; and teach people its real origin with a ten-minute
+    explanation? <span class="anchor-reference-id">(<a href="#explain">#explain</a>)</span></dt>
+
+<dd>
+If you help us by explaining to others in that way, we appreciate your
+effort, but that is not the best method.  It is not as effective as
+calling the system &ldquo;GNU/Linux,&rdquo; and uses your time inefficiently.
+<p>
+It is ineffective because it may not sink in, and surely will not
+propagate.  Some of the people who hear your explanation will pay
+attention, and they may learn a correct picture of the system's
+origin.  But they are unlikely to repeat the explanation to others
+whenever they talk about the system.  They will probably just call it
+&ldquo;Linux.&rdquo;  Without particularly intending to, they will help spread the
+incorrect picture.</p>
+<p>
+It is inefficient because it takes a lot more time.  Saying and
+writing &ldquo;GNU/Linux&rdquo; will take you only a few seconds a day, not
+minutes, so you can afford to reach far more people that way.
+Distinguishing between Linux and GNU/Linux when you write and speak is
+by far the easiest way to help the GNU Project effectively.</p>
+</dd>
+
+<dt id="treatment">Some people laugh at you
+    when you ask them to call the system GNU/Linux.  Why do you subject
+    yourself to this treatment? <span class="anchor-reference-id">(<a href="#treatment">#treatment</a>)</span></dt>
+
+<dd>
+Calling the system &ldquo;Linux&rdquo; tends to give people a mistaken picture of
+the system's history and reason for existence.  People who laugh at
+our request probably have picked up that mistaken picture&mdash;they think
+our work was done by Linus, so they laugh when we ask for credit for
+it.  If they knew the truth, they probably wouldn't laugh.
+<p>
+Why do we take the risk of making a request that sometimes leads
+people to ridicule us?  Because often it has useful results that help
+the GNU Project.  We will run the risk of undeserved abuse to achieve
+our goals.</p>
+<p>
+If you see such an ironically unfair situation occurring, please don't
+sit idly by.  Please teach the laughing people the real history.  When
+they see why the request is justified, those who have any sense will
+stop laughing.</p>
+</dd>
+
+<dt id="alienate">Some people condemn you
+    when you ask them to call the system GNU/Linux.  Don't you lose by
+    alienating them? <span class="anchor-reference-id">(<a href="#alienate">#alienate</a>)</span></dt>
+
+<dd>
+Not much.  People who don't appreciate our role in developing the
+system are unlikely to make substantial efforts to help us.  If they
+do work that advances our goals, such as releasing free software, it
+is probably for other unrelated reasons, not because we asked them.
+Meanwhile, by teaching others to attribute our work to someone else,
+they are undermining our ability to recruit the help of others.
+<p>
+It makes no sense to worry about alienating people who are already
+mostly uncooperative, and it is self-defeating to be deterred from
+correcting a major problem lest we anger the people who perpetuate it.
+Therefore, we will continue trying to correct the misnomer.</p>
+</dd>
+
+<dt id="rename">Whatever you contributed,
+    is it legitimate to rename the operating system? <span class="anchor-reference-id">(<a href="#rename">#rename</a>)</span></dt>
+
+<dd>
+<p>
+We are not renaming anything; we have been calling this system &ldquo;GNU&rdquo;
+ever since we announced it in 1983.  The people who tried to rename
+it to &ldquo;Linux&rdquo; should not have done so.</p>
+</dd>
+
+<dt id="force">Isn't it wrong to force people to call
+the system &ldquo;GNU/Linux&rdquo;? <span class="anchor-reference-id">(<a href="#force">#force</a>)</span></dt>
+
+<dd>
+<p>
+It would be wrong to force them, and we don't try.  We call the system
+&ldquo;GNU/Linux,&rdquo; and we ask you to do it too.</p>
+</dd>
+
+<dt id="whynotsue">Why not sue people who call
+the whole system &ldquo;Linux&rdquo;? <span class="anchor-reference-id">(<a href="#whynotsue">#whynotsue</a>)</span></dt>
+
+<dd>
+<p>
+There are no legal grounds to sue them, but since we believe in
+freedom of speech, we wouldn't want to do that anyway.  We ask people
+to call the system &ldquo;GNU/Linux&rdquo; because that is the right thing to do.</p>
+</dd>
+
+<dt id="require">Shouldn't you put something in
+    the GNU GPL to require people to call the system &ldquo;GNU&rdquo;? <span class="anchor-reference-id">(<a href="#require">#require</a>)</span></dt>
+
+<dd>
+<p>
+The purpose of the GNU GPL is to protect the users' freedom from those
+who would make proprietary versions of free software.  While it is
+true that those who call the system &ldquo;Linux&rdquo; often do things that limit
+the users' freedom, such as bundling nonfree software with the
+GNU/Linux system or even developing nonfree software for such use,
+the mere act of calling the system &ldquo;Linux&rdquo; does not, in itself, deny
+users their freedom.  It seems improper to make the GPL restrict what
+name people can use for the system.</p>
+</dd>
+
+<dt id="BSDlicense">Since you objected to the original BSD license's
+advertising requirement to give credit to the University of California,
+isn't it hypocritical to demand credit for the GNU project? <span class="anchor-reference-id">(<a href="#BSDlicense">#BSDlicense</a>)</span></dt>
+
+<dd>
+It would be hypocritical to make the name GNU/Linux a license
+requirement, and we don't.  We only <em>ask</em> you to give us the
+credit we deserve.
+
+<p>
+Please note that there are at least <a href="https://www.gnu.org/licenses/bsd.html">
+two different BSD licenses</a>.  For clarity's sake, please don't use
+the term &ldquo;BSD license&rdquo; without specifying which one.</p>
+</dd>
+
+<dt id="deserve">Since you failed to put
+    something in the GNU GPL to require people to call the system &ldquo;GNU,&rdquo;
+    you deserve what happened; why are you complaining now? <span class="anchor-reference-id">(<a href="#deserve">#deserve</a>)</span></dt>
+
+<dd>
+The question presupposes a rather controversial general ethical
+premise: that if people do not force you to treat them fairly, you are
+entitled to take advantage of them as much as you like.  In other
+words, it assumes that might makes right.
+<p>
+We hope you disagree with that premise just as we do.</p>
+</dd>
+
+<dt id="contradict">Wouldn't you be better
+    off not contradicting what so many people believe? <span class="anchor-reference-id">(<a href="#contradict">#contradict</a>)</span></dt>
+
+<dd>
+We don't think we should go along with large numbers of people because
+they have been misled.  We hope you too will decide that truth is
+important.
+<p>
+We could never have developed a free operating system without first
+denying the belief, held by most people, that proprietary software
+was legitimate and acceptable.</p>
+</dd>
+
+<dt id="somanyright">Since many people call
+it &ldquo;Linux,&rdquo; doesn't that make it right? <span class="anchor-reference-id">(<a href="#somanyright">#somanyright</a>)</span></dt>
+
+<dd>
+<p>
+We don't think that the popularity of an error makes it the truth.</p>
+</dd>
+
+<dt id="knownname">Isn't it better to call the
+    system by the name most users already know? <span class="anchor-reference-id">(<a href="#knownname">#knownname</a>)</span></dt>
+
+<dd>
+<p>
+Users are not incapable of learning.  Since &ldquo;GNU/Linux&rdquo;
+includes &ldquo;Linux,&rdquo; they will recognize what you're talking
+about.  If you add &ldquo;(often erroneously referred to as
+&lsquo;Linux&rsquo;)&rdquo; once in a while, they will all understand.</p>
+</dd>
+
+<dt id="winning">Many people care about what's
+    convenient or who's winning, not about arguments of right or wrong.
+    Couldn't you get more of their support by a different
+    road? <span class="anchor-reference-id">(<a href="#winning">#winning</a>)</span></dt>
+
+<dd>
+To care only about what's convenient or who's winning is an amoral
+approach to life.  Nonfree software is an example of that amoral
+approach and thrives on it.  Thus, in the long run it would be
+self-defeating for us to adopt that approach.  We will continue
+talking in terms of right and wrong.
+<p>
+We hope that you are one of those for whom right and wrong do matter.</p>
+</dd>
+
+</dl>
+</div>
+
+</div><!-- for id="content", starts in the include above -->
+
+              <!-- begin server/footer-text.html -->
+
+
+
+
+
+<div style="clear:both"></div>
+
+
+<div id="language-container">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#top"><b>&#9650;</b></a>
+ </div>
+ <div id="languages" class="rounded-corners">
+  <div class="button">
+   <a href="#top" class="close"><span>BACK TO TOP</span></a>
+  </div>
+  <div id="set-language" class="button">
+   <span class="gnun-split"></span>
+   <a href="https://www.gnu.org/server/select-language.html?callback=/gnu/gnu-linux-faq.html" rel="nofollow">
+   Set language
+   <span class="gnun-split"></span>
+   </a>
+  </div>
+  <p>Available for this page:</p>
+  <div id="translations">
+<p>
+<span dir="ltr" class="original">[en]&nbsp;<a lang="en" hreflang="en" href="https://www.gnu.org/gnu/gnu-linux-faq.en.html">English</a> &nbsp;</span>
+<span dir="ltr">[ar]&nbsp;<a lang="ar" hreflang="ar" href="https://www.gnu.org/gnu/gnu-linux-faq.ar.html">العربية</a> &nbsp;</span>
+<span dir="ltr">[ca]&nbsp;<a lang="ca" hreflang="ca" href="https://www.gnu.org/gnu/gnu-linux-faq.ca.html">català</a> &nbsp;</span>
+<span dir="ltr">[de]&nbsp;<a lang="de" hreflang="de" href="https://www.gnu.org/gnu/gnu-linux-faq.de.html">Deutsch</a> &nbsp;</span>
+<span dir="ltr">[es]&nbsp;<a lang="es" hreflang="es" href="https://www.gnu.org/gnu/gnu-linux-faq.es.html">español</a> &nbsp;</span>
+<span dir="ltr">[fr]&nbsp;<a lang="fr" hreflang="fr" href="https://www.gnu.org/gnu/gnu-linux-faq.fr.html">français</a> &nbsp;</span>
+<span dir="ltr">[hr]&nbsp;<a lang="hr" hreflang="hr" href="https://www.gnu.org/gnu/gnu-linux-faq.hr.html">hrvatski</a> &nbsp;</span>
+<span dir="ltr">[it]&nbsp;<a lang="it" hreflang="it" href="https://www.gnu.org/gnu/gnu-linux-faq.it.html">italiano</a> &nbsp;</span>
+<span dir="ltr">[ja]&nbsp;<a lang="ja" hreflang="ja" href="https://www.gnu.org/gnu/gnu-linux-faq.ja.html">日本語</a> &nbsp;</span>
+<span dir="ltr">[ko]&nbsp;<a lang="ko" hreflang="ko" href="https://www.gnu.org/gnu/gnu-linux-faq.ko.html">한국어</a> &nbsp;</span>
+<span dir="ltr">[nl]&nbsp;<a lang="nl" hreflang="nl" href="https://www.gnu.org/gnu/gnu-linux-faq.nl.html">Nederlands</a> &nbsp;</span>
+<span dir="ltr">[pl]&nbsp;<a lang="pl" hreflang="pl" href="https://www.gnu.org/gnu/gnu-linux-faq.pl.html">polski</a> &nbsp;</span>
+<span dir="ltr">[pt-br]&nbsp;<a lang="pt-br" hreflang="pt-br" href="https://www.gnu.org/gnu/gnu-linux-faq.pt-br.html">português</a> &nbsp;</span>
+<span dir="ltr">[ru]&nbsp;<a lang="ru" hreflang="ru" href="https://www.gnu.org/gnu/gnu-linux-faq.ru.html">русский</a> &nbsp;</span>
+<span dir="ltr">[sq]&nbsp;<a lang="sq" hreflang="sq" href="https://www.gnu.org/gnu/gnu-linux-faq.sq.html">Shqip</a> &nbsp;</span>
+<span dir="ltr">[sr]&nbsp;<a lang="sr" hreflang="sr" href="https://www.gnu.org/gnu/gnu-linux-faq.sr.html">српски</a> &nbsp;</span>
+<span dir="ltr">[tr]&nbsp;<a lang="tr" hreflang="tr" href="https://www.gnu.org/gnu/gnu-linux-faq.tr.html">Türkçe</a> &nbsp;</span>
+<span dir="ltr">[uk]&nbsp;<a lang="uk" hreflang="uk" href="https://www.gnu.org/gnu/gnu-linux-faq.uk.html">українська</a> &nbsp;</span>
+<span dir="ltr">[zh-cn]&nbsp;<a lang="zh-cn" hreflang="zh-cn" href="https://www.gnu.org/gnu/gnu-linux-faq.zh-cn.html">简体中文</a> &nbsp;</span>
+</p>
+</div>
+ </div>
+</div>
+
+<div id="mission-statement" role="complementary">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#header"><span>BACK TO TOP </span>&#9650;</a>
+ </div>
+<div style="clear: both"></div>
+<blockquote>
+<p style="direction:ltr; text-align:left"><a href="http://www.fsf.org/"><img id="fsfbanner"
+src="../graphics/fsf-logo-notext-small.png" alt="&nbsp;[FSF logo]&nbsp;"
+width="75" height="25" /></a><strong>
+&ldquo;The Free Software Foundation (FSF) is a nonprofit with a worldwide
+mission to promote computer user freedom. We defend the rights of all
+software users.&rdquo;</strong></p>
+</blockquote>
+
+<div id="support-the-fsf" class="button">
+ <a class="join" href="http://www.fsf.org/associate/support_freedom?referrer=4052">JOIN</a>
+ <a class="donate" href="http://donate.fsf.org/">DONATE</a>
+ <a class="shop" href="http://shop.fsf.org/">SHOP</a>
+</div>
+</div>
+<!-- end server/footer-text.html -->
+
+
+<div id="footer" role="contentinfo">
+<div class="unprintable">
+
+<p>Please send general FSF &amp; GNU inquiries to
+<a href="mailto:gnu@gnu.org">&lt;gnu@gnu.org&gt;</a>.
+There are also <a href="../contact/index.html">other ways to contact</a>
+the FSF.  Broken links and other corrections or suggestions can be sent
+to <a href="mailto:webmasters@gnu.org">&lt;webmasters@gnu.org&gt;</a>.</p>
+
+<p><!-- TRANSLATORS: Ignore the original text in this paragraph,
+        replace it with the translation of these two:
+
+        We work hard and do our best to provide accurate, good quality
+        translations.  However, we are not exempt from imperfection.
+        Please send your comments and general suggestions in this regard
+        to <a href="mailto:web-translators@gnu.org">
+        &lt;web-translators@gnu.org&gt;</a>.</p>
+
+        <p>For information on coordinating and contributing translations of
+        our web pages, see <a
+        href="/server/standards/README.translations.html">Translations
+        README</a>. -->
+Please see the <a
+href="../server/standards/README.translations.html">Translations
+README</a> for information on coordinating and contributing translations
+of this article.</p>
+</div>
+
+<!-- Regarding copyright, in general, standalone pages (as opposed to
+     files generated as part of manuals) on the GNU web server should
+     be under CC BY-ND 4.0.  Please do NOT change or remove this
+     without talking with the webmasters or licensing team first.
+     Please make sure the copyright date is consistent with the
+     document.  For web pages, it is ok to list just the latest year the
+     document was modified, or published.
+
+     If you wish to list earlier years, that is ok too.
+     Either "2001, 2002, 2003" or "2001-2003" are ok for specifying
+     years, as long as each year in the range is in fact a copyrightable
+     year, i.e., a year in which the document was published (including
+     being publicly visible on the web or in a revision control system).
+
+     There is more detail about copyright years in the GNU Maintainers
+     Information document, www.gnu.org/prep/maintain. -->
+
+<p>Copyright &copy; 2001-2011, 2013-2018, 2020, 2022, 2023
+Free Software Foundation, Inc.</p>
+
+<p>This page is licensed under a <a rel="license"
+href="http://creativecommons.org/licenses/by-nd/4.0/">Creative
+Commons Attribution-NoDerivatives 4.0 International License</a>.</p>
+
+<!-- start of server/bottom-notes.html -->
+<div id="bottom-notes" class="unprintable">
+<p><a href="http://www.fsf.org/about/dmca-notice">Copyright Infringement Notification</a></p>
+<div id="generic">
+
+
+</div>
+</div>
+<!-- end of server/bottom-notes.html -->
+
+
+<p class="unprintable">Updated:
+<!-- timestamp start -->
+$Date: 2023/11/30 09:46:00 $
+<!-- timestamp end -->
+</p>
+</div>
+</div><!-- for class="inner", starts in the banner include -->
+</body>
+
+<!-- Mirrored from www.gnu.org/gnu/gnu-linux-faq.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- Mirrored from www.gnu.org/software/superopt/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="author" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="../../graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<link rel="stylesheet" type="text/css" href="../../layout.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../../print.min.css" media="print" />
+
+
+
+<!-- Parent-Version: 1.92 -->
+<!-- This page is derived from /server/standards/boilerplate.html -->
+<title>Superopt
+- GNU Project - Free Software Foundation</title>
+<!-- begin /server/gnun/initial-translations-list.html -->
+<!-- HTML head: set a flag for further expansion in body-include*.html. -->
+<!-- end /server/gnun/initial-translations-list.html -->
+
+<!-- start of server/banner.html -->
+<!-- start of head-include-2.html -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- end of head-include-2.html -->
+
+</head>
+<body>
+<div class="inner">
+<!-- start of server/body-include-1.html -->
+<div id="top">
+<a class="skip" href="#content"><b>Skip to main text</b></a>
+</div>
+
+<div id="fsf-frame" role="complementary">
+<form id="fssbox" action="https://my.fsf.org/civicrm/profile/create?reset=1&amp;gid=31"
+      method="post">
+ <div>
+  <input name="postURL" type="hidden" value="" />
+  <input type="hidden" name="group[25]" value="1" />
+  <input name="cancelURL" type="hidden" value="https://crm.fsf.org/civicrm/profile?reset=1&amp;gid=31" />
+  <input name="_qf_default" type="hidden" value="Edit:cancel" />
+  <label for="frmEmail">
+   <a href="http://www.fsf.org/fss">Free Software Supporter</a>:
+  </label>
+  <input type="text" id="frmEmail" name="email-Primary" size="18" maxlength="80"
+         value="email address" onfocus="this.value=''"/>
+  <input type="submit" name="_qf_Edit_next" value="Sign up" />
+ </div>
+</form>
+
+<div id="join-fsf" class="button"><a
+href="https://www.fsf.org/associate/support_freedom?referrer=4052">JOIN&nbsp;THE&nbsp;FSF</a>
+</div>
+</div>
+
+<div id="header" role="banner">
+<p id="gnu-banner">
+ <a href="../../index.html">
+ <img src="../../graphics/heckert_gnu.transp.small.png" height="48" width="49"
+      alt="&nbsp;[A GNU head]&nbsp;" /><strong>GNU</strong> <span
+ class="hide">Operating System</span></a><br />
+ <small id="fsf-support">Supported by the
+ <a href="#mission-statement">Free Software Foundation</a></small>
+</p>
+
+<div id="switches">
+ <div  id="search-button" class="switch">
+  <a href="../../cgi-bin/estseek.cgi">
+  <img id="search-icon" height="30" width="30"
+       src="../../graphics/icons/search.png"
+       alt="&nbsp;[Search www.gnu.org]&nbsp;" /></a>
+ </div>
+
+</div>
+</div>
+<!-- end of server/body-include-1.html -->
+
+<!-- start of server/body-include-2 -->
+
+
+<div style="clear: both"></div>
+
+<div id="navigation" role="navigation">
+ <a id="more-links" href="#navigation" title="More...">
+   <span>Site navigation</span></a>
+ <a id="less-links" href="#content"><b>Skip</b></a>
+ <ul>
+
+   <li id="tabAboutGNU"><a href="../../gnu/gnu.html">ABOUT&nbsp;GNU</a></li>
+
+
+  <li id="tabPhilosophy"><a href="../../philosophy/philosophy.html">PHILOSOPHY</a></li>
+
+
+  <li id="tabLicenses"><a href="../../licenses/licenses.html">LICENSES</a></li>
+
+
+  <li id="tabEducation"><a href="../../education/education.html">EDUCATION</a></li>
+
+
+  <li id="tabSoftware" class="active">
+     <span class='no-display'>=</span> 
+    <a href="../software.html">SOFTWARE</a>
+    <span class="gnun-split"></span>
+     <span class='no-display'>=</span> 
+  </li>
+
+
+  <li id="tabDistros"><a href="../../distros/distros.html">DISTROS</a></li>
+
+
+  <li id="tabDoc"><a href="../../doc/doc.html">DOCS</a></li>
+
+
+  <li id="tabMalware"><a href="../../proprietary/proprietary.html">MALWARE</a></li>
+
+
+  <li id="tabHelp"><a href="../../help/help.html">HELP&nbsp;GNU</a></li>
+
+
+  <li id="tabAV"><a href="../../audio-video/audio-video.html">AUDIO&nbsp;&amp;&nbsp;VIDEO</a></li>
+
+
+  <li id="tabArt"><a href="../../graphics/graphics.html">GNU&nbsp;ART</a></li>
+
+
+  <li id="tabFun"><a href="../../fun/humor.html">FUN</a></li>
+
+
+  <li id="tabPeople"><a href="../../people/people.html">GNU'S&nbsp;WHO?</a></li>
+
+  <li><a href="http://directory.fsf.org/">SOFTWARE&nbsp;DIRECTORY</a></li>
+  <li><a href="https://h-node.org/">HARDWARE</a></li>
+  <li><a href="../../server/sitemap.html">SITEMAP</a></li>
+ </ul>
+ <div style="clear: both"></div>
+</div><!-- /"navigation -->
+<!-- end of server/body-include-2 -->
+
+<div id="content" role="main">
+<!-- end of server/banner.html -->
+
+<div class="reduced-width" style="width: 55em">
+
+<h2 style="border-bottom: 1px solid #999">GNU superoptimizer</h2>
+
+<p>GNU superoptimizer (superopt) finds the shortest instruction
+sequence for a given function. It was written between 1991 and 1995.</p>
+
+<h3 id="download">Download</h3>
+
+<p>The superopt package is available from the main GNU server
+(<a href="https://ftp.gnu.org/gnu/superopt/">via HTTPS</a>,&nbsp;
+<a href="http://ftp.gnu.org/gnu/superopt/">via HTTP</a>,&nbsp;
+<a href="ftp://ftp.gnu.org/gnu/superopt/">via FTP</a>), and from its
+<a href="https://www.gnu.org/prep/ftp.html">mirrors</a>; please
+<a href="https://ftpmirror.gnu.org/superopt/">use a mirror</a>
+if possible.</p>
+
+
+<h3 id="documentation">Documentation</h3>
+
+<p style="margin-bottom: 2.5em">
+Here is an exact copy of the README file that comes with superopt:</p>
+
+<blockquote>
+<pre>
+
+			GNU SUPEROPTIMIZER
+
+The superoptimizer is a function sequence generator that uses an exhaustive
+generate-and-test approach to finding the shortest instruction sequence for
+a given function.  You have to tell the superoptimizer which function and
+which CPU you want to generate code for, and how many instructions you can
+accept.
+
+The superoptimizer can't generate very long sequences, unless you have a
+very fast computer or very much spare time.  The time complexity of the used
+algorithm is approximately
+
+	     2n
+	O(m n  )
+
+where m is the number of available instructions on the architecture and n is
+the shortest sequence for the goal function.  The practical sequence length
+limit depends on the target architecture and goal function arity; In most
+cases it is about 5, but for a rich instruction set as the HPPA it is just
+4.  The longest sequence ever generated was for the MC68020 and 7
+instructions long.  It took several weeks to generate it...
+
+The superoptimizer can't guarantee that it finds the best possible
+instruction sequences for all possible goal functions.  For example, it
+doesn't even try to include immediate constants (other that -1, 0, +1, and
+the smallest negative and biggest positive numbers) in the sequences.
+
+Other reasons why not optimal sequences might be found is that not all
+instructions are included, not even in their register-only form.  Also, some
+instructions included might not be correctly simulated.  If you encounter
+any of these problems, please report them to the address below.
+
+WARNING!  The generated sequences might be incorrect with a very small
+probability.  Always make sure a sequence is correct before using it.  So
+far, I have never encountered any incorrect sequences.  If you find one,
+please let me know about it!
+
+Having said this, note that the superoptimizer practically always finds
+optimal and correct sequences for functions that depend on registers only.
+
+
+			USAGE INSTRUCTIONS
+
+The superoptimizer supports these CPUs: SPARC v7, Motorola 68000, 68020, and
+88000, IBM POWER and PowerPC, AMD 29000, Intel x86 and 960 1.0 and 1.1,
+Pyramid, DEC Alpha, HP PA-RISC, and Hitachi SH.  SGI Mips is not supported,
+since it doesn't have instructions whose use in non-obvious.  Some new
+instructions, like the Intel P6 and Sparc v9 conditional moves are not
+supported.
+
+You need an ANSI C compiler, for example GCC, to compile the superoptimizer.
+Type
+
+	make CPU=-D&lt;cpuname&gt; superopt
+
+where &lt;cpuname&gt; is one of SPARC, MC68000, MC68020, M88000, POWER, POWERPC,
+AM29K, I386, I960 (for i960 1.0), I960B (for I960B 1.1), PYR, ALPHA, HPPA,
+or SH.  The compilation might take a long time and use up a lot of memory,
+especially for HPPA.
+
+You can also build all superoptimizers by typing:
+
+	make all
+
+This will create superopt-sparc, superopt-power, etc.
+
+There are also install targets, use `make install' to install a single
+superoptimizer and `make install-all' to install all of them.
+
+To run the superoptimizer, type
+
+	superopt -f&lt;goal-function&gt; | -all  [-assembly] [-max-cost n]
+	   [-shifts] [-extracts] [-no-carry-insns] [-extra-cost n]
+
+and wait until the found instructions sequences are printed.  For example,
+
+	superopt -flts0 -as
+
+will print all sequences computing the statement
+
+	{ r = (signed_word) v0 &lt; 0; }.
+
+See below for some examples of possible goal functions.
+
+By default, the superoptimizer doesn't try all immediate shift counts.  To
+enable all shift counts, pass -shifts as a command line option.  To enable
+all bit field extracts, use -extracts.
+
+			OPTIONS
+
+The `-f' option has always to be defined to tell the superoptimizer for
+which function it should try to to find an instruction sequence.  See below
+for possible function names.
+
+Option names may be abbreviated.
+
+-assembly
+	Output assembly suitable to feed the assembler instead of pseudo-
+	code suitable for humans.
+
+-max-cost n
+	Limit the `cost' of the instruction sequence to n.  May be used to
+	stop the search if no instruction sequence of that length or
+	shorter is found.  By default this is 4.
+
+-extra-cost n
+	Search for sequences n more expensive than the cheapest found
+	sequence.  Default is 0 meaning that only the cheapest sequence(s)
+	are printed.
+
+-no-carry-insns
+	Don't use instructions that use the carry flag.  This might be
+	desirable on RISCs to simplify instruction scheduling.
+
+-shifts
+	Include all shift counts supported by the target architecture in
+	the search.  This slows down the search considerably.
+
+-extracts
+	Include all bit field extracts supported by the target architecture
+	in the search.  This slows down the search considerably.
+
+-f&lt;goal-function-name&gt;
+	
+	where &lt;goal-function-name&gt; is one of eq, ne, les, ges, lts, gts,
+	leu, geu, ltu, gtu, eq0, ne0, les0, ges0, lts0, gts0, neq, nne,
+	nles, nges, nlts, ngts, nleu, ngeu, nltu, ngtu, neq0, nne0, nles0,
+	nges0, nlts0, ngts0, maxs, mins, maxu, minu, sgn, abs, nabs, gray,
+	or gray2, etc, etc.
+
+	eq, ne, les, etc, computes the C expression "a == b", "a != b", "a
+	&lt;= b", etc, where the operation codes ending in `s' indicates
+	signed comparison; `u` indicates unsigned comparison.
+
+	eq0,... computes "a == 0", ...
+
+	The `n' before the names means that the corresponding function
+	value is negated, e.g. nlt is the C expression "-(a &lt; b)".
+
+	maxs, mins, maxu, minu are binary (i.e. two argument) signed
+	respectively unsigned max and min.
+
+	sgn is the unary sign function; -1 for negative, 0 for zero, and +1
+	for positive arguments.
+
+	abs and nabs are absolute value and negative absolute value,
+	respectively.
+
+	For a complete list of goal function and their definitions, look in
+	the file goal.def.  You can easily add your own goal functions to
+	that file.  After having added a new function, you have to recompile
+	the superoptimizer.
+
+
+		READING SUPEROPTIMIZER OUTPUT
+
+The superoptimizer by default outputs sequences in high-level language like
+syntax.  For example, this is the output for M88000/abs:
+
+1:	r1:=arith_shift_right(r0,0x1f)
+	r2:=add_co(r1,r0)
+	r3:=xor(r2,r1)
+2:	r1:=arith_shift_right(r0,0x1f)
+	r2:=add(r1,r0)
+	r3:=xor(r2,r1)
+3:	r1:=arith_shift_right(r0,0x1f)
+	r2:=xor(r1,r0)
+	r3:=adc_co(r2,r1)
+
+r1:=arith_shift_right(r0,0x1f) means "shift r0 right 31 steps
+arithmetically and put the result in r1".  add_co is "add and set carry".
+adc_co is the subtraction instruction found on most RISCs, i.e. "add with
+complement and set carry".  This may seem dumb, but there is an important
+difference in the way carry is set after an addition-with-complement and a
+subtraction.  The suffixes "_ci" and "_cio" means respectively that carry
+is input but not affected, and that carry is both input and generated.
+
+The interesting value is always the value computed by the last instruction.
+
+
+		*********************************
+
+Please send comments, improvements and new ports to tege@gnu.ai.mit.edu.
+
+The GNU superoptimizer was written by Torbjorn Granlund (currently with
+Cygnus Support).  Tom Wood (at the time with Data General, now at Motorola)
+made major improvements, like the clean way to describe goal functions and
+internal instructions.  The original superoptimizer idea is due to Henry
+Massalin.
+
+The GNU superoptimizer and it's application for tuning GCC are described in
+the proceedings of the ACM SIGPLAN conference on Programming Language
+Design an Implementation (PLDI), 1992.
+
+</pre>
+</blockquote>
+
+<h3 id="maintainer">Maintainer</h3>
+
+<p>The current maintainer of GNU superoptimizer is Thien-Thi Nguyen.</p>
+
+<h3 id="license">Licensing</h3>
+
+<p>GNU superoptimizer
+is free software; you can redistribute it and/or modify it under the
+terms of the <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+rel="license">GNU General Public License version&nbsp;2</a> as published by
+the Free Software Foundation.</p>
+
+</div>
+</div><!-- for id="content", starts in the include above -->
+
+              <!-- begin server/footer-text.html -->
+
+
+
+
+
+<div style="clear:both"></div>
+
+
+
+<div id="mission-statement" role="complementary">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#header"><span>BACK TO TOP </span>&#9650;</a>
+ </div>
+<div style="clear: both"></div>
+<blockquote>
+<p style="direction:ltr; text-align:left"><a href="http://www.fsf.org/"><img id="fsfbanner"
+src="../../graphics/fsf-logo-notext-small.png" alt="&nbsp;[FSF logo]&nbsp;"
+width="75" height="25" /></a><strong>
+&ldquo;The Free Software Foundation (FSF) is a nonprofit with a worldwide
+mission to promote computer user freedom. We defend the rights of all
+software users.&rdquo;</strong></p>
+</blockquote>
+
+<div id="support-the-fsf" class="button">
+ <a class="join" href="http://www.fsf.org/associate/support_freedom?referrer=4052">JOIN</a>
+ <a class="donate" href="http://donate.fsf.org/">DONATE</a>
+ <a class="shop" href="http://shop.fsf.org/">SHOP</a>
+</div>
+</div>
+<!-- end server/footer-text.html -->
+
+
+<div id="footer">
+<div class="unprintable">
+
+<p>Please send general FSF &amp; GNU inquiries to
+<a href="mailto:gnu@gnu.org">&lt;gnu@gnu.org&gt;</a>.
+There are also <a href="../../contact/index.html">other ways to contact</a>
+the FSF.  Broken links and other corrections or suggestions can be sent
+to <a href="mailto:webmasters@gnu.org">&lt;webmasters@gnu.org&gt;</a>.</p>
+
+<p>Please see the <a
+href="../../server/standards/README.translations.html">Translations
+README</a> for information on coordinating and contributing translations
+of this article.</p>
+</div>
+
+<!-- Regarding copyright, in general, standalone pages (as opposed to
+     files generated as part of manuals) on the GNU web server should
+     be under CC BY-ND 4.0.  Please do NOT change or remove this
+     without talking with the webmasters or licensing team first.
+     Please make sure the copyright date is consistent with the
+     document.  For web pages, it is ok to list just the latest year the
+     document was modified, or published.
+     
+     If you wish to list earlier years, that is ok too.
+     Either "2001, 2002, 2003" or "2001-2003" are ok for specifying
+     years, as long as each year in the range is in fact a copyrightable
+     year, i.e., a year in which the document was published (including
+     being publicly visible on the web or in a revision control system).
+     
+     There is more detail about copyright years in the GNU Maintainers
+     Information document, www.gnu.org/prep/maintain. -->
+
+<p>Copyright &copy; 1992 Torbjörn Granlund</p>
+
+<p>This page is licensed under a <a rel="license"
+href="http://creativecommons.org/licenses/by-nd/4.0/">Creative
+Commons Attribution-NoDerivatives 4.0 International License</a>.</p>
+
+<!-- start of server/bottom-notes.html -->
+<div id="bottom-notes" class="unprintable">
+<p><a href="http://www.fsf.org/about/dmca-notice">Copyright Infringement Notification</a></p>
+<div id="generic">
+
+
+</div>
+</div>
+<!-- end of server/bottom-notes.html -->
+
+
+<p class="unprintable">Updated:
+<!-- timestamp start -->
+$Date: 2020/10/11 09:48:21 $
+<!-- timestamp end -->
+</p>
+</div>
+</div><!-- for class="inner", starts in the banner include -->
+</body>
+
+<!-- Mirrored from www.gnu.org/software/superopt/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>

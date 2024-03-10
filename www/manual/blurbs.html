@@ -1,0 +1,4256 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- Mirrored from www.gnu.org/manual/blurbs.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="author" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="../graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<link rel="stylesheet" type="text/css" href="../layout.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../print.min.css" media="print" />
+
+
+
+<!-- Parent-Version: 1.97 -->
+<!-- This page is derived from /server/standards/boilerplate.html -->
+<title>GNU Package Blurbs
+- GNU Project - Free Software Foundation</title>
+<!-- begin translist file -->
+
+<link rel="alternate" type="text/html" href="blurbs.html" hreflang="x-default" />
+<link rel="alternate" type="text/html" lang="en" hreflang="en" href="https://www.gnu.org/manual/blurbs.en.html" title="English" />
+<link rel="alternate" type="text/html" lang="de" hreflang="de" href="https://www.gnu.org/manual/blurbs.de.html" title="Deutsch" />
+<link rel="alternate" type="text/html" lang="es" hreflang="es" href="https://www.gnu.org/manual/blurbs.es.html" title="español" />
+<link rel="alternate" type="text/html" lang="fr" hreflang="fr" href="https://www.gnu.org/manual/blurbs.fr.html" title="français" />
+<link rel="alternate" type="text/html" lang="ja" hreflang="ja" href="https://www.gnu.org/manual/blurbs.ja.html" title="日本語" />
+<link rel="alternate" type="text/html" lang="pt-br" hreflang="pt-br" href="https://www.gnu.org/manual/blurbs.pt-br.html" title="português" />
+<link rel="alternate" type="text/html" lang="ru" hreflang="ru" href="https://www.gnu.org/manual/blurbs.ru.html" title="русский" />
+<!-- end translist file -->
+
+<!-- start of server/banner.html -->
+<!-- start of head-include-2.html -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- end of head-include-2.html -->
+
+</head>
+<body>
+<div class="inner">
+<!-- start of server/body-include-1.html -->
+<div id="top">
+<a class="skip" href="#content"><b>Skip to main text</b></a>
+</div>
+
+<div id="fsf-frame" role="complementary">
+<form id="fssbox" action="https://my.fsf.org/civicrm/profile/create?reset=1&amp;gid=31"
+      method="post">
+ <div>
+  <input name="postURL" type="hidden" value="" />
+  <input type="hidden" name="group[25]" value="1" />
+  <input name="cancelURL" type="hidden" value="https://crm.fsf.org/civicrm/profile?reset=1&amp;gid=31" />
+  <input name="_qf_default" type="hidden" value="Edit:cancel" />
+  <label for="frmEmail">
+   <a href="http://www.fsf.org/fss">Free Software Supporter</a>:
+  </label>
+  <input type="text" id="frmEmail" name="email-Primary" size="18" maxlength="80"
+         value="email address" onfocus="this.value=''"/>
+  <input type="submit" name="_qf_Edit_next" value="Sign up" />
+ </div>
+</form>
+
+<div id="join-fsf" class="button"><a
+href="https://www.fsf.org/associate/support_freedom?referrer=4052">JOIN&nbsp;THE&nbsp;FSF</a>
+</div>
+</div>
+
+<div id="header" role="banner">
+<p id="gnu-banner">
+ <a href="../index.html">
+ <img src="../graphics/heckert_gnu.transp.small.png" height="48" width="49"
+      alt="&nbsp;[A GNU head]&nbsp;" /><strong>GNU</strong> <span
+ class="hide">Operating System</span></a><br />
+ <small id="fsf-support">Supported by the
+ <a href="#mission-statement">Free Software Foundation</a></small>
+</p>
+
+<div id="switches">
+ <div  id="search-button" class="switch">
+  <a href="../cgi-bin/estseek.cgi">
+  <img id="search-icon" height="30" width="30"
+       src="../graphics/icons/search.png"
+       alt="&nbsp;[Search www.gnu.org]&nbsp;" /></a>
+ </div>
+
+ <div id="language-button" class="switch">
+  <a href="#language-container">
+  <img id="language-icon" height="30" width="37"
+       src="../graphics/icons/translations.png"
+       alt="&nbsp;[Other languages]&nbsp;" /></a>
+ </div>
+
+</div>
+</div>
+<!-- end of server/body-include-1.html -->
+
+<!-- start of server/body-include-2 -->
+
+
+<div style="clear: both"></div>
+
+<div id="navigation" role="navigation">
+ <a id="more-links" href="#navigation" title="More...">
+   <span>Site navigation</span></a>
+ <a id="less-links" href="#content"><b>Skip</b></a>
+ <ul>
+
+   <li id="tabAboutGNU"><a href="../gnu/gnu.html">ABOUT&nbsp;GNU</a></li>
+
+
+  <li id="tabPhilosophy"><a href="../philosophy/philosophy.html">PHILOSOPHY</a></li>
+
+
+  <li id="tabLicenses"><a href="../licenses/licenses.html">LICENSES</a></li>
+
+
+  <li id="tabEducation"><a href="../education/education.html">EDUCATION</a></li>
+
+
+  <li id="tabSoftware"><a href="../software/software.html">SOFTWARE</a></li>
+
+
+  <li id="tabDistros"><a href="../distros/distros.html">DISTROS</a></li>
+
+
+  <li id="tabDoc" class="active">
+     <span class='no-display'>=</span> 
+    <a href="../doc/doc.html">DOCS</a>
+    <span class="gnun-split"></span>
+     <span class='no-display'>=</span> 
+  </li>
+
+
+  <li id="tabMalware"><a href="../proprietary/proprietary.html">MALWARE</a></li>
+
+
+  <li id="tabHelp"><a href="../help/help.html">HELP&nbsp;GNU</a></li>
+
+
+  <li id="tabAV"><a href="../audio-video/audio-video.html">AUDIO&nbsp;&amp;&nbsp;VIDEO</a></li>
+
+
+  <li id="tabArt"><a href="../graphics/graphics.html">GNU&nbsp;ART</a></li>
+
+
+  <li id="tabFun"><a href="../fun/humor.html">FUN</a></li>
+
+
+  <li id="tabPeople"><a href="../people/people.html">GNU'S&nbsp;WHO?</a></li>
+
+  <li><a href="http://directory.fsf.org/">SOFTWARE&nbsp;DIRECTORY</a></li>
+  <li><a href="https://h-node.org/">HARDWARE</a></li>
+  <li><a href="../server/sitemap.html">SITEMAP</a></li>
+ </ul>
+ <div style="clear: both"></div>
+</div><!-- /"navigation -->
+<!-- end of server/body-include-2 -->
+
+<div id="content" role="main">
+<!-- end of server/banner.html -->
+
+<div class="reduced-width">
+<h2>GNU Package Blurbs</h2>
+<div class="thin"></div>
+
+<div id="topinfo" class="introduction" style="margin-bottom:2.5em">
+<p>The following list gives short blurbs for <a
+href="../software/software.html">official GNU packages</a> with links to
+their home pages.  <a href="manual.html">More documentation of
+GNU packages</a>.</p>
+</div>
+
+<!-- regenerate this when text or package list changes, via
+       gm generate blurbs html
+     in the /prep/gnumaint/ directory.  -->    
+
+<!-- File generated by www/prep/gnumaint/gm Sun 04 Feb 2024 10:21:34 AM CET -->
+
+
+<h4 id="pkg_3dldf"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/3dldf.250x100.png" style="height:1.3em"
+       alt="logo for 3dldf" />
+  <a href="https://www.gnu.org/software/3dldf/">3DLDF</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU 3DLDF supports 3D drawing with output to the MetaPost format via
+a language similar to Metafont.  It is primarily intended to provide a
+means of creating 3D content for TeX documents, but it can also create
+animations containing text typeset by TeX.
+<small>(<a href="manual.html#pkg_3dldf">doc</a>)</small></p>
+
+
+
+<h4 id="pkg_8sync">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/8sync.250x100.png" style="height:1.3em"
+       alt="logo for 8sync" />
+  <a href="https://www.gnu.org/software/8sync/">8sync</a></h4><p>
+8sync (pronounced &ldquo;eight-sync&rdquo;) is an asynchronous programming
+library for GNU Guile.  It makes use of delimited continuations to avoid
+a mess of callbacks, resulting in clean, easy-to-read, non-blocking code.
+<small>(<a href="manual.html#pkg_8sync">doc</a>)</small></p>
+
+
+
+<h4 id="a2ps">
+  <a href="https://www.gnu.org/software/a2ps/">a2ps</a></h4><p>
+GNU a2ps converts almost anything to a PostScript file, ready for
+printing.  It accomplishes this by being able to delegate files to
+external handlers, such as Groff and Gzip.  It handles as many steps as is
+necessary to produce a pretty-printed file.  It also includes some extra
+abilities for special cases, such as pretty-printing <code>--help</code>
+output.
+<small>(<a href="manual.html#a2ps">doc</a>)</small></p>
+
+
+
+<h4 id="acct">
+  <a href="https://www.gnu.org/software/acct/">Acct</a></h4><p>
+GNU acct provides a means for system administrators to determine system
+usage patterns.  It provides information on, for example, connections,
+programs executed, and system resources used.
+<small>(<a href="manual.html#acct">doc</a>)</small></p>
+
+
+
+<h4 id="acm"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/acm/">Acm</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU ACM is a flight simulator in which players can compete in aerial
+combat from different computers, piloting well-equipped jet aircraft
+similar to an F-16C Falcon or a MiG-29 Fulcrum.
+<small>(<a href="manual.html#acm">doc</a>)</small></p>
+
+
+
+<h4 id="adns">
+  <a href="https://www.gnu.org/software/adns/">Adns</a></h4><p>
+GNU adns is a C library that provides easy-to-use DNS resolution
+functionality.  The library is asynchronous, allowing several concurrent
+calls.  The package also includes several command-line utilities for
+use in scripts.
+<small>(<a href="manual.html#adns">doc</a>)</small></p>
+
+
+
+<h4 id="alive">
+  <a href="https://www.gnu.org/software/alive/">Alive</a></h4><p>
+GNU Alive sends periodic pings to a server, generally to keep a connection
+alive.
+<small>(<a href="manual.html#alive">doc</a>)</small></p>
+
+
+
+<h4 id="anastasis">
+  <a href="https://www.gnu.org/software/anastasis/">Anastasis</a></h4><p>
+GNU Anastasis is a free software protocol and implementation that allows
+users to securely deposit core secrets with a public set of escrow
+providers, and allows users to recover these secrets if their original
+copies are lost.
+<small>(<a href="manual.html#anastasis">doc</a>)</small></p>
+
+
+
+<h4 id="anubis">
+  <a href="https://www.gnu.org/software/anubis/">Anubis</a></h4><p>
+Anubis is a daemon that sits between the Mail User Agent (MUA) and the
+Mail Transfer Agent (MTA).  When a mail is sent by a user in the MUA,
+it is first passed to Anubis, which performs additional processing to
+the message before passing it on for delivery by the MTA.  Anubis may,
+for example, modify the message headers or body, or encrypt or sign
+the message.
+<small>(<a href="manual.html#anubis">doc</a>)</small></p>
+
+
+
+<h4 id="apl">
+  <a href="https://www.gnu.org/software/apl/">APL</a></h4><p>
+GNU APL is a free interpreter for the programming language APL.  It is
+an implementation of the ISO standard 13751.
+<small>(<a href="manual.html#apl">doc</a>)</small></p>
+
+
+
+<h4 id="archimedes"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/archimedes/">Archimedes</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Archimedes is a free package for semiconductor device simulations. It is
+intended to assist engineers in designing and simulating submicron and
+mesoscopic semiconductor devices based on the Ensemble Monte Carlo method.
+It is able to handle a wide variety of materials and structures, which
+are described through simple scripts.
+<small>(<a href="manual.html#archimedes">doc</a>)</small></p>
+
+
+
+<h4 id="aris">
+  <a href="https://www.gnu.org/software/aris/">Aris</a></h4><p>
+Aris is a program for performing logical proofs.  It supports
+propositional and predicate logic, as well as Boolean algebra and
+arithmetical logic.  In addition to its predefined inference and
+equivalence rules, Aris also supports references to older proofs. Its
+use of standard logical symbols and its natural deduction interface make
+it easy to use for beginners.
+<small>(<a href="manual.html#aris">doc</a>)</small></p>
+
+
+
+<h4 id="artanis">
+  <a href="https://www.gnu.org/software/artanis/">Artanis</a></h4><p>
+GNU Artanis is a web application framework written in Guile Scheme.  A web
+application framework (WAF) is a software framework that is designed
+to support the development of dynamic websites, web applications,
+web services and web resources.  The framework aims to alleviate the
+overhead associated with common activities performed in web development.
+Artanis provides several tools for web development: database access,
+templating frameworks, session management, URL-remapping for RESTful,
+page caching, and more.
+<small>(<a href="manual.html#artanis">doc</a>)</small></p>
+
+
+
+<h4 id="aspell">
+  <a href="../software/aspell/index.html">Aspell</a></h4><p>
+Aspell is a spell-checker which can be used either as a library or
+as a standalone program.  Notable features of Aspell include its full
+support of documents written in the UTF-8 encoding and its ability to
+use multiple dictionaries, including personal ones.
+<small>(<a href="manual.html#aspell">doc</a>)</small></p>
+
+
+
+<h4 id="auctex">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/auctex.250x100.png" style="height:1.3em"
+       alt="logo for auctex" />
+  <a href="https://www.gnu.org/software/auctex/">AUCTeX</a></h4><p>
+AUCTeX is an integrated environment for producing TeX documents in
+Emacs.  It allows many different standard TeX macros to be inserted
+with simple keystrokes or menu selection.  It offers an interface to
+external programs, enabling you to compile or view your documents from
+within Emacs.  AUCTeX also features the ability to place inline previews
+of complex TeX statements such as mathematical formulae.
+<small>(<a href="manual.html#auctex">doc</a>)</small></p>
+
+
+
+<h4 id="autoconf"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/autoconf/">Autoconf</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Autoconf offers the developer a robust set of M4 macros which expand
+into shell code to test the features of Unix-like systems and to adapt
+automatically their software package to these systems.  The resulting
+shell scripts are self-contained and portable, freeing the user from
+needing to know anything about Autoconf or M4.
+<small>(<a href="manual.html#autoconf">doc</a>)</small></p>
+
+
+
+<h4 id="autoconf-archive">
+  <a href="https://www.gnu.org/software/autoconf-archive/">Autoconf-archive</a></h4><p>
+Autoconf Archive is a collection of over 450 new macros for Autoconf,
+greatly expanding the domain of its functionality.  These macros have
+been contributed as free software by the community.
+<small>(<a href="manual.html#autoconf-archive">doc</a>)</small></p>
+
+
+
+<h4 id="autogen">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/autogen.250x100.png" style="height:1.3em"
+       alt="logo for autogen" />
+  <a href="https://www.gnu.org/software/autogen/">AutoGen</a></h4><p>
+AutoGen is a program to ease the maintenance of programs that contain
+large amounts of repetitive text.  It automates the construction of these
+sections of the code, simplifying the task of keeping the text in sync.
+It also includes an add-on package called AutoOpts, which is specialized
+for the maintenance and documentation of program options.
+<small>(<a href="manual.html#autogen">doc</a>)</small></p>
+
+
+
+<h4 id="automake">
+  <a href="https://www.gnu.org/software/automake/">Automake</a></h4><p>
+Automake the part of the GNU build system for producing
+standards-compliant Makefiles.  Build requirements are entered in an
+intuitive format and then Automake works with Autoconf to produce a
+robust Makefile, simplifying the entire process for the developer.
+<small>(<a href="manual.html#automake">doc</a>)</small></p>
+
+
+
+<h4 id="avl">
+  <a href="https://www.gnu.org/software/avl/">Avl</a></h4><p>
+libavl provides a large collection of binary search tree and balanced
+tree routines for C.  These trees offer at least O(log n) performance
+for usually costly operations such as searching, inserting or deleting
+items from a data structure.
+<small>(<a href="manual.html#avl">doc</a>)</small></p>
+
+
+
+<h4 id="ballandpaddle"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/ballandpaddle/">Ball and Paddle</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Ball and Paddle is a classic arcade game in which you use a paddle at
+the bottom of the screen to bounce a ball against bricks in the upper
+region, eliminating the bricks as they are hit.  As a novel twist,
+events and attributes of all the objects (bricks, ball, etc.) may be
+scripted with GNU Guile.
+<small>(<a href="manual.html#ballandpaddle">doc</a>)</small></p>
+
+
+
+<h4 id="barcode"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/barcode/">Barcode</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Barcode is a flexible tool to produce printed barcodes from
+text strings.  It supports a variety of encoding standards and sizing
+measurements.  Barcodes can be output in PostScript or Encapsulated
+PostScript formats.
+<small>(<a href="manual.html#barcode">doc</a>)</small></p>
+
+
+
+<h4 id="bash">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/bash.250x100.png" style="height:1.3em"
+       alt="logo for bash" />
+  <a href="https://www.gnu.org/software/bash/">Bash</a></h4><p>
+Bash is the shell, or command-line interpreter, of the GNU system.
+It is compatible with the Bourne Shell, but it also integrates useful
+features from the Korn Shell and the C Shell and new improvements of
+its own.  It allows command-line editing, unlimited command history,
+shell functions and aliases, and job control while still allowing most
+sh scripts to be run without modification.
+<small>(<a href="manual.html#bash">doc</a>)</small></p>
+
+
+
+<h4 id="bayonne"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/bayonne.250x100.png" style="height:1.3em"
+       alt="logo for bayonne" />
+  <a href="https://www.gnu.org/software/bayonne/">Bayonne</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Bayonne is the telephony server of the GNU Telephony project.  It offers
+a scalable environment for the development and deployment of telephony
+solutions, with a focus on SIP.
+<small>(<a href="manual.html#bayonne">doc</a>)</small></p>
+
+
+
+<h4 id="bazaar">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/bazaar.250x100.png" style="height:1.3em"
+       alt="logo for bazaar" />
+  <a href="https://www.gnu.org/software/bazaar/">Bazaar</a></h4><p>
+GNU Bazaar is a version control system that allows you to record changes
+to project files over time. It supports both a distributed workflow as
+well as the classic centralized workflow.
+<small>(<a href="manual.html#bazaar">doc</a>)</small></p>
+
+
+
+<h4 id="bc">
+  <a href="https://www.gnu.org/software/bc/">Bc</a></h4><p>
+bc is an arbitrary precision numeric processing language.  It includes
+an interactive environment for evaluating mathematical statements.
+Its syntax is similar to that of C, so basic usage is familiar.  It also
+includes <code>dc</code>, a reverse-polish calculator.
+<small>(<a href="manual.html#bc">doc</a>)</small></p>
+
+
+
+<h4 id="behistun">
+  <a href="https://www.gnu.org/software/behistun/">Behistun</a></h4><p>
+GNU Behistun consists of software and utilities for geological and
+geophysical modeling and mapping of internal structures and dynamics.
+Like the Behistun Multilingual Inscription, the Behistun software
+utilities provide knowledge and functionality to work on planetary
+systems and investigate their interior in freedom.
+<small>(<a href="manual.html#behistun">doc</a>)</small></p>
+
+
+
+<h4 id="bfd">
+  <a href="https://www.gnu.org/software/bfd/">BFD</a></h4><p>
+See <a href="#binutils">binutils</a>.
+<small>(<a href="manual.html#bfd">doc</a>)</small></p>
+
+
+
+<h4 id="binutils">
+  <a href="https://www.gnu.org/software/binutils/">Binutils</a></h4><p>
+GNU Binutils is a collection of tools for working with binary
+files. Perhaps the most notable are <code>ld</code>, a linker, and
+<code>as</code>, an assembler. Other tools include programs to display
+binary profiling information, list the strings in a binary file, and
+utilities for working with archives.  The <code>bfd</code> library for
+working with executable and object formats is also included.
+<small>(<a href="manual.html#binutils">doc</a>)</small></p>
+
+
+
+<h4 id="bison">
+  <a href="../software/bison/index.html">Bison</a></h4><p>
+GNU Bison is a general-purpose parser generator.  It can build a
+deterministic or generalized LR parser from an annotated, context-free
+grammar.  It is versatile enough to have many applications, from parsers
+for simple tools through complex programming languages.
+<small>(<a href="manual.html#bison">doc</a>)</small></p>
+
+
+
+<h4 id="bool">
+  <a href="https://www.gnu.org/software/bool/">Bool</a></h4><p>
+GNU Bool is a utility to perform text searches on files using Boolean
+expressions.  For example, a search for &ldquo;hello AND world&rdquo;
+would return a file containing the phrase &ldquo;Hello, world!&rdquo;.
+It supports both AND and OR statements, as well as the NEAR statement
+to search for the occurrence of words in close proximity to each other.
+It handles context gracefully, accounting for new lines and paragraph
+changes.  It also has robust support for parsing HTML files.
+<small>(<a href="manual.html#bool">doc</a>)</small></p>
+
+
+
+<h4 id="bpel2owfn">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/bpel2owfn.250x100.png" style="height:1.3em"
+       alt="logo for bpel2owfn" />
+  <a href="https://www.gnu.org/software/bpel2owfn/">BPEL2oWFN</a></h4><p>
+GNU BPEL2oWFN translates a web service expressed in Web Service Business
+Process Execution Language (WS-BPEL) into an open Workflow Net (oWFN).
+It may additionally convert a BPEL4Chor choreography to a Petri Net model.
+Properties of Petri Nets may be analyzed efficiently, due to the use
+of static analysis to make the models compact.  Control and data flow
+analysis, as well as basic checks for deadlocks and other such properties
+are available.
+<small>(<a href="manual.html#bpel2owfn">doc</a>)</small></p>
+
+
+
+<h4 id="c-graph">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/c-graph.250x100.png" style="height:1.3em"
+       alt="logo for c-graph" />
+  <a href="https://www.gnu.org/software/c-graph/">C-graph</a></h4><p>
+GNU C-Graph is a tool for demonstrating the theory of convolution.  Thus,
+it can serve as an excellent aid to students of signal and systems theory
+in visualizing the convolution process.  Rather than forcing the student
+to write code, the program offers an intuitive interface with interactive
+dialogs to guide them.
+<small>(<a href="manual.html#c-graph">doc</a>)</small></p>
+
+
+
+<h4 id="c-intro-and-ref">
+  <a href="https://www.gnu.org/software/c-intro-and-ref/">GNU C Introduction and Reference</a></h4><p>
+This manual provides an introduction for learning the GNU C language
+and also serves as a reference for it.
+<small>(<a href="manual.html#c-intro-and-ref">doc</a>)</small></p>
+
+
+
+<h4 id="ccaudio">
+  <a href="https://www.gnu.org/software/ccaudio/">ccAudio</a></h4><p>
+GNU ccAudio2 is a portable C++ class for working with audio data from
+disk.  The classes are both endian and content aware; rather than treating
+audio as binary data, this library treats it as an sequence of samples.
+It can also handle metadata information.  ccAudio2 supports sun audio,
+raw samples, and RIFF encoded audio data.
+<small>(<a href="manual.html#ccaudio">doc</a>)</small></p>
+
+
+
+<h4 id="ccd2cue">
+  <a href="https://www.gnu.org/software/ccd2cue/">Ccd2cue</a></h4><p>
+GNU ccd2cue is a preprocessor for CD burning software that allows the
+conversion of the proprietary CCD format to the CUE format, which is
+well-supported by free software.  These files are commonly distributed
+with CD images and are used to describe how tracks are laid out on
+the image.
+<small>(<a href="manual.html#ccd2cue">doc</a>)</small></p>
+
+
+
+<h4 id="ccide"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/ccide/">Ccide</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Ccide is a decision table code generator for the C language.
+This helps to avoid unmanageable and error-prone chains of nested if-else
+statements.  Instead, decision tables are entered in an intuitive and
+easy-to-read format, which is then expanded into portable C code.
+<small>(<a href="manual.html#ccide">doc</a>)</small></p>
+
+
+
+<h4 id="ccrtp">
+  <a href="https://www.gnu.org/software/ccrtp/">ccRTP</a></h4><p>
+GNU ccRTP is an implementation of RTP, the real-time transport protocol
+from the IETF.  It is suitable both for high capacity servers and
+personal client applications.  It is flexible in its design, allowing
+it to function as a framework for the framework, rather than just being
+a packet-manipulation library.
+<small>(<a href="manual.html#ccrtp">doc</a>)</small></p>
+
+
+
+<h4 id="ccscript">
+  <a href="https://www.gnu.org/software/ccscript/">ccScript</a></h4><p>
+GNU ccScript3 is a library to add a virtual machine execution system
+for use with/as a scripting or assembler language for real-time,
+state-transition driven systems.
+<small>(<a href="manual.html#ccscript">doc</a>)</small></p>
+
+
+
+<h4 id="cflow">
+  <a href="https://www.gnu.org/software/cflow/">Cflow</a></h4><p>
+GNU cflow analyzes C source files and produces a graph charting the
+control flow of the program.  It can output the graph in several styles
+and in either the POSIX format or in an extended GNU format. cflow
+also includes a major mode for Emacs for examining the flowcharts that
+it produces.
+<small>(<a href="manual.html#cflow">doc</a>)</small></p>
+
+
+
+<h4 id="cgicc">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/cgicc.250x100.png" style="height:1.3em"
+       alt="logo for cgicc" />
+  <a href="https://www.gnu.org/software/cgicc/">Cgicc</a></h4><p>
+GNU cgicc is an ANSI-compliant C++ library for writing CGI applications,
+featuring support for FastCGI.  The library supports several features,
+including handling both GET and POST data, handling a variety of form
+data types, and on-the-fly HTML generation.
+<small>(<a href="manual.html#cgicc">doc</a>)</small></p>
+
+
+
+<h4 id="chess">
+  <a href="https://www.gnu.org/software/chess/">Chess</a></h4><p>
+GNU Chess is a chess engine.  It allows you to compete against the
+computer in a game of chess, either through the default terminal interface
+or via an external visual interface such as GNU XBoard.
+<small>(<a href="manual.html#chess">doc</a>)</small></p>
+
+
+
+<h4 id="cim">
+  <a href="https://www.gnu.org/software/cim/">Cim</a></h4><p>
+Cim is the GNU compiler for Simula, the first object-oriented programming
+language.
+<small>(<a href="manual.html#cim">doc</a>)</small></p>
+
+
+
+<h4 id="classpath"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/classpath.250x100.png" style="height:1.3em"
+       alt="logo for classpath" />
+  <a href="https://www.gnu.org/software/classpath/">Classpath</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Classpath provides essential libraries for Java virtual machines
+and compilers.  It is compatible with a large percentage of the language
+API specifications and provides a wide array of functionality.
+<small>(<a href="manual.html#classpath">doc</a>)</small></p>
+
+
+
+<h4 id="clisp"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/clisp.250x100.png" style="height:1.3em"
+       alt="logo for clisp" />
+  <a href="https://www.gnu.org/software/clisp/">CLISP</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU CLISP is an implementation of ANSI Common Lisp.  Common Lisp
+is a high-level, object-oriented functional programming language.
+CLISP includes an interpreter, a compiler, a debugger, and much more.
+<small>(<a href="manual.html#clisp">doc</a>)</small></p>
+
+
+
+<h4 id="combine"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/combine/">Combine</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU combine works to merge files based on a common key in a hash
+table. It can be seen as similar to, albeit much more powerful than,
+the standard <code>join</code> utility.  Unlike <code>join</code>, any
+number of files may be merged based on the matches found.  combine also
+has other advanced features, such as date parsing and directory traversal.
+<small>(<a href="manual.html#combine">doc</a>)</small></p>
+
+
+
+<h4 id="commoncpp">
+  <a href="https://www.gnu.org/software/commoncpp/">[u]Common C++</a></h4><p>
+GNU Common C++ is an portable, optimized class framework for threaded
+applications, supporting concurrent synchronization, inter-process
+communications via sockets, and various methods for data handling, such
+as serialization and XML parsing.  It includes the uCommon C++ library,
+a smaller reimplementation.
+<small>(<a href="manual.html#commoncpp">doc</a>)</small></p>
+
+
+
+<h4 id="complexity">
+  <a href="https://www.gnu.org/software/complexity/">Complexity</a></h4><p>
+GNU complexity provides tools for finding procedures that are convoluted,
+overly long or otherwise difficult to understand.  This may help in
+learning or reviewing unfamiliar code or perhaps highlighting your own
+code that seemed comprehensible when you wrote it.
+<small>(<a href="manual.html#complexity">doc</a>)</small></p>
+
+
+
+<h4 id="config">
+  <a href="https://www.gnu.org/software/config/">Config</a></h4><p>
+The <code>config.guess</code> script tries to guess a canonical system
+triple, and <code>config.sub</code> validates and canonicalizes.
+These are used as part of configuration in nearly all GNU packages
+(and many others).
+<small>(<a href="manual.html#config">doc</a>)</small></p>
+
+
+
+<h4 id="coreutils">
+  <a href="https://www.gnu.org/software/coreutils/">Coreutils</a></h4><p>
+GNU Coreutils includes all of the basic command-line tools that are
+expected in a POSIX system.  These provide the basic file, shell and
+text manipulation functions of the GNU system.  Most of these tools
+offer extended functionality beyond that which is outlined in the POSIX
+standard.
+<small>(<a href="manual.html#coreutils">doc</a>)</small></p>
+
+
+
+<h4 id="cpio">
+  <a href="https://www.gnu.org/software/cpio/">Cpio</a></h4><p>
+GNU cpio copies files into or out of cpio or tar archives. Indeed,
+many formats are supported, including legacy formats.  The format is
+determined automatically by the program and is handled appropriately.
+Furthermore, the location of the archive is not important.  It can be
+another file on the drive, a tape, or data on a pipe.
+<small>(<a href="manual.html#cpio">doc</a>)</small></p>
+
+
+
+<h4 id="cppi"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/cppi/">Cppi</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Cppi processes C source code files to properly indent the
+preprocessor directives to reflect their nesting.  It also performs
+other standardizations, such as correcting the number of spaces between
+directives and the text following them.
+<small>(<a href="manual.html#cppi">doc</a>)</small></p>
+
+
+
+<h4 id="cssc">
+  <a href="https://www.gnu.org/software/cssc/">CSSC</a></h4><p>
+GNU CSSC provides a replacement for the legacy Unix source code control
+system SCCS.  This allows old code still under that system to be accessed
+and migrated on modern systems.
+<small>(<a href="manual.html#cssc">doc</a>)</small></p>
+
+
+
+<h4 id="cursynth">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/cursynth.250x100.png" style="height:1.3em"
+       alt="logo for cursynth" />
+  <a href="https://www.gnu.org/software/cursynth/">Cursynth</a></h4><p>
+GNU cursynth is a polyphonic synthesizer that runs graphically in the
+terminal.  It is built on a full-featured subtractive synthesis engine.
+Notes and parameter changes may be entered via MIDI or the computer's
+keyboard.
+<small>(<a href="manual.html#cursynth">doc</a>)</small></p>
+
+
+
+<h4 id="dap">
+  <a href="https://www.gnu.org/software/dap/">Dap</a></h4><p>
+GNU Dap is a statistics and graphics package.  It can read programs
+written for the proprietary statistics system SAS.  Its syntax is similar
+to, but simpler than C, making performing most tasks relatively easy
+while still providing advanced graphical capabilities.
+<small>(<a href="manual.html#dap">doc</a>)</small></p>
+
+
+
+<h4 id="datamash">
+  <a href="https://www.gnu.org/software/datamash/">Datamash</a></h4><p>
+GNU Datamash is a command-line program which performs basic numeric,
+textual, and statistical operations on input textual data files.
+GNU Datamash is designed to work within standard pipelines without
+needing to write additional code.
+<small>(<a href="manual.html#datamash">doc</a>)</small></p>
+
+
+
+<h4 id="dc">
+  <a href="https://www.gnu.org/software/dc/">Dc</a></h4><p>
+See <a href="#bc">bc</a>.
+<small>(<a href="manual.html#dc">doc</a>)</small></p>
+
+
+
+<h4 id="ddd">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/ddd.250x100.png" style="height:1.3em"
+       alt="logo for ddd" />
+  <a href="https://www.gnu.org/software/ddd/">DDD</a></h4><p>
+GNU DDD, the Data Display Debugger, is a graphical front-end for
+command-line debuggers.  Many back-end debuggers are supported, notably
+the GNU debugger, GDB.  In addition to usual debugging features such
+as viewing the source files, DDD has additional graphical, interactive
+features to aid in debugging.
+<small>(<a href="manual.html#ddd">doc</a>)</small></p>
+
+
+
+<h4 id="ddrescue">
+  <a href="https://www.gnu.org/software/ddrescue/">ddrescue</a></h4><p>
+GNU ddrescue is a fully automated data recovery tool.  It copies data
+from one file to another, working to rescue data in case of read errors.
+The program also includes a tool for manipulating its log files, which
+are used to recover data more efficiently by only reading the necessary
+blocks.
+<small>(<a href="manual.html#ddrescue">doc</a>)</small></p>
+
+
+
+<h4 id="dejagnu">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/dejagnu.250x100.png" style="height:1.3em"
+       alt="logo for dejagnu" />
+  <a href="https://www.gnu.org/software/dejagnu/">DejaGnu</a></h4><p>
+DejaGnu is a framework for testing software.  In effect, it serves as a
+front-end for all tests written for a program.  Thus, each program can
+have multiple test suites, which are then all managed by a single harness.
+<small>(<a href="manual.html#dejagnu">doc</a>)</small></p>
+
+
+
+<h4 id="denemo">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/denemo.250x100.png" style="height:1.3em"
+       alt="logo for denemo" />
+  <a href="https://www.gnu.org/software/denemo/">Denemo</a></h4><p>
+GNU Denemo is a music notation editor that provides a convenient interface
+to the powerful music engraving program Lilypond.  Music can be typed in
+using the computer keyboard, played in using a MIDI keyboard, or even
+input via a microphone connected to the sound card. The final product
+is publication-quality music notation that is continuously generated in
+the background while you work.
+<small>(<a href="manual.html#denemo">doc</a>)</small></p>
+
+
+
+<h4 id="dia"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/dia.250x100.png" style="height:1.3em"
+       alt="logo for dia" />
+  <a href="https://www.gnu.org/software/dia/">Dia</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Dia is a GNU program for drawing diagrams.  It is a versatile diagramming
+tool with a modular design that allows development of custom shape
+packages for drawing various kinds of diagrams by writing XML files,
+and has support for UML diagrams, flowcharts, network diagrams, circuit
+diagrams, and many more.  Dia can export diagrams to a number of formats,
+including EPS, SVG, PNG, and more.
+<small>(<a href="manual.html#dia">doc</a>)</small></p>
+
+
+
+<h4 id="dico">
+  <a href="https://www.gnu.org/software/dico/">Dico</a></h4><p>
+GNU Dico implements a flexible dictionary server and client according
+to RFC 2229 (DICT Server).  It is able to access any database available,
+regardless of format, thanks to its modular structure. New modules may be
+written in C, Guile or Python.  Dico also includes a command-line client,
+which may be used to query remote dictionary databases.
+<small>(<a href="manual.html#dico">doc</a>)</small></p>
+
+
+
+<h4 id="diction">
+  <a href="https://www.gnu.org/software/diction/">Diction</a></h4><p>
+A package providing two classic Unix commands, <code>style</code> and
+<code>diction</code>. Diction is used to identify wordy and commonly
+misused phrases in a body of text.  Style instead analyzes surface aspects
+of a written work, such as sentence length and other readability measures.
+<small>(<a href="manual.html#diction">doc</a>)</small></p>
+
+
+
+<h4 id="diffutils">
+  <a href="https://www.gnu.org/software/diffutils/">Diffutils</a></h4><p>
+GNU Diffutils is a package containing tools for finding the differences
+between files.  The <code>diff</code> command is used to show how two
+files differ, while <code>cmp</code> shows the offsets and line numbers
+where they differ.  <code>diff3</code> allows you to compare three files.
+Finally, <code>sdiff</code> offers an interactive means to merge two
+files.
+<small>(<a href="manual.html#diffutils">doc</a>)</small></p>
+
+
+
+<h4 id="direvent">
+  <a href="https://www.gnu.org/software/direvent/">Direvent</a></h4><p>
+A daemon that monitors directories for events, such as creating, deleting
+or modifying files.  It can monitor different sets of directories for
+different events.  When an event is detected, direvent calls a specified
+external program with information about the event, such as the location
+within the file system where it occurred.  Thus, direvent provides an
+easy way to react immediately if given files undergo changes, for example,
+to track changes in important system configuration files.
+<small>(<a href="manual.html#direvent">doc</a>)</small></p>
+
+
+
+<h4 id="dominion"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/dominion/">Dominion</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Dominion is a multi-player world simulation game.  In it, each player
+rules a nation and must maintain their nation in the face of competition
+from the other players.  Players must make political, economical,
+military and diplomatic decisions in order for their nations to survive.
+This game is intended to be played by players all with access to the
+same computer system.
+<small>(<a href="manual.html#dominion">doc</a>)</small></p>
+
+
+
+<h4 id="dr-geo">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/dr-geo.250x100.png" style="height:1.3em"
+       alt="logo for dr-geo" />
+  <a href="https://www.gnu.org/software/dr-geo/">Dr. Geo</a></h4><p>
+GNU Dr. Geo is a program for designing and manipulating interactive
+geometric sketches.
+<small>(<a href="manual.html#dr-geo">doc</a>)</small></p>
+
+
+
+<h4 id="easejs">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/easejs.250x100.png" style="height:1.3em"
+       alt="logo for easejs" />
+  <a href="https://www.gnu.org/software/easejs/">Easejs</a></h4><p>
+ease.js is a classical object-oriented framework for JavaScript, intended
+to eliminate boilerplate code and ease the transition to JavaScript from
+other object-oriented languages.
+<small>(<a href="manual.html#easejs">doc</a>)</small></p>
+
+
+
+<h4 id="ed">
+  <a href="https://www.gnu.org/software/ed/">Ed</a></h4><p>
+Ed is a line-oriented text editor: rather than offering an overview of
+a document, ed performs editing one line at a time.  It can be executed
+both interactively and via shell scripts.  Its method of command input
+allows complex tasks to be performed in an automated way. GNU ed offers
+several extensions over the standard utility.
+<small>(<a href="manual.html#ed">doc</a>)</small></p>
+
+
+
+<h4 id="edma"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/edma/">EDMA</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU EDMA is a development environment that combines ideas from both
+object-oriented programming and component-based systems.  It is used to
+build modular, evolving applications as well as reusable components.
+EDMA provides a convenient means to build object-oriented programs
+in C without requiring C++. Also, it has a unique component system,
+unlike other free software component-based systems which imitate the
+design of proprietary counterparts.  It includes a graphical wizard,
+<code>gidfwizard</code>, a tool for building GNU EDMA Interface definition
+files and to create skeleton files necessary to build EDMA classes,
+and a graphical class browser, <code>gecb</code>.
+<small>(<a href="manual.html#edma">doc</a>)</small></p>
+
+
+
+<h4 id="electric">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/electric.250x100.png" style="height:1.3em"
+       alt="logo for electric" />
+  <a href="https://www.gnu.org/software/electric/">Electric</a></h4><p>
+GNU Electric is a CAD program for designing electrical circuits,
+handling custom IC layout, schematic drawing and hardware description
+language specifications.  Several CAD operations are supported, such as
+rule checking and simulation.  Many different types of designs can be
+produced and input or output in a wide variety of formats.
+<small>(<a href="manual.html#electric">doc</a>)</small></p>
+
+
+
+<h4 id="emacs">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/emacs.250x100.png" style="height:1.3em"
+       alt="logo for emacs" />
+  <a href="https://www.gnu.org/software/emacs/">Emacs</a></h4><p>
+GNU Emacs is an extensible and highly customizable text editor.  It is
+based on an Emacs Lisp interpreter with extensions for text editing.
+Emacs has been extended in essentially all areas of computing, giving
+rise to a vast array of packages supporting, e.g., email, IRC and
+XMPP messaging, spreadsheets, remote server editing, and much more.
+Emacs includes extensive documentation on all aspects of the system,
+from basic editing to writing large Lisp programs.  It has full Unicode
+support for nearly all human languages.
+<small>(<a href="manual.html#emacs">doc</a>)</small></p>
+
+
+
+<h4 id="emacs-muse"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/emacs-muse/">Emacs-muse</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Muse is an authoring and publishing environment for GNU Emacs.  It
+supports entering text in a convenient and easy-to-learn format. Later,
+your documents may be published in a variety of different formats, such
+as HTML, LaTeX or PDF.  Muse supports projects consisting of several
+documents, which are properly merged according to the output format.
+<small>(<a href="manual.html#emacs-muse">doc</a>)</small></p>
+
+
+
+<h4 id="emms">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/emms.250x100.png" style="height:1.3em"
+       alt="logo for emms" />
+  <a href="https://www.gnu.org/software/emms/">EMMS</a></h4><p>
+EMMS is the Emacs Multimedia System.  It is a small front-end which can
+control one of the supported external players.  Thus, it supports whatever
+formats are supported by your music player.  It also supports tagging
+and playlist management, all behind a clean and light user interface.
+<small>(<a href="manual.html#emms">doc</a>)</small></p>
+
+
+
+<h4 id="enscript">
+  <a href="https://www.gnu.org/software/enscript/">Enscript</a></h4><p>
+GNU Enscript is a program to convert ASCII text files to PostScript, HTML
+or RTF formats, to be stored in files or sent immediately to a printer.
+It also includes the capability to perform syntax highlighting for
+several different programming languages.
+<small>(<a href="manual.html#enscript">doc</a>)</small></p>
+
+
+
+<h4 id="fdisk"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/fdisk/">Fdisk</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU fdisk provides a GNU version of the common disk partitioning tool
+fdisk.  fdisk is used for the creation and manipulation of disk partition
+tables, and it understands a variety of different formats.
+<small>(<a href="manual.html#fdisk">doc</a>)</small></p>
+
+
+
+<h4 id="ferret">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/ferret.250x100.png" style="height:1.3em"
+       alt="logo for ferret" />
+  <a href="https://www.gnu.org/software/ferret/">Ferret</a></h4><p>
+GNU Ferret is a graphical data modeler for the Entity/Relationship
+paradigm.  It can automatically create relational schemas from the
+data models and it can be used to generate SQL statements in a variety
+of dialects.
+<small>(<a href="manual.html#ferret">doc</a>)</small></p>
+
+
+
+<h4 id="findutils">
+  <a href="https://www.gnu.org/software/findutils/">Findutils</a></h4><p>
+Findutils supplies the basic file directory searching utilities of the GNU
+system.  It consists of two primary searching utilities: <code>find</code>
+recursively searches for files in a directory according to given criteria
+and <code>locate</code> lists files in a database that match a query.
+Two auxiliary tools are included: <code>updatedb</code> updates the file
+name database and <code>xargs</code> may be used to apply commands with
+arbitrarily long arguments.
+<small>(<a href="manual.html#findutils">doc</a>)</small></p>
+
+
+
+<h4 id="fisicalab">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/fisicalab.250x100.png" style="height:1.3em"
+       alt="logo for fisicalab" />
+  <a href="https://www.gnu.org/software/fisicalab/">FisicaLab</a></h4><p>
+GNU FisicaLab is an educational application for solving physics problems.
+Its main objective is allow the user to focus on physics concepts,
+leaving aside the mathematical details.
+<small>(<a href="manual.html#fisicalab">doc</a>)</small></p>
+
+
+
+<h4 id="foliot">
+  <a href="https://www.gnu.org/software/foliot/">Foliot</a></h4><p>
+GNU Foliot is an application for keeping track of time spent working
+on projects.
+<small>(<a href="manual.html#foliot">doc</a>)</small></p>
+
+
+
+<h4 id="fontopia">
+  <a href="https://www.gnu.org/software/fontopia/">Fontopia</a></h4><p>
+Fontopia is an easy-to-use, text-based, console font editor. It's
+used to edit the fonts that GNU/Linux uses to display text on text-based
+terminals. Fontopia works on both PSF 1 &amp; 2, BDF, Code Paged (CP)
+fonts, and Raw font files. It provides a user-friendly, easy-to-use
+glyph editor and it can easily change font metrics (e.g. length, width,
+and height) and convert between different font formats.
+<small>(<a href="manual.html#fontopia">doc</a>)</small></p>
+
+
+
+<h4 id="fontutils"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/fontutils/">Fontutils</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Fontutils is a collection of programs for handling fonts. Bitmaps can
+be extracted from scanned images of characters, edited, and converted into
+outline fonts.  In general, Fontutils supports the font formats supported
+by the TeX typesetting environment, including PostScript Type 1 fonts.
+<small>(<a href="manual.html#fontutils">doc</a>)</small></p>
+
+
+
+<h4 id="freedink">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/freedink.250x100.png" style="height:1.3em"
+       alt="logo for freedink" />
+  <a href="https://www.gnu.org/software/freedink/">FreeDink</a></h4><p>
+GNU FreeDink is a free and portable re-implementation of the engine
+for the role-playing game Dink Smallwood.  It supports not only the
+original game data files but it also supports user-produced game mods
+or &ldquo;D-Mods&rdquo;.  To that extent, it also includes a front-end
+for managing all of your D-Mods.
+<small>(<a href="manual.html#freedink">doc</a>)</small></p>
+
+
+
+<h4 id="freefont"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/freefont/">Free UCS Outline Fonts</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU FreeFont is a collection of scalable outline fonts that are suitable
+for general computer use and for desktop publishing. A serif, a sans
+serif and a monospace font are included, all available in both TrueType
+and OpenType formats.  The fonts support a broad range of characters
+for many different writing systems, and have excellent coverage of
+mathematical notation.
+<small>(<a href="manual.html#freefont">doc</a>)</small></p>
+
+
+
+<h4 id="freeipmi">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/freeipmi.250x100.png" style="height:1.3em"
+       alt="logo for freeipmi" />
+  <a href="https://www.gnu.org/software/freeipmi/">FreeIPMI</a></h4><p>
+GNU FreeIPMI is a collection of in-band and out-of-band IPMI software in
+accordance with the IPMI v1.5/2.0 specification.  These programs provide
+a set of interfaces for platform management.  Common functionality
+includes sensor monitoring, system event monitoring, power control and
+serial-over-LAN.
+<small>(<a href="manual.html#freeipmi">doc</a>)</small></p>
+
+
+
+<h4 id="freetalk">
+  <a href="https://www.gnu.org/software/freetalk/">Freetalk</a></h4><p>
+GNU Freetalk is a command-line Jabber/XMPP chat client.  It notably
+uses the Readline library to handle input, so it features convenient
+navigation of text as well as tab-completion of buddy names, commands
+and English words.  It is also scriptable and extensible via Guile.
+<small>(<a href="manual.html#freetalk">doc</a>)</small></p>
+
+
+
+<h4 id="fribidi"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/fribidi/">FriBiDi</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU FriBidi is an implementation of the Unicode Bidirectional Algorithm.
+This algorithm is used to properly display text in left-to-right or
+right-to-left ordering as necessary.
+<small>(<a href="manual.html#fribidi">doc</a>)</small></p>
+
+
+
+<h4 id="g-golf">
+  <a href="https://www.gnu.org/software/g-golf/">G-Golf</a></h4><p>
+G-Golf (Gnome: (Guile Object Library for)) is a library for developing
+modern applications in Guile Scheme.  It comprises a direct binding
+to the GObject Introspection API and higher-level functionality for
+importing Gnome libraries and making GObject classes (and methods)
+available in Guile's object-oriented programming system, GOOPS.
+<small>(<a href="manual.html#g-golf">doc</a>)</small></p>
+
+
+
+<h4 id="gama">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gama.250x100.png" style="height:1.3em"
+       alt="logo for gama" />
+  <a href="https://www.gnu.org/software/gama/">Gama</a></h4><p>
+GNU Gama is a program for the adjustment of geodetic networks.  It is
+useful in measurements where Global Positioning System (GPS) is not
+available, such as underground.  It features the ability to adjust in
+local Cartesian coordinates as well as partial support for adjustments
+in global coordinate systems.
+<small>(<a href="manual.html#gama">doc</a>)</small></p>
+
+
+
+<h4 id="garpd"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/garpd/">Gratuitous ARP Daemon</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU garpd broadcasts Gratuitous ARP (Address Resolution Protocol)
+requests/replies for a list of MAC to IP address mappings on specified
+interfaces at regular intervals.  Gratuitous ARP request packets are
+those where the source and the destination IPs are both the IP of the
+requesting machine.  Gratuitous ARP replies are those made without a
+corresponding request.
+<small>(<a href="manual.html#garpd">doc</a>)</small></p>
+
+
+
+<h4 id="gawk">
+  <a href="https://www.gnu.org/software/gawk/">Gawk</a></h4><p>
+Gawk is the GNU implementation of Awk, a specialized programming language
+for the easy manipulation of formatted text, such as tables of data.
+Gawk features many extensions beyond the traditional implementation,
+including network access, sorting, and large libraries.
+<small>(<a href="manual.html#gawk">doc</a>)</small></p>
+
+
+
+<h4 id="gcal">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gcal.250x100.png" style="height:1.3em"
+       alt="logo for gcal" />
+  <a href="https://www.gnu.org/software/gcal/">Gcal</a></h4><p>
+Gcal is a program to calculate and print calendars on the command-line.
+Calendars can be printed in 1-month, 3-month or whole-year views.
+In addition, eternal holiday lists can be generated for many countries,
+which can be complemented by user-made lists of fixed dates to make
+an agenda.  Gcal can also calculate astronomical data, such as the
+phases of the moon, and supports alternative calendar formats: Julian,
+Gregorian, Islamic, Chinese and more.
+<small>(<a href="manual.html#gcal">doc</a>)</small></p>
+
+
+
+<h4 id="gcc">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gcc.250x100.png" style="height:1.3em"
+       alt="logo for gcc" />
+  <a href="https://www.gnu.org/software/gcc/">GCC</a></h4><p>
+GCC is the GNU Compiler Collection.  It provides compiler front-ends for
+several languages, including C, C++, Objective-C, Fortran, Java, Ada,
+and Go.  It also includes runtime support libraries for these languages.
+<small>(<a href="manual.html#gcc">doc</a>)</small></p>
+
+
+
+<h4 id="gcide"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gcide/">Gcide</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GCIDE is a free dictionary based on a combination of sources.
+It can be used via the GNU Dico program or accessed online at
+http://gcide.gnu.org.ua/
+<small>(<a href="manual.html#gcide">doc</a>)</small></p>
+
+
+
+<h4 id="gcl">
+  <a href="https://www.gnu.org/software/gcl/">GNU Common Lisp</a></h4><p>
+GCL is an implementation of the Common Lisp language.  It features the
+ability to compile to native object code and to load native object code
+modules directly into its lisp core.  It also features a stratified
+garbage collection strategy, a source-level debugger and a built-in
+interface to the Tk widget system.
+<small>(<a href="manual.html#gcl">doc</a>)</small></p>
+
+
+
+<h4 id="gcompris">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gcompris.250x100.png" style="height:1.3em"
+       alt="logo for gcompris" />
+  <a href="https://www.gnu.org/software/gcompris/">GCompris</a></h4><p>
+GCompris is a suite of educational software for children.  It features a
+variety of activities suitable for kids aged 2 to 10 years old.  The suite
+includes activities to introduce and develop skills in computer use,
+algebra, science, reading and more.  It also features some games such
+as chess and sudoku.
+<small>(<a href="manual.html#gcompris">doc</a>)</small></p>
+
+
+
+<h4 id="gdb">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gdb.250x100.png" style="height:1.3em"
+       alt="logo for gdb" />
+  <a href="https://www.gnu.org/software/gdb/">GDB</a></h4><p>
+GDB is the GNU debugger.  With it, you can monitor what a program is doing
+while it runs or what it was doing just before a crash.  It allows you
+to specify the runtime conditions, to define breakpoints, and to change
+how the program is running to try to fix bugs.  It can be used to debug
+programs written in C, C++, Ada, Objective-C, Pascal, and more.
+<small>(<a href="manual.html#gdb">doc</a>)</small></p>
+
+
+
+<h4 id="gdbm">
+  <a href="https://www.gnu.org/software/gdbm/">Gdbm</a></h4><p>
+GDBM is a library for manipulating hashed databases.  It is used to
+store key/value pairs in a file in a manner similar to the Unix dbm
+library and provides interfaces to the traditional file format.
+<small>(<a href="manual.html#gdbm">doc</a>)</small></p>
+
+
+
+<h4 id="gengen"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gengen/">Gengen</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Gengen is a program to generate text-generators, i.e., functions
+producing text with variable sections.  The text is first specified by
+the user in a template file containing parameters, then processed by
+gengen to create the text-generator.  At runtime, the variable text is
+defined by the rest of the program and passed to the text-generator, which
+then substitutes it into the template parameters and returns the result.
+Gengen can be used to generate C and C++ code.
+<small>(<a href="manual.html#gengen">doc</a>)</small></p>
+
+
+
+<h4 id="gengetopt"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gengetopt/">Gengetopt</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Gengetopt is a program to generate a C/C++ function for parsing
+command-line options using the getopt_long function found in GNU libc,
+removing some of the tedium of this task for large programs that accept
+many options.  The options parsed by the generated function may be in both
+short (e.g., <code>-h</code>) and long (<code>--help</code>) formats,
+as specified by the GNU coding standards.  Additionally, the output
+of the standard options <code>--help</code> and <code>--version</code>
+is generated automatically.
+<small>(<a href="manual.html#gengetopt">doc</a>)</small></p>
+
+
+
+<h4 id="gettext">
+  <a href="https://www.gnu.org/software/gettext/">Gettext</a></h4><p>
+GNU Gettext is a package providing a framework for translating the textual
+output of programs into multiple languages.  It provides translators
+with the means to create message catalogs, as well as an Emacs mode to
+work with them, and a runtime library to load translated messages from
+the catalogs.  Nearly all GNU packages use Gettext.
+<small>(<a href="manual.html#gettext">doc</a>)</small></p>
+
+
+
+<h4 id="gforth">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gforth.250x100.png" style="height:1.3em"
+       alt="logo for gforth" />
+  <a href="https://www.gnu.org/software/gforth/">Gforth</a></h4><p>
+Gforth is a fast and portable implementation of the ANSI Forth language.
+It includes an editing mode for Emacs and an interpreter featuring
+completion and history.  A generic virtual machine environment,
+<code>vmgen</code>, is also included.
+<small>(<a href="manual.html#gforth">doc</a>)</small></p>
+
+
+
+<h4 id="ggradebook">
+  <a href="https://www.gnu.org/software/ggradebook/">Ggradebook</a></h4><p>
+GNU Gradebook is an application for teachers for tracking student
+grades. It supports several grading styles, including American (A, B,
+C, D, F) and European numeric scales.
+<small>(<a href="manual.html#ggradebook">doc</a>)</small></p>
+
+
+
+<h4 id="ghostscript">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/ghostscript.250x100.png" style="height:1.3em"
+       alt="logo for ghostscript" />
+  <a href="https://www.gnu.org/software/ghostscript/">GNU Ghostscript</a></h4><p>
+Ghostscript is an interpreter for the PostScript language and the PDF
+file format.  It also includes a C library that implements the graphics
+capabilities of the PostScript language.  It supports a wide variety of
+output file formats and printers.
+<small>(<a href="manual.html#ghostscript">doc</a>)</small></p>
+
+
+
+<h4 id="gift">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gift.250x100.png" style="height:1.3em"
+       alt="logo for gift" />
+  <a href="https://www.gnu.org/software/gift/">GIFT</a></h4><p>
+The GNU Image-Finding Tool (GIFT) is a Content Based Image Retrieval
+System.  It uses the content of images to perform queries on a collection,
+enabling you to query by example.  Also, a tool to index whole directory
+trees is included.
+<small>(<a href="manual.html#gift">doc</a>)</small></p>
+
+
+
+<h4 id="gimp">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gimp.250x100.png" style="height:1.3em"
+       alt="logo for gimp" />
+  <a href="https://www.gnu.org/software/gimp/">GIMP</a></h4><p>
+GIMP is an application for image manipulation tasks such as photo
+retouching, composition and authoring.  It supports all common image
+formats as well as specialized ones.  It features a highly customizable
+interface that is extensible via a plugin system.
+<small>(<a href="manual.html#gimp">doc</a>)</small></p>
+
+
+
+<h4 id="glean">
+  <a href="https://www.gnu.org/software/glean/">Glean</a></h4><p>
+GNU glean is a modular system for self-study, considerably more intricate
+than standard flash cards method.  It is very customizable, allowing
+the user to define subjects of interest and activities to study them.
+For now, it has a text-based interface inside the Guile REPL and an
+experimental web interface.
+<small>(<a href="manual.html#glean">doc</a>)</small></p>
+
+
+
+<h4 id="global">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/global.250x100.png" style="height:1.3em"
+       alt="logo for global" />
+  <a href="https://www.gnu.org/software/global/">Global</a></h4><p>
+GNU GLOBAL is a source code tagging system that functions in the same
+way across a wide array of environments, such as different text editors,
+shells and web browsers.  The resulting tags are useful for quickly
+moving around in a large, deeply nested project.
+<small>(<a href="manual.html#global">doc</a>)</small></p>
+
+
+
+<h4 id="glpk">
+  <a href="https://www.gnu.org/software/glpk/">GLPK</a></h4><p>
+GLPK is a C library for solving large-scale linear programming (LP),
+mixed integer programming (MIP), and other related problems.  It supports
+the GNU MathProg modeling language, a subset of the AMPL language, and
+features a translator for the language.  In addition to the C library,
+a stand-alone LP/MIP solver is included in the package.
+<small>(<a href="manual.html#glpk">doc</a>)</small></p>
+
+
+
+<h4 id="gmediaserver"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gmediaserver/">Gmediaserver</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GMediaServer is a UPnP-compatible media server.  It serves audio and video
+files to network-connected media players via a command-line program that
+runs in the background.
+<small>(<a href="manual.html#gmediaserver">doc</a>)</small></p>
+
+
+
+<h4 id="gmp">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gmp.250x100.png" style="height:1.3em"
+       alt="logo for gmp" />
+  <a href="https://www.gnu.org/software/gmp/">GMP</a></h4><p>
+GMP is a library for arbitrary precision arithmetic, operating on signed
+integers, rational numbers and floating point numbers.  The precision is
+only limited by the available memory.  The library is highly optimized,
+with a design focus on execution speed.  It is aimed at use in, for
+example, cryptography and computational algebra.
+<small>(<a href="manual.html#gmp">doc</a>)</small></p>
+
+
+
+<h4 id="gnash"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnash.250x100.png" style="height:1.3em"
+       alt="logo for gnash" />
+  <a href="https://www.gnu.org/software/gnash/">Gnash</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Gnash is a free Flash movie player.  It supports SWF version v7 and
+some of v8 and v9.  It is possible to configure Gnash to use several
+different audio or video backends, ensuring good performance.
+<small>(<a href="manual.html#gnash">doc</a>)</small></p>
+
+
+
+<h4 id="gnat"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnat/">GNAT</a></h4>
+<p><!-- TRANSLATORS: stale -->
+See <a href="#gcc">gcc</a>.
+<small>(<a href="manual.html#gnat">doc</a>)</small></p>
+
+
+
+<h4 id="gnats">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnats.250x100.png" style="height:1.3em"
+       alt="logo for gnats" />
+  <a href="https://www.gnu.org/software/gnats/">GNATS</a></h4><p>
+GNATS is a set of tools for tracking bugs and other user-reported software
+issues.  It is completely open-ended in how its database may be queried,
+edited and maintained, featuring interfaces ranging from the command-line
+to Emacs, though the main means of interaction is via its web interface.
+It is also flexible enough to support user-made utilities.
+<small>(<a href="manual.html#gnats">doc</a>)</small></p>
+
+
+
+<h4 id="gnatsweb">
+  <a href="https://www.gnu.org/software/gnatsweb/">Gnatsweb</a></h4><p>
+See <a href="#gnats">gnats</a>.
+<small>(<a href="manual.html#gnatsweb">doc</a>)</small></p>
+
+
+
+<h4 id="gnu-c-manual"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnu-c-manual.250x100.png" style="height:1.3em"
+       alt="logo for gnu-c-manual" />
+  <a href="https://www.gnu.org/software/gnu-c-manual/">GNU C reference manual</a></h4>
+<p><!-- TRANSLATORS: stale -->
+This is a reference manual for the C programming language, as implemented
+by the GNU C Compiler (gcc).  As a reference, it is not intended to be
+a tutorial of the language.  Rather, it outlines all of the constructs
+of the language.  Library functions are not included.
+<small>(<a href="manual.html#gnu-c-manual">doc</a>)</small></p>
+
+
+
+<h4 id="gnu-pw-mgr">
+  <a href="https://www.gnu.org/software/gnu-pw-mgr/">GNU-pw-mgr</a></h4><p>
+This program is designed to make it easy to reconstruct difficult
+passwords when they are needed while limiting the risk of attack.
+The user of this program inputs a self-defined transformation of a web
+site URL and obtains the password and user name hint for that web site.
+<small>(<a href="manual.html#gnu-pw-mgr">doc</a>)</small></p>
+
+
+
+<h4 id="gnuastro">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnuastro.250x100.png" style="height:1.3em"
+       alt="logo for gnuastro" />
+  <a href="https://www.gnu.org/software/gnuastro/">Gnuastro</a></h4><p>
+The GNU Astronomy Utilities (Gnuastro) is an official GNU package
+consisting of various programs and library functions for the manipulation
+and analysis of astronomical data.
+<small>(<a href="manual.html#gnuastro">doc</a>)</small></p>
+
+
+
+<h4 id="gnubatch">
+  <a href="https://www.gnu.org/software/gnubatch/">GNUbatch</a></h4><p>
+GNUbatch is an advanced batch scheduling system.  It executes
+computational jobs at specified dates and times or according to
+interdependencies.  The jobs may be completed on any number of processors
+shared across a network.  Full access-control of the jobs is supported.
+<small>(<a href="manual.html#gnubatch">doc</a>)</small></p>
+
+
+
+<h4 id="gnubg"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnubg/">Backgammon</a></h4>
+<p><!-- TRANSLATORS: stale -->
+The GNU backgammon application can be used for playing, analyzing
+and teaching the game.  It has an advanced evaluation engine based on
+artificial neural networks suitable for both beginners and advanced
+players.  In addition to a command-line interface, it also features an
+attractive, 3D representation of the playing board.
+<small>(<a href="manual.html#gnubg">doc</a>)</small></p>
+
+
+
+<h4 id="gnubiff">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnubiff.250x100.png" style="height:1.3em"
+       alt="logo for gnubiff" />
+  <a href="https://www.gnu.org/software/gnubiff/">GNUbiff</a></h4><p>
+GNUbiff is a program that checks for mail and notifies you when new
+messages arrive.  It supports multiple mailboxes which may be accessed
+via a variety of methods such as POP3, IMAP, MH and mailfiles.  Graphical
+notifications are provided with GTK and complete integration with GNOME
+is supported.
+<small>(<a href="manual.html#gnubiff">doc</a>)</small></p>
+
+
+
+<h4 id="gnubik">
+  <a href="../software/gnubik/index.html">GNUbik</a></h4><p>
+GNUbik is a puzzle game in which you must manipulate a cube to make each
+of its faces have a uniform color.  The game is customizable, allowing you
+to set the size of the cube (the default is 3x3) or to change the colors.
+You may even apply photos to the faces instead of colors.  The game is
+scriptable with Guile.
+<small>(<a href="manual.html#gnubik">doc</a>)</small></p>
+
+
+
+<h4 id="gnuboot">
+  <a href="https://www.gnu.org/software/gnuboot/">GNU Boot</a></h4><p>
+GNU Boot is a free boot firmware distribution for initializing your
+hardware and booting your operating system.
+<small>(<a href="manual.html#gnuboot">doc</a>)</small></p>
+
+
+
+<h4 id="gnucap"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnucap/">GNUcap</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNUcap is a circuit analysis package.  It offers a general purpose circuit
+simulator and can perform DC and transient analyses, fourier analysis
+and AC analysis.  The engine is designed to do true mixed-mode simulation.
+<small>(<a href="manual.html#gnucap">doc</a>)</small></p>
+
+
+
+<h4 id="gnucash">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnucash.250x100.png" style="height:1.3em"
+       alt="logo for gnucash" />
+  <a href="https://www.gnu.org/software/gnucash/">GnuCash</a></h4><p>
+GnuCash is personal and professional financial-accounting software.
+It can be used to track bank accounts, stocks, income and expenses,
+based on the double-entry accounting practice.  It includes support for
+QIF/OFX/HBCI import and transaction matching.  It also automates several
+tasks, such as financial calculations or scheduled transactions.
+<small>(<a href="manual.html#gnucash">doc</a>)</small></p>
+
+
+
+<h4 id="gnucobol">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnucobol.250x100.png" style="height:1.3em"
+       alt="logo for gnucobol" />
+  <a href="https://www.gnu.org/software/gnucobol/">GnuCOBOL</a></h4><p>
+GnuCOBOL is a free, modern COBOL compiler. It implements a substantial
+part of COBOL 85, X/Open COBOL and newer ISO COBOL standards as well as
+many extensions from other COBOL compilers (IBM COBOL, MicroFocus COBOL,
+ACUCOBOL-GT and others).
+<small>(<a href="manual.html#gnucobol">doc</a>)</small></p>
+
+
+
+<h4 id="gnucomm">
+  <a href="https://www.gnu.org/software/gnucomm/">GnuComm</a></h4><p>
+Telecom subsystem of the GNU Project: umbrella project for GNU Telephony
+software, currently Bayonne, SIP Witch, and their supporting libraries
+(Common C++ / uCommon, ccAudio, ccScript, ccRTP and ZRTP / ZRTP4J).
+<small>(<a href="manual.html#gnucomm">doc</a>)</small></p>
+
+
+
+<h4 id="gnudos">
+  <a href="https://www.gnu.org/software/gnudos/">GnuDOS</a></h4><p>
+GnuDOS is a set of programs designed to help new users of the GNU system
+in growing accustomed to the system, particularly users who might be
+coming from a DOS background.  It consists of a file manager, a text
+editor and a form designer for the console as well as a core library
+for building similar utilities.
+<small>(<a href="manual.html#gnudos">doc</a>)</small></p>
+
+
+
+<h4 id="gnugo">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnugo.250x100.png" style="height:1.3em"
+       alt="logo for gnugo" />
+  <a href="https://www.gnu.org/software/gnugo/">GNUgo</a></h4><p>
+GNU Go is a program that plays the game of Go, in which players place
+stones on a grid to form territory or capture other stones.  While it can
+be played directly from the terminal, rendered in ASCII characters, it is
+also possible to play GNU Go with 3rd party graphical interfaces or even
+in Emacs.  It supports the standard game storage format (SGF, Smart Game
+Format) and inter-process communication format (GMP, Go Modem Protocol).
+<small>(<a href="manual.html#gnugo">doc</a>)</small></p>
+
+
+
+<h4 id="gnuit"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnuit/">GNU Interactive Tools</a></h4>
+<p><!-- TRANSLATORS: stale -->
+The GNU Interactive Tools are a set of lightweight, interactive
+command-line tools.  They include an extensible, orthodox (two-pane)
+file manager, an ASCII/hex file viewer, and a process viewer/killer. The
+package also includes some related utilities and scripts, such as a tool
+to decompress any type of archive file.  All the tools can be enhanced
+and extended through their configuration files to perform new commands.
+<small>(<a href="manual.html#gnuit">doc</a>)</small></p>
+
+
+
+<h4 id="gnujump"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnujump.250x100.png" style="height:1.3em"
+       alt="logo for gnujump" />
+  <a href="https://www.gnu.org/software/gnujump/">GNUjump</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNUjump is a simple, yet addictive game in which you must jump from
+platform to platform to avoid falling, while the platforms drop at faster
+rates the higher you go.  The game features multiplayer, unlimited FPS,
+smooth floor falling, themeable graphics and sounds, and replays.
+<small>(<a href="manual.html#gnujump">doc</a>)</small></p>
+
+
+
+<h4 id="gnulib">
+  <a href="https://www.gnu.org/software/gnulib/">GNUlib</a></h4><p>
+Gnulib is a central location for common infrastructure needed by
+GNU packages.  It provides a wide variety of functionality, e.g.,
+portability across many systems, working with Unicode strings,
+cryptographic computation, and much more.  The code is intended to be
+shared at the level of source files, rather than being a standalone
+library that is distributed, built, and installed.  The included
+<code>gnulib-tool</code> script helps with using Gnulib code in other
+packages. Gnulib also includes copies of licensing and maintenance-related
+files, for convenience.
+<small>(<a href="manual.html#gnulib">doc</a>)</small></p>
+
+
+
+<h4 id="gnumach">
+  <a href="https://www.gnu.org/software/gnumach/">Mach</a></h4><p>
+See <a href="#hurd">hurd</a>.
+<small>(<a href="manual.html#gnumach">doc</a>)</small></p>
+
+
+
+<h4 id="gnumed">
+  <a href="https://www.gnu.org/software/gnumed/">GNUmed</a></h4><p>
+GNUmed is Electronic Medical Record software, supporting paperless
+medical practices.  Several interface languages are supported.
+<small>(<a href="manual.html#gnumed">doc</a>)</small></p>
+
+
+
+<h4 id="gnumeric">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnumeric.250x100.png" style="height:1.3em"
+       alt="logo for gnumeric" />
+  <a href="https://www.gnu.org/software/gnumeric/">GNUmeric</a></h4><p>
+GNUmeric is a GNU spreadsheet application, running under GNOME.
+It is interoperable with other spreadsheet applications.  It has a
+vast array of features beyond typical spreadsheet functionality, such
+as support for linear and non-linear solvers, statistical analysis,
+and telecommunication engineering.
+<small>(<a href="manual.html#gnumeric">doc</a>)</small></p>
+
+
+
+<h4 id="gnump3d">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnump3d.250x100.png" style="height:1.3em"
+       alt="logo for gnump3d" />
+  <a href="https://www.gnu.org/software/gnump3d/">GNUmp3d</a></h4><p>
+GNUMP3d is a streaming server for MP3 and Ogg Vorbis audio files, movies,
+and other media formats.  It is small and self-contained, presenting a
+simple, themeable HTML interface.  The audio files can then be played
+in any player that supports streaming over HTTP.
+<small>(<a href="manual.html#gnump3d">doc</a>)</small></p>
+
+
+
+<h4 id="gnun">
+  <a href="https://www.gnu.org/software/gnun/">GNUnited Nations</a></h4><p>
+GNUnited Nations is a build system for translating the web site at
+www.gnu.org.  It works via template files, which allow changes to be
+merged into individual translations of a page, from which the final
+HTML is generated.  In effect, this helps to keep all translations of
+a page up-to-date.
+<small>(<a href="manual.html#gnun">doc</a>)</small></p>
+
+
+
+<h4 id="gnunet">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnunet.250x100.png" style="height:1.3em"
+       alt="logo for gnunet" />
+  <a href="https://www.gnu.org/software/gnunet/">GNUnet</a></h4><p>
+GNUnet is a framework for secure peer-to-peer networking.  The high-level
+goal is to provide a strong foundation of free software for a global,
+distributed network that provides security and privacy.  GNUnet in that
+sense aims to replace the current internet protocol stack.  Along with
+an application for secure publication of files, it has grown to include
+all kinds of basic applications for the foundation of a GNU internet.
+<small>(<a href="manual.html#gnunet">doc</a>)</small></p>
+
+
+
+<h4 id="gnupg">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnupg.250x100.png" style="height:1.3em"
+       alt="logo for gnupg" />
+  <a href="https://www.gnu.org/software/gnupg/">GnuPG</a></h4><p>
+The GNU Privacy Guard is a complete implementation of the OpenPGP
+standard.  It is used to encrypt and sign data and communication.
+It features powerful key management and the ability to access public
+key servers.  It includes several libraries: libassuan (IPC between GnuPG
+components), libgpg-error (centralized GnuPG error values), and libskba
+(working with X.509 certificates and CMS data).
+<small>(<a href="manual.html#gnupg">doc</a>)</small></p>
+
+
+
+<h4 id="gnupod">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnupod.250x100.png" style="height:1.3em"
+       alt="logo for gnupod" />
+  <a href="https://www.gnu.org/software/gnupod/">GNUpod</a></h4><p>
+GNUpod is a collection of scripts for using iPods with GNU/Linux and
+other operating systems.  It can be used for transferring music and cover
+art, searching files, removing files, editing tags, creating playlists
+and more.
+<small>(<a href="manual.html#gnupod">doc</a>)</small></p>
+
+
+
+<h4 id="gnuprologjava"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnuprologjava/">GNUprologjava</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Prolog for Java is an implementation of the ISO Prolog standard as a
+Java library (gnu.prolog).  Thus, with it you can use Prolog from within
+Java programs.
+<small>(<a href="manual.html#gnuprologjava">doc</a>)</small></p>
+
+
+
+<h4 id="gnuradio">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnuradio.250x100.png" style="height:1.3em"
+       alt="logo for gnuradio" />
+  <a href="https://www.gnu.org/software/gnuradio/">Radio</a></h4><p>
+GNU Radio is a toolkit for implementing software radios.  Its signal
+processing blocks can be combined with low-cost external RF hardware
+to create software-defined radios.  Without hardware, it can be used
+for simulation.  Radio applications are primarily written in Python,
+with C++ support for performance-critical processing tasks.
+<small>(<a href="manual.html#gnuradio">doc</a>)</small></p>
+
+
+
+<h4 id="gnurobots"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnurobots/">Robots</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Robots is a game in which you program a robot to explore a world
+full of enemies that can hurt it, obstacles and food to be eaten. The
+goal of the game is to stay alive and collect prizes.  The robot program
+conveniently may be written in a plain text file in the Scheme programming
+language.
+<small>(<a href="manual.html#gnurobots">doc</a>)</small></p>
+
+
+
+<h4 id="gnuschool"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnuschool/">GNUschool</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNUschool is a web application for students, teachers and school
+administrators.  With it, teachers can create tests for the students
+to take online, give feedback and assign grades.  School administrators
+can use it to monitor student attendance and edit student information.
+<small>(<a href="manual.html#gnuschool">doc</a>)</small></p>
+
+
+
+<h4 id="gnushogi">
+  <a href="https://www.gnu.org/software/gnushogi/">GNUshogi</a></h4><p>
+GNU Shogi is a program that plays the game Shogi (Japanese Chess). It
+also includes a graphical interface to the game.  While similar to
+standard chess, this variant is far more complicated.
+<small>(<a href="manual.html#gnushogi">doc</a>)</small></p>
+
+
+
+<h4 id="gnusound"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnusound/">GNUsound</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNUsound is a multitrack sound editor for GNOME 1 and 2.  It can read and
+write many audio file formats such as WAV, MP3 and FLAC.  It can work
+with the OSS, ALSA or JACK audio backends.  It provides many different
+built-in audio processing modules, such as fades in/out, delay, and
+filters.  GLADSPA plugins may also be used for further processing.
+<small>(<a href="manual.html#gnusound">doc</a>)</small></p>
+
+
+
+<h4 id="gnuspool"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnuspool/">GNUspool</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNUspool is an advanced print spooling system.  In addition to the
+functionality of the standard printing system, it provides post-processing
+capabilities, form type handling, alignment pages and other features.
+It functions transparently on a network, sharing jobs on any host
+with printers on any other host.  Several user different interfaces
+are available.
+<small>(<a href="manual.html#gnuspool">doc</a>)</small></p>
+
+
+
+<h4 id="gnustep">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnustep.250x100.png" style="height:1.3em"
+       alt="logo for gnustep" />
+  <a href="https://www.gnu.org/software/gnustep/">GNUstep</a></h4><p>
+GNUstep is a fully-functional object-oriented development environment;
+a number of user applications are also included.  It closely follows
+the Cocoa APIs but is platform-independent.
+<small>(<a href="manual.html#gnustep">doc</a>)</small></p>
+
+
+
+<h4 id="gnutls">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gnutls.250x100.png" style="height:1.3em"
+       alt="logo for gnutls" />
+  <a href="https://www.gnu.org/software/gnutls/">GnuTLS</a></h4><p>
+GnuTLS is a secure communications library implementing the SSL, TLS, and
+DTLS protocols.  It is provided in the form of a C library to support
+the protocols, as well as to parse and write X.509, PKCS 12, OpenPGP,
+and other required structures.
+<small>(<a href="manual.html#gnutls">doc</a>)</small></p>
+
+
+
+<h4 id="gnutrition"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gnutrition/">GNUtrition</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNUtrition is a free nutrition analysis software.  With it, one can
+keep track of the nutritional information of food.  The software uses
+the Nutrient Database of Standard Reference of the US Department of
+Agriculture as a source of food nutrient information.
+<small>(<a href="manual.html#gnutrition">doc</a>)</small></p>
+
+
+
+<h4 id="gnuzilla">
+  <a href="https://www.gnu.org/software/gnuzilla/">GNUzilla</a></h4><p>
+See <a href="#icecat">icecat</a>.
+<small>(<a href="manual.html#gnuzilla">doc</a>)</small></p>
+
+
+
+<h4 id="goptical"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/goptical/">Goptical</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Goptical is a library for optical design and simulation in C++.
+It provides model classes for optical components, surfaces and materials.
+With it, one can simulate building an optical system by creating and
+placing optical components in a 3d space, and visualize light propagating
+through the system.
+<small>(<a href="manual.html#goptical">doc</a>)</small></p>
+
+
+
+<h4 id="gorm">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gorm.250x100.png" style="height:1.3em"
+       alt="logo for gorm" />
+  <a href="https://www.gnu.org/software/gorm/">Gorm</a></h4><p>
+See <a href="#gnustep">gnustep</a>.
+<small>(<a href="manual.html#gorm">doc</a>)</small></p>
+
+
+
+<h4 id="gpaint"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gpaint/">Gpaint</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Paint is a simple, easy-to-use paint program for the GNOME
+environment.  It supports drawing freehand as well as basic shapes
+and text.  It features cut-and-paste for irregular regions or polygons.
+<small>(<a href="manual.html#gpaint">doc</a>)</small></p>
+
+
+
+<h4 id="gperf">
+  <a href="https://www.gnu.org/software/gperf/">Gperf</a></h4><p>
+gperf is a perfect hash function generator.  For a given list of strings,
+it produces a hash function and hash table in C or C++ code. That the
+hash function is perfect means that no collisions can exist and that
+look-ups can be made by single string comparisons.
+<small>(<a href="manual.html#gperf">doc</a>)</small></p>
+
+
+
+<h4 id="gprofng-gui">
+  <a href="https://www.gnu.org/software/gprofng-gui/">Gprofng-gui</a></h4><p>
+gprofng GUI is a full-fledged graphical interface to operate gprofng,
+which is part of the GNU binutils.
+<small>(<a href="manual.html#gprofng-gui">doc</a>)</small></p>
+
+
+
+<h4 id="gprolog"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gprolog.250x100.png" style="height:1.3em"
+       alt="logo for gprolog" />
+  <a href="https://www.gnu.org/software/gprolog/">Gprolog</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Prolog is a standards-compliant Prolog compiler with constraint
+solving over finite domains.  It accepts Prolog+ constraint programs and
+produces a compiled, native binary which can function in a stand-alone
+manner.  It also features an interactive interpreter.
+<small>(<a href="manual.html#gprolog">doc</a>)</small></p>
+
+
+
+<h4 id="grabcomics"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/grabcomics/">phpGrabComics</a></h4>
+<p><!-- TRANSLATORS: stale -->
+phpGrabComics is a program that fetches and saves comic strips from
+the web.  It features both a server, which can download strips from
+different sources, and ports, tiny applications which get the list of
+available comics from the server.
+<small>(<a href="manual.html#grabcomics">doc</a>)</small></p>
+
+
+
+<h4 id="greg"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/greg/">Greg</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Greg is a framework for testing programs and libraries.  It provides a
+single front-end for all tests of a package as well as a simple framework
+for writing the tests.  It is loaded as a Guile module into any software
+with an embedded Guile interpreter.  It also provides a compiled module
+that may be dynamically linked into Guile to permit testing external
+programs.
+<small>(<a href="manual.html#greg">doc</a>)</small></p>
+
+
+
+<h4 id="grep">
+  <a href="https://www.gnu.org/software/grep/">Grep</a></h4><p>
+grep is a tool for finding text inside files.  Text is found by matching
+a pattern provided by the user in one or many files.  The pattern may be
+provided as a basic or extended regular expression, or as fixed strings.
+By default, the matching text is simply printed to the screen, however the
+output can be greatly customized to include, for example, line numbers.
+GNU grep offers many extensions over the standard utility, including,
+for example, recursive directory searching.
+<small>(<a href="manual.html#grep">doc</a>)</small></p>
+
+
+
+<h4 id="gretl">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gretl.250x100.png" style="height:1.3em"
+       alt="logo for gretl" />
+  <a href="https://www.gnu.org/software/gretl/">Gretl</a></h4><p>
+GNU Gretl is a package for performing statistical computations for
+econometrics.  It consists of both a command-line client and a graphical
+client.  It features a variety of estimators such as least-squares
+and maximum likelihood; several time series methods such as ARIMA and
+GARCH; limited dependent variables such as logit, probit and tobit;
+and a powerful scripting language.  It can output models as LaTeX files.
+It also may be linked to GNU R and GNU Octave for further data analysis.
+<small>(<a href="manual.html#gretl">doc</a>)</small></p>
+
+
+
+<h4 id="groff">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/groff.250x100.png" style="height:1.3em"
+       alt="logo for groff" />
+  <a href="https://www.gnu.org/software/groff/">Groff</a></h4><p>
+Groff is a typesetting package that reads plain text and produces
+formatted output based on formatting commands contained within the text.
+It is usually the formatter of &ldquo;man&rdquo; documentation pages.
+<small>(<a href="manual.html#groff">doc</a>)</small></p>
+
+
+
+<h4 id="grub"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/grub.250x100.png" style="height:1.3em"
+       alt="logo for grub" />
+  <a href="https://www.gnu.org/software/grub/">GRUB</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GRUB is a multiboot bootloader.  It is used for initially loading the
+kernel of an operating system and then transferring control to it.
+The kernel then goes on to load the rest of the operating system. As a
+multiboot bootloader, GRUB handles the presence of multiple operating
+systems installed on the same computer; upon booting the computer, the
+user is presented with a menu to select one of the installed operating
+systems.
+<small>(<a href="manual.html#grub">doc</a>)</small></p>
+
+
+
+<h4 id="gsasl"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gsasl/">Gsasl</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU SASL is an implementation of the Simple Authentication and Security
+Layer framework.  On network servers such as IMAP or SMTP servers, SASL
+is used to handle client/server authentication.  This package contains
+both a library and a command-line tool to access the library.
+<small>(<a href="manual.html#gsasl">doc</a>)</small></p>
+
+
+
+<h4 id="gsegrafix"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gsegrafix.250x100.png" style="height:1.3em"
+       alt="logo for gsegrafix" />
+  <a href="https://www.gnu.org/software/gsegrafix/">Gsegrafix</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GSEGrafix is an application which produces high-quality graphical plots
+for science and engineering.  Plots are specified via simple ASCII
+parameter files and data files and are presented in an anti-aliased
+GNOME canvas.  The program supports rectangular two-dimensional plots,
+histograms, polar-axis plots and three-dimensional plots.  Plots can be
+printed or saved to BMP, JPEG or PNG image formats.
+<small>(<a href="manual.html#gsegrafix">doc</a>)</small></p>
+
+
+
+<h4 id="gsl">
+  <a href="https://www.gnu.org/software/gsl/">GNU Scientific Library</a></h4><p>
+The GNU Scientific Library is a library for numerical analysis in C
+and C++.  It includes a wide range of mathematical routines, with over
+1000 functions in total.  Subject areas covered by the library include:
+differential equations, linear algebra, Fast Fourier Transforms and
+random numbers.
+<small>(<a href="manual.html#gsl">doc</a>)</small></p>
+
+
+
+<h4 id="gslip">
+  <a href="https://www.gnu.org/software/gslip/">GNU Slip</a></h4><p>
+GNU Slip is a functional extension of the capabilities provided in the
+C++ Standard Template Library (STL) list and queue containers, though
+SLIP is not a replacement for the STL containers.  SLIP data cells can
+be used in application-specific computations, among other enhancements.
+<small>(<a href="manual.html#gslip">doc</a>)</small></p>
+
+
+
+<h4 id="gsrc">
+  <a href="https://www.gnu.org/software/gsrc/">GNU Source Release Collection</a></h4><p>
+GSRC supports installing the latest releases of GNU packages on an
+existing system.  New versions are installed in a separate place so
+as not to interfere with the system versions.  The goal is to make it
+easier to work with the original, upstream, GNU sources, and perhaps
+help with development and testing.
+<small>(<a href="manual.html#gsrc">doc</a>)</small></p>
+
+
+
+<h4 id="gss">
+  <a href="../software/gss/index.html">Generic Security Service</a></h4><p>
+The GNU Generic Security Service provides a free implementation of the
+GSS-API specification.  It provides a generic application programming
+interface for programs to access security services. Security services
+present a generic, GSS interface, with which the calling application
+interacts via this library, freeing the application developer from
+needing to know about the underlying security implementation.
+<small>(<a href="manual.html#gss">doc</a>)</small></p>
+
+
+
+<h4 id="gtick">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gtick.250x100.png" style="height:1.3em"
+       alt="logo for gtick" />
+  <a href="https://www.gnu.org/software/gtick/">GTick</a></h4><p>
+GTick is a metronome application.  It supports different meters, such
+as 2/4, 3/4, 4/4, etc.  It also supports a wide range of speeds, from
+10 to 1000 BPM. It provides a GTK+-based user interface and it can use
+both OSS and ALSA as the audio back-end.
+<small>(<a href="manual.html#gtick">doc</a>)</small></p>
+
+
+
+<h4 id="gtypist">
+  <a href="https://www.gnu.org/software/gtypist/">Gtypist</a></h4><p>
+GNU Typist is a universal typing tutor.  It can be used to learn and
+practice touch-typing.  Several tutorials are included; in addition to
+tutorials for the standard QWERTY layout, there are also tutorials for
+the alternative layouts Dvorak and Colemak, as well as for the numpad.
+Tutorials are primarily in English, however some in other languages
+are provided.
+<small>(<a href="manual.html#gtypist">doc</a>)</small></p>
+
+
+
+<h4 id="guile">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/guile.250x100.png" style="height:1.3em"
+       alt="logo for guile" />
+  <a href="https://www.gnu.org/software/guile/">Guile</a></h4><p>
+Guile is the GNU Ubiquitous Intelligent Language for Extensions, the
+official extension language of the GNU system.  It is an implementation of
+the Scheme language which can be easily embedded in other applications
+to provide a convenient means of extending the functionality of the
+application without requiring the source code to be rewritten.
+<small>(<a href="manual.html#guile">doc</a>)</small></p>
+
+
+
+<h4 id="guile-cv">
+  <a href="https://www.gnu.org/software/guile-cv/">Guile-cv</a></h4><p>
+Guile-CV is a Computer Vision functional programming library for the
+Guile Scheme language. Guile-CV is based on Vigra (Vision with Generic
+Algorithms). It comprises a direct binding to vigra_c (a C wrapper
+to a subset of the Vigra library), and a higher level API written in
+Guile Scheme.
+<small>(<a href="manual.html#guile-cv">doc</a>)</small></p>
+
+
+
+<h4 id="guile-dbi">
+  <a href="https://www.gnu.org/software/guile-dbi/">Guile-dbi</a></h4><p>
+guile-dbi is a library for Guile that provides a convenient interface to
+SQL databases.  Database programming with guile-dbi is generic in that
+the same programming interface is presented regardless of which database
+system is used.  It currently supports MySQL, Postgres and SQLite3.
+<small>(<a href="manual.html#guile-dbi">doc</a>)</small></p>
+
+
+
+<h4 id="guile-gnome">
+  <a href="https://www.gnu.org/software/guile-gnome/">Guile-gnome</a></h4><p>
+Includes guile-clutter, guile-gnome-gstreamer, guile-gnome-platform
+(GNOME developer libraries), and guile-gtksourceview.
+<small>(<a href="manual.html#guile-gnome">doc</a>)</small></p>
+
+
+
+<h4 id="guile-ncurses">
+  <a href="https://www.gnu.org/software/guile-ncurses/">Guile-ncurses</a></h4><p>
+guile-ncurses provides Guile language bindings for the ncurses library.
+<small>(<a href="manual.html#guile-ncurses">doc</a>)</small></p>
+
+
+
+<h4 id="guile-opengl">
+  <a href="https://www.gnu.org/software/guile-opengl/">Guile-opengl</a></h4><p>
+Guile-OpenGL is a library for Guile that provides bindings to the OpenGL
+graphics API.
+<small>(<a href="manual.html#guile-opengl">doc</a>)</small></p>
+
+
+
+<h4 id="guile-sdl">
+  <a href="../software/guile-sdl/index.html">Guile-SDL</a></h4><p>
+Guile-SDL is a set of bindings to the Simple DirectMedia Layer (SDL). With
+them, Guile programmers can have easy access to graphics, sound and
+device input (keyboards, joysticks, mice, etc.).
+This package is looking for a maintainer.
+<small>(<a href="manual.html#guile-sdl">doc</a>)</small></p>
+
+
+
+<h4 id="guix">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/guix.250x100.png" style="height:1.3em"
+       alt="logo for guix" />
+  <a href="https://www.gnu.org/software/guix/">Guix</a></h4><p>
+GNU Guix is a functional package manager for the GNU system, and is also
+a distribution thereof.  It includes a virtual machine image. Besides
+the usual package management features, it also supports transactional
+upgrades and roll-backs, per-user profiles, and much more. It is based
+on the Nix package manager.
+<small>(<a href="manual.html#guix">doc</a>)</small></p>
+
+
+
+<h4 id="gurgle">
+  <a href="https://www.gnu.org/software/gurgle/">Gurgle</a></h4><p>
+GURGLE produces database report listings from record and field information
+from a file.  It uses the report to produce (La)TeX-formatted output,
+plain ASCII text, troff, PostScript, HTML, XML, or any other ASCII-based
+output format.  It may be used for producing large bodies of text
+where small parts of the text are substituted with information from
+the database.  GURGLE supports GNUSQL, PostgreSQL, MySQL and CA-Ingres
+databases.
+<small>(<a href="manual.html#gurgle">doc</a>)</small></p>
+
+
+
+<h4 id="gv"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gv/">Gv</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU GV is a graphical user interface to the Ghostscript interpreter. With
+it, one can view and navigate through PostScript and PDF documents in
+X Windows.
+<small>(<a href="manual.html#gv">doc</a>)</small></p>
+
+
+
+<h4 id="gvpe"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/gvpe/">GVPE</a></h4>
+<p><!-- TRANSLATORS: stale -->
+The GNU Virtual Private Ethernet creates a virtual network with multiple
+nodes using a variety of transport protocols.  It works by creating
+encrypted host-to-host tunnels between multiple endpoints.
+<small>(<a href="manual.html#gvpe">doc</a>)</small></p>
+
+
+
+<h4 id="gwl">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gwl.250x100.png" style="height:1.3em"
+       alt="logo for gwl" />
+  <a href="https://www.gnu.org/software/gwl/">GWL</a></h4><p>
+GWL is a workflow language that extends Guix's declarative language
+for package management to automate execution of programs.  Additionally,
+GWL can use Grid Engine to offload program execution.
+<small>(<a href="manual.html#gwl">doc</a>)</small></p>
+
+
+
+<h4 id="gxmessage">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/gxmessage.250x100.png" style="height:1.3em"
+       alt="logo for gxmessage" />
+  <a href="https://www.gnu.org/software/gxmessage/">Gxmessage</a></h4><p>
+GNU gxmessage is a program that pops up dialog windows, which display a
+message to the user and waits for their action.  The program then exits
+with an exit code corresponding to the response.
+<small>(<a href="manual.html#gxmessage">doc</a>)</small></p>
+
+
+
+<h4 id="gzip">
+  <a href="https://www.gnu.org/software/gzip/">Gzip</a></h4><p>
+GNU Gzip provides data compression and decompression utilities; the
+typical extension is <code>.gz</code>.  Unlike <code>zip</code>,
+it compresses a single file; as a result, it is often used in
+conjunction with <code>tar</code>, resulting in <code>.tar.gz</code>
+or <code>.tgz</code>, etc.
+<small>(<a href="manual.html#gzip">doc</a>)</small></p>
+
+
+
+<h4 id="halifax">
+  <a href="../software/halifax/index.html">HaliFAX</a></h4><p>
+HaliFAX supports sending and viewing faxes, including a wrapper around
+the <code>lpr</code> command.
+This package is looking for a maintainer.
+<small>(<a href="manual.html#halifax">doc</a>)</small></p>
+
+
+
+<h4 id="health">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/health.250x100.png" style="height:1.3em"
+       alt="logo for health" />
+  <a href="https://www.gnu.org/software/health/">Health</a></h4><p>
+GNU Health is a free medical software system, including support for
+electronic medical records (EMR), a hospital information system (HIS),
+and health information system.  It supports both Spanish and English
+interfaces.  It has been adopted by the United Nations University for
+implementation and training, as well as by several hospitals and health
+ministries around the world.
+<small>(<a href="manual.html#health">doc</a>)</small></p>
+
+
+
+<h4 id="hello">
+  <a href="https://www.gnu.org/software/hello/">Hello</a></h4><p>
+GNU Hello prints the message &ldquo;Hello, world!&rdquo; and then exits.
+It serves as an example of standard GNU coding practices.  As such,
+it supports command-line arguments, multiple languages, and so on.
+<small>(<a href="manual.html#hello">doc</a>)</small></p>
+
+
+
+<h4 id="help2man">
+  <a href="https://www.gnu.org/software/help2man/">Help2man</a></h4><p>
+GNU help2man is a program that converts the output of standard
+<code>--help</code> and <code>--version</code> command-line arguments
+into a manual page automatically.
+<small>(<a href="manual.html#help2man">doc</a>)</small></p>
+
+
+
+<h4 id="hp2xx">
+  <a href="https://www.gnu.org/software/hp2xx/">Hp2xx</a></h4><p>
+GNU hp2xx converts vector graphics specified in the HP-GL plotter language
+into a variety of graphical formats, both vector- and raster-based,
+including EPS, PCX, IMG, and formats intended for use within TeX
+documents.
+<small>(<a href="manual.html#hp2xx">doc</a>)</small></p>
+
+
+
+<h4 id="httptunnel"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/httptunnel.250x100.png" style="height:1.3em"
+       alt="logo for httptunnel" />
+  <a href="https://www.gnu.org/software/httptunnel/">Httptunnel</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU httptunnel creates a bidirectional data path tunneled in HTTP
+requests.  This allows users behind firewalls to send and receive data
+that would otherwise be blocked, such as telnet or ssh connections.
+<small>(<a href="manual.html#httptunnel">doc</a>)</small></p>
+
+
+
+<h4 id="hurd">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/hurd.250x100.png" style="height:1.3em"
+       alt="logo for hurd" />
+  <a href="https://www.gnu.org/software/hurd/">Hurd</a></h4><p>
+The Hurd is the kernel for the GNU system, a replacement and augmentation
+of standard Unix kernels.  It is a collection of protocols for system
+interaction (file systems, networks, authentication), and servers
+implementing them.  Subprojects include Mach, the microkernel on which
+the Hurd is based, which provides a basic inter-process communication
+mechanism, and MIG, an interface generator for Mach.
+<small>(<a href="manual.html#hurd">doc</a>)</small></p>
+
+
+
+<h4 id="hyperbole">
+  <a href="https://www.gnu.org/software/hyperbole/">Hyperbole</a></h4><p>
+Hyperbole is a programmable information and hypertext system for
+GNU Emacs.  It allows hypertext to be embedded within documents, mail
+messages and news articles.  This permits mouse-based control of the
+displayed information.
+<small>(<a href="manual.html#hyperbole">doc</a>)</small></p>
+
+
+
+<h4 id="icecat">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/icecat.250x100.png" style="height:1.3em"
+       alt="logo for icecat" />
+  <a href="https://www.gnu.org/software/icecat/">Icecat</a></h4><p>
+IceCat is the GNU version of the Firefox browser.  It is entirely free
+software, which does not recommend non-free plugins and addons. It also
+features built-in privacy-protecting features.
+<small>(<a href="manual.html#icecat">doc</a>)</small></p>
+
+
+
+<h4 id="idutils"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/idutils/">Idutils</a></h4>
+<p><!-- TRANSLATORS: stale -->
+The GNU idutils package includes tools to create an index of textual
+tokens used in a list of file names and then to query that index.  Thus,
+it allows the user to, for example, find all the uses of a particular
+function in a large programming project.  In addition to handling
+textual tokens, it can also handle numeric constants and the contents
+of character strings.
+<small>(<a href="manual.html#idutils">doc</a>)</small></p>
+
+
+
+<h4 id="ignuit">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/ignuit.250x100.png" style="height:1.3em"
+       alt="logo for ignuit" />
+  <a href="https://www.gnu.org/software/ignuit/">Ignuit</a></h4><p>
+Ignuit is a tool for aiding in the memorization of new information based
+on the Leitner flashcard system.  In this system, new cards are studied
+with decreasing frequency as they grow older, unless you encounter
+difficulty memorizing them, after which you encounter them more often.
+Cards can include embedded audio, images and mathematical formulae and
+a card collection can be exported to several formats.
+<small>(<a href="manual.html#ignuit">doc</a>)</small></p>
+
+
+
+<h4 id="indent">
+  <a href="https://www.gnu.org/software/indent/">Indent</a></h4><p>
+Indent is a program that makes source code easier to read by reformatting
+it in a consistent style.  It can change the style to one of several
+different styles such as GNU, BSD or K&amp;R.  It has some flexibility
+to deal with incomplete or malformed syntax.  GNU indent offers several
+extensions over the standard utility.
+<small>(<a href="manual.html#indent">doc</a>)</small></p>
+
+
+
+<h4 id="inetutils">
+  <a href="https://www.gnu.org/software/inetutils/">Inetutils</a></h4><p>
+Inetutils is a collection of common network programs, such as an ftp
+client and server, a telnet client and server, and an rsh client and
+server.
+<small>(<a href="manual.html#inetutils">doc</a>)</small></p>
+
+
+
+<h4 id="inklingreader">
+  <a href="https://www.gnu.org/software/inklingreader/">Inklingreader</a></h4><p>
+GNU InklingReader is a package to support the Wacom Inkling device,
+including data conversion to various free formats, basic editing features,
+and an Inkscape plugin.
+<small>(<a href="manual.html#inklingreader">doc</a>)</small></p>
+
+
+
+<h4 id="intlfonts"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/intlfonts/">Intlfonts</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU intlfonts contains free X11 fonts in the BDF and TrueType
+formats. They notably cover a large number of characters from different
+writing systems: European, Asian, Chinese, Japanese, Korean, Ethiopic
+and others.
+<small>(<a href="manual.html#intlfonts">doc</a>)</small></p>
+
+
+
+<h4 id="jacal">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/jacal.250x100.png" style="height:1.3em"
+       alt="logo for jacal" />
+  <a href="https://www.gnu.org/software/jacal/">JACAL</a></h4><p>
+GNU JACAL is an interactive symbolic mathematics program based on Scheme.
+It manipulate and simplify a range of mathematical expressions such as
+equations, scalars, vectors, and matrices.
+<small>(<a href="manual.html#jacal">doc</a>)</small></p>
+
+
+
+<h4 id="jami">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/jami.250x100.png" style="height:1.3em"
+       alt="logo for jami" />
+  <a href="https://www.gnu.org/software/jami/">Jami</a></h4><p>
+Jami is a GNU package for universal communication that respects the
+freedom and privacy of its users.  Jami uses distributed hash tables for
+establishing communication, whose design avoids centralized storage of
+users' registries and personal data.
+<small>(<a href="manual.html#jami">doc</a>)</small></p>
+
+
+
+<h4 id="java-getopt">
+  <a href="https://www.gnu.org/software/java-getopt/">Java-getopt</a></h4><p>
+java-getopt provides a Java port of the GNU getopt function from glibc.
+It supports parsing both long and short command-line arguments in a
+flexible manner, which is completely compatible with the C version.
+<small>(<a href="manual.html#java-getopt">doc</a>)</small></p>
+
+
+
+<h4 id="jel">
+  <a href="https://www.gnu.org/software/jel/">Jel</a></h4><p>
+GNU JEL is a library that lets a program accept user-defined expressions
+to be entered and evaluated at runtime.  In fact, the expressions are
+compiled by JEL to Java bytecode to avoid the performance penalty of
+adding interpreted expressions to an already-interpreted language.
+<small>(<a href="manual.html#jel">doc</a>)</small></p>
+
+
+
+<h4 id="jitter">
+  <a href="https://www.gnu.org/software/jitter/">Jitter</a></h4><p>
+GNU Jitter is a program to automatically generate a portable, very
+efficient language virtual machine with performance close to native code,
+starting from a relatively high-level specification provided by the user.
+<small>(<a href="manual.html#jitter">doc</a>)</small></p>
+
+
+
+<h4 id="jtw">
+  <a href="https://www.gnu.org/software/jtw/">Java Training Wheels</a></h4><p>
+GNU Java Training wheels provides a less steep learning curve for learning
+to program in Java.  The system is powered by a preprocessor that adds
+features to Java such as a superfor macro and a file inclusion system
+much like the C language's preprocessor.
+<small>(<a href="manual.html#jtw">doc</a>)</small></p>
+
+
+
+<h4 id="jwhois">
+  <a href="https://www.gnu.org/software/jwhois/">Jwhois</a></h4><p>
+GNU jwhois is a client for the WHOIS protocol, which allows you to query
+the owner of a domain name.  The program uses an extensible configuration
+file to determine the most appropriate server to query and, upon success
+displays the result to the user, otherwise it can optionally redirect
+the query to another server.
+<small>(<a href="manual.html#jwhois">doc</a>)</small></p>
+
+
+
+<h4 id="kawa">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/kawa.250x100.png" style="height:1.3em"
+       alt="logo for kawa" />
+  <a href="https://www.gnu.org/software/kawa/">Kawa</a></h4><p>
+GNU Kawa is an implementation of the Scheme programming language that is
+built on top of the Java platform.  It is thus conveniently integrated
+with Java and benefits from this by having a compiler, optional static
+typing, and so on.  Kawa also serves as a framework for implementing
+other programming languages on the Java platform. Included in Kawa is
+qexo, a partial implementation of XQuery in Java.
+<small>(<a href="manual.html#kawa">doc</a>)</small></p>
+
+
+
+<h4 id="leg">
+  <a href="https://www.gnu.org/software/leg/">Leg</a></h4><p>
+GNU Leg is a set of libraries for game engines and game development. In
+addition to the libraries, it also includes resource editors designed
+to make game creation easier.  The package is designed to be generic
+and modular, supporting many different styles of games.
+<small>(<a href="manual.html#leg">doc</a>)</small></p>
+
+
+
+<h4 id="less">
+  <a href="https://www.gnu.org/software/less/">Less</a></h4><p>
+GNU less is a pager, a program that allows you to view large amounts of
+text in page-sized chunks.  Unlike traditional pagers, it allows both
+backwards and forwards movement through the document.  It also does not
+have to read the entire input file before starting, so it starts faster
+than most text editors.
+<small>(<a href="manual.html#less">doc</a>)</small></p>
+
+
+
+<h4 id="libc">
+  <a href="https://www.gnu.org/software/libc/">GNU C Library</a></h4><p>
+The GNU C Library is the standard C library of the GNU system.
+It defines the system calls and other basic functionality necessary to
+write programs in the C language.  It handles low-level functionality
+that communicates with the kernel, such as process and file management,
+as well as higher-level functionality such as string manipulation or
+command-line argument handling.
+<small>(<a href="manual.html#libc">doc</a>)</small></p>
+
+
+
+<h4 id="libcdio">
+  <a href="https://www.gnu.org/software/libcdio/">Libcdio</a></h4><p>
+The GNU Compact Disc Input and Control Library (libcdio) is a library
+for CD-ROM and CD image file access.  It allows the developer to add
+CD access to an application without having to worry about the OS-
+and device-dependent properties of CD-ROM or the specific details of
+CD image formats.  It includes pycdio, a Python interface to libcdio,
+and libcdio-paranoia, a library providing jitter-free and error-free
+audio extraction from CDs.
+<small>(<a href="manual.html#libcdio">doc</a>)</small></p>
+
+
+
+<h4 id="libdbh">
+  <a href="https://www.gnu.org/software/libdbh/">Libdbh</a></h4><p>
+libdbh provides disk-based hash tables, providing quick lookup of
+key-value pairs.  While its usage is similar in general to that of
+(G)DBM, it has a different design supporting advanced, atypical usage.
+<small>(<a href="manual.html#libdbh">doc</a>)</small></p>
+
+
+
+<h4 id="liberty-eiffel">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/liberty-eiffel.250x100.png" style="height:1.3em"
+       alt="logo for liberty-eiffel" />
+  <a href="https://www.gnu.org/software/liberty-eiffel/">Liberty Eiffel</a></h4><p>
+Liberty Eiffel project is the GNU Eiffel Compiler.  Eiffel is an advanced
+object-oriented programming language that emphasizes the design and
+construction of high-quality and reusable software. Liberty Eiffel is
+a complete, small and fast Eiffel compiler, including an Eiffel to C
+compiler, documentation tools, a pretty printer, a debugger and various
+other tools. It also includes a large library of classes as well as
+a comprehensive set of wrappers/bindings for widespread Free-Software
+libraries.
+<small>(<a href="manual.html#liberty-eiffel">doc</a>)</small></p>
+
+
+
+<h4 id="libextractor"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/libextractor.250x100.png" style="height:1.3em"
+       alt="logo for libextractor" />
+  <a href="https://www.gnu.org/software/libextractor/">Libextractor</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU libextractor is a library for extracting metadata from files.
+It supports a very large number of file formats, including audio files,
+document files, and archive files.  Each file format is implemented as
+a plugin, so new formats can be added easily.  The package also contains
+a command-line tool to extract metadata from a file and print the results.
+<small>(<a href="manual.html#libextractor">doc</a>)</small></p>
+
+
+
+<h4 id="libgcrypt">
+  <a href="https://www.gnu.org/software/libgcrypt/">Libgcrypt</a></h4><p>
+Libgcrypt is a general-purpose cryptographic library.  It provides the
+standard cryptographic building blocks such as symmetric ciphers, hash
+algorithms, public key algorithms, large integer functions and random
+number generation.
+<small>(<a href="manual.html#libgcrypt">doc</a>)</small></p>
+
+
+
+<h4 id="libiconv">
+  <a href="https://www.gnu.org/software/libiconv/">Libiconv</a></h4><p>
+libiconv provides an implementation of the iconv function for systems
+that lack it.  iconv is used to convert between character encodings in
+a program.  It supports a wide variety of different encodings.
+<small>(<a href="manual.html#libiconv">doc</a>)</small></p>
+
+
+
+<h4 id="libidn">
+  <a href="https://www.gnu.org/software/libidn/">Libidn</a></h4><p>
+libidn is a library implementing of the Stringprep, Punycode and IDNA
+specifications.  These are used to encode and decode internationalized
+domain names.  It includes native C, C# and Java libraries.
+<small>(<a href="manual.html#libidn">doc</a>)</small></p>
+
+
+
+<h4 id="libidn2">
+  <a href="https://www.gnu.org/software/libidn2/">Libidn2</a></h4><p>
+Libidn2 is a free software implementation of IDNA2008, Punycode and
+Unicode TR46.  Its purpose is to encode and decode internationalized
+domain names.
+<small>(<a href="manual.html#libidn2">doc</a>)</small></p>
+
+
+
+<h4 id="libmatheval">
+  <a href="https://www.gnu.org/software/libmatheval/">Libmatheval</a></h4><p>
+GNU libmatheval is a library to parse and evaluate symbolic expressions
+input by the user as text.  It can be loaded from both C and Fortran.
+The interpreter is flexible, supporting any number of variables of
+arbitrary names, decimal and symbolic constants, basic unary and binary
+operators, and elementary mathematical functions. It can also compute
+symbolic derivatives and output expressions to strings.
+<small>(<a href="manual.html#libmatheval">doc</a>)</small></p>
+
+
+
+<h4 id="libmicrohttpd">
+  <a href="https://www.gnu.org/software/libmicrohttpd/">Libmicrohttpd</a></h4><p>
+GNU libmicrohttpd is a small, embeddable HTTP server implemented
+as a C library.  It makes it easy to run an HTTP server as part of
+another application.  The library is fully HTTP 1.1 compliant.  It can
+listen on multiple ports, supports four different threading models,
+and supports IPv6.  It also features security features such as basic
+and digest authentication and support for SSL3 and TLS.
+<small>(<a href="manual.html#libmicrohttpd">doc</a>)</small></p>
+
+
+
+<h4 id="librejs">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/librejs.250x100.png" style="height:1.3em"
+       alt="logo for librejs" />
+  <a href="https://www.gnu.org/software/librejs/">Librejs</a></h4><p>
+LibreJS is an add-on for GNU Icecat and other Firefox-based browsers. It
+detects non-trivial and non-free JavaScript code from being loaded
+without your consent when you browse the web.  JavaScript code that is
+free or trivial is allowed to be loaded.
+<small>(<a href="manual.html#librejs">doc</a>)</small></p>
+
+
+
+<h4 id="libsigsegv">
+  <a href="https://www.gnu.org/software/libsigsegv/">Libsigsegv</a></h4><p>
+GNU libsigsegv is a library to handle page faults, which occur when a
+program tries to access an unavailable region of memory, in user mode.
+By catching and handling page faults, the program can implement pageable
+virtual memory, stack overflow handlers, and so on.
+<small>(<a href="manual.html#libsigsegv">doc</a>)</small></p>
+
+
+
+<h4 id="libtasn1">
+  <a href="https://www.gnu.org/software/libtasn1/">Libtasn1</a></h4><p>
+GNU libtasn1 is a library implementing the ASN.1 notation.  It is used
+for transmitting machine-neutral encodings of data objects in computer
+networking, allowing for formal validation of data according to some
+specifications.
+<small>(<a href="manual.html#libtasn1">doc</a>)</small></p>
+
+
+
+<h4 id="libtool">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/libtool.250x100.png" style="height:1.3em"
+       alt="logo for libtool" />
+  <a href="https://www.gnu.org/software/libtool/">Libtool</a></h4><p>
+GNU Libtool helps in the creation and use of shared libraries, by
+presenting a single consistent, portable interface that hides the usual
+complexity of working with shared libraries across platforms.
+<small>(<a href="manual.html#libtool">doc</a>)</small></p>
+
+
+
+<h4 id="libunistring">
+  <a href="https://www.gnu.org/software/libunistring/">Libunistring</a></h4><p>
+GNU libunistring is a library providing functions to manipulate Unicode
+strings and for manipulating C strings according to the Unicode standard.
+<small>(<a href="manual.html#libunistring">doc</a>)</small></p>
+
+
+
+<h4 id="libxmi"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/libxmi/">Libxmi</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU libxmi is a library for rasterizing 2D vector graphics for C and
+C++. It supports drawing 2D primitives into a user-supplied matrix
+of pixels.  It also supports the specification of sophisticated line
+styles such as multi-colored dashed patterns.  Filling and texturing
+polygons is also supported.
+<small>(<a href="manual.html#libxmi">doc</a>)</small></p>
+
+
+
+<h4 id="lightning">
+  <a href="https://www.gnu.org/software/lightning/">Lightning</a></h4><p>
+GNU Lightning is a library that generates assembly language code
+at run-time.  Thus, it is useful in creating Just-In-Time compilers.
+It abstracts over the target CPU by exposing a standardized RISC
+instruction set to the clients.
+<small>(<a href="manual.html#lightning">doc</a>)</small></p>
+
+
+
+<h4 id="lilypond">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/lilypond.250x100.png" style="height:1.3em"
+       alt="logo for lilypond" />
+  <a href="https://www.gnu.org/software/lilypond/">Lilypond</a></h4><p>
+GNU LilyPond is a music typesetter, which produces high-quality sheet
+music.  Music is input in a text file containing control sequences
+which are interpreted by LilyPond to produce the final document.  It is
+extendable with Guile.
+<small>(<a href="manual.html#lilypond">doc</a>)</small></p>
+
+
+
+<h4 id="lims">
+  <a href="https://www.gnu.org/software/lims/">Lims</a></h4><p>
+GNU LIMS is a laboratory information management system.  It is used
+for managing a scientific laboratory of any field.  It consists of a
+set of modules for the Tryton enterprise management framework, so it
+is flexible to the specific needs of the laboratory.  For example, the
+system includes modules for sample management, lab equipment integration,
+accounting and stock management.
+<small>(<a href="manual.html#lims">doc</a>)</small></p>
+
+
+
+<h4 id="linux-libre">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/linux-libre.250x100.png" style="height:1.3em"
+       alt="logo for linux-libre" />
+  <a href="https://www.gnu.org/software/linux-libre/">Linux-libre</a></h4><p>
+GNU Linux-Libre is a free (as in freedom) variant of the kernel Linux. It
+has been modified to remove all non-free binary blobs.
+<small>(<a href="manual.html#linux-libre">doc</a>)</small></p>
+
+
+
+<h4 id="liquidwar6">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/liquidwar6.250x100.png" style="height:1.3em"
+       alt="logo for liquidwar6" />
+  <a href="https://www.gnu.org/software/liquidwar6/">Liquid War 6</a></h4><p>
+GNU Liquid War 6 is a fast-paced, unique action game.  Each player
+controls a blob of liquid with the goal of conquering the entire map. It
+has 13 levels by default and over 100 more with a bonus pack; new levels
+can be easily created using simple image files.
+<small>(<a href="manual.html#liquidwar6">doc</a>)</small></p>
+
+
+
+<h4 id="lispintro">
+  <a href="https://www.gnu.org/software/lispintro/">Lispintro</a></h4><p>
+See <a href="#emacs">emacs</a>.
+<small>(<a href="manual.html#lispintro">doc</a>)</small></p>
+
+
+
+<h4 id="lrzsz"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/lrzsz/">Lrzsz</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU lrzsz is a communication package supporting the XMODEM, YMODEM and
+ZMODEM file transfer protocols.
+<small>(<a href="manual.html#lrzsz">doc</a>)</small></p>
+
+
+
+<h4 id="lsh"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/lsh/">Lsh</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU lsh is a free implementation of the SSH version 2 protocol.  It is
+used to create a secure line of communication between two computers,
+providing shell access to the server system from the client.  It provides
+both the server daemon and the client application, as well as tools for
+manipulating key files.
+<small>(<a href="manual.html#lsh">doc</a>)</small></p>
+
+
+
+<h4 id="m4">
+  <a href="https://www.gnu.org/software/m4/">M4</a></h4><p>
+GNU M4 is an implementation of the M4 macro language, which features
+some extensions over other implementations, some of which are required by
+GNU Autoconf.  It is used as a macro processor, which means it processes
+text, expanding macros as it encounters them.  It also has some built-in
+functions, for example to run shell commands or to do arithmetic.
+<small>(<a href="manual.html#m4">doc</a>)</small></p>
+
+
+
+<h4 id="macchanger"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/macchanger/">MAC Changer</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU MAC Changer is a utility for viewing and changing MAC addresses of
+networking devices.  New addresses may be set explicitly or randomly.
+They can include MAC addresses of the same or other hardware vendors or,
+more generally, MAC addresses of the same category of hardware.
+<small>(<a href="manual.html#macchanger">doc</a>)</small></p>
+
+
+
+<h4 id="mailman">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/mailman.250x100.png" style="height:1.3em"
+       alt="logo for mailman" />
+  <a href="https://www.gnu.org/software/mailman/">Mailman</a></h4><p>
+GNU Mailman is software for managing email discussion and mailing lists.
+Both users and administrators generally perform their actions in a web
+interface, although email and command-line interfaces are also provided.
+The system features built-in archiving, automatic bounce processing,
+content filtering, digest delivery, and more.
+<small>(<a href="manual.html#mailman">doc</a>)</small></p>
+
+
+
+<h4 id="mailutils">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/mailutils.250x100.png" style="height:1.3em"
+       alt="logo for mailutils" />
+  <a href="https://www.gnu.org/software/mailutils/">Mailutils</a></h4><p>
+GNU Mailutils is a collection of programs for managing, viewing and
+processing electronic mail.  It contains both utilities and server daemons
+and all operate in a protocol-agnostic way.  The underlying libraries
+are also available, simplifying the addition of mail capabilities to
+new software.
+<small>(<a href="manual.html#mailutils">doc</a>)</small></p>
+
+
+
+<h4 id="make">
+  <a href="https://www.gnu.org/software/make/">Make</a></h4><p>
+Make is a program that is used to control the production of executables
+or other files from their source files.  The process is controlled from
+a Makefile, in which the developer specifies how each file is generated
+from its source.  It has powerful dependency resolution and the ability
+to determine when files have to be regenerated after their sources change.
+GNU make offers many powerful extensions over the standard utility.
+<small>(<a href="manual.html#make">doc</a>)</small></p>
+
+
+
+<h4 id="marst"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/marst/">MARST</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU MARST is an Algol-to-C translator.  The package consists of the
+translator itself, a library that contains the necessary Algol 60
+procedures, and a converter that converts existing Algol 60 programs
+from other representations to the MARST representation.
+<small>(<a href="manual.html#marst">doc</a>)</small></p>
+
+
+
+<h4 id="maverik"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/maverik.250x100.png" style="height:1.3em"
+       alt="logo for maverik" />
+  <a href="https://www.gnu.org/software/maverik/">Maverik</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU MAVERIK is a development toolkit that supports 3D virtual environments
+and interaction with those environments.  It sits on top of a low-level
+rendering engine that uses OpenGL or Mesa, and provides mechanisms to
+render different kinds of objects, to manage environments and to provide
+support for 3D interaction.
+<small>(<a href="manual.html#maverik">doc</a>)</small></p>
+
+
+
+<h4 id="mc"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/mc.250x100.png" style="height:1.3em"
+       alt="logo for mc" />
+  <a href="https://www.gnu.org/software/mc/">Midnight Commander</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Midnight Commander is a command-line file manager laid out in a
+common two-pane format.  In addition to standard file management tasks
+such as copying and moving, Midnight Commander also supports viewing
+the contents of RPM package files and other archives and managing files
+on other computers via FTP or FISH.  It also includes a powerful text
+editor for opening text files.
+<small>(<a href="manual.html#mc">doc</a>)</small></p>
+
+
+
+<h4 id="mcron">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/mcron.250x100.png" style="height:1.3em"
+       alt="logo for mcron" />
+  <a href="https://www.gnu.org/software/mcron/">Mcron</a></h4><p>
+GNU Mcron is a complete replacement for Vixie cron.  It is used to
+run tasks on a schedule, such as every hour or every Monday.  Mcron is
+written in Guile, so its configuration can be written in Scheme; the
+original cron format is also supported.
+<small>(<a href="manual.html#mcron">doc</a>)</small></p>
+
+
+
+<h4 id="mcsim">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/mcsim.250x100.png" style="height:1.3em"
+       alt="logo for mcsim" />
+  <a href="https://www.gnu.org/software/mcsim/">MCSim</a></h4><p>
+GNU MCSim is a package to perform simulations.  It supports statistical
+or deterministic simulation models via Monte Carlo stochastic simulations
+or dynamic, ODE-based simulations.  It also can do Bayesian inference
+through Markov Chain Monte Carlo simulations.
+<small>(<a href="manual.html#mcsim">doc</a>)</small></p>
+
+
+
+<h4 id="mdk">
+  <a href="https://www.gnu.org/software/mdk/">MIX Development Kit</a></h4><p>
+GNU MDK is the Mix Development Kit, an emulation of the pedagogical
+computer MIX and its assembly language MIXAL.  MIX has a virtual CPU with
+standard features such as registers, memory cells, an overflow toggle,
+comparison flags, input-output devices, and a set of binary instructions.
+The package includes a compiler, a virtual machine, a GUI for the virtual
+machine, and more.
+<small>(<a href="manual.html#mdk">doc</a>)</small></p>
+
+
+
+<h4 id="mediagoblin">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/mediagoblin.250x100.png" style="height:1.3em"
+       alt="logo for mediagoblin" />
+  <a href="https://www.gnu.org/software/mediagoblin/">Mediagoblin</a></h4><p>
+GNU MediaGoblin is a free media publishing platform.  It runs in a
+federalized manner, freeing the user from centralized web services. It
+supports pictures, videos and audio.
+<small>(<a href="manual.html#mediagoblin">doc</a>)</small></p>
+
+
+
+<h4 id="melting">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/melting.250x100.png" style="height:1.3em"
+       alt="logo for melting" />
+  <a href="https://www.gnu.org/software/melting/">Melting</a></h4><p>
+GNU MELTING computes the enthalpy, entropy and melting temperature of
+helix-coil transitions of a nucleic acid duplex.
+<small>(<a href="manual.html#melting">doc</a>)</small></p>
+
+
+
+<h4 id="mempool">
+  <a href="https://www.gnu.org/software/mempool/">MemPool</a></h4><p>
+The MemPool library is a stand-alone memory allocation library. It is
+a block allocator library that uses a single fixed size memory pool to
+allocate variable sized memory blocks, and exports functions similar to
+<code>malloc</code>, <code>realloc</code> and <code>free</code>. It is
+intended to either simulate low memory targets on GNU/Linux and other
+systems, or to completely replace the system memory management.
+<small>(<a href="manual.html#mempool">doc</a>)</small></p>
+
+
+
+<h4 id="mes">
+  <a href="https://www.gnu.org/software/mes/">Mes</a></h4><p>
+GNU Mes aims to help create full source bootstrapping for GNU/Linux
+systems such as Guix System.  It features a mutual self-hosting Scheme
+interpreter written in a simple C, and a Nyacc-based C compiler written
+in GNU Guile-compatible Scheme.  The Mes C library supports bootstrapping
+gcc.
+<small>(<a href="manual.html#mes">doc</a>)</small></p>
+
+
+
+<h4 id="metahtml">
+  <a href="https://www.gnu.org/software/metahtml/">Metahtml</a></h4><p>
+GNU MetaHTML is a server-side programming language designed for the
+World Wide Web.  It has a syntax that is similar to HTML and Lisp. It
+provides a large function library, including support for sockets, image
+creation and connections to other programs.
+<small>(<a href="manual.html#metahtml">doc</a>)</small></p>
+
+
+
+<h4 id="mifluz">
+  <a href="https://www.gnu.org/software/mifluz/">Mifluz</a></h4><p>
+GNU mifluz is a C++ library to store a full-text inverted index.
+It stores the occurrences of words in a set of texts in such a way that
+they can later be searched.  Upon searching for a word, the index returns
+the list of documents which contain that word.
+<small>(<a href="manual.html#mifluz">doc</a>)</small></p>
+
+
+
+<h4 id="mig">
+  <a href="https://www.gnu.org/software/mig/">Mig</a></h4><p>
+See <a href="#hurd">hurd</a>.
+<small>(<a href="manual.html#mig">doc</a>)</small></p>
+
+
+
+<h4 id="miscfiles"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/miscfiles/">Miscfiles</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Miscfiles is a collection of common data files.  They include,
+for example, country abbreviations, names and capital cities; currency
+abbreviations and names; a Best Current Practices index; a map of the
+ASCII character set; a list of three-letter airport codes; and an English
+word list.
+<small>(<a href="manual.html#miscfiles">doc</a>)</small></p>
+
+
+
+<h4 id="mit-scheme">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/mit-scheme.250x100.png" style="height:1.3em"
+       alt="logo for mit-scheme" />
+  <a href="https://www.gnu.org/software/mit-scheme/">MIT/GNU Scheme</a></h4><p>
+GNU/MIT Scheme is an implementation of the Scheme programming language.
+It provides an interpreter, a compiler and a debugger.  It also features
+an integrated Emacs-like editor and a large runtime library.
+<small>(<a href="manual.html#mit-scheme">doc</a>)</small></p>
+
+
+
+<h4 id="moe">
+  <a href="https://www.gnu.org/software/moe/">Moe</a></h4><p>
+GNU Moe is a powerful-but-simple-to-use text editor.  It works in a
+modeless manner, and features an intuitive set of key-bindings that
+assign a degree of severity to each key; for example, key combinations
+with the Alt key are for harmless commands like cursor movements while
+combinations with the Control key are for commands that will modify
+the text.  Moe features multiple windows, unlimited undo/redo, unlimited
+line length, global search and replace, and more.
+<small>(<a href="manual.html#moe">doc</a>)</small></p>
+
+
+
+<h4 id="motti">
+  <a href="https://www.gnu.org/software/motti/">Motti</a></h4><p>
+GNU Motti is a simple multiplayer strategy game played in a terminal. The
+objective of the game is to conquer enemy capitals by occupying and
+encircling territory.
+<small>(<a href="manual.html#motti">doc</a>)</small></p>
+
+
+
+<h4 id="mpc">
+  <a href="https://www.gnu.org/software/mpc/">MPC</a></h4><p>
+GNU MPC is a C library for performing arithmetic on complex numbers. It
+supports arbitrarily high precision and it correctly rounds the results.
+<small>(<a href="manual.html#mpc">doc</a>)</small></p>
+
+
+
+<h4 id="mpfr">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/mpfr.250x100.png" style="height:1.3em"
+       alt="logo for mpfr" />
+  <a href="https://www.gnu.org/software/mpfr/">Mpfr</a></h4><p>
+GNU MPFR is a C library for performing multiple-precision, floating-point
+computations with correct rounding.
+<small>(<a href="manual.html#mpfr">doc</a>)</small></p>
+
+
+
+<h4 id="mpria">
+  <a href="https://www.gnu.org/software/mpria/">Mpria</a></h4><p>
+GNU MPRIA is a C library for performing rational arithmetic computations
+with arbitrarily high precision.  It builds on the GMP library.
+<small>(<a href="manual.html#mpria">doc</a>)</small></p>
+
+
+
+<h4 id="mtools"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/mtools/">Mtools</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Mtools is a set of utilities for accessing MS-DOS disks from a GNU
+or Unix system.  It supports long file names and multiple disk formats.
+It also supports some FAT-specific features such as volume labels and
+FAT-specific file attributes.
+<small>(<a href="manual.html#mtools">doc</a>)</small></p>
+
+
+
+<h4 id="nana">
+  <a href="https://www.gnu.org/software/nana/">Nana</a></h4><p>
+GNU Nana is a framework for adding assertion checking, logging and
+performance measurement to C and C++ programs.  Operations can either be
+implemented directly in C or by generating debugger commands. Checking
+and logging features can be enabled or disabled at compile or runtime.
+<small>(<a href="manual.html#nana">doc</a>)</small></p>
+
+
+
+<h4 id="nano">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/nano.250x100.png" style="height:1.3em"
+       alt="logo for nano" />
+  <a href="https://www.gnu.org/software/nano/">Nano</a></h4><p>
+GNU nano is a small and simple text editor for use in a terminal. Besides
+basic editing, it supports: undo/redo, syntax highlighting, spell
+checking, justifying, auto-indentation, bracket matching, interactive
+search-and-replace (with regular expressions), and the editing of
+multiple files.
+<small>(<a href="manual.html#nano">doc</a>)</small></p>
+
+
+
+<h4 id="nano-archimedes">
+  <a href="https://www.gnu.org/software/nano-archimedes/">Nano-archimedes</a></h4><p>
+nano-archimedes is a free package for the simulation of quantum systems.
+It is based on the Wigner equation, a formulation of quantum mechanics
+in terms of a phase-space which is mathematically equivalent to the
+Schroedinger equation.  nano-archimedes implements the Wigner Monte
+Carlo method.  The code can be easily extended to density functional
+theory (DFT) and time-dependent ab-initio simulations.
+<small>(<a href="manual.html#nano-archimedes">doc</a>)</small></p>
+
+
+
+<h4 id="ncurses">
+  <a href="https://www.gnu.org/software/ncurses/">Ncurses</a></h4><p>
+GNU Ncurses is a library which provides capabilities to write text to a
+terminal in a terminal-independent manner.  It supports pads and color
+as well as multiple highlights and forms characters.  It is typically
+used to implement user interfaces for command-line applications.
+The accompanying ncursesw library provides wide character support.
+<small>(<a href="manual.html#ncurses">doc</a>)</small></p>
+
+
+
+<h4 id="nettle">
+  <a href="https://www.gnu.org/software/nettle/">Nettle</a></h4><p>
+GNU Nettle is a low-level cryptographic library.  It is designed to fit in
+easily in almost any context.  It can be easily included in cryptographic
+toolkits for object-oriented languages or in applications themselves.
+<small>(<a href="manual.html#nettle">doc</a>)</small></p>
+
+
+
+<h4 id="ocrad">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/ocrad.250x100.png" style="height:1.3em"
+       alt="logo for ocrad" />
+  <a href="https://www.gnu.org/software/ocrad/">Ocrad</a></h4><p>
+GNU Ocrad is an optical character recognition program based on a feature
+extraction method.  It can read images in PBM, PGM or PPM formats and
+it produces text in 8-bit or UTF-8 formats.
+<small>(<a href="manual.html#ocrad">doc</a>)</small></p>
+
+
+
+<h4 id="octave">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/octave.250x100.png" style="height:1.3em"
+       alt="logo for octave" />
+  <a href="https://www.gnu.org/software/octave/">Octave</a></h4><p>
+GNU Octave is a high-level interpreted language that is specialized for
+numerical computations.  It can be used for both linear and non-linear
+applications and it provides great support for visualizing results.
+Work may be performed both at the interactive command-line as well as
+via script files.
+<small>(<a href="manual.html#octave">doc</a>)</small></p>
+
+
+
+<h4 id="oleo">
+  <a href="https://www.gnu.org/software/oleo/">Oleo</a></h4><p>
+GNU Oleo is a spreadsheet program.  It offers both a terminal interface
+and a LessTif-based graphical user interface.  It features familiar,
+Emacs-like keybindings.  It supports many standard spreadsheet features
+such as macros and functions.
+<small>(<a href="manual.html#oleo">doc</a>)</small></p>
+
+
+
+<h4 id="orgadoc">
+  <a href="https://www.gnu.org/software/orgadoc/">OrgaDoc</a></h4><p>
+GNU OrgaDoc is a system for easily maintaining a pool of documents
+between computers.  Documents are synchronized by <code>rsync</code>
+or <code>unison</code>; no database or HTTP server is required.
+<small>(<a href="manual.html#orgadoc">doc</a>)</small></p>
+
+
+
+<h4 id="osip"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/osip.250x100.png" style="height:1.3em"
+       alt="logo for osip" />
+  <a href="https://www.gnu.org/software/osip/">oSIP</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU oSIP is an implementation of the SIP protocol.  It is used to provide
+multimedia and telecom software developers with an interface to initiate
+and control SIP sessions.
+<small>(<a href="manual.html#osip">doc</a>)</small></p>
+
+
+
+<h4 id="panorama"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/panorama/">Panorama</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Panorama is a framework for producing 3D graphics.  It can perform
+various effects, such as focal blur, arbitrary light sources, bump
+mapping, and several lighting effects.
+<small>(<a href="manual.html#panorama">doc</a>)</small></p>
+
+
+
+<h4 id="parallel">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/parallel.250x100.png" style="height:1.3em"
+       alt="logo for parallel" />
+  <a href="https://www.gnu.org/software/parallel/">Parallel</a></h4><p>
+GNU Parallel is a tool for executing shell jobs in parallel using one
+or more computers.  Jobs can consist of single commands or of scripts
+and they are executed on lists of files, hosts, users or other items.
+<small>(<a href="manual.html#parallel">doc</a>)</small></p>
+
+
+
+<h4 id="parted">
+  <a href="https://www.gnu.org/software/parted/">Parted</a></h4><p>
+GNU Parted is a package for creating and manipulating disk partition
+tables.  It includes a library and command-line utility.
+<small>(<a href="manual.html#parted">doc</a>)</small></p>
+
+
+
+<h4 id="patch">
+  <a href="https://www.gnu.org/software/patch/">Patch</a></h4><p>
+Patch is a program that applies changes to files based on differences laid
+out as by the program <code>diff</code>.  The changes may be applied to
+one or more files depending on the contents of the diff file.  It accepts
+several different diff formats.  It may also be used to revert previously
+applied differences.
+<small>(<a href="manual.html#patch">doc</a>)</small></p>
+
+
+
+<h4 id="paxutils"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/paxutils/">Paxutils</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU paxutils is a suite of archive utilities.  It contains versions of
+the cpio, tar and pax archivers.
+<small>(<a href="manual.html#paxutils">doc</a>)</small></p>
+
+
+
+<h4 id="pcb"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/pcb.250x100.png" style="height:1.3em"
+       alt="logo for pcb" />
+  <a href="https://www.gnu.org/software/pcb/">Pcb</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU PCB is an interactive tool for editing printed circuit board
+layouts. It features a &ldquo;ratsnest&rdquo; implementation,
+schematic/netlist import, and design rule checking.  It also includes
+an autorouter and a trace optimizer; and it can produce photorealistic
+and design review images.
+<small>(<a href="manual.html#pcb">doc</a>)</small></p>
+
+
+
+<h4 id="pem"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/pem/">Pem</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Pem is a simple tool for tracking personal income and expenses.
+It operates from the command line and it stores its data in a basic
+text format in your home directory.  It can easily print reports of your
+spending on different expenses via a basic search feature.
+<small>(<a href="manual.html#pem">doc</a>)</small></p>
+
+
+
+<h4 id="pexec"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/pexec/">Pexec</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU pexec is a program for executing commands or shell scripts in parallel
+on one or many computers.  As it works, execution parameters such as the
+environment variables or standard input, output and error can be varied.
+<small>(<a href="manual.html#pexec">doc</a>)</small></p>
+
+
+
+<h4 id="pies">
+  <a href="https://www.gnu.org/software/pies/">Pies</a></h4><p>
+GNU pies is a program that supervises the invocation and execution of
+other programs.  It reads the list of programs to be started from its
+configuration file, executes them, and then monitors their status,
+re-executing them as necessary.
+<small>(<a href="manual.html#pies">doc</a>)</small></p>
+
+
+
+<h4 id="plotutils"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/plotutils/">Plotutils</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Plotutils is a package for plotting and working with 2D graphics.
+It includes a library, <code>libplot</code>, for C and C++ for exporting
+2D vector graphics in many file formats.  It also has support for 2D
+vector graphics animations.  The package also contains command-line
+programs for plotting scientific data.
+<small>(<a href="manual.html#plotutils">doc</a>)</small></p>
+
+
+
+<h4 id="poke">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/poke.250x100.png" style="height:1.3em"
+       alt="logo for poke" />
+  <a href="https://www.gnu.org/software/poke/">Poke</a></h4><p>
+GNU poke is an interactive, extensible editor for binary data.  Not
+limited to editing basic entities such as bits and bytes, it provides
+a full-fledged procedural, interactive programming language designed to
+describe data structures and to operate on them.
+<small>(<a href="manual.html#poke">doc</a>)</small></p>
+
+
+
+<h4 id="proxyknife"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/proxyknife/">Proxyknife</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU proxyknife is a tool to validate free proxies from behind a firewall.
+The validation process is fully customizable to meet your needs.
+<small>(<a href="manual.html#proxyknife">doc</a>)</small></p>
+
+
+
+<h4 id="pspp">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/pspp.250x100.png" style="height:1.3em"
+       alt="logo for pspp" />
+  <a href="https://www.gnu.org/software/pspp/">PSPP</a></h4><p>
+GNU PSPP is a statistical analysis program.  It can perform descriptive
+statistics, T-tests, linear regression and non-parametric tests.
+It features both a graphical interface as well as command-line input. PSPP
+is designed to interoperate with Gnumeric, LibreOffice and OpenOffice.
+Data can be imported from spreadsheets, text files and database sources
+and it can be output in text, PostScript, PDF or HTML.
+<small>(<a href="manual.html#pspp">doc</a>)</small></p>
+
+
+
+<h4 id="psychosynth"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/psychosynth.250x100.png" style="height:1.3em"
+       alt="logo for psychosynth" />
+  <a href="https://www.gnu.org/software/psychosynth/">Psychosynth</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Psychosynth is an interactive, modular soft-synth.  It emulates a
+3D surface on which modules are placed and manipulated, generating and
+altering music.  Psychosynth consists of a C++ library, a 3D interface
+and a command-line interface.
+<small>(<a href="manual.html#psychosynth">doc</a>)</small></p>
+
+
+
+<h4 id="pth"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/pth.250x100.png" style="height:1.3em"
+       alt="logo for pth" />
+  <a href="https://www.gnu.org/software/pth/">Pth</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Pth is a portable library providing non-preemptive, priority-based
+scheduling for multiple execution threads.  Each thread has its own
+program-counter, run-time stack, signal mask and errno variable. Threads
+are scheduled in a cooperative way, rather than in the standard
+preemptive way, such that they are managed according to priority
+and events.  However, Pth also features emulation of POSIX.1c threads
+(<code>pthreads</code>) for backwards compatibility.
+<small>(<a href="manual.html#pth">doc</a>)</small></p>
+
+
+
+<h4 id="qexo">
+  <a href="https://www.gnu.org/software/qexo/">Qexo</a></h4><p>
+See <a href="#kawa">kawa</a>.
+<small>(<a href="manual.html#qexo">doc</a>)</small></p>
+
+
+
+<h4 id="r">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/r.250x100.png" style="height:1.3em"
+       alt="logo for r" />
+  <a href="https://www.gnu.org/software/r/">R</a></h4><p>
+R is a language and environment for statistical computing and graphics.
+It provides a variety of statistical techniques, such as linear and
+nonlinear modeling, classical statistical tests, time-series analysis,
+classification and clustering.  It also provides robust support for
+producing publication-quality data plots.  A large amount of 3rd-party
+packages are available, greatly increasing its breadth and scope.
+<small>(<a href="manual.html#r">doc</a>)</small></p>
+
+
+
+<h4 id="radius"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/radius/">Radius</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Radius is a server for remote user authentication and accounting. It is
+generally useful for networks that require a centralized authentication
+and accounting services for its workstations. Authentication can be
+performed in a variety of ways, such as via <code>/etc/passwd</code>
+or credentials stored in an SQL database.
+<small>(<a href="manual.html#radius">doc</a>)</small></p>
+
+
+
+<h4 id="rcs">
+  <a href="https://www.gnu.org/software/rcs/">RCS</a></h4><p>
+RCS is the original Revision Control System.  It works on a file-by-file
+basis, in contrast to subsequent version control systems such as CVS,
+Subversion, and Git.  This can make it suitable for system administration
+files, for example, which are often inherently local to one machine.
+<small>(<a href="manual.html#rcs">doc</a>)</small></p>
+
+
+
+<h4 id="readline">
+  <a href="https://www.gnu.org/software/readline/">Readline</a></h4><p>
+The GNU readline library allows users to edit command lines as they are
+typed in.  It can maintain a searchable history of previously entered
+commands, letting you easily recall, edit and re-enter past commands.
+It features both Emacs-like and vi-like keybindings, making its usage
+comfortable for anyone.
+<small>(<a href="manual.html#readline">doc</a>)</small></p>
+
+
+
+<h4 id="recutils">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/recutils.250x100.png" style="height:1.3em"
+       alt="logo for recutils" />
+  <a href="https://www.gnu.org/software/recutils/">Recutils</a></h4><p>
+GNU Recutils is a set of tools and libraries for creating and manipulating
+text-based, human-editable databases.  Despite being text-based, databases
+created with Recutils carry all of the expected features such as unique
+fields, primary keys, time stamps and more. Many different field types
+are supported, as is encryption.
+<small>(<a href="manual.html#recutils">doc</a>)</small></p>
+
+
+
+<h4 id="reftex"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/reftex/">Reftex</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU RefTex is a package for implementing labels, references, citations
+and indices in LaTeX documents.  It works by wrapping around four LaTeX
+macros: label, ref, cite and index.  It automates the common tasks that
+normally are required when using these macros.
+<small>(<a href="manual.html#reftex">doc</a>)</small></p>
+
+
+
+<h4 id="remotecontrol">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/remotecontrol.250x100.png" style="height:1.3em"
+       alt="logo for remotecontrol" />
+  <a href="https://www.gnu.org/software/remotecontrol/">Remotecontrol</a></h4><p>
+GNU Remotecontrol is a web application for managing IP-enabled HVAC
+thermostats and other building automation devices.  The application can
+read data from and write data to multiple such devices.
+<small>(<a href="manual.html#remotecontrol">doc</a>)</small></p>
+
+
+
+<h4 id="rottlog">
+  <a href="https://www.gnu.org/software/rottlog/">Rottlog</a></h4><p>
+GNU Rot[t]log is a program for managing log files.  It is used to
+automatically rotate out log files when they have reached a given size
+or according to a given schedule.  It can also be used to automatically
+compress and archive such logs.  Rot[t]log will mail reports of its
+activity to the system administrator.
+<small>(<a href="manual.html#rottlog">doc</a>)</small></p>
+
+
+
+<h4 id="rpge"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/rpge/">Rpge</a></h4>
+<p><!-- TRANSLATORS: stale -->
+The GNU Role Playing Game Engine provides an engine for creating
+two-dimensional, graphical role-playing games, providing, for example,
+a sprite-tiling grid, sprite rendering, and event handling.
+<small>(<a href="manual.html#rpge">doc</a>)</small></p>
+
+
+
+<h4 id="rush">
+  <a href="https://www.gnu.org/software/rush/">Rush</a></h4><p>
+GNU Rush is a restricted user shell, for systems on which users are to
+be provided with only limited functionality or resources. Administrators
+set user rights via a configuration file which can be used to limit,
+for example, the commands that can be executed, CPU time, or virtual
+memory usage.
+<small>(<a href="manual.html#rush">doc</a>)</small></p>
+
+
+
+<h4 id="sather">
+  <a href="https://www.gnu.org/software/sather/">Sather</a></h4><p>
+GNU Sather is an object-oriented programming language similar
+to Eiffel. It is designed to be simple, efficient, safe, and
+non-proprietary. It features garbage collection, statically-checked
+strong typing, multiple inheritance, parameterized classes and more.
+This package consists of a compiler, a class library, the language
+specification and programming manual, and a browser for displaying
+sources and directed graphs of class inheritance.
+<small>(<a href="manual.html#sather">doc</a>)</small></p>
+
+
+
+<h4 id="scm">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/scm.250x100.png" style="height:1.3em"
+       alt="logo for scm" />
+  <a href="https://www.gnu.org/software/scm/">SCM</a></h4><p>
+GNU SCM is an implementation of Scheme.  This implementation includes
+Hobbit, a Scheme-to-C compiler, which can generate C files whose binaries
+can be dynamically or statically linked with a SCM executable.
+<small>(<a href="manual.html#scm">doc</a>)</small></p>
+
+
+
+<h4 id="screen">
+  <a href="https://www.gnu.org/software/screen/">Screen</a></h4><p>
+GNU Screen is a terminal window manager that multiplexes a single
+terminal between several processes.  The virtual terminals each provide
+features such as a scroll-back buffer and a copy-and-paste mechanism.
+Screen then manages the different virtual terminals, allowing you to
+easily switch between them, to detach them from the current session,
+or even splitting the view to show two terminals at once.
+<small>(<a href="manual.html#screen">doc</a>)</small></p>
+
+
+
+<h4 id="sed">
+  <a href="https://www.gnu.org/software/sed/">Sed</a></h4><p>
+Sed is a non-interactive, text stream editor.  It receives a text input
+from a file or from standard input and it then applies a series of text
+editing commands to the stream and prints its output to standard output.
+It is often used for substituting text patterns in a stream.  The GNU
+implementation offers several extensions over the standard utility.
+<small>(<a href="manual.html#sed">doc</a>)</small></p>
+
+
+
+<h4 id="serveez"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/serveez.250x100.png" style="height:1.3em"
+       alt="logo for serveez" />
+  <a href="https://www.gnu.org/software/serveez/">Serveez</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Serveez is a server framework providing the routines necessary to
+easily implement IP-based servers in your application.  It demonstrates
+aspects of network programming in a portable manner, making it convenient
+for both simplifying the process of adding a server to your application
+or for learning about how network services work.  Several example servers
+are provided already, such as an HTTP server and an IRC server.
+<small>(<a href="manual.html#serveez">doc</a>)</small></p>
+
+
+
+<h4 id="sharutils">
+  <a href="https://www.gnu.org/software/sharutils/">Sharutils</a></h4><p>
+GNU sharutils is a package for creating and manipulating shell archives
+that can be readily emailed.  A shell archive is a file that can be
+processed by a Bourne-type shell to unpack the original collection of
+files.  This package is mostly for compatibility and historical interest.
+<small>(<a href="manual.html#sharutils">doc</a>)</small></p>
+
+
+
+<h4 id="shepherd">
+  <a href="https://www.gnu.org/software/shepherd/">Shepherd</a></h4><p>
+The GNU Shepherd is a daemon-managing daemon, meaning that it supervises
+the execution of system services, replacing similar functionality found
+in typical init systems.  It provides dependency-handling through a
+convenient interface and is based on GNU Guile.
+<small>(<a href="manual.html#shepherd">doc</a>)</small></p>
+
+
+
+<h4 id="shishi"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/shishi.250x100.png" style="height:1.3em"
+       alt="logo for shishi" />
+  <a href="https://www.gnu.org/software/shishi/">Shishi</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Shishi is a free implementation of the Kerberos 5 network security
+system.  It is used to allow non-secure network nodes to communicate in
+a secure manner through client-server mutual authentication via tickets.
+<small>(<a href="manual.html#shishi">doc</a>)</small></p>
+
+
+
+<h4 id="shmm">
+  <a href="https://www.gnu.org/software/shmm/">Shmm</a></h4><p>
+GNU SHMM is a shared memory manager.  It can read or write to shared
+memory.  It also supports other commands such as locking or unlocking
+a block of shared memory identified by key and size.
+<small>(<a href="manual.html#shmm">doc</a>)</small></p>
+
+
+
+<h4 id="shtool"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/shtool.250x100.png" style="height:1.3em"
+       alt="logo for shtool" />
+  <a href="https://www.gnu.org/software/shtool/">Shtool</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU shtool is a multipurpose shell tool.  It can perform the functions
+of many different commands, in order to provide a single tool to
+distribute with a source distribution in order to ensure portability of
+shell scripts.  For example, shtool can perform the jobs of the common
+commands <code>install</code>, <code>mkdir</code> or <code>echo</code>
+on systems that lack them.
+<small>(<a href="manual.html#shtool">doc</a>)</small></p>
+
+
+
+<h4 id="sipwitch">
+  <a href="https://www.gnu.org/software/sipwitch/">Sipwitch</a></h4><p>
+GNU SIP Witch is a peer-to-peer Voice-over-IP server that uses the
+SIP protocol.  Calls can be made from behind NAT firewalls and without
+the need for a service provider.  Its peer-to-peer design ensures that
+there is no central point for media intercept or capture and thus it
+can be used to construct a secure telephone system that operates over
+the public internet.
+<small>(<a href="manual.html#sipwitch">doc</a>)</small></p>
+
+
+
+<h4 id="slib">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/slib.250x100.png" style="height:1.3em"
+       alt="logo for slib" />
+  <a href="https://www.gnu.org/software/slib/">SLIB</a></h4><p>
+GNU SLIB is a portable common library for the Scheme programming language.
+It supports a large variety of different Scheme implementations, offering
+them a framework for using packages of Scheme procedures and syntax.
+<small>(<a href="manual.html#slib">doc</a>)</small></p>
+
+
+
+<h4 id="smalltalk"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/smalltalk.250x100.png" style="height:1.3em"
+       alt="logo for smalltalk" />
+  <a href="https://www.gnu.org/software/smalltalk/">Smalltalk</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Smalltalk is a free implementation of the Smalltalk language.
+It implements the ANSI standard for the language and also includes extra
+classes such as ones for networking and GUI programming.
+<small>(<a href="manual.html#smalltalk">doc</a>)</small></p>
+
+
+
+<h4 id="solfege">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/solfege.250x100.png" style="height:1.3em"
+       alt="logo for solfege" />
+  <a href="https://www.gnu.org/software/solfege/">Solfege</a></h4><p>
+GNU Solfege is a program for practicing musical ear-training.  With it,
+you can practice your recognition of various musical intervals and chords.
+It features a statistics overview so you can monitor your progress across
+several sessions.  Solfege is also designed to be extensible so you can
+easily write your own lessons.
+<small>(<a href="manual.html#solfege">doc</a>)</small></p>
+
+
+
+<h4 id="spacechart"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/spacechart/">SpaceChart</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU SpaceChart lets you view how the stars are distributed in
+three-dimensional space.  It allows you, for example, to determine the
+distances between stars, to view them from any point of view, or to
+filter your view by spectral class and luminosity.
+<small>(<a href="manual.html#spacechart">doc</a>)</small></p>
+
+
+
+<h4 id="spell"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/spell/">Spell</a></h4>
+<p><!-- TRANSLATORS: stale -->
+Spell is a command-line spell-checking program.  It reads through
+a text input and prints each misspelled word on a line of its own.
+It is implemented as a wrapper for GNU aspell or ispell.
+<small>(<a href="manual.html#spell">doc</a>)</small></p>
+
+
+
+<h4 id="sqltutor">
+  <a href="https://www.gnu.org/software/sqltutor/">Sqltutor</a></h4><p>
+GNU Sqltutor is a web-based, interactive SQL tutorial.  It features
+multiple tutorials available in different languages.  The tutorials
+present a series of questions in a dialog and, when complete, they
+display a final evaluation including correct answers for wrong solutions.
+<small>(<a href="manual.html#sqltutor">doc</a>)</small></p>
+
+
+
+<h4 id="src-highlite">
+  <a href="https://www.gnu.org/software/src-highlite/">Src-highlite</a></h4><p>
+GNU source-highlight reads in a source code file and produces an
+output file in which the keywords are highlighted in different colors to
+designate their syntactic role.  It supports over 150 different languages
+and it can output to 8 different formats, including HTML, LaTeX and ODF.
+It can also output to ANSI color escape sequences, so that highlighted
+source code can be seen in a terminal.
+<small>(<a href="manual.html#src-highlite">doc</a>)</small></p>
+
+
+
+<h4 id="ssw">
+  <a href="https://www.gnu.org/software/ssw/">Spread Sheet Widget</a></h4><p>
+A Gtk+ widget providing a 2 dimensional array to view and manipulate
+tabular data similar to that provided by popular spread sheet
+programs. The design follows the model-view-controller paradigm and is
+O(1) in both time and space, providing very fast and efficient operation
+even on very large data.  Features such as cut and paste, drag and drop
+etc are included.
+<small>(<a href="manual.html#ssw">doc</a>)</small></p>
+
+
+
+<h4 id="stow">
+  <a href="https://www.gnu.org/software/stow/">Stow</a></h4><p>
+GNU Stow is a symlink manager.  It generates symlinks to directories
+of data and makes them appear to be merged into the same directory.
+It is typically used for managing software packages installed from
+source, by letting you install them apart in distinct directories
+and then create symlinks to the files in a common directory such as
+<code>/usr/local</code>.
+<small>(<a href="manual.html#stow">doc</a>)</small></p>
+
+
+
+<h4 id="stump">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/stump.250x100.png" style="height:1.3em"
+       alt="logo for stump" />
+  <a href="https://www.gnu.org/software/stump/">Stump</a></h4><p>
+GNU STUMP is a robomoderator program for USENET newsgroups and mailing
+lists, featuring web-based moderation.  It supports group moderation
+via multiple human moderators.  It can also automatically reject
+non-conforming messages without human intervention.  It includes a
+web interface.
+<small>(<a href="manual.html#stump">doc</a>)</small></p>
+
+
+
+<h4 id="superopt">
+  <a href="../software/superopt/index.html">Superopt</a></h4><p>
+GNU Superopt is a function sequence generator for superoptimization.
+It uses an exhaustive generate-and-test approach to find the shortest
+instruction sequence for a given function.
+This package is looking for a maintainer.
+<small>(<a href="manual.html#superopt">doc</a>)</small></p>
+
+
+
+<h4 id="swbis">
+  <a href="https://www.gnu.org/software/swbis/">Swbis</a></h4><p>
+Swbis is a software administration system specified by POSIX.
+It features network-transparent management of software packages for
+system administrators.  For example, entire file system directories can
+be copied host-to-host across a network in a transparent manner. The
+package also features advanced tarball creation methods and integrity
+checking mechanisms.
+<small>(<a href="manual.html#swbis">doc</a>)</small></p>
+
+
+
+<h4 id="taler">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/taler.250x100.png" style="height:1.3em"
+       alt="logo for taler" />
+  <a href="https://www.gnu.org/software/taler/">Taler</a></h4><p>
+Taler provides a payment system that makes privacy-friendly online
+transactions fast and easy.
+<small>(<a href="manual.html#taler">doc</a>)</small></p>
+
+
+
+<h4 id="talkfilters">
+  <a href="https://www.gnu.org/software/talkfilters/">Talkfilters</a></h4><p>
+The GNU Talk Filters are programs that convert English text into
+stereotyped or otherwise humorous dialects.  The filters are provided
+as a C library, so they can easily be integrated into other programs.
+<small>(<a href="manual.html#talkfilters">doc</a>)</small></p>
+
+
+
+<h4 id="tar">
+  <a href="https://www.gnu.org/software/tar/">Tar</a></h4><p>
+Tar provides the ability to create tar archives, as well as the ability
+to extract, update or list files in an existing archive.  It is useful
+for combining many files into one larger file, while maintaining
+directory structure and file information such as permissions and
+creation/modification dates.  GNU tar offers many extensions over the
+standard utility.
+<small>(<a href="manual.html#tar">doc</a>)</small></p>
+
+
+
+<h4 id="termcap">
+  <a href="https://www.gnu.org/software/termcap/">Termcap</a></h4><p>
+GNU termcap is a library and a database that are used to enable the use
+of display terminals in a terminal-independent manner.  The database
+describes the capabilities of many different display terminals.  The
+library can then adapt generalized instructions given by a program to the
+specific capabilities of the display terminal as found in the database.
+<small>(<a href="manual.html#termcap">doc</a>)</small></p>
+
+
+
+<h4 id="termutils">
+  <a href="https://www.gnu.org/software/termutils/">Termutils</a></h4><p>
+The GNU Termutils package contains two programs, <code>tput</code>
+and <code>tabs</code>.  <code>tput</code> is used in shell scripts to
+manipulate the terminal display, for example by clearing it or moving
+the cursor to a specific point, centering text or underlining text.
+<code>tabs</code> is used to specify and set hardware tab stops on
+terminals that support it.
+<small>(<a href="manual.html#termutils">doc</a>)</small></p>
+
+
+
+<h4 id="teseq">
+  <a href="https://www.gnu.org/software/teseq/">Teseq</a></h4><p>
+GNU Teseq is a program that analyzes files that contain control sequences.
+It converts the sequences that it encounters into a human-readable
+description of what actions those sequences perform. It can also translate
+its output back into machine-readable control sequences.
+<small>(<a href="manual.html#teseq">doc</a>)</small></p>
+
+
+
+<h4 id="teximpatient">
+  <a href="https://www.gnu.org/software/teximpatient/">TeX for the Impatient</a></h4><p>
+TeX for the Impatient is a ~350 page book on TeX, plain TeX and Eplain,
+written by Paul Abrahams, Kathryn Hargreaves and Karl Berry.
+<small>(<a href="manual.html#teximpatient">doc</a>)</small></p>
+
+
+
+<h4 id="texinfo">
+  <a href="https://www.gnu.org/software/texinfo/">Texinfo</a></h4><p>
+Texinfo is the official documentation format of the GNU project.
+It uses a single source file using explicit commands to produce a final
+document in any of several supported output formats, such as HTML or PDF.
+This package includes both the tools necessary to produce Info documents
+from their source and the command-line Info reader.  The emphasis of the
+language is on expressing the content semantically, avoiding physical
+markup commands.
+<small>(<a href="manual.html#texinfo">doc</a>)</small></p>
+
+
+
+<h4 id="texmacs">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/texmacs.250x100.png" style="height:1.3em"
+       alt="logo for texmacs" />
+  <a href="https://www.gnu.org/software/texmacs/">TeXmacs</a></h4><p>
+GNU TeXmacs is a text editing platform which is specialized for
+scientists.  It is ideal for editing structured documents with different
+types of content.  It has robust support for mathematical formulas and
+plots.  It can also act as an interface to external mathematical programs
+such as R and Octave.  TeXmacs is completely extensible via Guile.
+<small>(<a href="manual.html#texmacs">doc</a>)</small></p>
+
+
+
+<h4 id="time">
+  <a href="https://www.gnu.org/software/time/">Time</a></h4><p>
+Time is a command that displays information about the resources that a
+program uses.  The display output of the program can be customized or
+saved to a file.
+<small>(<a href="manual.html#time">doc</a>)</small></p>
+
+
+
+<h4 id="tramp">
+  <a href="https://www.gnu.org/software/tramp/">TRAMP</a></h4><p>
+TRAMP is a GNU Emacs package that allows you to access files on remote
+machines as though they were local files.  This includes editing files,
+performing version control tasks and modifying directory contents with
+<code>dired</code>.  Access is performed via ssh, rsh, rlogin, telnet
+or other similar methods.
+<small>(<a href="manual.html#tramp">doc</a>)</small></p>
+
+
+
+<h4 id="trans-coord">
+  <a href="https://www.gnu.org/software/trans-coord/">Trans-coord</a></h4><p>
+See <a href="#gnun">gnun</a>.
+<small>(<a href="manual.html#trans-coord">doc</a>)</small></p>
+
+
+
+<h4 id="trueprint">
+  <a href="https://www.gnu.org/software/trueprint/">Trueprint</a></h4><p>
+GNU Trueprint translates C source code files as PostScript files. In
+addition to the basic source code output, it can also perform
+diff-marking, indentation counting, function and file indices and more.
+<small>(<a href="manual.html#trueprint">doc</a>)</small></p>
+
+
+
+<h4 id="unifont">
+  <a href="https://www.gnu.org/software/unifont/">Unifont</a></h4><p>
+GNU Unifont is a bitmap font covering essentially all of Unicode's
+Basic Multilingual Plane.  The package also includes utilities to ease
+adding new glyphs to the font.
+<small>(<a href="manual.html#unifont">doc</a>)</small></p>
+
+
+
+<h4 id="units">
+  <a href="https://www.gnu.org/software/units/">Units</a></h4><p>
+GNU Units converts numeric quantities between units of measure.  It can
+handle scale changes through adaptive usage of standard scale prefixes
+(micro-, kilo-, etc.).  It can also handle nonlinear conversions such
+as Fahrenheit to Celsius.  Its interpreter is powerful enough to be used
+effectively as a scientific calculator.
+<small>(<a href="manual.html#units">doc</a>)</small></p>
+
+
+
+<h4 id="unrtf">
+  <a href="https://www.gnu.org/software/unrtf/">UnRTF</a></h4><p>
+GNU UnRTF converts text documents from RTF to HTML, LaTeX, or troff.  It
+supports changes in font characteristics, underlines and strikethroughs,
+superscripts and subscripts, and more.
+<small>(<a href="manual.html#unrtf">doc</a>)</small></p>
+
+
+
+<h4 id="userv">
+  <a href="https://www.gnu.org/software/userv/">Userv</a></h4><p>
+GNU Userv is a utility that allows one program to invoke another even
+when only limited trust exists between them.  This prevents the need
+from having to first switch to a different user account to perform
+certain tasks.
+<small>(<a href="manual.html#userv">doc</a>)</small></p>
+
+
+
+<h4 id="uucp">
+  <a href="https://www.gnu.org/software/uucp/">UUCP</a></h4><p>
+Taylor UUCP is the GNU implementation of UUCP (Unix-to-Unix Copy),
+a set of utilities for remotely transferring files, email and net news
+between computers.
+<small>(<a href="manual.html#uucp">doc</a>)</small></p>
+
+
+
+<h4 id="vc-dwim">
+  <a href="https://www.gnu.org/software/vc-dwim/">Vc-dwim</a></h4><p>
+The vc-dwim package contains two tools, <code>vc-dwim</code> and
+<code>vc-chlog</code>. vc-dwim is a tool that simplifies the task of
+maintaining a ChangeLog and using version control at the same time, for
+example by printing a reminder when a file change has been described in
+the ChangeLog but the file has not been added to the VC.  vc-chlog scans
+changed files and generates standards-compliant ChangeLog entries based
+on the changes that it detects.
+<small>(<a href="manual.html#vc-dwim">doc</a>)</small></p>
+
+
+
+<h4 id="vcdimager"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/vcdimager/">VCDImager</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU VCDImager is a suite of programs for working with Video CDs and
+Super Video CDs.  It can be used for authoring, disassembling and
+analyzing discs.  It supports full playback control, segment play items,
+automatic padding of MPEG streams on the fly, and extraction of Video
+CDs into files.
+<small>(<a href="manual.html#vcdimager">doc</a>)</small></p>
+
+
+
+<h4 id="vera">
+  <a href="https://www.gnu.org/software/vera/">Vera</a></h4><p>
+V.E.R.A. (Virtual Entity of Relevant Acronyms) is a list of computing
+acronyms distributed as an info document.
+<small>(<a href="manual.html#vera">doc</a>)</small></p>
+
+
+
+<h4 id="vmgen">
+  <a href="https://www.gnu.org/software/vmgen/">Vmgen</a></h4><p>
+See <a href="#gforth">gforth</a>.
+<small>(<a href="manual.html#vmgen">doc</a>)</small></p>
+
+
+
+<h4 id="wb">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/wb.250x100.png" style="height:1.3em"
+       alt="logo for wb" />
+  <a href="https://www.gnu.org/software/wb/">WB</a></h4><p>
+GNU WB is a disk-based, sorted, associative-array database package for
+C, Scheme, Java and C#.  Rather than being implemented via hashing,
+WB uses B-trees, which are optimized for using the minimum number of
+disk operations.
+<small>(<a href="manual.html#wb">doc</a>)</small></p>
+
+
+
+<h4 id="wdiff">
+  <a href="https://www.gnu.org/software/wdiff/">Wdiff</a></h4><p>
+GNU Wdiff is a front-end to the <code>diff</code> program from Diffutils
+that allows you to compare files on a word-by-word basis, where a word
+is anything between whitespace.
+<small>(<a href="manual.html#wdiff">doc</a>)</small></p>
+
+
+
+<h4 id="websocket4j"><!-- TRANSLATORS: stale -->
+  <a href="https://www.gnu.org/software/websocket4j/">Websocket4j</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Websocket4j is a Java library implementing the WebSocket
+protocol. With it, you can build web applications that interact with
+Java applications.  The library includes both server- and client-side
+functionality.
+<small>(<a href="manual.html#websocket4j">doc</a>)</small></p>
+
+
+
+<h4 id="webstump">
+  <a href="https://www.gnu.org/software/webstump/">WebSTUMP</a></h4><p>
+See <a href="#stump">stump</a>.
+<small>(<a href="manual.html#webstump">doc</a>)</small></p>
+
+
+
+<h4 id="wget">
+  <a href="https://www.gnu.org/software/wget/">Wget</a></h4><p>
+GNU Wget is a non-interactive tool for fetching files using the HTTP,
+HTTPS and FTP protocols.  It can resume interrupted downloads, use file
+name wild cards, supports proxies and cookies, and it can convert absolute
+links in downloaded documents to relative links.
+<small>(<a href="manual.html#wget">doc</a>)</small></p>
+
+
+
+<h4 id="which">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/which.250x100.png" style="height:1.3em"
+       alt="logo for which" />
+  <a href="https://www.gnu.org/software/which/">Which</a></h4><p>
+The which program finds the location of executables in PATH, with a
+variety of options.  It is an alternative to the shell <code>type</code>
+built-in command.
+<small>(<a href="manual.html#which">doc</a>)</small></p>
+
+
+
+<h4 id="xaos">
+  <a href="https://www.gnu.org/software/xaos/">XaoS</a></h4><p>
+GNU XaoS is a graphical program that generates fractal patterns and allows
+you to zoom in and out of them infinitely in a fluid, continuous manner.
+It also includes tutorials that help to explain how fractals are built.
+It can generate many different fractal types such as the Mandelbrot set.
+<small>(<a href="manual.html#xaos">doc</a>)</small></p>
+
+
+
+<h4 id="xboard">
+  <a href="../software/xboard/index.html">XBoard</a></h4><p>
+GNU XBoard is a graphical board for all varieties of chess, including
+international chess, xiangqi (Chinese chess), shogi (Japanese chess) and
+Makruk.  Several lesser-known variants are also supported.  It presents
+a fully interactive graphical interface and it can load and save games
+in the Portable Game Notation.
+<small>(<a href="manual.html#xboard">doc</a>)</small></p>
+
+
+
+<h4 id="xlogmaster"><!-- TRANSLATORS: stale -->
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/xlogmaster.250x100.png" style="height:1.3em"
+       alt="logo for xlogmaster" />
+  <a href="https://www.gnu.org/software/xlogmaster/">Xlogmaster</a></h4>
+<p><!-- TRANSLATORS: stale -->
+GNU Xlogmaster is a program with a graphical user interface that lets you
+monitor your system logs in a convenient way.  The logs can be displayed
+with filters for highlighting or hiding lines.  The program can also be
+used to automate taking actions upon user-defined events.
+<small>(<a href="manual.html#xlogmaster">doc</a>)</small></p>
+
+
+
+<h4 id="xnee">
+  <a href="https://www.gnu.org/software/xnee/">Xnee</a></h4><p>
+GNU Xnee is a program that can record, replay and distribute user actions
+in X11.  It can be used to automate user interactions for testing or
+demonstration purposes.
+<small>(<a href="manual.html#xnee">doc</a>)</small></p>
+
+
+
+<h4 id="xorriso">
+  <a href="https://www.gnu.org/software/xorriso/">Xorriso</a></h4><p>
+GNU Xorriso is a tool for copying files to and from ISO 9660 Rock Ridge,
+a.k.a. Compact Disc File System, filesystems and it allows session-wise
+manipulation of them.  It features a formatter and burner for CD, DVD
+and BD.  It can operate on existing ISO images or it can create new ones.
+xorriso can then be used to copy files directly into or out of ISO files.
+<small>(<a href="manual.html#xorriso">doc</a>)</small></p>
+
+
+
+<h4 id="zile">
+  <img src="https://www.gnu.org/graphics/pkg-logos-250x100/zile.250x100.png" style="height:1.3em"
+       alt="logo for zile" />
+  <a href="https://www.gnu.org/software/zile/">Zile</a></h4><p>
+GNU Zile is a lightweight Emacs clone.  Its usage is similar to the
+default Emacs configuration, but it carries a much lighter feature set.
+<small>(<a href="manual.html#zile">doc</a>)</small></p>
+
+
+<!-- End file generated by www/prep/gnumaint/gm Sun 04 Feb 2024 10:21:34 AM CET -->
+
+<div class="column-limit"></div>
+
+<p>See <a href="#topinfo">info about this list at top</a>.</p>
+</div>
+
+</div><!-- for id="content", starts in the include above -->
+
+              <!-- begin server/footer-text.html -->
+
+
+
+
+
+<div style="clear:both"></div>
+
+
+<div id="language-container">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#top"><b>&#9650;</b></a>
+ </div>
+ <div id="languages" class="rounded-corners">
+  <div class="button">
+   <a href="#top" class="close"><span>BACK TO TOP</span></a>
+  </div>
+  <div id="set-language" class="button">
+   <span class="gnun-split"></span>
+   <a href="https://www.gnu.org/server/select-language.html?callback=/manual/blurbs.html" rel="nofollow">
+   Set language
+   <span class="gnun-split"></span>
+   </a>
+  </div>
+  <p>Available for this page:</p>
+  <div id="translations">
+<p>
+<span dir="ltr" class="original">[en]&nbsp;<a lang="en" hreflang="en" href="https://www.gnu.org/manual/blurbs.en.html">English</a> &nbsp;</span>
+<span dir="ltr">[de]&nbsp;<a lang="de" hreflang="de" href="https://www.gnu.org/manual/blurbs.de.html">Deutsch</a> &nbsp;</span>
+<span dir="ltr">[es]&nbsp;<a lang="es" hreflang="es" href="https://www.gnu.org/manual/blurbs.es.html">español</a> &nbsp;</span>
+<span dir="ltr">[fr]&nbsp;<a lang="fr" hreflang="fr" href="https://www.gnu.org/manual/blurbs.fr.html">français</a> &nbsp;</span>
+<span dir="ltr">[ja]&nbsp;<a lang="ja" hreflang="ja" href="https://www.gnu.org/manual/blurbs.ja.html">日本語</a> &nbsp;</span>
+<span dir="ltr">[pt-br]&nbsp;<a lang="pt-br" hreflang="pt-br" href="https://www.gnu.org/manual/blurbs.pt-br.html">português</a> &nbsp;</span>
+<span dir="ltr">[ru]&nbsp;<a lang="ru" hreflang="ru" href="https://www.gnu.org/manual/blurbs.ru.html">русский</a> &nbsp;</span>
+</p>
+</div>
+ </div>
+</div>
+
+<div id="mission-statement" role="complementary">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#header"><span>BACK TO TOP </span>&#9650;</a>
+ </div>
+<div style="clear: both"></div>
+<blockquote>
+<p style="direction:ltr; text-align:left"><a href="http://www.fsf.org/"><img id="fsfbanner"
+src="../graphics/fsf-logo-notext-small.png" alt="&nbsp;[FSF logo]&nbsp;"
+width="75" height="25" /></a><strong>
+&ldquo;The Free Software Foundation (FSF) is a nonprofit with a worldwide
+mission to promote computer user freedom. We defend the rights of all
+software users.&rdquo;</strong></p>
+</blockquote>
+
+<div id="support-the-fsf" class="button">
+ <a class="join" href="http://www.fsf.org/associate/support_freedom?referrer=4052">JOIN</a>
+ <a class="donate" href="http://donate.fsf.org/">DONATE</a>
+ <a class="shop" href="http://shop.fsf.org/">SHOP</a>
+</div>
+</div>
+<!-- end server/footer-text.html -->
+
+
+<div id="footer" role="contentinfo">
+<div class="unprintable">
+
+<p>Please send general FSF &amp; GNU inquiries to <a
+href="mailto:gnu@gnu.org">&lt;gnu@gnu.org&gt;</a>.  There are also <a
+href="../contact/index.html">other ways to contact</a> the FSF.  Broken links and other
+corrections or suggestions can be sent to <a
+href="mailto:webmasters@gnu.org">&lt;webmasters@gnu.org&gt;</a>.</p>
+
+<p><!-- TRANSLATORS: Ignore the original text in this paragraph,
+        replace it with the translation of these two:
+
+        We work hard and do our best to provide accurate, good quality
+        translations.  However, we are not exempt from imperfection.
+        Please send your comments and general suggestions in this regard
+        to <a href="mailto:web-translators@gnu.org">
+        &lt;web-translators@gnu.org&gt;</a>.</p>
+
+        <p>For information on coordinating and contributing translations of
+        our web pages, see <a
+        href="/server/standards/README.translations.html">Translations
+        README</a>. -->
+Please see the <a
+href="../server/standards/README.translations.html">Translations README</a> for
+information on coordinating and contributing translations of this article.</p>
+</div>
+
+<p>Copyright &copy; 2013, 2022 Free Software Foundation, Inc.</p>
+
+<p>This page is licensed under a <a rel="license"
+href="http://creativecommons.org/licenses/by-nd/4.0/">Creative
+Commons Attribution-NoDerivatives 4.0 International License</a>.</p>
+
+<!-- start of server/bottom-notes.html -->
+<div id="bottom-notes" class="unprintable">
+<p><a href="http://www.fsf.org/about/dmca-notice">Copyright Infringement Notification</a></p>
+<div id="generic">
+
+
+</div>
+</div>
+<!-- end of server/bottom-notes.html -->
+
+
+<p class="unprintable">Updated:
+<!-- timestamp start -->
+$Date: 2022/01/07 09:27:53 $
+<!-- timestamp end -->
+</p>
+</div>
+</div><!-- for class="inner", starts in the banner include -->
+</body>
+
+<!-- Mirrored from www.gnu.org/manual/blurbs.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>

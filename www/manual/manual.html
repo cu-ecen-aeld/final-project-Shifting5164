@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- Mirrored from www.gnu.org/manual/manual.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="author" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="../graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<link rel="stylesheet" type="text/css" href="../layout.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../print.min.css" media="print" />
+
+
+
+<!-- Parent-Version: 1.92 -->
+<!-- This page is derived from /server/standards/boilerplate.html -->
+<title>GNU Manuals Online
+- GNU Project - Free Software Foundation</title>
+<style type="text/css" media="print,screen"><!--
+#content * { box-sizing: border-box; }
+#list-container { margin: 2.5em 0; }
+#categories {
+  line-height: 1.3em;
+  padding: .6em 1em .9em;
+  margin: 0 0 2em;
+  background: #f5f5f5;
+  border: 2px solid #ddd;
+  border-radius: .5em;
+}
+#categories a {
+  display: inline-block;
+  padding: .3em .5em;
+  margin: .1em;
+}
+#categories a[href]:link, h3 a[href]:link,
+#categories a[href]:visited, h3 a[href]:visited {
+  color: #049;
+  text-decoration: none;
+}
+#list-container .category {
+  margin: 1em 0;
+  border: 2px solid #ddd;
+  border-radius: .5em;
+}
+h3 {
+  text-align: center;
+  font-size: 1.31em;
+  padding: .2em 0;
+  background: #eee;
+  margin: 0;
+}
+h3 span {
+  line-height: 1em;
+  vertical-align: middle;
+}
+dl { padding: 0 3% 1.5em; margin: 0; }
+dl dt { padding: 1em 0 0; margin: 0; }
+dl dd { margin: .6em 3% 0; }
+dt { font-size: 1.125em; }
+dt span { font-weight: normal; }
+
+@media (min-width: 57em) {
+  #list-container .category { margin-right: 16em; }
+  #categories {
+    width: 15em;
+    float: right;
+    margin: 0;
+  }
+  #categories a { display: block; }
+}
+--></style>
+<!-- begin translist file -->
+
+<link rel="alternate" type="text/html" href="manual.html" hreflang="x-default" />
+<link rel="alternate" type="text/html" lang="en" hreflang="en" href="https://www.gnu.org/manual/manual.en.html" title="English" />
+<link rel="alternate" type="text/html" lang="de" hreflang="de" href="https://www.gnu.org/manual/manual.de.html" title="Deutsch" />
+<link rel="alternate" type="text/html" lang="fr" hreflang="fr" href="https://www.gnu.org/manual/manual.fr.html" title="français" />
+<link rel="alternate" type="text/html" lang="ja" hreflang="ja" href="https://www.gnu.org/manual/manual.ja.html" title="日本語" />
+<link rel="alternate" type="text/html" lang="pt-br" hreflang="pt-br" href="https://www.gnu.org/manual/manual.pt-br.html" title="português" />
+<!-- end translist file -->
+
+<!-- start of server/banner.html -->
+<!-- start of head-include-2.html -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- end of head-include-2.html -->
+
+</head>
+<body>
+<div class="inner">
+<!-- start of server/body-include-1.html -->
+<div id="top">
+<a class="skip" href="#content"><b>Skip to main text</b></a>
+</div>
+
+<div id="fsf-frame" role="complementary">
+<form id="fssbox" action="https://my.fsf.org/civicrm/profile/create?reset=1&amp;gid=31"
+      method="post">
+ <div>
+  <input name="postURL" type="hidden" value="" />
+  <input type="hidden" name="group[25]" value="1" />
+  <input name="cancelURL" type="hidden" value="https://crm.fsf.org/civicrm/profile?reset=1&amp;gid=31" />
+  <input name="_qf_default" type="hidden" value="Edit:cancel" />
+  <label for="frmEmail">
+   <a href="http://www.fsf.org/fss">Free Software Supporter</a>:
+  </label>
+  <input type="text" id="frmEmail" name="email-Primary" size="18" maxlength="80"
+         value="email address" onfocus="this.value=''"/>
+  <input type="submit" name="_qf_Edit_next" value="Sign up" />
+ </div>
+</form>
+
+<div id="join-fsf" class="button"><a
+href="https://www.fsf.org/associate/support_freedom?referrer=4052">JOIN&nbsp;THE&nbsp;FSF</a>
+</div>
+</div>
+
+<div id="header" role="banner">
+<p id="gnu-banner">
+ <a href="../index.html">
+ <img src="../graphics/heckert_gnu.transp.small.png" height="48" width="49"
+      alt="&nbsp;[A GNU head]&nbsp;" /><strong>GNU</strong> <span
+ class="hide">Operating System</span></a><br />
+ <small id="fsf-support">Supported by the
+ <a href="#mission-statement">Free Software Foundation</a></small>
+</p>
+
+<div id="switches">
+ <div  id="search-button" class="switch">
+  <a href="../cgi-bin/estseek.cgi">
+  <img id="search-icon" height="30" width="30"
+       src="../graphics/icons/search.png"
+       alt="&nbsp;[Search www.gnu.org]&nbsp;" /></a>
+ </div>
+
+ <div id="language-button" class="switch">
+  <a href="#language-container">
+  <img id="language-icon" height="30" width="37"
+       src="../graphics/icons/translations.png"
+       alt="&nbsp;[Other languages]&nbsp;" /></a>
+ </div>
+
+</div>
+</div>
+<!-- end of server/body-include-1.html -->
+
+<!-- start of server/body-include-2 -->
+
+
+<div style="clear: both"></div>
+
+<div id="navigation" role="navigation">
+ <a id="more-links" href="#navigation" title="More...">
+   <span>Site navigation</span></a>
+ <a id="less-links" href="#content"><b>Skip</b></a>
+ <ul>
+
+   <li id="tabAboutGNU"><a href="../gnu/gnu.html">ABOUT&nbsp;GNU</a></li>
+
+
+  <li id="tabPhilosophy"><a href="../philosophy/philosophy.html">PHILOSOPHY</a></li>
+
+
+  <li id="tabLicenses"><a href="../licenses/licenses.html">LICENSES</a></li>
+
+
+  <li id="tabEducation"><a href="../education/education.html">EDUCATION</a></li>
+
+
+  <li id="tabSoftware"><a href="../software/software.html">SOFTWARE</a></li>
+
+
+  <li id="tabDistros"><a href="../distros/distros.html">DISTROS</a></li>
+
+
+  <li id="tabDoc" class="active">
+     <span class='no-display'>=</span> 
+    <a href="../doc/doc.html">DOCS</a>
+    <span class="gnun-split"></span>
+     <span class='no-display'>=</span> 
+  </li>
+
+
+  <li id="tabMalware"><a href="../proprietary/proprietary.html">MALWARE</a></li>
+
+
+  <li id="tabHelp"><a href="../help/help.html">HELP&nbsp;GNU</a></li>
+
+
+  <li id="tabAV"><a href="../audio-video/audio-video.html">AUDIO&nbsp;&amp;&nbsp;VIDEO</a></li>
+
+
+  <li id="tabArt"><a href="../graphics/graphics.html">GNU&nbsp;ART</a></li>
+
+
+  <li id="tabFun"><a href="../fun/humor.html">FUN</a></li>
+
+
+  <li id="tabPeople"><a href="../people/people.html">GNU'S&nbsp;WHO?</a></li>
+
+  <li><a href="http://directory.fsf.org/">SOFTWARE&nbsp;DIRECTORY</a></li>
+  <li><a href="https://h-node.org/">HARDWARE</a></li>
+  <li><a href="../server/sitemap.html">SITEMAP</a></li>
+ </ul>
+ <div style="clear: both"></div>
+</div><!-- /"navigation -->
+<!-- end of server/body-include-2 -->
+
+<div id="content" role="main">
+<!-- end of server/banner.html -->
+
+
+<h2>GNU Manuals Online</h2>
+<hr class="thin" />
+
+<p id="topinfo">This table lists <a
+href="../software/software.html">official GNU packages</a> with links to
+their primary documentation, where available.  When a package has
+several associated manuals, they are all listed.  If a package has no
+specific manual online, the link just goes to the package's home page
+(which is also linked to explicitly).</p>
+
+<p>Many packages could be listed in any of several categories, but for
+the table here just one has to be chosen, usually following the <a
+href="https://directory.fsf.org/">Free Software Directory</a>.</p>
+
+<p>Bug reports: for any discussion about specific manuals, please
+contact the package maintainers.  For discussion about this page in
+particular (for example, if you are a GNU maintainer and want to correct
+or discuss your entry), contact <a
+href="mailto:webmasters@gnu.org">&lt;webmasters@gnu.org&gt;</a>.</p>
+
+<p><a href="../doc/doc.html">More GNU Project documentation</a>.</p>
+
+<div id="list-container">
+<!-- regenerate this when official list changes, via
+       gm generate manuals html
+     in the /prep/gnumaint/ directory.  -->    
+<!-- File generated by www/prep/gnumaint/gm Sun 04 Feb 2024 10:21:34 AM CET -->
+<div id='categories'>
+<a href="#Archiving">Archiving</a><span class="no-display"> -</span>
+<a href="#Audio">Audio</a><span class="no-display"> -</span>
+<a href="#Business">Business and productivity</a><span class="no-display"> -</span>
+<a href="#Database">Database</a><span class="no-display"> -</span>
+<a href="#Dictionaries">Dictionaries</a><span class="no-display"> -</span>
+<a href="#Translation">Documentation translation</a><span class="no-display"> -</span>
+<a href="#Editors">Editors</a><span class="no-display"> -</span>
+<a href="#Education">Education</a><span class="no-display"> -</span>
+<a href="#Email">Email</a><span class="no-display"> -</span>
+<a href="#Fonts">Fonts</a><span class="no-display"> -</span>
+<a href="#gnuorg">GNU organization</a><span class="no-display"> -</span>
+<a href="#Games">Games</a><span class="no-display"> -</span>
+<a href="#Graphics">Graphics</a><span class="no-display"> -</span>
+<a href="#Health">Health</a><span class="no-display"> -</span>
+<a href="#Interface">Interface</a><span class="no-display"> -</span>
+<a href="#Internet">Internet applications</a><span class="no-display"> -</span>
+<a href="#Live">Live communications</a><span class="no-display"> -</span>
+<a href="#Localization">Localization</a><span class="no-display"> -</span>
+<a href="#Mathematics">Mathematics</a><span class="no-display"> -</span>
+<a href="#Music">Music</a><span class="no-display"> -</span>
+<a href="#Printing">Printing</a><span class="no-display"> -</span>
+<a href="#Science">Science</a><span class="no-display"> -</span>
+<a href="#Security">Security</a><span class="no-display"> -</span>
+<a href="#Software">Software development</a><span class="no-display"> -</span>
+<a href="#Libraries">Software libraries</a><span class="no-display"> -</span>
+<a href="#Spreadsheets">Spreadsheets</a><span class="no-display"> -</span>
+<a href="#Sysadmin">System administration</a><span class="no-display"> -</span>
+<a href="#Telephony">Telephony</a><span class="no-display"> -</span>
+<a href="#Text">Text creation and manipulation</a><span class="no-display"> -</span>
+<a href="#Version">Version control</a><span class="no-display"> -</span>
+<a href="#Video">Video</a><span class="no-display"> -</span>
+<a href="#Web">Web authoring</a>
+</div>
+
+<div class='category'>
+<h3 id="Archiving">Archiving
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="cpio"><a href="https://www.gnu.org/software/cpio/manual/">Cpio</a></dt>
+<dd>Manage cpio and tar file archives.
+    [<a href="https://www.gnu.org/software/cpio/">cpio&nbsp;home</a>]</dd>
+<dt id="gzip"><a href="https://www.gnu.org/software/gzip/manual/">Gzip</a></dt>
+<dd>General file (de)compression (using lzw).
+    [<a href="https://www.gnu.org/software/gzip/">gzip&nbsp;home</a>]</dd>
+<dt id="paxutils"><a href="https://www.gnu.org/software/paxutils/">Paxutils</a></dt>
+<dd>Manage cpio, tar, and pax file archives.
+    [<a href="https://www.gnu.org/software/paxutils/">paxutils&nbsp;home</a>]</dd>
+<dt id="sharutils"><a href="https://www.gnu.org/software/sharutils/manual/">Sharutils</a></dt>
+<dd>Archives in shell scripts, uuencode/uudecode.
+    [<a href="https://www.gnu.org/software/sharutils/">sharutils&nbsp;home</a>]</dd>
+<dt id="tar"><a href="https://www.gnu.org/software/tar/manual/">Tar</a></dt>
+<dd>Managing tar archives.
+    [<a href="https://www.gnu.org/software/tar/">tar&nbsp;home</a>]</dd>
+<dt id="xorriso"><a href="https://www.gnu.org/software/xorriso/man_1_xorriso.html">Xorriso</a></dt>
+<dd>Create, manipulate, burn ISO-9660 filesystems.
+    [<a href="https://www.gnu.org/software/xorriso/">xorriso&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Audio"><a href="http://directory.fsf.org/category/aud/">Audio</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="ccd2cue"><a href="https://www.gnu.org/software/ccd2cue/manual/">Ccd2cue</a></dt>
+<dd>CCD to CUE sheet conversion.
+    [<a href="https://www.gnu.org/software/ccd2cue/">ccd2cue&nbsp;home</a>]</dd>
+<dt id="emms"><a href="https://www.gnu.org/software/emms/manual/">EMMS</a></dt>
+<dd>Emacs Multimedia System.
+    [<a href="https://www.gnu.org/software/emms/">emms&nbsp;home</a>]</dd>
+<dt id="gmediaserver"><a href="https://www.gnu.org/software/gmediaserver/manual/">Gmediaserver</a></dt>
+<dd>UPnP compatible media server.
+    [<a href="https://www.gnu.org/software/gmediaserver/">gmediaserver&nbsp;home</a>]</dd>
+<dt id="gnufm"><a href="https://fedi.network/fm">GNUfm</a></dt>
+<dd>Social music explorations.
+    [<a href="https://www.gnu.org/software/gnufm/">gnufm&nbsp;home</a>]</dd>
+<dt id="gnump3d"><a href="https://www.gnu.org/software/gnump3d/documents.html">GNUmp3d</a></dt>
+<dd>Server for streaming audio files.
+    [<a href="https://www.gnu.org/software/gnump3d/">gnump3d&nbsp;home</a>]</dd>
+<dt id="gnupod"><a href="https://www.gnu.org/software/gnupod/gnupod.html">GNUpod</a></dt>
+<dd>Manage portable audio device.
+    [<a href="https://www.gnu.org/software/gnupod/">gnupod&nbsp;home</a>]</dd>
+<dt id="gnuradio"><a href="https://wiki.gnuradio.org/index.php/Main_Page">Radio</a></dt>
+<dd>Software radio implementations.
+    [<a href="https://www.gnu.org/software/gnuradio/">gnuradio&nbsp;home</a>]</dd>
+<dt id="gnusound"><a href="https://www.gnu.org/software/gnusound/Documentation/">GNUsound</a></dt>
+<dd>Multi-track sound editor for GNOME.
+    [<a href="https://www.gnu.org/software/gnusound/">gnusound&nbsp;home</a>]</dd>
+<dt id="guile-sdl"><a href="https://www.gnu.org/software/guile-sdl/manual/">Guile-SDL</a></dt>
+<dd>Guile interface for SDL (Simple DirectMedia Layer).
+    [<a href="../software/guile-sdl/index.html">guile-sdl&nbsp;home</a>]</dd>
+<dt id="libcdio"><a href="https://www.gnu.org/software/libcdio/libcdio.html">Libcdio</a>
+&nbsp;<span>(<a href="https://www.gnu.org/software/libcdio/cd-text-format.html">cd-text</a>)</span>
+</dt>
+<dd>CD Input and Control library.
+    [<a href="https://www.gnu.org/software/libcdio/">libcdio&nbsp;home</a>]</dd>
+<dt id="libextractor"><a href="https://www.gnu.org/software/libextractor/manual/html_node/">Libextractor</a></dt>
+<dd>Library to extract meta-data from media files.
+    [<a href="https://www.gnu.org/software/libextractor/">libextractor&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Business"><a href="http://directory.fsf.org/category/prod/">Business and productivity</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="barcode"><a href="https://www.gnu.org/software/barcode/">Barcode</a></dt>
+<dd>Convert text strings to printed bars in various standards.
+    [<a href="https://www.gnu.org/software/barcode/">barcode&nbsp;home</a>]</dd>
+<dt id="bpel2owfn"><a href="https://www.gnu.org/software/bpel2owfn/manual/2.0.x/bpel2owfn.html">BPEL2oWFN</a></dt>
+<dd>Translating web service in BPEL to Open Workflow Nets.
+    [<a href="https://www.gnu.org/software/bpel2owfn/">bpel2owfn&nbsp;home</a>]</dd>
+<dt id="foliot"><a href="https://www.gnu.org/software/foliot/">Foliot</a></dt>
+<dd>An application for tracking time spent on projects.
+    [<a href="https://www.gnu.org/software/foliot/">foliot&nbsp;home</a>]</dd>
+<dt id="gcal"><a href="https://www.gnu.org/software/gcal/manual/">Gcal</a></dt>
+<dd>Calculating and printing a wide variety of calendars.
+    [<a href="https://www.gnu.org/software/gcal/">gcal&nbsp;home</a>]</dd>
+<dt id="gnucash"><a href="https://www.gnucash.org/docs.phtml">GnuCash</a></dt>
+<dd>Personal and small business financial accounting software.
+    [<a href="https://www.gnu.org/software/gnucash/">gnucash&nbsp;home</a>]</dd>
+<dt id="gretl"><a href="http://sourceforge.net/projects/gretl/files/manual/">Gretl</a></dt>
+<dd>Statistical analysis of economic data (econometrics).
+    [<a href="https://www.gnu.org/software/gretl/">gretl&nbsp;home</a>]</dd>
+<dt id="pem"><a href="https://www.gnu.org/software/pem/">Pem</a></dt>
+<dd>Personal expenses manager.
+    [<a href="https://www.gnu.org/software/pem/">pem&nbsp;home</a>]</dd>
+<dt id="taler"><a href="https://www.gnu.org/software/taler/">Taler</a></dt>
+<dd>Electronic payments for a liberal society.
+    [<a href="https://www.gnu.org/software/taler/">taler&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Database"><a href="http://directory.fsf.org/category/db/">Database</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="ferret"><a href="https://www.gnu.org/software/ferret/">Ferret</a></dt>
+<dd>Entity/relationship based data modeler.
+    [<a href="https://www.gnu.org/software/ferret/">ferret&nbsp;home</a>]</dd>
+<dt id="gdbm"><a href="http://www.gnu.org.ua/software/gdbm/manual/">Gdbm</a></dt>
+<dd>Hash library of database functions compatible with traditional dbm.
+    [<a href="https://www.gnu.org/software/gdbm/">gdbm&nbsp;home</a>]</dd>
+<dt id="guile-dbi"><a href="http://htmlpreview.github.io/?https://github.com/opencog/guile-dbi/blob/master/website/guile-dbi.html">Guile-dbi</a></dt>
+<dd>Guile database abstraction layer.
+    [<a href="https://www.gnu.org/software/guile-dbi/">guile-dbi&nbsp;home</a>]</dd>
+<dt id="gurgle"><a href="http://homepages.inf.ed.ac.uk/timc/gurgle/gurgle.html">Gurgle</a></dt>
+<dd>GNU Report Generator Language.
+    [<a href="https://www.gnu.org/software/gurgle/">gurgle&nbsp;home</a>]</dd>
+<dt id="libdbh"><a href="https://www.gnu.org/software/libdbh/manual/">Libdbh</a></dt>
+<dd>Advanced library for disk-based hash tables.
+    [<a href="https://www.gnu.org/software/libdbh/">libdbh&nbsp;home</a>]</dd>
+<dt id="metaexchange"><a href="../software/metaexchange/index.html#Documentation">Metaexchange</a></dt>
+<dd>Manipulate metadata from OAI-PMH and Z39.50.
+    [<a href="../software/metaexchange/index.html">metaexchange&nbsp;home</a>]</dd>
+<dt id="recutils"><a href="https://www.gnu.org/software/recutils/manual/">Recutils</a></dt>
+<dd>Manipulate plain text files as databases.
+    [<a href="https://www.gnu.org/software/recutils/">recutils&nbsp;home</a>]</dd>
+<dt id="sqltutor"><a href="https://www.gnu.org/software/sqltutor/manual/">Sqltutor</a></dt>
+<dd>Interactively learn SQL by example.
+    [<a href="https://www.gnu.org/software/sqltutor/">sqltutor&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Dictionaries"><a href="http://directory.fsf.org/category/dict/">Dictionaries</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="dico"><a href="https://puszcza.gnu.org.ua/software/dico/manual.html">Dico</a></dt>
+<dd>Implementation of DICT server (RFC 2229).
+    [<a href="https://www.gnu.org/software/dico/">dico&nbsp;home</a>]</dd>
+<dt id="gcide"><a href="https://www.gnu.org/software/gcide/">Gcide</a></dt>
+<dd>GNU Collaborative International Dictionary of English.
+    [<a href="https://www.gnu.org/software/gcide/">gcide&nbsp;home</a>]</dd>
+<dt id="vera"><a href="https://www.gnu.org/software/vera/">Vera</a></dt>
+<dd>List of acronyms.
+    [<a href="https://www.gnu.org/software/vera/">vera&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Translation"><a href="http://directory.fsf.org/category/dtrans/">Documentation translation</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="gnujdoc"><a href="https://www.gnu.org/software/gnujdoc/">GNUjdoc</a></dt>
+<dd>Japanese translations of GNU documents.
+    [<a href="https://www.gnu.org/software/gnujdoc/">gnujdoc&nbsp;home</a>]</dd>
+<dt id="gnun"><a href="https://www.gnu.org/software/trans-coord/manual/">GNUnited Nations</a>
+&nbsp;<span>(<a href="https://www.gnu.org/software/trans-coord/manual/gnun/html_node/">gnun<!-- again --></a>
+&nbsp;<a href="https://www.gnu.org/software/trans-coord/manual/web-trans/html_node/">web-trans</a>)</span>
+</dt>
+<dd>Build system for www.gnu.org translations.
+    [<a href="https://www.gnu.org/software/gnun/">gnun&nbsp;home</a>]</dd>
+<dt id="trans-coord"><a href="https://www.gnu.org/software/trans-coord/manual/">Trans-coord</a></dt>
+<dd>Organizational infrastructure for translating www.gnu.org.
+    [<a href="https://www.gnu.org/software/trans-coord/">trans-coord&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Editors"><a href="http://directory.fsf.org/category/editors/">Editors</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="emacs"><a href="https://www.gnu.org/software/emacs/documentation.html">Emacs</a>
+&nbsp;<span>(<a href="https://www.gnu.org/software/emacs/manual/html_node/auth/">auth</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/autotype/">autotype</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/bovine/">bovine</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/calc/">calc</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/ccmode/">ccmode</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/cl/">cl</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/dbus/">dbus</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/dired-x/">dired-x</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/ebrowse/">ebrowse</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/ede/">ede</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/ediff/">ediff</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/edt/">edt</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/eieio/">eieio</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/">elisp</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/emacs-gnutls/">emacs-gnutls</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/emacs-mime/">emacs-mime</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/">emacs<!-- again --></a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/epa/">epa</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/erc/">erc</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/ert/">ert</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/eshell/">eshell</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/eudc/">eudc</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/eww/">eww</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/flymake/">flymake</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/forms/">forms</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/gnus/">gnus</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/htmlfontify/">htmlfontify</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/idlwave/">idlwave</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/ido/">ido</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/info/">info</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/mairix-el/">mairix-el</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/message/">message</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/mh-e/">mh-e</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/newsticker/">newsticker</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/nxml-mode/">nxml-mode</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/octave-mode/">octave-mode</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/org/">org</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/pcl-cvs/">pcl-cvs</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/pgg/">pgg</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/rcirc/">rcirc</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/reftex/">reftex</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/remember/">remember</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/sasl/">sasl</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/sc/">sc</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/semantic/">semantic</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/ses/">ses</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/sieve/">sieve</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/smtpmail/">smtp</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/speedbar/">speedbar</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/srecode/">srecode</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/todo-mode/">todo-mode</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/tramp/">tramp</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/url/">url</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/vhdl-mode/">vhdl-mode</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/vip/">vip</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/viper/">viper</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/widget/">widget</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/wisent/">wisent</a>
+&nbsp;<a href="https://www.gnu.org/software/emacs/manual/html_node/woman/">woman</a>)</span>
+</dt>
+<dd>The extensible, customizable, self-documenting text editor.
+       <br/>Available in print:
+       <cite><a href="https://shop.fsf.org/books-docs/emacs-reference-card-v25">Emacs Reference Cards</a></cite>,
+       <cite><a href="https://shop.fsf.org/books/gnu-emacs-manual-18th-edition-v-261">GNU Emacs Manual</a></cite>.
+    [<a href="https://www.gnu.org/software/emacs/">emacs&nbsp;home</a>]</dd>
+<dt id="moe"><a href="https://www.gnu.org/software/moe/manual/moe_manual.html">Moe</a></dt>
+<dd>Modeless, multiple-buffer, user-friendly 8-bit text editor.
+    [<a href="https://www.gnu.org/software/moe/">moe&nbsp;home</a>]</dd>
+<dt id="nano"><a href="https://www.nano-editor.org/docs.php">Nano</a></dt>
+<dd>Small, user-friendly console text editor.
+    [<a href="https://www.gnu.org/software/nano/">nano&nbsp;home</a>]</dd>
+<dt id="readline"><a href="https://tiswww.cwru.edu/php/chet/readline/readline.html">Readline</a>
+&nbsp;<span>(<a href="https://tiswww.cwru.edu/php/chet/readline/history.html">history</a>
+&nbsp;<a href="https://tiswww.cwru.edu/php/chet/readline/rluserman.html">rluserman</a>)</span>
+</dt>
+<dd>Edit command lines while typing, with history support.
+    [<a href="https://www.gnu.org/software/readline/">readline&nbsp;home</a>]</dd>
+<dt id="zile"><a href="https://www.gnu.org/software/zile/">Zile</a></dt>
+<dd>Zile is lossy Emacs, a lightweight Emacs clone.
+    [<a href="https://www.gnu.org/software/zile/">zile&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Education"><a href="http://directory.fsf.org/category/educ/">Education</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="dr-geo"><a href="https://www.gnu.org/software/dr-geo/doc/">Dr. Geo</a></dt>
+<dd>Interactive geometry software.
+    [<a href="https://www.gnu.org/software/dr-geo/">dr-geo&nbsp;home</a>]</dd>
+<dt id="fisicalab"><a href="https://www.gnu.org/software/fisicalab/">FisicaLab</a></dt>
+<dd>Educational application for solving physics problems.
+    [<a href="https://www.gnu.org/software/fisicalab/">fisicalab&nbsp;home</a>]</dd>
+<dt id="gcompris"><a href="http://gcompris.net/wiki/Manual">GCompris</a></dt>
+<dd>Educational games for small children.
+    [<a href="https://www.gnu.org/software/gcompris/">gcompris&nbsp;home</a>]</dd>
+<dt id="ggradebook"><a href="https://www.gnu.org/software/ggradebook/">Ggradebook</a></dt>
+<dd>GNOME application to track students' grades for teachers.
+    [<a href="https://www.gnu.org/software/ggradebook/">ggradebook&nbsp;home</a>]</dd>
+<dt id="glean"><a href="https://www.gnu.org/software/glean/">Glean</a></dt>
+<dd>extensible quizzing and tutorial for self-study.
+    [<a href="https://www.gnu.org/software/glean/">glean&nbsp;home</a>]</dd>
+<dt id="gnuschool"><a href="https://www.gnu.org/software/gnuschool/gnuschool.html">GNUschool</a></dt>
+<dd>Web application for educators, students, and school administrators.
+    [<a href="https://www.gnu.org/software/gnuschool/">gnuschool&nbsp;home</a>]</dd>
+<dt id="gtypist"><a href="https://www.gnu.org/software/gtypist/doc/gtypist.html">Gtypist</a></dt>
+<dd>Typing tutor.
+    [<a href="https://www.gnu.org/software/gtypist/">gtypist&nbsp;home</a>]</dd>
+<dt id="ignuit"><a href="https://www.gnu.org/software/ignuit/">Ignuit</a></dt>
+<dd>Memorization aid based on Leitner flashcards.
+    [<a href="https://www.gnu.org/software/ignuit/">ignuit&nbsp;home</a>]</dd>
+<dt id="jtw"><a href="https://www.gnu.org/software/jtw/manual/">Java Training Wheels</a></dt>
+<dd>A simplified Java environment for learning programming.
+    [<a href="https://www.gnu.org/software/jtw/">jtw&nbsp;home</a>]</dd>
+<dt id="mdk"><a href="https://www.gnu.org/software/mdk/manual/">MIX Development Kit</a></dt>
+<dd>Virtual development environment for Knuth's MIX.
+       <br/>Available in print:
+       <cite><a href="http://shop.fsf.org/product/gnu-mdk/">GNU MDK</a></cite>.
+    [<a href="https://www.gnu.org/software/mdk/">mdk&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Email"><a href="http://directory.fsf.org/category/email/">Email</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="anubis"><a href="https://www.gnu.org/software/anubis/manual/">Anubis</a></dt>
+<dd>SMTP message submission daemon.
+    [<a href="https://www.gnu.org/software/anubis/">anubis&nbsp;home</a>]</dd>
+<dt id="gnubiff"><a href="http://gnubiff.sourceforge.net/documentation.php">GNUbiff</a></dt>
+<dd>Mail notification program.
+    [<a href="https://www.gnu.org/software/gnubiff/">gnubiff&nbsp;home</a>]</dd>
+<dt id="mailman"><a href="https://www.gnu.org/software/mailman/docs.html">Mailman</a></dt>
+<dd>Mailing list manager.
+    [<a href="https://www.gnu.org/software/mailman/">mailman&nbsp;home</a>]</dd>
+<dt id="mailutils"><a href="https://www.gnu.org/software/mailutils/manual/">Mailutils</a></dt>
+<dd>Utilities and library for reading and serving mail.
+    [<a href="https://www.gnu.org/software/mailutils/">mailutils&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Fonts"><a href="http://directory.fsf.org/category/fonts/">Fonts</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="fontopia"><a href="https://www.gnu.org/software/fontopia/">Fontopia</a></dt>
+<dd>A console font editor.
+    [<a href="https://www.gnu.org/software/fontopia/">fontopia&nbsp;home</a>]</dd>
+<dt id="fontutils"><a href="https://www.gnu.org/software/fontutils/manual/0.7/fontu_toc.html">Fontutils</a></dt>
+<dd>Scanned image, bitmap, outline font manipulation.
+    [<a href="https://www.gnu.org/software/fontutils/">fontutils&nbsp;home</a>]</dd>
+<dt id="freefont"><a href="https://www.gnu.org/software/freefont/">Free UCS Outline Fonts</a></dt>
+<dd>Unicode-encoded outline fonts.
+    [<a href="https://www.gnu.org/software/freefont/">freefont&nbsp;home</a>]</dd>
+<dt id="intlfonts"><a href="https://www.gnu.org/software/intlfonts/">Intlfonts</a></dt>
+<dd>TrueType and BDF fonts covering many scripts.
+    [<a href="https://www.gnu.org/software/intlfonts/">intlfonts&nbsp;home</a>]</dd>
+<dt id="unifont"><a href="https://www.gnu.org/software/unifont/">Unifont</a></dt>
+<dd>Large bitmap font covering Unicode's Basic Multilingual Plane.
+    [<a href="https://www.gnu.org/software/unifont/">unifont&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="gnuorg">GNU organization
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="gnustandards"><a href="https://www.gnu.org/software/gnustandards/">GNU organization</a>
+&nbsp;<span>(<a href="https://www.gnu.org/prep/maintain/html_node/">maintain</a>
+&nbsp;<a href="https://www.gnu.org/prep/standards/html_node/">standards</a>)</span>
+</dt>
+<dd>GNU coding standards and maintainer information.
+    [<a href="https://www.gnu.org/software/gnustandards/">gnustandards&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Games"><a href="http://directory.fsf.org/category/games/">Games</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="acm"><a href="https://www.gnu.org/software/acm/">Acm</a></dt>
+<dd>Multiplayer aerial combat simulation.
+    [<a href="https://www.gnu.org/software/acm/">acm&nbsp;home</a>]</dd>
+<dt id="ballandpaddle"><a href="https://www.gnu.org/software/ballandpaddle/">Ball and Paddle</a></dt>
+<dd>Ball and paddle game extensible with Guile.
+    [<a href="https://www.gnu.org/software/ballandpaddle/">ballandpaddle&nbsp;home</a>]</dd>
+<dt id="chess"><a href="https://www.gnu.org/software/chess/manual/">Chess</a></dt>
+<dd>Full chess implementation.
+    [<a href="https://www.gnu.org/software/chess/">chess&nbsp;home</a>]</dd>
+<dt id="dominion"><a href="https://www.gnu.org/software/dominion/">Dominion</a></dt>
+<dd>Multi-player world simulation and role-playing game.
+    [<a href="https://www.gnu.org/software/dominion/">dominion&nbsp;home</a>]</dd>
+<dt id="freedink"><a href="https://www.gnu.org/software/freedink/doc/">FreeDink</a></dt>
+<dd>Twisted adventures of young pig farmer Dink Smallwood.
+    [<a href="https://www.gnu.org/software/freedink/">freedink&nbsp;home</a>]</dd>
+<dt id="gnubg"><a href="https://www.gnu.org/software/gnubg/manual/">Backgammon</a></dt>
+<dd>Backgammon game.
+    [<a href="https://www.gnu.org/software/gnubg/">gnubg&nbsp;home</a>]</dd>
+<dt id="gnubik"><a href="https://www.gnu.org/software/gnubik/manual/">GNUbik</a></dt>
+<dd>3d Rubik's cube game.
+    [<a href="../software/gnubik/index.html">gnubik&nbsp;home</a>]</dd>
+<dt id="gnugo"><a href="https://www.gnu.org/software/gnugo/gnugo_toc.html">GNUgo</a></dt>
+<dd>Play the game of Go.
+    [<a href="https://www.gnu.org/software/gnugo/">gnugo&nbsp;home</a>]</dd>
+<dt id="gnujump"><a href="https://www.gnu.org/software/gnujump/">GNUjump</a></dt>
+<dd>Game of jumping to the next floor, trying not to fall.
+    [<a href="https://www.gnu.org/software/gnujump/">gnujump&nbsp;home</a>]</dd>
+<dt id="gnukart"><a href="https://www.gnu.org/software/gnukart/">GNUkart</a></dt>
+<dd>Racing game.
+    [<a href="https://www.gnu.org/software/gnukart/">gnukart&nbsp;home</a>]</dd>
+<dt id="gnurobots"><a href="https://www.gnu.org/software/gnurobots/readme.html">Robots</a></dt>
+<dd>Program a little robot and watch him explore a world.
+    [<a href="https://www.gnu.org/software/gnurobots/">gnurobots&nbsp;home</a>]</dd>
+<dt id="gnushogi"><a href="https://www.gnu.org/software/gnushogi/manual/">GNUshogi</a></dt>
+<dd>The game of Shogi (Japanese chess).
+    [<a href="https://www.gnu.org/software/gnushogi/">gnushogi&nbsp;home</a>]</dd>
+<dt id="leg"><a href="https://www.gnu.org/software/leg/">Leg</a></dt>
+<dd>Libraries and engines for game programming.
+    [<a href="https://www.gnu.org/software/leg/">leg&nbsp;home</a>]</dd>
+<dt id="liquidwar6"><a href="https://www.gnu.org/software/liquidwar6/manual/">Liquid War 6</a></dt>
+<dd>Multiplayer wargame where your army is a blob of liquid.
+    [<a href="https://www.gnu.org/software/liquidwar6/">liquidwar6&nbsp;home</a>]</dd>
+<dt id="motti"><a href="https://www.gnu.org/software/motti/manual/">Motti</a></dt>
+<dd>Multiplayer strategy game.
+    [<a href="https://www.gnu.org/software/motti/">motti&nbsp;home</a>]</dd>
+<dt id="rpge"><a href="https://www.gnu.org/software/rpge/">Rpge</a></dt>
+<dd>Role playing game engine.
+    [<a href="https://www.gnu.org/software/rpge/">rpge&nbsp;home</a>]</dd>
+<dt id="talkfilters"><a href="http://www.hyperrealm.com/talkfilters/talkfilters.pdf">Talkfilters</a></dt>
+<dd>Convert English text to humorous dialects.
+    [<a href="https://www.gnu.org/software/talkfilters/">talkfilters&nbsp;home</a>]</dd>
+<dt id="xboard"><a href="https://www.gnu.org/software/xboard/manual/">XBoard</a></dt>
+<dd>Graphical user interface for chess programs.
+    [<a href="../software/xboard/index.html">xboard&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Graphics"><a href="http://directory.fsf.org/category/graph/">Graphics</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="pkg_3dldf"><a href="https://www.gnu.org/software/3dldf/manual/">3DLDF</a></dt>
+<dd>3D drawing with MetaPost output.
+    [<a href="https://www.gnu.org/software/3dldf/">3dldf&nbsp;home</a>]</dd>
+<dt id="dia"><a href="https://wiki.gnome.org/Apps/Dia/Documentation">Dia</a></dt>
+<dd>GNU program for drawing diagrams.
+    [<a href="https://www.gnu.org/software/dia/">dia&nbsp;home</a>]</dd>
+<dt id="gift"><a href="https://www.gnu.org/software/gift/">GIFT</a></dt>
+<dd>GNU Image Finding Tool, with query by example.
+    [<a href="https://www.gnu.org/software/gift/">gift&nbsp;home</a>]</dd>
+<dt id="gimp"><a href="http://www.gimp.org/docs/">GIMP</a></dt>
+<dd>GNU Image Manipulation Program.
+    [<a href="https://www.gnu.org/software/gimp/">gimp&nbsp;home</a>]</dd>
+<dt id="gpaint"><a href="https://www.gnu.org/software/gpaint/">Gpaint</a></dt>
+<dd>Simple paint program for GNOME.
+    [<a href="https://www.gnu.org/software/gpaint/">gpaint&nbsp;home</a>]</dd>
+<dt id="gsegrafix"><a href="https://www.gnu.org/software/gsegrafix/">Gsegrafix</a></dt>
+<dd>GNOME application to create scientific and engineering plots.
+    [<a href="https://www.gnu.org/software/gsegrafix/">gsegrafix&nbsp;home</a>]</dd>
+<dt id="guile-opengl"><a href="https://www.gnu.org/software/guile-opengl/">Guile-opengl</a></dt>
+<dd>Guile binding for the OpenGL graphics API.
+    [<a href="https://www.gnu.org/software/guile-opengl/">guile-opengl&nbsp;home</a>]</dd>
+<dt id="libxmi"><a href="https://www.gnu.org/software/libxmi/">Libxmi</a></dt>
+<dd>Library for rasterizing 2-d vector graphics.
+    [<a href="https://www.gnu.org/software/libxmi/">libxmi&nbsp;home</a>]</dd>
+<dt id="maverik"><a href="https://www.gnu.org/software/maverik/">Maverik</a></dt>
+<dd>Support interactive 3d virtual environments.
+    [<a href="https://www.gnu.org/software/maverik/">maverik&nbsp;home</a>]</dd>
+<dt id="panorama"><a href="https://www.gnu.org/software/panorama/">Panorama</a></dt>
+<dd>Framework for 3D graphics production.
+    [<a href="https://www.gnu.org/software/panorama/">panorama&nbsp;home</a>]</dd>
+<dt id="plotutils"><a href="https://www.gnu.org/software/plotutils/manual/">Plotutils</a></dt>
+<dd>Plotting utilities and library.
+    [<a href="https://www.gnu.org/software/plotutils/">plotutils&nbsp;home</a>]</dd>
+<dt id="xaos"><a href="https://github.com/xaos-project/XaoS/wiki">XaoS</a></dt>
+<dd>Real-time fractal zoomer.
+    [<a href="https://www.gnu.org/software/xaos/">xaos&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Health"><a href="http://directory.fsf.org/category/Biology/health-and-medicine/">Health</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="gnumed"><a href="https://www.gnumed.de/documentation/GNUmedManual.html">GNUmed</a></dt>
+<dd>Paperless medical practice.
+    [<a href="https://www.gnu.org/software/gnumed/">gnumed&nbsp;home</a>]</dd>
+<dt id="gnutrition"><a href="https://www.gnu.org/software/gnutrition/manual/">GNUtrition</a></dt>
+<dd>Nutrition analysis.
+    [<a href="https://www.gnu.org/software/gnutrition/">gnutrition&nbsp;home</a>]</dd>
+<dt id="health"><a href="https://www.gnu.org/software/health/">Health</a></dt>
+<dd>Health and hospital information system.
+    [<a href="https://www.gnu.org/software/health/">health&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Interface"><a href="http://directory.fsf.org/category/iface/">Interface</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="g-golf"><a href="https://www.gnu.org/software/g-golf/">G-Golf</a></dt>
+<dd>Guile bindings for GObject Introspection.
+    [<a href="https://www.gnu.org/software/g-golf/">g-golf&nbsp;home</a>]</dd>
+<dt id="gnudos"><a href="https://www.gnu.org/software/gnudos/">GnuDOS</a></dt>
+<dd>MS-DOS-like file manager, editor, and other tools.
+    [<a href="https://www.gnu.org/software/gnudos/">gnudos&nbsp;home</a>]</dd>
+<dt id="gnuit"><a href="https://www.gnu.org/software/gnuit/manual/">GNU Interactive Tools</a></dt>
+<dd>Interactive utilities for file browsing, viewing, and more.
+    [<a href="https://www.gnu.org/software/gnuit/">gnuit&nbsp;home</a>]</dd>
+<dt id="gnuspeech"><a href="https://www.gnu.org/software/gnuspeech/#Manuals">GNUspeech</a></dt>
+<dd>Extensible rule-based text-to-speech.
+    [<a href="https://www.gnu.org/software/gnuspeech/">gnuspeech&nbsp;home</a>]</dd>
+<dt id="guile-ncurses"><a href="https://www.gnu.org/software/guile-ncurses/manual/">Guile-ncurses</a></dt>
+<dd>Guile bindings to ncurses.
+    [<a href="https://www.gnu.org/software/guile-ncurses/">guile-ncurses&nbsp;home</a>]</dd>
+<dt id="gxmessage"><a href="https://www.gnu.org/software/gxmessage/">Gxmessage</a></dt>
+<dd>Open popup message window with buttons for return.
+    [<a href="https://www.gnu.org/software/gxmessage/">gxmessage&nbsp;home</a>]</dd>
+<dt id="inklingreader"><a href="https://www.gnu.org/software/inklingreader/">Inklingreader</a></dt>
+<dd>Wacom Inkling sketch format conversion and manipulation.
+    [<a href="https://www.gnu.org/software/inklingreader/">inklingreader&nbsp;home</a>]</dd>
+<dt id="mc"><a href="https://www.gnu.org/software/mc/">Midnight Commander</a></dt>
+<dd>Graphical file manager.
+    [<a href="https://www.gnu.org/software/mc/">mc&nbsp;home</a>]</dd>
+<dt id="ncurses"><a href="https://www.gnu.org/software/ncurses/">Ncurses</a></dt>
+<dd>Terminal emulation (termcap, terminfo) library.
+    [<a href="https://www.gnu.org/software/ncurses/">ncurses&nbsp;home</a>]</dd>
+<dt id="oo-browser"><a href="https://www.gnu.org/software/oo-browser/">OO-Browser</a></dt>
+<dd>An interactive object-oriented class browser for Emacs.
+    [<a href="https://www.gnu.org/software/oo-browser/">oo-browser&nbsp;home</a>]</dd>
+<dt id="powerguru"><a href="../software/powerguru/index.html#documentation">PowerGuru</a></dt>
+<dd>Monitoring, logging, and remote control of power generation.
+    [<a href="../software/powerguru/index.html">powerguru&nbsp;home</a>]</dd>
+<dt id="remotecontrol"><a href="https://www.gnu.org/software/remotecontrol/manual/">Remotecontrol</a></dt>
+<dd>Management of IP-enabled thermostats and other HVAC devices.
+    [<a href="https://www.gnu.org/software/remotecontrol/">remotecontrol&nbsp;home</a>]</dd>
+<dt id="stalkerfs"><a href="https://www.gnu.org/software/stalkerfs/">Stalkerfs</a></dt>
+<dd>Desktop search engine for local files, using FUSE.
+    [<a href="https://www.gnu.org/software/stalkerfs/">stalkerfs&nbsp;home</a>]</dd>
+<dt id="termcap"><a href="https://www.gnu.org/software/termutils/manual/termcap-1.3/termcap.html">Termcap</a></dt>
+<dd>Terminal-independent display support.
+    [<a href="https://www.gnu.org/software/termcap/">termcap&nbsp;home</a>]</dd>
+<dt id="termutils"><a href="https://www.gnu.org/software/termutils/manual/termutils-2.0/tput.html">Termutils</a></dt>
+<dd>The tput and tabs utilities for terminal operations.
+    [<a href="https://www.gnu.org/software/termutils/">termutils&nbsp;home</a>]</dd>
+<dt id="tramp"><a href="https://www.gnu.org/software/emacs/manual/html_node/tramp/">TRAMP</a></dt>
+<dd>Transparent Remote Access, Multiple Protocol GNU Emacs package.
+    [<a href="https://www.gnu.org/software/tramp/">tramp&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Internet"><a href="http://directory.fsf.org/category/net/">Internet applications</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="alive"><a href="https://www.gnu.org/software/alive/manual/">Alive</a></dt>
+<dd>Autologin and keep-alive daemon.
+    [<a href="https://www.gnu.org/software/alive/">alive&nbsp;home</a>]</dd>
+<dt id="artanis"><a href="https://www.gnu.org/software/artanis/manual/html_node/">Artanis</a></dt>
+<dd>Web application framework written in Guile.
+    [<a href="https://www.gnu.org/software/artanis/">artanis&nbsp;home</a>]</dd>
+<dt id="consensus"><a href="https://www.gnu.org/software/consensus/">Consensus</a></dt>
+<dd>Coordinate free software social networking projects.
+    [<a href="https://www.gnu.org/software/consensus/">consensus&nbsp;home</a>]</dd>
+<dt id="freetalk"><a href="https://www.gnu.org/software/freetalk/freetalk.html">Freetalk</a></dt>
+<dd>Extensible console-based Jabber client.
+    [<a href="https://www.gnu.org/software/freetalk/">freetalk&nbsp;home</a>]</dd>
+<dt id="garpd"><a href="https://www.gnu.org/software/garpd/">Gratuitous ARP Daemon</a></dt>
+<dd>Broadcast gratuitous ARP requests for IPMI and more.
+    [<a href="https://www.gnu.org/software/garpd/">garpd&nbsp;home</a>]</dd>
+<dt id="gnash"><a href="https://www.gnu.org/software/gnash/documentation.html">Gnash</a></dt>
+<dd>Flash movie player.
+    [<a href="https://www.gnu.org/software/gnash/">gnash&nbsp;home</a>]</dd>
+<dt id="gnunet"><a href="https://docs.gnunet.org/">GNUnet</a></dt>
+<dd>Secure, decentralized, peer-to-peer networking framework.
+    [<a href="https://www.gnu.org/software/gnunet/">gnunet&nbsp;home</a>]</dd>
+<dt id="gnuzilla"><a href="https://www.gnu.org/software/gnuzilla/">GNUzilla</a></dt>
+<dd>Entirely free browser derived from Mozilla Firefox.
+    [<a href="https://www.gnu.org/software/gnuzilla/">gnuzilla&nbsp;home</a>]</dd>
+<dt id="httptunnel"><a href="https://www.gnu.org/software/httptunnel/">Httptunnel</a></dt>
+<dd>Bidirectional connection tunnelled inside HTTP requests.
+    [<a href="https://www.gnu.org/software/httptunnel/">httptunnel&nbsp;home</a>]</dd>
+<dt id="icecat"><a href="https://www.gnu.org/software/icecat/">Icecat</a></dt>
+<dd>Entirely free browser derived from Mozilla Firefox.
+    [<a href="https://www.gnu.org/software/icecat/">icecat&nbsp;home</a>]</dd>
+<dt id="inetutils"><a href="https://www.gnu.org/software/inetutils/manual/">Inetutils</a></dt>
+<dd>Basic networking utilities.
+    [<a href="https://www.gnu.org/software/inetutils/">inetutils&nbsp;home</a>]</dd>
+<dt id="jwhois"><a href="https://www.gnu.org/software/jwhois/manual/">Jwhois</a></dt>
+<dd>An extended whois client.
+    [<a href="https://www.gnu.org/software/jwhois/">jwhois&nbsp;home</a>]</dd>
+<dt id="librejs"><a href="https://www.gnu.org/software/librejs/manual/">Librejs</a></dt>
+<dd>Browser add-on that blocks nonfree nontrivial JavaScript.
+    [<a href="https://www.gnu.org/software/librejs/">librejs&nbsp;home</a>]</dd>
+<dt id="lrzsz"><a href="https://www.gnu.org/software/lrzsz/">Lrzsz</a></dt>
+<dd>Implementation of XMODEM/YMODEM/ZMODEM transfer protocols.
+    [<a href="https://www.gnu.org/software/lrzsz/">lrzsz&nbsp;home</a>]</dd>
+<dt id="macchanger"><a href="https://www.gnu.org/software/macchanger/">MAC Changer</a></dt>
+<dd>Viewing and manipulating MAC addresses of network interfaces.
+    [<a href="https://www.gnu.org/software/macchanger/">macchanger&nbsp;home</a>]</dd>
+<dt id="mediagoblin"><a href="https://docs.mediagoblin.org/en/master/">Mediagoblin</a></dt>
+<dd>Photo and media sharing.
+    [<a href="https://www.gnu.org/software/mediagoblin/">mediagoblin&nbsp;home</a>]</dd>
+<dt id="network"><a href="https://www.gnu.org/software/network/">Network</a></dt>
+<dd>Initiative to encourage development of free network services.
+    [<a href="https://www.gnu.org/software/network/">network&nbsp;home</a>]</dd>
+<dt id="pipo"><a href="https://www.gnu.org/software/pipo/">Pipo</a></dt>
+<dd>Bulletin board system.
+    [<a href="https://www.gnu.org/software/pipo/">pipo&nbsp;home</a>]</dd>
+<dt id="proxyknife"><a href="https://www.gnu.org/software/proxyknife/manual/">Proxyknife</a></dt>
+<dd>Customizable multithread proxy hunter.
+    [<a href="https://www.gnu.org/software/proxyknife/">proxyknife&nbsp;home</a>]</dd>
+<dt id="shishi"><a href="https://www.gnu.org/software/shishi/#status">Shishi</a></dt>
+<dd>Implementation of the Kerberos 5 network security system.
+    [<a href="https://www.gnu.org/software/shishi/">shishi&nbsp;home</a>]</dd>
+<dt id="social"><a href="https://gnu.io/social/">Social</a></dt>
+<dd>Decentralized social networking server.
+    [<a href="https://www.gnu.org/software/social/">social&nbsp;home</a>]</dd>
+<dt id="stump"><a href="https://www.gnu.org/software/stump/">Stump</a></dt>
+<dd>Secure team-based Usenet moderation program.
+    [<a href="https://www.gnu.org/software/stump/">stump&nbsp;home</a>]</dd>
+<dt id="websocket4j"><a href="https://www.gnu.org/software/websocket4j/manual/">Websocket4j</a></dt>
+<dd>WebSocket protocol implementation for Java-HTML5 communication.
+    [<a href="https://www.gnu.org/software/websocket4j/">websocket4j&nbsp;home</a>]</dd>
+<dt id="webstump"><a href="https://www.gnu.org/software/webstump/">WebSTUMP</a></dt>
+<dd>Web interface to STUMP.
+    [<a href="https://www.gnu.org/software/webstump/">webstump&nbsp;home</a>]</dd>
+<dt id="wget"><a href="https://www.gnu.org/software/wget/manual/">Wget</a></dt>
+<dd>Non-interactive command-line utility for downloading files.
+    [<a href="https://www.gnu.org/software/wget/">wget&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Live"><a href="http://directory.fsf.org/category/lc/">Live communications</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="jami"><a href="https://www.gnu.org/software/jami/">Jami</a></dt>
+<dd>A privacy-respecting communication program.
+    [<a href="https://www.gnu.org/software/jami/">jami&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Localization"><a href="http://directory.fsf.org/category/local/">Localization</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="fribidi"><a href="https://www.gnu.org/software/fribidi/">FriBiDi</a></dt>
+<dd>Implementation of the Unicode bidirectional algorithm.
+    [<a href="https://www.gnu.org/software/fribidi/">fribidi&nbsp;home</a>]</dd>
+<dt id="gettext"><a href="https://www.gnu.org/software/gettext/manual/">Gettext</a></dt>
+<dd>Tools and documentation for translation.
+    [<a href="https://www.gnu.org/software/gettext/">gettext&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Mathematics"><a href="http://directory.fsf.org/category/math/">Mathematics</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="aris"><a href="https://www.gnu.org/software/aris/">Aris</a></dt>
+<dd>Natural deduction first-order logic interface.
+    [<a href="https://www.gnu.org/software/aris/">aris&nbsp;home</a>]</dd>
+<dt id="bc"><a href="https://www.gnu.org/software/bc/manual/bc.html">Bc</a></dt>
+<dd>Arbitrary precision numeric processing language.
+    [<a href="https://www.gnu.org/software/bc/">bc&nbsp;home</a>]</dd>
+<dt id="c-graph"><a href="https://www.gnu.org/software/c-graph/manual/">C-graph</a></dt>
+<dd>Visualizing and demonstrating convolution.
+    [<a href="https://www.gnu.org/software/c-graph/">c-graph&nbsp;home</a>]</dd>
+<dt id="dap"><a href="https://www.gnu.org/software/dap/">Dap</a></dt>
+<dd>Statistics and graphics package.
+    [<a href="https://www.gnu.org/software/dap/">dap&nbsp;home</a>]</dd>
+<dt id="datamash"><a href="https://www.gnu.org/software/datamash/">Datamash</a></dt>
+<dd>Scriptable statistics and data calculation.
+    [<a href="https://www.gnu.org/software/datamash/">datamash&nbsp;home</a>]</dd>
+<dt id="dc"><a href="https://www.gnu.org/software/bc/manual/dc-1.05/">Dc</a></dt>
+<dd>Arbitrary precision numeric processing with reverse-polish notation.
+    [<a href="https://www.gnu.org/software/dc/">dc&nbsp;home</a>]</dd>
+<dt id="gmp"><a href="https://www.gnu.org/software/gmp/manual/">GMP</a></dt>
+<dd>Multiple-precision arithmetic library.
+    [<a href="https://www.gnu.org/software/gmp/">gmp&nbsp;home</a>]</dd>
+<dt id="gsl"><a href="https://www.gnu.org/software/gsl/doc/html">GNU Scientific Library</a></dt>
+<dd>Numerical library for C and C++.
+    [<a href="https://www.gnu.org/software/gsl/">gsl&nbsp;home</a>]</dd>
+<dt id="jacal"><a href="http://people.csail.mit.edu/jaffer/jacal_toc.html">JACAL</a></dt>
+<dd>Symbolic mathematics system.
+    [<a href="https://www.gnu.org/software/jacal/">jacal&nbsp;home</a>]</dd>
+<dt id="libmatheval"><a href="https://www.gnu.org/software/libmatheval/manual/libmatheval.html">Libmatheval</a></dt>
+<dd>Library for evaluating symbolic expressions.
+    [<a href="https://www.gnu.org/software/libmatheval/">libmatheval&nbsp;home</a>]</dd>
+<dt id="mcsim"><a href="https://www.gnu.org/software/mcsim/mcsim.html">MCSim</a></dt>
+<dd>Monte Carlo simulation and analysis.
+    [<a href="https://www.gnu.org/software/mcsim/">mcsim&nbsp;home</a>]</dd>
+<dt id="metalogic-inference"><a href="https://www.gnu.org/software/metalogic-inference/">MLI</a></dt>
+<dd>Logical proof program.
+    [<a href="https://www.gnu.org/software/metalogic-inference/">metalogic-inference&nbsp;home</a>]</dd>
+<dt id="mpc"><a href="http://www.multiprecision.org/mpc/documentation.html">MPC</a></dt>
+<dd>C library for arbitrary precision complex arithmetic.
+    [<a href="https://www.gnu.org/software/mpc/">mpc&nbsp;home</a>]</dd>
+<dt id="mpfr"><a href="http://www.mpfr.org/mpfr-current/#doc">Mpfr</a></dt>
+<dd>C library for arbitrary precision floating-point arithmetic.
+    [<a href="https://www.gnu.org/software/mpfr/">mpfr&nbsp;home</a>]</dd>
+<dt id="mpria"><a href="https://www.gnu.org/software/mpria/">Mpria</a></dt>
+<dd>C library for arbitrary precision rational arithmetic.
+    [<a href="https://www.gnu.org/software/mpria/">mpria&nbsp;home</a>]</dd>
+<dt id="octave"><a href="https://www.gnu.org/software/octave/support.html">Octave</a></dt>
+<dd>High-level language for numerical computation.
+    [<a href="https://www.gnu.org/software/octave/">octave&nbsp;home</a>]</dd>
+<dt id="pspp"><a href="https://www.gnu.org/software/pspp/manual/">PSPP</a></dt>
+<dd>Statistical analysis.
+    [<a href="https://www.gnu.org/software/pspp/">pspp&nbsp;home</a>]</dd>
+<dt id="r"><a href="http://cran.r-project.org/#doc">R</a></dt>
+<dd>Environment for statistical computing and graphics.
+    [<a href="https://www.gnu.org/software/r/">r&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Music"><a href="http://directory.fsf.org/category/music/">Music</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="cursynth"><a href="https://www.gnu.org/software/cursynth/">Cursynth</a></dt>
+<dd>Polyphonic and MIDI subtractive music synthesizer using curses.
+    [<a href="https://www.gnu.org/software/cursynth/">cursynth&nbsp;home</a>]</dd>
+<dt id="denemo"><a href="https://www.gnu.org/software/denemo/">Denemo</a></dt>
+<dd>Graphical music notation, front-end to GNU Lilypond.
+    [<a href="https://www.gnu.org/software/denemo/">denemo&nbsp;home</a>]</dd>
+<dt id="gtick"><a href="https://www.gnu.org/software/gtick/">GTick</a></dt>
+<dd>Customizable metronome application.
+    [<a href="https://www.gnu.org/software/gtick/">gtick&nbsp;home</a>]</dd>
+<dt id="lilypond"><a href="http://lilypond.org/manuals.html">Lilypond</a></dt>
+<dd>Music typesetting.
+    [<a href="https://www.gnu.org/software/lilypond/">lilypond&nbsp;home</a>]</dd>
+<dt id="psychosynth"><a href="https://web.archive.org/web/20220422092436/https://www.psychosynth.com/index.php?title=Documentation">Psychosynth</a></dt>
+<dd>Interactive software synthesizer.
+    [<a href="https://www.gnu.org/software/psychosynth/">psychosynth&nbsp;home</a>]</dd>
+<dt id="solfege"><a href="https://www.gnu.org/software/solfege/">Solfege</a></dt>
+<dd>Ear training.
+    [<a href="https://www.gnu.org/software/solfege/">solfege&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Printing"><a href="http://directory.fsf.org/category/print/">Printing</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="a2ps"><a href="https://www.gnu.org/software/a2ps/">a2ps</a></dt>
+<dd>Any file to PostScript, including pretty-printing.
+    [<a href="https://www.gnu.org/software/a2ps/">a2ps&nbsp;home</a>]</dd>
+<dt id="enscript"><a href="https://www.gnu.org/software/enscript/">Enscript</a></dt>
+<dd>Generating PostScript, including pretty-printing.
+    [<a href="https://www.gnu.org/software/enscript/">enscript&nbsp;home</a>]</dd>
+<dt id="ghostscript"><a href="https://www.gnu.org/software/ghostscript/">GNU Ghostscript</a></dt>
+<dd>PostScript and PDF interpreter.
+    [<a href="https://www.gnu.org/software/ghostscript/">ghostscript&nbsp;home</a>]</dd>
+<dt id="gnuspool"><a href="https://www.gnu.org/software/gnuspool/">GNUspool</a></dt>
+<dd>Spooling system with a variety of interfaces.
+    [<a href="https://www.gnu.org/software/gnuspool/">gnuspool&nbsp;home</a>]</dd>
+<dt id="gv"><a href="https://www.gnu.org/software/gv/manual/">Gv</a></dt>
+<dd>PostScript and PDF viewer using Ghostscript as a back-end.
+    [<a href="https://www.gnu.org/software/gv/">gv&nbsp;home</a>]</dd>
+<dt id="hp2xx"><a href="https://www.gnu.org/software/hp2xx/">Hp2xx</a></dt>
+<dd>Convert HP-GL format graphics to other vector and bitmap formats.
+    [<a href="https://www.gnu.org/software/hp2xx/">hp2xx&nbsp;home</a>]</dd>
+<dt id="trueprint"><a href="https://www.gnu.org/software/trueprint/">Trueprint</a></dt>
+<dd>Pretty-print C sources and other plain text to PostScript.
+    [<a href="https://www.gnu.org/software/trueprint/">trueprint&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Science"><a href="http://directory.fsf.org/category/science/">Science</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="archimedes"><a href="https://www.gnu.org/software/archimedes/manual/">Archimedes</a></dt>
+<dd>Semiconductor device simulator.
+    [<a href="https://www.gnu.org/software/archimedes/">archimedes&nbsp;home</a>]</dd>
+<dt id="behistun"><a href="https://www.gnu.org/software/behistun/">Behistun</a></dt>
+<dd>Planetary Science tools.
+    [<a href="https://www.gnu.org/software/behistun/">behistun&nbsp;home</a>]</dd>
+<dt id="electric"><a href="http://www.staticfreesoft.com/jmanual/">Electric</a></dt>
+<dd>Electrical CAD system.
+    [<a href="https://www.gnu.org/software/electric/">electric&nbsp;home</a>]</dd>
+<dt id="gama"><a href="https://www.gnu.org/software/gama/manual/">Gama</a></dt>
+<dd>Adjustment of geodetic networks.
+    [<a href="https://www.gnu.org/software/gama/">gama&nbsp;home</a>]</dd>
+<dt id="gnuae"><a href="https://www.gnu.org/software/gnuae/manual/">GnuAE</a></dt>
+<dd>Designing alternate energy systems.
+    [<a href="../software/gnuae/index.html">gnuae&nbsp;home</a>]</dd>
+<dt id="gnuastro"><a href="https://www.gnu.org/software/gnuastro/">Gnuastro</a></dt>
+<dd>Astronomy utilities.
+    [<a href="https://www.gnu.org/software/gnuastro/">gnuastro&nbsp;home</a>]</dd>
+<dt id="gnucap"><a href="https://www.gnu.org/software/gnucap/gnucap-man-html/">GNUcap</a></dt>
+<dd>Mixed analog and digital circuit simulator.
+    [<a href="https://www.gnu.org/software/gnucap/">gnucap&nbsp;home</a>]</dd>
+<dt id="goptical"><a href="https://www.gnu.org/software/goptical/manual/">Goptical</a></dt>
+<dd>C++ optical design and simulation library.
+    [<a href="https://www.gnu.org/software/goptical/">goptical&nbsp;home</a>]</dd>
+<dt id="libredwg"><a href="https://www.gnu.org/software/libredwg/">Libredwg</a></dt>
+<dd>C library to handle DWG (CAD-related) files.
+    [<a href="https://www.gnu.org/software/libredwg/">libredwg&nbsp;home</a>]</dd>
+<dt id="lims"><a href="https://www.gnu.org/software/lims/">Lims</a></dt>
+<dd>Scientific laboratory information management system.
+    [<a href="https://www.gnu.org/software/lims/">lims&nbsp;home</a>]</dd>
+<dt id="melting"><a href="https://web.archive.org/web/20220320202112/https://www.ebi.ac.uk/biomodels-static/tools/melting/">Melting</a></dt>
+<dd>Temperature computations for a nucleic acid duplex.
+    [<a href="https://www.gnu.org/software/melting/">melting&nbsp;home</a>]</dd>
+<dt id="nano-archimedes"><a href="https://www.gnu.org/software/nano-archimedes/">Nano-archimedes</a></dt>
+<dd>Simulation of quantum systems using the Wigner Monte Carlo method.
+    [<a href="https://www.gnu.org/software/nano-archimedes/">nano-archimedes&nbsp;home</a>]</dd>
+<dt id="pcb"><a href="https://www.gnu.org/software/pcb/">Pcb</a></dt>
+<dd>Design printed circuit board layouts.
+    [<a href="https://www.gnu.org/software/pcb/">pcb&nbsp;home</a>]</dd>
+<dt id="polyxmass"><a href="https://www.gnu.org/software/polyxmass/">Polyxmass</a></dt>
+<dd>Mass spectrometric data simulations and analyses.
+    [<a href="https://www.gnu.org/software/polyxmass/">polyxmass&nbsp;home</a>]</dd>
+<dt id="spacechart"><a href="https://www.gnu.org/software/spacechart/">SpaceChart</a></dt>
+<dd>Stargazing in 3D under GNOME.
+    [<a href="https://www.gnu.org/software/spacechart/">spacechart&nbsp;home</a>]</dd>
+<dt id="units"><a href="https://www.gnu.org/software/units/manual/">Units</a></dt>
+<dd>Conversion between thousands of scales.
+    [<a href="https://www.gnu.org/software/units/">units&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Security"><a href="http://directory.fsf.org/category/sec/">Security</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="anastasis"><a href="https://docs.anastasis.lu/">Anastasis</a></dt>
+<dd>Credential backup and recovery protocol and service.
+    [<a href="https://www.gnu.org/software/anastasis/">anastasis&nbsp;home</a>]</dd>
+<dt id="gnu-crypto"><a href="https://www.gnu.org/software/gnu-crypto/manual/">Crypto</a></dt>
+<dd>Cryptographic primitives and tools for Java programming.
+    [<a href="https://www.gnu.org/software/gnu-crypto/">gnu-crypto&nbsp;home</a>]</dd>
+<dt id="gnu-pw-mgr"><a href="https://www.gnu.org/software/gnu-pw-mgr/">GNU-pw-mgr</a></dt>
+<dd>Retrieve login credentials without recording passwords.
+    [<a href="https://www.gnu.org/software/gnu-pw-mgr/">gnu-pw-mgr&nbsp;home</a>]</dd>
+<dt id="gnupg"><a href="http://www.gnupg.org/documentation/">GnuPG</a>
+&nbsp;<span>(<a href="https://www.gnupg.org/documentation/manuals/assuan/">assuan</a>
+&nbsp;<a href="https://www.gnupg.org/documentation/manuals/dirmngr/">dirmngr</a>
+&nbsp;<a href="https://www.gnupg.org/documentation/manuals/gcrypt/">gcrypt</a>
+&nbsp;<a href="https://www.gnupg.org/documentation/manuals/gcrypt/">libgcrypt</a>
+&nbsp;<a href="https://www.gnupg.org/documentation/manuals/gnupg/">gnupg<!-- again --></a>
+&nbsp;<a href="https://www.gnupg.org/documentation/manuals/gpgme/">gpgme</a>
+&nbsp;<a href="https://www.gnupg.org/documentation/manuals/ksba/">ksba</a>)</span>
+</dt>
+<dd>GNU Privacy Guard.
+    [<a href="https://www.gnu.org/software/gnupg/">gnupg&nbsp;home</a>]</dd>
+<dt id="gvpe"><a href="https://www.gnu.org/software/gvpe/">GVPE</a></dt>
+<dd>Secure VPN among multiple nodes over an untrusted network.
+    [<a href="https://www.gnu.org/software/gvpe/">gvpe&nbsp;home</a>]</dd>
+<dt id="libtasn1"><a href="https://www.gnu.org/software/libtasn1/manual/">Libtasn1</a></dt>
+<dd>ASN.1 library.
+    [<a href="https://www.gnu.org/software/libtasn1/">libtasn1&nbsp;home</a>]</dd>
+<dt id="lsh"><a href="http://www.lysator.liu.se/~nisse/lsh/lsh.html">Lsh</a></dt>
+<dd>GNU implementation of the Secure Shell (ssh) protocols.
+    [<a href="https://www.gnu.org/software/lsh/">lsh&nbsp;home</a>]</dd>
+<dt id="nettle"><a href="https://www.lysator.liu.se/~nisse/nettle/nettle.html">Nettle</a></dt>
+<dd>C library for low-level cryptographic functionality.
+    [<a href="https://www.gnu.org/software/nettle/">nettle&nbsp;home</a>]</dd>
+<dt id="radius"><a href="https://www.gnu.org/software/radius/manual/">Radius</a></dt>
+<dd>Authentication and accounting services and daemon.
+    [<a href="https://www.gnu.org/software/radius/">radius&nbsp;home</a>]</dd>
+<dt id="userv"><a href="http://www.chiark.greenend.org.uk/~ian/userv/spec.html/">Userv</a></dt>
+<dd>Daemon to control service access.
+    [<a href="https://www.gnu.org/software/userv/">userv&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Software"><a href="http://directory.fsf.org/category/dev/">Software development</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="apl"><a href="https://www.gnu.org/software/apl/">APL</a></dt>
+<dd>APL interpreter.
+    [<a href="https://www.gnu.org/software/apl/">apl&nbsp;home</a>]</dd>
+<dt id="autoconf"><a href="https://www.gnu.org/software/autoconf/manual/">Autoconf</a></dt>
+<dd>Create source code configuration scripts.
+    [<a href="https://www.gnu.org/software/autoconf/">autoconf&nbsp;home</a>]</dd>
+<dt id="autoconf-archive"><a href="https://www.gnu.org/software/autoconf-archive/">Autoconf-archive</a></dt>
+<dd>Collection of freely reusable Autoconf macros.
+    [<a href="https://www.gnu.org/software/autoconf-archive/">autoconf-archive&nbsp;home</a>]</dd>
+<dt id="autogen"><a href="https://www.gnu.org/software/autogen/manual/">AutoGen</a></dt>
+<dd>Automated program generator.
+    [<a href="https://www.gnu.org/software/autogen/">autogen&nbsp;home</a>]</dd>
+<dt id="automake"><a href="https://www.gnu.org/software/automake/manual/">Automake</a></dt>
+<dd>Making GNU standards-compliant Makefiles.
+    [<a href="https://www.gnu.org/software/automake/">automake&nbsp;home</a>]</dd>
+<dt id="bash"><a href="https://www.gnu.org/software/bash/manual/">Bash</a></dt>
+<dd>The GNU Bourne-Again SHell.
+    [<a href="https://www.gnu.org/software/bash/">bash&nbsp;home</a>]</dd>
+<dt id="binutils"><a href="https://www.gnu.org/software/binutils/manual/">Binutils</a>
+&nbsp;<span>(<a href="https://sourceware.org/binutils/docs/as/">as</a>
+&nbsp;<a href="https://sourceware.org/binutils/docs/bfd/">bfd</a>
+&nbsp;<a href="https://sourceware.org/binutils/docs/binutils/">binutils<!-- again --></a>
+&nbsp;<a href="https://sourceware.org/binutils/docs/gprof/">gprof</a>
+&nbsp;<a href="https://sourceware.org/binutils/docs/ld/">ld</a>)</span>
+</dt>
+<dd>Binary utilities: bfd gas gprof ld.
+    [<a href="https://www.gnu.org/software/binutils/">binutils&nbsp;home</a>]</dd>
+<dt id="bison"><a href="https://www.gnu.org/software/bison/manual/">Bison</a></dt>
+<dd>Parser generator.
+       <br/>Available in print:
+       <cite><a href="http://shop.fsf.org/product/bison-manual/">The Bison Manual</a></cite>.
+    [<a href="../software/bison/index.html">bison&nbsp;home</a>]</dd>
+<dt id="c-intro-and-ref"><a href="https://www.gnu.org/software/c-intro-and-ref/manual/">GNU C Introduction and Reference</a></dt>
+<dd>Introduction for learning the GNU C language, and reference for it.
+    [<a href="https://www.gnu.org/software/c-intro-and-ref/">c-intro-and-ref&nbsp;home</a>]</dd>
+<dt id="ccide"><a href="https://www.gnu.org/software/ccide/">Ccide</a></dt>
+<dd>Decision table code generator.
+    [<a href="https://www.gnu.org/software/ccide/">ccide&nbsp;home</a>]</dd>
+<dt id="cflow"><a href="https://www.gnu.org/software/cflow/manual/">Cflow</a></dt>
+<dd>Create a graph of control flow within a program.
+    [<a href="https://www.gnu.org/software/cflow/">cflow&nbsp;home</a>]</dd>
+<dt id="cim"><a href="https://www.gnu.org/software/cim/">Cim</a></dt>
+<dd>Simula compiler.
+    [<a href="https://www.gnu.org/software/cim/">cim&nbsp;home</a>]</dd>
+<dt id="clisp"><a href="https://www.gnu.org/software/clisp/impnotes/clisp.html">CLISP</a></dt>
+<dd>A Common Lisp implementation.
+    [<a href="https://www.gnu.org/software/clisp/">clisp&nbsp;home</a>]</dd>
+<dt id="complexity"><a href="https://www.gnu.org/software/complexity/manual/">Complexity</a></dt>
+<dd>Analyze complexity of C functions.
+    [<a href="https://www.gnu.org/software/complexity/">complexity&nbsp;home</a>]</dd>
+<dt id="config"><a href="https://www.gnu.org/software/config/">Config</a></dt>
+<dd>Ubiquitious config.guess and config.sub scripts.
+    [<a href="https://www.gnu.org/software/config/">config&nbsp;home</a>]</dd>
+<dt id="coreutils"><a href="https://www.gnu.org/software/coreutils/manual/">Coreutils</a></dt>
+<dd>Core GNU utilities (file, text, shell).
+    [<a href="https://www.gnu.org/software/coreutils/">coreutils&nbsp;home</a>]</dd>
+<dt id="cppi"><a href="https://www.gnu.org/software/cppi/manual/">Cppi</a></dt>
+<dd>Indent C preprocessor directives to reflect nesting and more.
+    [<a href="https://www.gnu.org/software/cppi/">cppi&nbsp;home</a>]</dd>
+<dt id="ddd"><a href="https://www.gnu.org/software/ddd/manual/html_mono/ddd.html">DDD</a></dt>
+<dd>Graphical front-end for GDB and other debuggers.
+    [<a href="https://www.gnu.org/software/ddd/">ddd&nbsp;home</a>]</dd>
+<dt id="dejagnu"><a href="https://www.gnu.org/software/dejagnu/manual/">DejaGnu</a></dt>
+<dd>GNU software testing framework.
+    [<a href="https://www.gnu.org/software/dejagnu/">dejagnu&nbsp;home</a>]</dd>
+<dt id="djgpp"><a href="https://www.gnu.org/software/djgpp/">DJGPP</a></dt>
+<dd>Development system and GNU utilities for DOS on x86 hardware.
+    [<a href="https://www.gnu.org/software/djgpp/">djgpp&nbsp;home</a>]</dd>
+<dt id="edma"><a href="https://www.gnu.org/software/edma/">EDMA</a></dt>
+<dd>Object-oriented component-based development environment.
+    [<a href="https://www.gnu.org/software/edma/">edma&nbsp;home</a>]</dd>
+<dt id="epsilon"><a href="https://www.gnu.org/software/epsilon/manual/">Epsilon</a></dt>
+<dd>A purely functional programming language.
+    [<a href="https://www.gnu.org/software/epsilon/">epsilon&nbsp;home</a>]</dd>
+<dt id="findutils"><a href="https://www.gnu.org/software/findutils/manual/">Findutils</a></dt>
+<dd>Operating on files matching given criteria.
+    [<a href="https://www.gnu.org/software/findutils/">findutils&nbsp;home</a>]</dd>
+<dt id="gcc"><a href="https://www.gnu.org/software/gcc/">GCC</a>
+&nbsp;<span>(<a href="https://gcc.gnu.org/onlinedocs/cpp/">cpp</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/cppinternals/">cppinternals</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/gcc/">gcc<!-- again --></a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/gccint/">gccint</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/gfc-internals/">gfc-internals</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/gfortran/">gfortran</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/gnat-style/">gnat-style</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/gnat_rm/">gnat_rm</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/gnat_ugn/">gnat_ugn</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/libgomp/">libgomp</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/libiberty/">libiberty</a>
+&nbsp;<a href="https://gcc.gnu.org/onlinedocs/libstdc++/">libstdc++</a>)</span>
+</dt>
+<dd>GNU Compiler Collection.
+       <br/>Available in print:
+       <cite><a href="http://shop.fsf.org/product/using-gcc-gnu-compiler-collection-reference-manual/">Using GCC: The GNU Compiler Collection Reference Manual</a></cite>.
+    [<a href="https://www.gnu.org/software/gcc/">gcc&nbsp;home</a>]</dd>
+<dt id="gcl"><a href="https://www.gnu.org/software/gcl/">GNU Common Lisp</a></dt>
+<dd>A Common Lisp implementation.
+    [<a href="https://www.gnu.org/software/gcl/">gcl&nbsp;home</a>]</dd>
+<dt id="gdb"><a href="https://sourceware.org/gdb/current/onlinedocs/">GDB</a>
+&nbsp;<span>(<a href="https://sourceware.org/gdb/current/onlinedocs/gdb.html/">gdb<!-- again --></a>
+&nbsp;<a href="https://sourceware.org/gdb/current/onlinedocs/stabs.html/">stabs</a>)</span>
+</dt>
+<dd>The GNU debugger.
+       <br/>Available in print:
+       <cite><a href="http://shop.fsf.org/product/debugging-gdb-gnu-source-level-debugger-10/">Debugging with GDB: The GNU Source-Level Debugger</a></cite>.
+    [<a href="https://www.gnu.org/software/gdb/">gdb&nbsp;home</a>]</dd>
+<dt id="gengen"><a href="https://www.gnu.org/software/gengen/gengen.html">Gengen</a></dt>
+<dd>A parameterized-text-generator generator based on a template.
+    [<a href="https://www.gnu.org/software/gengen/">gengen&nbsp;home</a>]</dd>
+<dt id="gengetopt"><a href="https://www.gnu.org/software/gengetopt/gengetopt.html">Gengetopt</a></dt>
+<dd>Create parsers for command line options.
+    [<a href="https://www.gnu.org/software/gengetopt/">gengetopt&nbsp;home</a>]</dd>
+<dt id="gforth"><a href="https://www.complang.tuwien.ac.at/forth/gforth/Docs-html/">Gforth</a></dt>
+<dd>Forth interpreter.
+    [<a href="https://www.gnu.org/software/gforth/">gforth&nbsp;home</a>]</dd>
+<dt id="global"><a href="https://www.gnu.org/software/global/manual/global.html">Global</a></dt>
+<dd>Cross-environment source code tag system.
+    [<a href="https://www.gnu.org/software/global/">global&nbsp;home</a>]</dd>
+<dt id="gnat"><a href="https://www.gnu.org/software/gnat/">GNAT</a></dt>
+<dd>Ada compiler.
+    [<a href="https://www.gnu.org/software/gnat/">gnat&nbsp;home</a>]</dd>
+<dt id="gnats"><a href="https://www.gnu.org/software/gnats/#documentation">GNATS</a></dt>
+<dd>GNU problem report and bug management system.
+    [<a href="https://www.gnu.org/software/gnats/">gnats&nbsp;home</a>]</dd>
+<dt id="gnatsweb"><a href="https://www.gnu.org/software/gnatsweb/">Gnatsweb</a></dt>
+<dd>Web interface to GNATS.
+    [<a href="https://www.gnu.org/software/gnatsweb/">gnatsweb&nbsp;home</a>]</dd>
+<dt id="gnu-c-manual"><a href="https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html">GNU C reference manual</a></dt>
+<dd>Reference manual for the C programming language.
+    [<a href="https://www.gnu.org/software/gnu-c-manual/">gnu-c-manual&nbsp;home</a>]</dd>
+<dt id="gnucobol"><a href="https://gnucobol.sourceforge.io/doc/gnucobol.html">GnuCOBOL</a></dt>
+<dd>A modern COBOL compiler.
+    [<a href="https://www.gnu.org/software/gnucobol/">gnucobol&nbsp;home</a>]</dd>
+<dt id="gnulib"><a href="https://www.gnu.org/software/gnulib/manual/">GNUlib</a></dt>
+<dd>Source files to share among distributions.
+    [<a href="https://www.gnu.org/software/gnulib/">gnulib&nbsp;home</a>]</dd>
+<dt id="gnumach"><a href="https://www.gnu.org/software/hurd/microkernel/mach/documentation.html">Mach</a></dt>
+<dd>Microkernel of the GNU system.
+    [<a href="https://www.gnu.org/software/gnumach/">gnumach&nbsp;home</a>]</dd>
+<dt id="gnuprologjava"><a href="https://www.gnu.org/software/gnuprologjava/api/">GNUprologjava</a>
+&nbsp;<span>(<a href="https://www.gnu.org/software/gnuprologjava/manual/">gnuprologjava<!-- again --></a>)</span>
+</dt>
+<dd>Implementation of Prolog as a Java library.
+    [<a href="https://www.gnu.org/software/gnuprologjava/">gnuprologjava&nbsp;home</a>]</dd>
+<dt id="gnustep"><a href="http://www.gnustep.org/developers/documentation.html">GNUstep</a></dt>
+<dd>Object-oriented application development environment.
+    [<a href="https://www.gnu.org/software/gnustep/">gnustep&nbsp;home</a>]</dd>
+<dt id="gorm"><a href="https://web.archive.org/web/20210812135012/http://wiki.gnustep.org/index.php/Gorm_Manual">Gorm</a></dt>
+<dd>GNUstep interface designer.
+    [<a href="https://www.gnu.org/software/gorm/">gorm&nbsp;home</a>]</dd>
+<dt id="gperf"><a href="https://www.gnu.org/software/gperf/manual/">Gperf</a></dt>
+<dd>Perfect hash function generator.
+    [<a href="https://www.gnu.org/software/gperf/">gperf&nbsp;home</a>]</dd>
+<dt id="gprofng-gui"><a href="https://git.savannah.gnu.org/cgit/gprofng-gui.git/tree/doc/">Gprofng-gui</a></dt>
+<dd>Full-fledged graphical interface to operate gprofng.
+    [<a href="https://www.gnu.org/software/gprofng-gui/">gprofng-gui&nbsp;home</a>]</dd>
+<dt id="gprolog"><a href="http://www.gprolog.org/manual/">Gprolog</a></dt>
+<dd>Prolog compiler.
+    [<a href="https://www.gnu.org/software/gprolog/">gprolog&nbsp;home</a>]</dd>
+<dt id="greg"><a href="https://www.gnu.org/software/greg/gregdoc.html">Greg</a></dt>
+<dd>Software testing framework.
+    [<a href="https://www.gnu.org/software/greg/">greg&nbsp;home</a>]</dd>
+<dt id="guile"><a href="https://www.gnu.org/software/guile/manual/">Guile</a></dt>
+<dd>Scheme implementation intended especially for extensions.
+    [<a href="https://www.gnu.org/software/guile/">guile&nbsp;home</a>]</dd>
+<dt id="guile-gnome"><a href="https://www.gnu.org/software/guile-gnome/docs/">Guile-gnome</a>
+&nbsp;<span>(<a href="https://www.gnu.org/software/guile-gnome/docs/atk/html/">atk</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/clutter-glx/html/">clutter-glx</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/clutter/html/">clutter</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/corba/html/">corba</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/gconf/html/">gconf</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/gdk/html/">gdk</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/glib/html/">glib</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/gnome-vfs/html/">gnome-vfs</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/gobject/html/">gobject</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/gtk/html/">gtk</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/libglade/html/">libglade</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/libgnome/html/">libgnome</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/libgnomecanvas/html/">libgnomecanvas</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/libgnomeui/html/">libgnomeui</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/pango/html/">pango</a>
+&nbsp;<a href="https://www.gnu.org/software/guile-gnome/docs/pangocairo/html/">pangocairo</a>)</span>
+</dt>
+<dd>Guile interface for GTK+ programming for GNOME.
+    [<a href="https://www.gnu.org/software/guile-gnome/">guile-gnome&nbsp;home</a>]</dd>
+<dt id="guile-rpc"><a href="https://www.gnu.org/software/guile-rpc/manual/">Guile-rpc</a></dt>
+<dd>Pure Scheme implementation for the ONC RPC standard.
+    [<a href="https://www.gnu.org/software/guile-rpc/">guile-rpc&nbsp;home</a>]</dd>
+<dt id="hello"><a href="https://www.gnu.org/software/hello/manual/">Hello</a></dt>
+<dd>Hello, GNU world: An example GNU package.
+    [<a href="https://www.gnu.org/software/hello/">hello&nbsp;home</a>]</dd>
+<dt id="hurd"><a href="https://www.gnu.org/software/hurd/doc/doc.html">Hurd</a></dt>
+<dd>The kernel servers for the GNU operating system.
+    [<a href="https://www.gnu.org/software/hurd/">hurd&nbsp;home</a>]</dd>
+<dt id="idutils"><a href="https://www.gnu.org/software/idutils/manual/">Idutils</a></dt>
+<dd>Identifier database utilities.
+    [<a href="https://www.gnu.org/software/idutils/">idutils&nbsp;home</a>]</dd>
+<dt id="indent"><a href="https://www.gnu.org/software/indent/manual/">Indent</a></dt>
+<dd>Code reformatter.
+    [<a href="https://www.gnu.org/software/indent/">indent&nbsp;home</a>]</dd>
+<dt id="jitter"><a href="https://www.gnu.org/software/jitter/">Jitter</a></dt>
+<dd>A generator for efficient language virtual machines.
+    [<a href="https://www.gnu.org/software/jitter/">jitter&nbsp;home</a>]</dd>
+<dt id="kawa"><a href="https://www.gnu.org/software/kawa/">Kawa</a></dt>
+<dd>Java framework and implementation of Scheme, Elisp, and more.
+    [<a href="https://www.gnu.org/software/kawa/">kawa&nbsp;home</a>]</dd>
+<dt id="kopi"><a href="https://www.gnu.org/software/kopi/">Kopi</a></dt>
+<dd>Java development environment for interactive database applications.
+    [<a href="https://www.gnu.org/software/kopi/">kopi&nbsp;home</a>]</dd>
+<dt id="liberty-eiffel"><a href="https://www.gnu.org/software/liberty-eiffel/">Liberty Eiffel</a></dt>
+<dd>Eiffel compiler.
+    [<a href="https://www.gnu.org/software/liberty-eiffel/">liberty-eiffel&nbsp;home</a>]</dd>
+<dt id="libsigsegv"><a href="https://www.gnu.org/software/libsigsegv/">Libsigsegv</a></dt>
+<dd>Library for handling page faults.
+    [<a href="https://www.gnu.org/software/libsigsegv/">libsigsegv&nbsp;home</a>]</dd>
+<dt id="linux-libre"><a href="https://www.gnu.org/software/linux-libre/">Linux-libre</a></dt>
+<dd>100% free redistribution of a cleaned Linux kernel.
+    [<a href="https://www.gnu.org/software/linux-libre/">linux-libre&nbsp;home</a>]</dd>
+<dt id="lispintro"><a href="https://www.gnu.org/software/emacs/emacs-lisp-intro/emacs-lisp-intro.html">Lispintro</a></dt>
+<dd>Introduction to programming in Emacs Lisp.
+       <br/>Available in print:
+       <cite><a href="http://shop.fsf.org/product/Intro_to_Emacs_Lisp_3rd_Ed/">An Introduction to Emacs Lisp</a></cite>.
+    [<a href="https://www.gnu.org/software/lispintro/">lispintro&nbsp;home</a>]</dd>
+<dt id="make"><a href="https://www.gnu.org/software/make/manual/">Make</a></dt>
+<dd>Remake files automatically.
+    [<a href="https://www.gnu.org/software/make/">make&nbsp;home</a>]</dd>
+<dt id="marst"><a href="https://www.gnu.org/software/marst/">MARST</a></dt>
+<dd>Algol-to-C translator.
+    [<a href="https://www.gnu.org/software/marst/">marst&nbsp;home</a>]</dd>
+<dt id="mig"><a href="https://www.gnu.org/software/mig/">Mig</a></dt>
+<dd>Mach 3.0 interface generator for the Hurd.
+    [<a href="https://www.gnu.org/software/mig/">mig&nbsp;home</a>]</dd>
+<dt id="mit-scheme"><a href="https://www.gnu.org/software/mit-scheme/#Documentation">MIT/GNU Scheme</a>
+&nbsp;<span>(<a href="https://www.gnu.org/software/mit-scheme/documentation/stable/mit-scheme-imail.html">mit-scheme-imail</a>
+&nbsp;<a href="https://www.gnu.org/software/mit-scheme/documentation/stable/mit-scheme-ref/">mit-scheme-ref</a>
+&nbsp;<a href="https://www.gnu.org/software/mit-scheme/documentation/stable/mit-scheme-sos/">sos</a>
+&nbsp;<a href="https://www.gnu.org/software/mit-scheme/documentation/stable/mit-scheme-user/">mit-scheme-user</a>)</span>
+</dt>
+<dd>A Scheme implementation with integrated editor and debugger.
+    [<a href="https://www.gnu.org/software/mit-scheme/">mit-scheme&nbsp;home</a>]</dd>
+<dt id="pascal"><a href="https://www.gnu-pascal.de/gpc/">Pascal</a></dt>
+<dd>GNU Pascal compiler.
+    [<a href="https://www.gnu.org/software/pascal/">pascal&nbsp;home</a>]</dd>
+<dt id="patch"><a href="https://www.gnu.org/software/diffutils/manual/#Invoking-patch">Patch</a></dt>
+<dd>Apply differences to originals, with optional backups.
+    [<a href="https://www.gnu.org/software/patch/">patch&nbsp;home</a>]</dd>
+<dt id="pexec"><a href="https://www.gnu.org/software/pexec/pexec.1.html">Pexec</a></dt>
+<dd>Execute a command in parallel on multiple hosts.
+    [<a href="https://www.gnu.org/software/pexec/">pexec&nbsp;home</a>]</dd>
+<dt id="pies"><a href="http://www.gnu.org.ua/software/pies/manual/">Pies</a></dt>
+<dd>Program invocation and execution supervisor.
+    [<a href="https://www.gnu.org/software/pies/">pies&nbsp;home</a>]</dd>
+<dt id="poke"><a href="https://www.gnu.org/software/poke/#documentation">Poke</a></dt>
+<dd>Editing of arbitrary binary data.
+    [<a href="https://www.gnu.org/software/poke/">poke&nbsp;home</a>]</dd>
+<dt id="pythonwebkit"><a href="https://www.gnu.org/software/pythonwebkit/">Pythonwebkit</a></dt>
+<dd>W3C DOM bindings to Webkit for use with GTK and more.
+    [<a href="https://www.gnu.org/software/pythonwebkit/">pythonwebkit&nbsp;home</a>]</dd>
+<dt id="qexo"><a href="https://www.gnu.org/software/qexo/#Documentation">Qexo</a></dt>
+<dd>Java implementation of XQuery using GNU Kawa.
+    [<a href="https://www.gnu.org/software/qexo/">qexo&nbsp;home</a>]</dd>
+<dt id="rush"><a href="http://puszcza.gnu.org.ua/software/rush/manual.html">Rush</a></dt>
+<dd>Restricted user (login) shell.
+    [<a href="https://www.gnu.org/software/rush/">rush&nbsp;home</a>]</dd>
+<dt id="sather"><a href="https://www.gnu.org/software/sather/#doc">Sather</a></dt>
+<dd>An object-oriented language designed to be simple, efficient, safe.
+    [<a href="https://www.gnu.org/software/sather/">sather&nbsp;home</a>]</dd>
+<dt id="scm"><a href="http://people.csail.mit.edu/jaffer/scm_toc.html">SCM</a></dt>
+<dd>A Scheme implementation.
+    [<a href="https://www.gnu.org/software/scm/">scm&nbsp;home</a>]</dd>
+<dt id="screen"><a href="https://www.gnu.org/software/screen/manual/">Screen</a></dt>
+<dd>Full-screen window manager providing multiple terminals.
+    [<a href="https://www.gnu.org/software/screen/">screen&nbsp;home</a>]</dd>
+<dt id="shmm"><a href="https://www.gnu.org/software/shmm/">Shmm</a></dt>
+<dd>Shared memory manager utility.
+    [<a href="https://www.gnu.org/software/shmm/">shmm&nbsp;home</a>]</dd>
+<dt id="shtool"><a href="https://www.gnu.org/software/shtool/">Shtool</a></dt>
+<dd>Compilation of utility shell scripts into a shell tool.
+    [<a href="https://www.gnu.org/software/shtool/">shtool&nbsp;home</a>]</dd>
+<dt id="slib"><a href="http://people.csail.mit.edu/jaffer/slib/index.html">SLIB</a></dt>
+<dd>Portable library for Scheme.
+    [<a href="https://www.gnu.org/software/slib/">slib&nbsp;home</a>]</dd>
+<dt id="smalltalk"><a href="http://smalltalk.gnu.org/">Smalltalk</a>
+&nbsp;<span>(<a href="https://www.gnu.org/software/smalltalk/manual-base/html_node/">gst-base</a>
+&nbsp;<a href="https://www.gnu.org/software/smalltalk/manual-libs/html_node/">gst-libs</a>
+&nbsp;<a href="https://www.gnu.org/software/smalltalk/manual/html_node/">gst</a>)</span>
+</dt>
+<dd>Smalltalk environment.
+    [<a href="https://www.gnu.org/software/smalltalk/">smalltalk&nbsp;home</a>]</dd>
+<dt id="superopt"><a href="../software/superopt/index.html">Superopt</a></dt>
+<dd>Super-optimizer of given functions.
+    [<a href="../software/superopt/index.html">superopt&nbsp;home</a>]</dd>
+<dt id="swbis"><a href="https://www.gnu.org/software/swbis/manual.html">Swbis</a></dt>
+<dd>POSIX software packaging utilities.
+    [<a href="https://www.gnu.org/software/swbis/">swbis&nbsp;home</a>]</dd>
+<dt id="teseq"><a href="https://www.gnu.org/software/teseq/manual/">Teseq</a></dt>
+<dd>Analyze files with terminal control sequences, for debugging.
+    [<a href="https://www.gnu.org/software/teseq/">teseq&nbsp;home</a>]</dd>
+<dt id="vmgen"><a href="https://www.gnu.org/software/vmgen/">Vmgen</a></dt>
+<dd>Generic virtual machine generation, used by gforth.
+    [<a href="https://www.gnu.org/software/vmgen/">vmgen&nbsp;home</a>]</dd>
+<dt id="womb"><a href="https://www.gnu.org/software/womb/">Womb</a></dt>
+<dd>Repository for GNU work not intended to be separate packages.
+    [<a href="https://www.gnu.org/software/womb/">womb&nbsp;home</a>]</dd>
+<dt id="xnee"><a href="http://xnee.wordpress.com/documentation/">Xnee</a></dt>
+<dd>Record, replay and distribute user actions under X11.
+    [<a href="https://www.gnu.org/software/xnee/">xnee&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Libraries"><a href="http://directory.fsf.org/category/libs/">Software libraries</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="pkg_8sync"><a href="https://www.gnu.org/software/8sync/manual/">8sync</a></dt>
+<dd>An asynchronous programming library for Guile.
+    [<a href="https://www.gnu.org/software/8sync/">8sync&nbsp;home</a>]</dd>
+<dt id="adns"><a href="https://www.gnu.org/software/adns/">Adns</a></dt>
+<dd>Asynchronous DNS client library and utilities.
+    [<a href="https://www.gnu.org/software/adns/">adns&nbsp;home</a>]</dd>
+<dt id="avl"><a href="http://adtinfo.org/libavl.html/">Avl</a></dt>
+<dd>Binary and balanced search trees.
+    [<a href="https://www.gnu.org/software/avl/">avl&nbsp;home</a>]</dd>
+<dt id="bfd"><a href="https://sourceware.org/binutils/docs/bfd/">BFD</a></dt>
+<dd>Binary File Descriptor library.
+    [<a href="https://www.gnu.org/software/bfd/">bfd&nbsp;home</a>]</dd>
+<dt id="cgicc"><a href="https://www.gnu.org/software/cgicc/">Cgicc</a></dt>
+<dd>C++ class library for writing CGI applications.
+    [<a href="https://www.gnu.org/software/cgicc/">cgicc&nbsp;home</a>]</dd>
+<dt id="classpath"><a href="https://www.gnu.org/software/classpath/docs/">Classpath</a></dt>
+<dd>Core class libraries for Java.
+    [<a href="https://www.gnu.org/software/classpath/">classpath&nbsp;home</a>]</dd>
+<dt id="classpathx"><a href="https://www.gnu.org/software/classpathx/">Classpathx</a></dt>
+<dd>Classpath extensions: javax.* libraries.
+    [<a href="https://www.gnu.org/software/classpathx/">classpathx&nbsp;home</a>]</dd>
+<dt id="commoncpp"><a href="https://www.gnu.org/software/commoncpp/commoncpp.html#documentation">[u]Common C++</a></dt>
+<dd>[u]Common C++ framework for threaded applications.
+    [<a href="https://www.gnu.org/software/commoncpp/">commoncpp&nbsp;home</a>]</dd>
+<dt id="freeipmi"><a href="https://www.gnu.org/software/freeipmi/documentation.html">FreeIPMI</a></dt>
+<dd>Platform management, including sensor and power monitoring.
+    [<a href="https://www.gnu.org/software/freeipmi/">freeipmi&nbsp;home</a>]</dd>
+<dt id="glpk"><a href="https://www.gnu.org/software/glpk/">GLPK</a></dt>
+<dd>GNU Linear Programming Kit, supporting the MathProg language.
+    [<a href="https://www.gnu.org/software/glpk/">glpk&nbsp;home</a>]</dd>
+<dt id="gnutls"><a href="https://www.gnu.org/software/gnutls/manual/">GnuTLS</a></dt>
+<dd>Transport layer security library.
+    [<a href="https://www.gnu.org/software/gnutls/">gnutls&nbsp;home</a>]</dd>
+<dt id="gsasl"><a href="https://www.gnu.org/software/gsasl/manual/">Gsasl</a></dt>
+<dd>Simple Authentication and Security Layer library.
+    [<a href="https://www.gnu.org/software/gsasl/">gsasl&nbsp;home</a>]</dd>
+<dt id="gslip"><a href="https://www.gnu.org/software/gslip/">GNU Slip</a></dt>
+<dd>SLIP (Symmetric LIst Processor) implementation.
+    [<a href="https://www.gnu.org/software/gslip/">gslip&nbsp;home</a>]</dd>
+<dt id="gss"><a href="https://www.gnu.org/software/gss/manual/">Generic Security Service</a></dt>
+<dd>Generic Security Service library.
+    [<a href="../software/gss/index.html">gss&nbsp;home</a>]</dd>
+<dt id="guile-cv"><a href="https://www.gnu.org/software/guile-cv/">Guile-cv</a></dt>
+<dd>Computer Vision library for Guile.
+    [<a href="https://www.gnu.org/software/guile-cv/">guile-cv&nbsp;home</a>]</dd>
+<dt id="gwl"><a href="https://www.gnu.org/software/gwl/">GWL</a></dt>
+<dd>Workflow language for GNU Guix.
+    [<a href="https://www.gnu.org/software/gwl/">gwl&nbsp;home</a>]</dd>
+<dt id="java-getopt"><a href="http://www.urbanophile.com/arenn/hacking/getopt/Package-gnu.getopt.html">Java-getopt</a></dt>
+<dd>Java port of GNU getopt.
+    [<a href="https://www.gnu.org/software/java-getopt/">java-getopt&nbsp;home</a>]</dd>
+<dt id="jel"><a href="https://www.gnu.org/software/jel/manual.html">Jel</a></dt>
+<dd>Java expression library and compiler.
+    [<a href="https://www.gnu.org/software/jel/">jel&nbsp;home</a>]</dd>
+<dt id="libc"><a href="https://www.gnu.org/software/libc/manual/">GNU C Library</a></dt>
+<dd>C library.
+    [<a href="https://www.gnu.org/software/libc/">libc&nbsp;home</a>]</dd>
+<dt id="libffcall"><a href="https://www.gnu.org/software/libffcall/">Libffcall</a></dt>
+<dd>Foreign function calls from interpreters.
+    [<a href="https://www.gnu.org/software/libffcall/">libffcall&nbsp;home</a>]</dd>
+<dt id="libgcrypt"><a href="https://www.gnupg.org/documentation/manuals/gcrypt/">Libgcrypt</a></dt>
+<dd>Cryptographic function library.
+    [<a href="https://www.gnu.org/software/libgcrypt/">libgcrypt&nbsp;home</a>]</dd>
+<dt id="libiconv"><a href="https://www.gnu.org/software/libiconv/">Libiconv</a></dt>
+<dd>Character set conversion library.
+    [<a href="https://www.gnu.org/software/libiconv/">libiconv&nbsp;home</a>]</dd>
+<dt id="libidn"><a href="https://www.gnu.org/software/libidn/manual/">Libidn</a></dt>
+<dd>Internationalized string processing library.
+    [<a href="https://www.gnu.org/software/libidn/">libidn&nbsp;home</a>]</dd>
+<dt id="libidn2"><a href="https://libidn.gitlab.io/libidn2/manual/libidn2.html">Libidn2</a></dt>
+<dd>Free software implementation of IDNA2008, Punycode, and Unicode TR46.
+    [<a href="https://www.gnu.org/software/libidn2/">libidn2&nbsp;home</a>]</dd>
+<dt id="libjit"><a href="https://www.gnu.org/software/libjit/">Libjit</a></dt>
+<dd>Just-in-Time compilation library.
+    [<a href="https://www.gnu.org/software/libjit/">libjit&nbsp;home</a>]</dd>
+<dt id="libmicrohttpd"><a href="https://www.gnu.org/software/libmicrohttpd/manual/">Libmicrohttpd</a></dt>
+<dd>C library implementing an HTTP 1.1 server.
+    [<a href="https://www.gnu.org/software/libmicrohttpd/">libmicrohttpd&nbsp;home</a>]</dd>
+<dt id="libtool"><a href="https://www.gnu.org/software/libtool/manual/">Libtool</a></dt>
+<dd>Generic shared library support tools.
+    [<a href="https://www.gnu.org/software/libtool/">libtool&nbsp;home</a>]</dd>
+<dt id="libunistring"><a href="https://www.gnu.org/software/libunistring/manual/">Libunistring</a></dt>
+<dd>C library for manipulating Unicode strings.
+    [<a href="https://www.gnu.org/software/libunistring/">libunistring&nbsp;home</a>]</dd>
+<dt id="lightning"><a href="https://www.gnu.org/software/lightning/manual/">Lightning</a></dt>
+<dd>Library for generating assembly code at runtime.
+    [<a href="https://www.gnu.org/software/lightning/">lightning&nbsp;home</a>]</dd>
+<dt id="mempool"><a href="https://www.gnu.org/software/mempool/">MemPool</a></dt>
+<dd>Block allocator library.
+    [<a href="https://www.gnu.org/software/mempool/">mempool&nbsp;home</a>]</dd>
+<dt id="mifluz"><a href="https://www.gnu.org/software/mifluz/doc.en.html">Mifluz</a></dt>
+<dd>Full text indexing library.
+    [<a href="https://www.gnu.org/software/mifluz/">mifluz&nbsp;home</a>]</dd>
+<dt id="nana"><a href="https://www.gnu.org/software/nana/">Nana</a></dt>
+<dd>Library for assertions, logging, performance measurement.
+    [<a href="https://www.gnu.org/software/nana/">nana&nbsp;home</a>]</dd>
+<dt id="osip"><a href="https://www.gnu.org/software/osip/doc/html/">oSIP</a></dt>
+<dd>Library implementing SIP (RFC-3261).
+    [<a href="https://www.gnu.org/software/osip/">osip&nbsp;home</a>]</dd>
+<dt id="pth"><a href="https://www.gnu.org/software/pth/pth-manual.html">Pth</a></dt>
+<dd>Portable thread library.
+    [<a href="https://www.gnu.org/software/pth/">pth&nbsp;home</a>]</dd>
+<dt id="quickthreads"><a href="../software/quickthreads/index.html">Quickthreads</a></dt>
+<dd>Thread library.
+    [<a href="../software/quickthreads/index.html">quickthreads&nbsp;home</a>]</dd>
+<dt id="wb"><a href="http://people.csail.mit.edu/jaffer/wb_toc.html">WB</a></dt>
+<dd>Disk-based associative array B-tree database library.
+    [<a href="https://www.gnu.org/software/wb/">wb&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Spreadsheets"><a href="http://directory.fsf.org/category/ssheet/">Spreadsheets</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="gnumeric"><a href="http://www.gnome.org/projects/gnumeric/doc/gnumeric.shtml">GNUmeric</a></dt>
+<dd>Spreadsheet application.
+    [<a href="https://www.gnu.org/software/gnumeric/">gnumeric&nbsp;home</a>]</dd>
+<dt id="oleo"><a href="https://www.gnu.org/software/oleo/doc/oleo.html">Oleo</a></dt>
+<dd>Spreadsheet for both terminal and graphical interfaces.
+    [<a href="https://www.gnu.org/software/oleo/">oleo&nbsp;home</a>]</dd>
+<dt id="ssw"><a href="https://www.gnu.org/software/ssw/">Spread Sheet Widget</a></dt>
+<dd>Gtk+ widget for viewing and manipulating tabular data.
+    [<a href="https://www.gnu.org/software/ssw/">ssw&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Sysadmin"><a href="http://directory.fsf.org/category/admin/">System administration</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="acct"><a href="https://www.gnu.org/software/acct/manual/accounting.html">Acct</a></dt>
+<dd>Standard login and process accounting utilities.
+    [<a href="https://www.gnu.org/software/acct/">acct&nbsp;home</a>]</dd>
+<dt id="ddrescue"><a href="https://www.gnu.org/software/ddrescue/manual/ddrescue_manual.html">ddrescue</a></dt>
+<dd>Data recovery utility.
+    [<a href="https://www.gnu.org/software/ddrescue/">ddrescue&nbsp;home</a>]</dd>
+<dt id="direvent"><a href="https://www.gnu.org/software/direvent/">Direvent</a></dt>
+<dd>Daemon to monitor directories for events such as file removal.
+    [<a href="https://www.gnu.org/software/direvent/">direvent&nbsp;home</a>]</dd>
+<dt id="fdisk"><a href="https://www.gnu.org/software/fdisk/">Fdisk</a></dt>
+<dd>Low-level disk partitioning and formatting.
+    [<a href="https://www.gnu.org/software/fdisk/">fdisk&nbsp;home</a>]</dd>
+<dt id="gnubatch"><a href="https://www.gnu.org/software/gnubatch/">GNUbatch</a></dt>
+<dd>Advanced batch scheduling and job control.
+    [<a href="https://www.gnu.org/software/gnubatch/">gnubatch&nbsp;home</a>]</dd>
+<dt id="gnuboot"><a href="https://www.gnu.org/software/gnuboot/">GNU Boot</a></dt>
+<dd>A free BIOS/UEFI replacement.
+    [<a href="https://www.gnu.org/software/gnuboot/">gnuboot&nbsp;home</a>]</dd>
+<dt id="grub"><a href="https://www.gnu.org/software/grub/grub-documentation.html">GRUB</a></dt>
+<dd>GRand Unified Boot loader.
+    [<a href="https://www.gnu.org/software/grub/">grub&nbsp;home</a>]</dd>
+<dt id="gsrc"><a href="https://www.gnu.org/software/gsrc/manual/">GNU Source Release Collection</a></dt>
+<dd>Install latest official GNU releases from original source.
+    [<a href="https://www.gnu.org/software/gsrc/">gsrc&nbsp;home</a>]</dd>
+<dt id="guix"><a href="https://www.gnu.org/software/guix/manual/">Guix</a></dt>
+<dd>Functional package manager for installed software packages and versions.
+    [<a href="https://www.gnu.org/software/guix/">guix&nbsp;home</a>]</dd>
+<dt id="mcron"><a href="https://www.gnu.org/software/mcron/">Mcron</a></dt>
+<dd>Run jobs at scheduled times.
+    [<a href="https://www.gnu.org/software/mcron/">mcron&nbsp;home</a>]</dd>
+<dt id="mes"><a href="https://www.gnu.org/software/mes/manual/">Mes</a></dt>
+<dd>Full source bootstrapping for GNU systems.
+    [<a href="https://www.gnu.org/software/mes/">mes&nbsp;home</a>]</dd>
+<dt id="mtools"><a href="https://www.gnu.org/software/mtools/manual/mtools.html">Mtools</a></dt>
+<dd>Access MS-DOS disks without mounting.
+    [<a href="https://www.gnu.org/software/mtools/">mtools&nbsp;home</a>]</dd>
+<dt id="parallel"><a href="https://www.gnu.org/software/parallel/man.html">Parallel</a></dt>
+<dd>Build and execute command lines in parallel.
+    [<a href="https://www.gnu.org/software/parallel/">parallel&nbsp;home</a>]</dd>
+<dt id="parted"><a href="https://www.gnu.org/software/parted/manual/">Parted</a></dt>
+<dd>Disk partition editor.
+    [<a href="https://www.gnu.org/software/parted/">parted&nbsp;home</a>]</dd>
+<dt id="rottlog"><a href="https://www.gnu.org/software/rottlog/manual/">Rottlog</a></dt>
+<dd>Log rotation and management.
+    [<a href="https://www.gnu.org/software/rottlog/">rottlog&nbsp;home</a>]</dd>
+<dt id="serveez"><a href="https://www.gnu.org/software/serveez/manual/">Serveez</a></dt>
+<dd>Framework for implementing IP-based servers.
+    [<a href="https://www.gnu.org/software/serveez/">serveez&nbsp;home</a>]</dd>
+<dt id="shepherd"><a href="https://www.gnu.org/software/shepherd/">Shepherd</a></dt>
+<dd>System service manager.
+    [<a href="https://www.gnu.org/software/shepherd/">shepherd&nbsp;home</a>]</dd>
+<dt id="stow"><a href="https://www.gnu.org/software/stow/manual/">Stow</a></dt>
+<dd>Managing installed software packages.
+    [<a href="https://www.gnu.org/software/stow/">stow&nbsp;home</a>]</dd>
+<dt id="sysutils"><a href="https://www.gnu.org/software/sysutils/">Sysutils</a></dt>
+<dd>Standard system administration utilities: passwd, chsh, and more.
+    [<a href="https://www.gnu.org/software/sysutils/">sysutils&nbsp;home</a>]</dd>
+<dt id="time"><a href="https://www.gnu.org/software/time/">Time</a></dt>
+<dd>Run a command, then display its resource usage.
+    [<a href="https://www.gnu.org/software/time/">time&nbsp;home</a>]</dd>
+<dt id="uucp"><a href="https://www.gnu.org/software/uucp/">UUCP</a></dt>
+<dd>UUCP protocol implementation.
+    [<a href="https://www.gnu.org/software/uucp/">uucp&nbsp;home</a>]</dd>
+<dt id="which"><a href="https://www.gnu.org/software/which/">Which</a></dt>
+<dd>Find full path of shell commands.
+    [<a href="https://www.gnu.org/software/which/">which&nbsp;home</a>]</dd>
+<dt id="xlogmaster"><a href="https://www.gnu.org/software/xlogmaster/tutorial_toc.html">Xlogmaster</a></dt>
+<dd>GUI program for monitoring log and other files.
+    [<a href="https://www.gnu.org/software/xlogmaster/">xlogmaster&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Telephony"><a href="http://directory.fsf.org/category/tel/">Telephony</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="bayonne"><a href="https://www.gnu.org/software/bayonne/bayonne.html#documentation">Bayonne</a></dt>
+<dd>Telephony server.
+    [<a href="https://www.gnu.org/software/bayonne/">bayonne&nbsp;home</a>]</dd>
+<dt id="ccaudio"><a href="https://www.gnu.org/software/ccaudio/ccaudio.html#documentation">ccAudio</a></dt>
+<dd>Standalone C++ class framework for manipulating audio data.
+    [<a href="https://www.gnu.org/software/ccaudio/">ccaudio&nbsp;home</a>]</dd>
+<dt id="ccrtp"><a href="https://www.gnu.org/software/ccrtp/ccrtp.html#documentation">ccRTP</a></dt>
+<dd>Implementation of RTP (real-time transport protocol).
+    [<a href="https://www.gnu.org/software/ccrtp/">ccrtp&nbsp;home</a>]</dd>
+<dt id="ccscript"><a href="https://www.gnu.org/software/ccscript/ccscript.html#documentation">ccScript</a></dt>
+<dd>C++ class framework for virtual machine execution.
+    [<a href="https://www.gnu.org/software/ccscript/">ccscript&nbsp;home</a>]</dd>
+<dt id="gnucomm"><a href="https://www.gnu.org/software/gnucomm/overview.html">GnuComm</a></dt>
+<dd>GNU telecommunications project / GNU Telephony.
+    [<a href="https://www.gnu.org/software/gnucomm/">gnucomm&nbsp;home</a>]</dd>
+<dt id="halifax"><a href="../software/halifax/index.html">HaliFAX</a></dt>
+<dd>Fax support.
+    [<a href="../software/halifax/index.html">halifax&nbsp;home</a>]</dd>
+<dt id="sipwitch"><a href="https://www.gnu.org/software/sipwitch/sipwitch.html#documentation">Sipwitch</a></dt>
+<dd>Secure peer-to-peer VoIP server for the SIP protocol.
+    [<a href="https://www.gnu.org/software/sipwitch/">sipwitch&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Text"><a href="http://directory.fsf.org/category/text/">Text creation and manipulation</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="aspell"><a href="http://aspell.net/man-html/index.html">Aspell</a></dt>
+<dd>Spell checker.
+    [<a href="../software/aspell/index.html">aspell&nbsp;home</a>]</dd>
+<dt id="auctex"><a href="https://www.gnu.org/software/auctex/manual/">AUCTeX</a></dt>
+<dd>Emacs environment for editing (all flavors of) TeX files.
+    [<a href="https://www.gnu.org/software/auctex/">auctex&nbsp;home</a>]</dd>
+<dt id="bool"><a href="https://www.gnu.org/software/bool/">Bool</a></dt>
+<dd>Finding text and HTML files that match boolean expressions.
+    [<a href="https://www.gnu.org/software/bool/">bool&nbsp;home</a>]</dd>
+<dt id="combine"><a href="https://www.gnu.org/software/combine/manual/">Combine</a></dt>
+<dd>Extensible file matching and filtering.
+    [<a href="https://www.gnu.org/software/combine/">combine&nbsp;home</a>]</dd>
+<dt id="diction"><a href="https://www.gnu.org/software/diction/">Diction</a></dt>
+<dd>Identifies wordy and commonly misused phrases.
+    [<a href="https://www.gnu.org/software/diction/">diction&nbsp;home</a>]</dd>
+<dt id="diffutils"><a href="https://www.gnu.org/software/diffutils/manual/html_node/">Diffutils</a></dt>
+<dd>Comparing and merging files.
+    [<a href="https://www.gnu.org/software/diffutils/">diffutils&nbsp;home</a>]</dd>
+<dt id="ed"><a href="https://www.gnu.org/software/ed/manual/ed_manual.html">Ed</a></dt>
+<dd>Line-oriented text editor.
+    [<a href="https://www.gnu.org/software/ed/">ed&nbsp;home</a>]</dd>
+<dt id="gawk"><a href="https://www.gnu.org/software/gawk/manual/">Gawk</a>
+&nbsp;<span>(<a href="https://www.gnu.org/software/gawk/manual/gawkinet/html_node/">gawkinet</a>
+&nbsp;<a href="https://www.gnu.org/software/gawk/manual/html_node/">gawk<!-- again --></a>)</span>
+</dt>
+<dd>Text scanning and processing language.
+    [<a href="https://www.gnu.org/software/gawk/">gawk&nbsp;home</a>]</dd>
+<dt id="grep"><a href="https://www.gnu.org/software/grep/manual/">Grep</a></dt>
+<dd>Print lines matching a pattern.
+    [<a href="https://www.gnu.org/software/grep/">grep&nbsp;home</a>]</dd>
+<dt id="groff"><a href="https://www.gnu.org/software/groff/manual/groff.html.node/">Groff</a></dt>
+<dd>Typesetting from plain text mixed with formatting commands.
+    [<a href="https://www.gnu.org/software/groff/">groff&nbsp;home</a>]</dd>
+<dt id="help2man"><a href="https://www.gnu.org/software/help2man/">Help2man</a></dt>
+<dd>Automatically generate man pages from program --help.
+    [<a href="https://www.gnu.org/software/help2man/">help2man&nbsp;home</a>]</dd>
+<dt id="html-info"><a href="https://www.gnu.org/software/html-info/">Html-info</a></dt>
+<dd>HTML-Info viewer and tools.
+    [<a href="https://www.gnu.org/software/html-info/">html-info&nbsp;home</a>]</dd>
+<dt id="hyperbole"><a href="https://www.gnu.org/software/hyperbole/">Hyperbole</a></dt>
+<dd>Emacs hypertext system via customizable buttons.
+    [<a href="https://www.gnu.org/software/hyperbole/">hyperbole&nbsp;home</a>]</dd>
+<dt id="less"><a href="https://www.gnu.org/software/less/">Less</a></dt>
+<dd>Paginator for terminals.
+    [<a href="https://www.gnu.org/software/less/">less&nbsp;home</a>]</dd>
+<dt id="m4"><a href="https://www.gnu.org/software/m4/manual/">M4</a></dt>
+<dd>Macro processor.
+    [<a href="https://www.gnu.org/software/m4/">m4&nbsp;home</a>]</dd>
+<dt id="miscfiles"><a href="https://www.gnu.org/software/miscfiles/">Miscfiles</a></dt>
+<dd>Data files for airport codes, zip codes, a dictionary, and more.
+    [<a href="https://www.gnu.org/software/miscfiles/">miscfiles&nbsp;home</a>]</dd>
+<dt id="ocrad"><a href="https://www.gnu.org/software/ocrad/manual/ocrad_manual.html">Ocrad</a></dt>
+<dd>Optical character recognition based on feature extraction.
+    [<a href="https://www.gnu.org/software/ocrad/">ocrad&nbsp;home</a>]</dd>
+<dt id="orgadoc"><a href="https://www.gnu.org/software/orgadoc/manual/">OrgaDoc</a></dt>
+<dd>Eiffel program to maintain and query documents across machines.
+    [<a href="https://www.gnu.org/software/orgadoc/">orgadoc&nbsp;home</a>]</dd>
+<dt id="reftex"><a href="https://www.gnu.org/software/auctex/manual/reftex.index.html">Reftex</a></dt>
+<dd>Emacs support for LaTeX cross-references of all kinds.
+    [<a href="https://www.gnu.org/software/reftex/">reftex&nbsp;home</a>]</dd>
+<dt id="sed"><a href="https://www.gnu.org/software/sed/manual/">Sed</a></dt>
+<dd>Stream editor.
+    [<a href="https://www.gnu.org/software/sed/">sed&nbsp;home</a>]</dd>
+<dt id="spell"><a href="https://www.gnu.org/software/spell/">Spell</a></dt>
+<dd>Spell checking.
+    [<a href="https://www.gnu.org/software/spell/">spell&nbsp;home</a>]</dd>
+<dt id="src-highlite"><a href="https://www.gnu.org/software/src-highlite/source-highlight.html">Src-highlite</a></dt>
+<dd>Produce a document with syntax highlighting from a source file.
+    [<a href="https://www.gnu.org/software/src-highlite/">src-highlite&nbsp;home</a>]</dd>
+<dt id="teximpatient"><a href="https://www.gnu.org/software/teximpatient/">TeX for the Impatient</a></dt>
+<dd>Book on TeX, plain TeX, and Eplain.
+    [<a href="https://www.gnu.org/software/teximpatient/">teximpatient&nbsp;home</a>]</dd>
+<dt id="texinfo"><a href="https://www.gnu.org/software/texinfo/manual/">Texinfo</a>
+&nbsp;<span>(<a href="https://www.gnu.org/software/texinfo/manual/info-stnd/html_node/">info-stnd</a>
+&nbsp;<a href="https://www.gnu.org/software/texinfo/manual/texi2any_api/html_node/">texi2any_api</a>
+&nbsp;<a href="https://www.gnu.org/software/texinfo/manual/texi2any_internals/html_chapter/">texi2any_internals</a>
+&nbsp;<a href="https://www.gnu.org/software/texinfo/manual/texinfo/html_node/">texinfo<!-- again --></a>)</span>
+</dt>
+<dd>The GNU documentation format.
+    [<a href="https://www.gnu.org/software/texinfo/">texinfo&nbsp;home</a>]</dd>
+<dt id="texmacs"><a href="https://www.gnu.org/software/texmacs/">TeXmacs</a></dt>
+<dd>Editing platform with special features for scientists.
+    [<a href="https://www.gnu.org/software/texmacs/">texmacs&nbsp;home</a>]</dd>
+<dt id="unrtf"><a href="https://www.gnu.org/software/unrtf/">UnRTF</a></dt>
+<dd>Convert Rich Text Format documents to other formats.
+    [<a href="https://www.gnu.org/software/unrtf/">unrtf&nbsp;home</a>]</dd>
+<dt id="wdiff"><a href="https://www.gnu.org/software/wdiff/manual/">Wdiff</a></dt>
+<dd>Word difference finder.
+    [<a href="https://www.gnu.org/software/wdiff/">wdiff&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Version"><a href="http://directory.fsf.org/category/vc/">Version control</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="bazaar"><a href="https://web.archive.org/web/20230326115016/http://doc.bazaar.canonical.com/en/">Bazaar</a></dt>
+<dd>Version control system supporting both distributed and centralized workflows.
+    [<a href="https://www.gnu.org/software/bazaar/">bazaar&nbsp;home</a>]</dd>
+<dt id="cssc"><a href="https://www.gnu.org/software/cssc/manual/">CSSC</a></dt>
+<dd>File-based version control like SCCS.
+    [<a href="https://www.gnu.org/software/cssc/">cssc&nbsp;home</a>]</dd>
+<dt id="rcs"><a href="https://www.gnu.org/software/rcs/manual/">RCS</a></dt>
+<dd>Per-file local revision control system.
+    [<a href="https://www.gnu.org/software/rcs/">rcs&nbsp;home</a>]</dd>
+<dt id="vc-dwim"><a href="https://www.gnu.org/software/vc-dwim/manual/">Vc-dwim</a></dt>
+<dd>Version-control-agnostic ChangeLog diff and commit tool.
+    [<a href="https://www.gnu.org/software/vc-dwim/">vc-dwim&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Video"><a href="http://directory.fsf.org/category/video/">Video</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="vcdimager"><a href="https://www.gnu.org/software/vcdimager/">VCDImager</a></dt>
+<dd>Authoring, disassembling and analyzing (super and) video CDs.
+    [<a href="https://www.gnu.org/software/vcdimager/">vcdimager&nbsp;home</a>]</dd>
+</dl>
+</div>
+
+<div class='category'>
+<h3 id="Web"><a href="http://directory.fsf.org/category/web/">Web authoring</a>
+<span class="gnun-split"></span>
+&nbsp;<span><a class='up' 
+    title='Back to categories' href='#categories'>&#11165;</a></span></h3>
+<dl>
+<dt id="easejs"><a href="https://www.gnu.org/software/easejs/manual.html">Easejs</a></dt>
+<dd>Classical object-oriented framework for JavaScript.
+    [<a href="https://www.gnu.org/software/easejs/">easejs&nbsp;home</a>]</dd>
+<dt id="emacs-muse"><a href="https://www.gnu.org/software/emacs-muse/manual/">Emacs-muse</a></dt>
+<dd>Authoring and publishing environment for Emacs.
+    [<a href="https://www.gnu.org/software/emacs-muse/">emacs-muse&nbsp;home</a>]</dd>
+<dt id="gnowsys"><a href="https://www.gnu.org/software/gnowsys/">GNOWSYS</a></dt>
+<dd>Distributed network-based memory and knowledge management.
+    [<a href="https://www.gnu.org/software/gnowsys/">gnowsys&nbsp;home</a>]</dd>
+<dt id="grabcomics"><a href="https://www.gnu.org/software/grabcomics/">phpGrabComics</a></dt>
+<dd>Saves comic strips from the web.
+    [<a href="https://www.gnu.org/software/grabcomics/">grabcomics&nbsp;home</a>]</dd>
+<dt id="metahtml"><a href="https://web.archive.org/web/20070815201132/http://www.metahtml.org/documentation/manual/welcome.mhtml">Metahtml</a></dt>
+<dd>Combining HTML and Lisp, specifically designed for Web servers.
+    [<a href="https://www.gnu.org/software/metahtml/">metahtml&nbsp;home</a>]</dd>
+<dt id="xmlat"><a href="https://www.gnu.org/software/xmlat/">Xmlat</a></dt>
+<dd>Simple XML for defining and implementing markup languages.
+    [<a href="https://www.gnu.org/software/xmlat/">xmlat&nbsp;home</a>]</dd>
+</dl>
+</div>
+<!-- End file generated by www/prep/gnumaint/gm Sun 04 Feb 2024 10:21:34 AM CET -->
+
+</div>
+
+<p>See <a href="#topinfo">info about this list at top</a>.</p>
+
+</div><!-- for id="content", starts in the include above -->
+
+              <!-- begin server/footer-text.html -->
+
+
+
+
+
+<div style="clear:both"></div>
+
+
+<div id="language-container">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#top"><b>&#9650;</b></a>
+ </div>
+ <div id="languages" class="rounded-corners">
+  <div class="button">
+   <a href="#top" class="close"><span>BACK TO TOP</span></a>
+  </div>
+  <div id="set-language" class="button">
+   <span class="gnun-split"></span>
+   <a href="https://www.gnu.org/server/select-language.html?callback=/manual/manual.html" rel="nofollow">
+   Set language
+   <span class="gnun-split"></span>
+   </a>
+  </div>
+  <p>Available for this page:</p>
+  <div id="translations">
+<p>
+<span dir="ltr" class="original">[en]&nbsp;<a lang="en" hreflang="en" href="https://www.gnu.org/manual/manual.en.html">English</a> &nbsp;</span>
+<span dir="ltr">[de]&nbsp;<a lang="de" hreflang="de" href="https://www.gnu.org/manual/manual.de.html">Deutsch</a> &nbsp;</span>
+<span dir="ltr">[fr]&nbsp;<a lang="fr" hreflang="fr" href="https://www.gnu.org/manual/manual.fr.html">français</a> &nbsp;</span>
+<span dir="ltr">[ja]&nbsp;<a lang="ja" hreflang="ja" href="https://www.gnu.org/manual/manual.ja.html">日本語</a> &nbsp;</span>
+<span dir="ltr">[pt-br]&nbsp;<a lang="pt-br" hreflang="pt-br" href="https://www.gnu.org/manual/manual.pt-br.html">português</a> &nbsp;</span>
+</p>
+</div>
+ </div>
+</div>
+
+<div id="mission-statement" role="complementary">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#header"><span>BACK TO TOP </span>&#9650;</a>
+ </div>
+<div style="clear: both"></div>
+<blockquote>
+<p style="direction:ltr; text-align:left"><a href="http://www.fsf.org/"><img id="fsfbanner"
+src="../graphics/fsf-logo-notext-small.png" alt="&nbsp;[FSF logo]&nbsp;"
+width="75" height="25" /></a><strong>
+&ldquo;The Free Software Foundation (FSF) is a nonprofit with a worldwide
+mission to promote computer user freedom. We defend the rights of all
+software users.&rdquo;</strong></p>
+</blockquote>
+
+<div id="support-the-fsf" class="button">
+ <a class="join" href="http://www.fsf.org/associate/support_freedom?referrer=4052">JOIN</a>
+ <a class="donate" href="http://donate.fsf.org/">DONATE</a>
+ <a class="shop" href="http://shop.fsf.org/">SHOP</a>
+</div>
+</div>
+<!-- end server/footer-text.html -->
+
+
+<div id="footer">
+<div class="unprintable">
+
+<p>Please send general FSF &amp; GNU inquiries to
+<a href="mailto:gnu@gnu.org">&lt;gnu@gnu.org&gt;</a>.
+There are also <a href="../contact/index.html">other ways to contact</a>
+the FSF.  Broken links and other corrections or suggestions can be sent to
+<a href="mailto:webmasters@gnu.org">&lt;webmasters@gnu.org&gt;</a>.</p>
+
+<p><!-- TRANSLATORS: Ignore the original text in this paragraph,
+        replace it with the translation of these two:
+
+        We work hard and do our best to provide accurate, good quality
+        translations.  However, we are not exempt from imperfection.
+        Please send your comments and general suggestions in this regard
+        to <a href="mailto:web-translators@gnu.org">
+        &lt;web-translators@gnu.org&gt;</a>.</p>
+
+        <p>For information on coordinating and contributing translations of
+        our web pages, see <a
+        href="/server/standards/README.translations.html">Translations
+        README</a>. -->
+Please see the <a
+href="../server/standards/README.translations.html">Translations
+README</a> for information on coordinating and contributing translations
+of this article.</p>
+</div>
+
+<!-- Regarding copyright, in general, standalone pages (as opposed to
+     files generated as part of manuals) on the GNU web server should
+     be under CC BY-ND 4.0.  Please do NOT change or remove this
+     without talking with the webmasters or licensing team first.
+     Please make sure the copyright date is consistent with the
+     document.  For web pages, it is ok to list just the latest year the
+     document was modified, or published.
+     
+     If you wish to list earlier years, that is ok too.
+     Either "2001, 2002, 2003" or "2001-2003" are ok for specifying
+     years, as long as each year in the range is in fact a copyrightable
+     year, i.e., a year in which the document was published (including
+     being publicly visible on the web or in a revision control system).
+     
+     There is more detail about copyright years in the GNU Maintainers
+     Information document, www.gnu.org/prep/maintain. -->
+
+<p>Copyright &copy; 2014, 2018, 2020, 2022 Free Software Foundation, Inc.</p>
+
+<p>This page is licensed under a <a rel="license"
+href="http://creativecommons.org/licenses/by-nd/4.0/">Creative
+Commons Attribution-NoDerivatives 4.0 International License</a>.</p>
+
+<!-- start of server/bottom-notes.html -->
+<div id="bottom-notes" class="unprintable">
+<p><a href="http://www.fsf.org/about/dmca-notice">Copyright Infringement Notification</a></p>
+<div id="generic">
+
+
+</div>
+</div>
+<!-- end of server/bottom-notes.html -->
+
+
+<p class="unprintable">Updated:
+<!-- timestamp start -->
+$Date: 2022/06/23 16:25:15 $
+<!-- timestamp end -->
+</p>
+</div>
+</div><!-- for class="inner", starts in the banner include -->
+</body>
+
+<!-- Mirrored from www.gnu.org/manual/manual.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>

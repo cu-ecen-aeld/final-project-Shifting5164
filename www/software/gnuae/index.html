@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+<!-- Mirrored from www.gnu.org/software/gnuae/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+	<title>GnuAE - GNU Project - Free Software Foundation (FSF)</title>
+	<meta name="generator" content="Emacs (Linux)">
+	<meta name="changedby" content="Rob Savoye">
+    <META NAME="keywords" CONTENT="dejagnu">
+
+	<style>
+	<!--
+		TH P { color: #000000 }
+		TD P { color: #000000 }
+		H3 { color: #000000 }
+		H4 { color: #000000 }
+		P { color: #000000 }
+		PRE { color: #000000 }
+		A:link { color: #1f00ff }
+		A:visited { color: #9900dd }
+	-->
+	</style>
+</head>
+<body text="#000000" link="#1f00ff" vlink="#9900dd" bgcolor="#ffffff">
+
+<img src="https://www.gnu.org/software/gnuae/images/gnuae-logo.png" alt="GnuAE Logo Graphic" align=left width=232
+height=82 border=0>
+
+<img src="https://www.gnu.org/software/gnuae/images/gnu-type-sm.jpg" alt="Gnu Head Logo" align=right width=123
+height=126 border=0>
+<br clear=right>
+
+<hr><p>GnuAE is looking for a co-maintainer.
+If you're interested, please take a look at this <a
+href="https://www.gnu.org/help/evaluation.html#whatmeans">general information about GNU
+packages and being a GNU maintainer</a>, and then email
+maintainers@gnu.org with a bit about your background and particular
+interest in this package.  Thanks.</p><hr>
+
+
+<hr>
+
+<p align=center>
+<!-- These quick navigation menu bar lines can't be longer then about -->
+<!-- 72 characters or lynx will break them poorly. -->
+<!-- If we add more then 2 lines, they will become too cluttered to be -->
+<!-- quickly and easily understood. -->
+<!-- Obviously, we list ONLY the most useful/important URLs here. -->
+
+<a href="#introduction" name="TOCintroduction">Introduction</A>
+| <a href="#downloading" name="TOCdownloading">Get the Software</a> |
+<a href="#documentation" name="TOCdocumentation">Documentation
+<!-- try to keep this balanced --></a>
+<br>| <a href="#lists" name="TOClists">Mailing Lists/Newsgroups
+<!-- Optional: --></a>
+| <a href="#installhgelp" name="TOCinstallhelp">Install Help</a>
+<br>| <a href="#enhancement" name="TOCenhancement">Request an
+Enhancement</a> | <a href="#bug" name="TOCbug">Report a Bug
+<!-- only if the maintainer wants to be mentioned, --></a>
+| <a href="#maintainer" namE="TOCmaintainer">Maintainer</a> 
+</p>
+
+<hr>
+
+<!-- We can use BLOCKQUOTE to indent the pages, so that
+     it will have a better look
+
+I don't like this BLOCKQUOTE kludge.  HTML is best kept simple.
+And the change from letting the broswer chose formating and typography
+to the designer trying to do it and failing has been ugly. -tower -->
+
+<h4><a href="#TOCintroduction" NAME="introduction">Introduction</a></h4>
+
+
+GnuAE is a GNOME/GTK compliant GUI for designing photovoltaic and
+wind powered houses with compliance to the National Electrical
+Code. As GnuAE has a database of components and current average
+prices, it can help you judge the total cost of a system by
+experimenting with different options like using a propane or DV
+fridge, or more or less reserve days or hours of sun.<p>
+
+GnuAE is also designed to make it much easier to wire for NEC code
+compliance without studying all 800 some pages of the NEC
+specification. Even for an electrician, the interdependencies between
+calculations is daunting. While DC wiring is much simpler than AC
+wiring, most off-grid household systems are both. There is even a
+built in NEC calculator for people that have a good feel for what they
+are doing, but want to also experiment with differing conduit sizes,
+parallel wire runs, and voltage drop.<p>
+
+GnuAE currently only runs on GNU/Linux & MacOSX, although some attention has been
+paid to eventual ports to M$ WinDoze (using cygwin). This is the initial
+alpha release, so your mileage may vary... I can think of a few bugs
+right now I need to fix before the first release. Sorry for the lame
+GUI, I'm not a GUI programmer, I'm more of a system hacker. Please
+contribute to the development of this project by helping track down
+bugs, or add features, or improve the GUI.<p>
+
+<h4><a href="#TOCdownloading" name="downloading">Downloading GnuAE</a></h4>
+
+GnuAE releases (when the release is done) will be found on in the
+subdirectory <i>/gnu/gnuae/</i> on your favorite <a
+href="http://www.gnu.org/prep/ftp.html">GNU mirror</a>.<p>
+
+The latest gnuae development sources are available via anonymous
+CVS. Use the following commands to check them out (just hit return
+when you are prompted for the password):<p>
+
+I use <a href=http://www.gnome.org/projects/dia>DIA</a> for drawing
+wiring diagrams. <a href=https://www.gnu.org/software/gnuae/gnuae-dia.tgz>Here's</a> an additional sheet
+and shapes for alternate energy systems with things like inverters,
+photovoltaic panels, batteries, etc. As an example, here's a
+<a href=https://www.gnu.org/software/gnuae/pv-wiring.png>wiring example</a> based on my own system.<p>
+
+<pre>
+export CVS_RSH="ssh"
+cvs -z3 -d:ext:anoncvs@savannah.gnu.org:/cvsroot/gnuae co gnuae
+</pre>
+
+<!-- find . -path '*/CVS/Root' | xargs perl -i -p -e 's/:pserver:/:ext:/' -->
+
+<p>For more detailed information on CVS usage at gnu.org, read <a
+href=http://savanah.gnu.org/cvs/?group_id=6786>CVS Usage at gnu.org</a>.
+You can also <a href=http://savannah.gnu.org/cgi-bin/viewcvs/gnuae/gnuae>browse the sources</a>.<p>
+
+<p>For other ways to obtain GnuAE, please read <a
+href="../software.html#HowToGetSoftware">How 
+to get GNU Software</a></p>
+
+<!--
+<p align=left>Once you have the tree checked out, you can keep it up
+to date by using <tt>cvs update</tt>. There are three interesting
+branches right now, which you can check out by using the <tt>-r
+&lt;tag&gt;</tt> switch to <tt>cvs co</tt> or <tt>cvs update</tt>:</p>
+
+<table width=1030 border=0 cellpadding=2 cellspacing=0
+style="page-break-before: always">
+	<col width=199>
+	<col width=823>
+	<tr> 
+	     <th width=199 bgcolor="#8888ff">
+		  <p align=left>Tag</p>
+	     </th>
+	     <th width=823 bgcolor="#8888ff">
+		  <p align=left>Details</p>
+	     </th>
+	</tr>
+	<tr>
+	    <td width=199 bgcolor="#ccccee">
+		<p>HEAD</p>
+	    </td>
+	    <td width=823 bgcolor="#ccccee">
+		<p>The main development trunk, working towards release 2.0</p>
+	    </td>
+	</tr>
+	<tr>
+	    <td width=199 bgcolor="#ccccee">
+		<p>Branch-1-4</p>
+	    </td>
+	    <td width=823 bgcolor="#ccccee">
+		<p>The 1. 4 release branch. Patch releases for 1.4.x come from
+		here</p>
+	    </td>
+	</tr>
+</table>
+<p align=left>Make sure you have installed recent versions of GNU
+Autoconf and Automake, then run<samp>.</samp></p>
+
+-->
+
+<h4><a href="#TOCdocumentation" name="documentation">Documentation</a></h4>
+
+GnuAE documentation can be found at <a
+href="https://www.gnu.org/software/gnuae/manual/">http://www.gnu.org/software/gnuae/manual/
+</a> <p>
+
+<!--
+<p>You may also find more information about GnuAE by looking at
+<em>/usr/share/doc/gnuae/</em> or <em>/usr/local/share/doc/gnuae/</em> on
+your system.</p>
+-->
+
+<h4><a href="#TOClists" name="lists">Mailing Lists/Newsgroups</a></h4>
+
+<p align=left>GnuAE has three mailing lists hosted at <tt>gnu.org</tt>.
+Archives of these lists are stored at <a
+href="http://mail.gnu.org/pipermail/">
+http://mail.gnu.org/pipermail/</a>:</p>
+
+<ul>
+	<li><p align=left style="margin-bottom: 0in"><a href="http://mail.gnu.org/pipermail/gnuae/"><b>gnuae@gnu.org</b></a>
+	is for discussion of gnuae development, porting to new platforms,
+	ideas for the future, general gnuae usage or problems. New alpha
+	and stable releases are announced here. To subscribe, go the
+	<a href="http://mail.gnu.org/mailman/listinfo/gnuae">
+	http://mail.gnu.org/mailman/listinfo/gnuae</a>
+	Volume is typically low.</p>
+
+	<li><p align=left><a href="http://mail.gnu.org/pipermail/bug-gnuae">
+	<b>bug-gnuae@gnu.org</b></a> is a special list for reporting
+	bugs, and to enable the developers to track submitted bug
+	reports. If you think you have found a bug in gnuae, then
+	you should, in the first instance send as complete a report as
+	possible to this list. ideally, you should include the text
+	you get by running <samp>config.guess</samp>, the text you see
+	when you run <samp>configure</samp>,	and if you can, a
+	patch made with <samp>diff -u5</samp> which fixes the
+	problem. It will also be useful to send the logfile from the
+	test run. To subscribe, go the <a
+	href="http://mail.gnu.org/mailman/listinfo/bug-gnuae">
+	http://mail.gnu.org/mailman/listinfo/bug-gnuae</a>
+	Volume is typically low.</p>
+
+	<li><p align=left><a
+	href="http://mail.gnu.org/pipermail/gnuae-commit">
+	<b>gnuae-commit@gnu.org</b></a> is where summaries of
+	changes commited to the CVS repository are automatically
+	posted. If you wish to see these changes as they happen, <a
+	href="http://mail.gnu.org/mailman/listinfo/gnuae-commit">
+	http://mail.gnu.org/mailman/listinfo/gnuae-commit</a> Volume
+	is sporadic, but typically low.</p>
+
+	<li><p align=left style="margin-bottom: 0in"><a href="http://mail.gnu.org/pipermail/gnuae-patches/"><b>gnuae-patches@gnu.org</b></a>
+	is where the patches to the gnuae repository are posted for peer
+	review before being commited to CVS. Send an email to
+	<a href="mailto:libtool-patches-request@gnu.org">gnuae-patches-request@gnu.org</a>
+	with <tt>subscribe</tt> as the subject line if you want to join.
+	Volume is typically low, though individual messages can be quite
+	large.</p>
+
+
+</ul>
+
+<p>Announcements about GnuAE and most other GNU Software are made
+on <a href="mailto:info-gnu@gnu.org">&lt;info-gnu@gnu.org&gt;</a>.</p>
+
+<h4><a href="#TOCenhancement" name="enhancement">Request an
+Enhancement</a></h4>
+
+<p>If you would like any new feature to be included in future
+versions of GnuAE, please send a request to <a
+href="mailto:gnuae@gnu.org">&lt;gnuae@gnu.org&gt;</a></p>
+
+<p>Please remember that development of GnuAE is a volunteer effort,
+and you can also contribute to its development. For information about
+contributing to the GNU Project, please read <a
+href="../../help/help.html">How to help GNU</a>.</p>
+
+<h4><a href="#TOCbug" name="bug">Report a Bug</a></h4>
+
+<p>If you think you have found a bug in GnuAE, then you should send
+as complete a report as possible to <a
+href="mailto:bug-gnuae@gnu.org">&lt;bug-gnuae@gnu.org&gt;</a>.
+</P>
+
+<h4><!-- optional section: -->
+<a href="#TOCmaintainer" NAME="maintainer">Maintainer</a></h4>
+
+<p style="margin-bottom: 0in">GnuAE is currently being maintained
+by <a href=http://www.welcomehome.org/rob.html>Rob Savoye</a></p>
+
+<!-- * If needed, change the copyright block at the bottom. In 
+general, all pages on the GNU web server should have the section about
+verbatim copying. Please do NOT remove this without talking with the
+webmasters first. -->
+
+<hr>
+
+<P>[<!-- Please keep this list alphabetical -->
+<!-- PLEASE UPDATE THE LIST AT THE BOTTOM (OR TOP) OF THE PAGE TOO! -->
+
+<A HREF="http://www.gnu.org/software/XXX.html">English
+<!-- | A HREF="boilerplate.LG.html" LANGUAGE /A -->
+<!-- Please keep this list alphabetical -->
+<!-- PLEASE UPDATE THE LIST AT THE BOTTOM (OR TOP) OF THE PAGE TOO! --></A>
+] </P>
+
+<p>Return to <a href="../../home.html">GNU's home
+page</a>.</p>
+
+<p>Please send FSF &amp; GNU inquiries &amp; questions to <em><a
+href="mailto:gnu@gnu.org">gnu@gnu.org</a></em>. there are also <a
+href="../../home.html#contactinfo">other ways to
+contact</a> the FSF.</p>
+
+<p>Please send comments on these web pages to <em><a
+href="mailto:webmasters@gnu.org">webmasters@gnu.org</a></em>, send
+other questions to <em><a
+href="mailto:gnu@gnu.org">gnu@gnu.org</a></em>.</p>
+
+<p>Copyright (C) 2004 Free Software Foundation, Inc., 59
+Temple Place - Suite 330, Boston, MA 02111, USA </p>
+
+<p>Verbatim copying and distribution of this entire article is
+permitted in any medium, provided this notice is preserved.</p>
+
+<p style="margin-bottom: 0in">Updated:
+<!-- hhmts start -->
+ $Date: 2013/03/29 23:20:25 $ $Author: brandon $
+<!-- hhmts end --> 
+</p>
+<hr>
+</body>
+
+<!-- Mirrored from www.gnu.org/software/gnuae/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>

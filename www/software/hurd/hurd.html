@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<!-- Mirrored from www.gnu.org/software/hurd/hurd.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>hurd</title>
+
+<link rel="icon" href="https://www.gnu.org/software/hurd/favicon.ico" type="image/x-icon" />
+
+<link rel="stylesheet" href="https://www.gnu.org/software/hurd/style.css" type="text/css" />
+
+<link rel="stylesheet" href="https://www.gnu.org/software/hurd/local.css" type="text/css" />
+
+
+
+
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=edit&amp;page=hurd" />
+
+
+<link rel="vcs-git" href="git://git.savannah.gnu.org/hurd/web.git" title="wiki git repository" />
+<link rel="vcs-git" href="http://git.savannah.gnu.org/cgit/hurd/web.git" title="wiki git repository" />
+<link rel="vcs-git" href="git://darnassus.sceen.net/hurd-web.git" title="wiki git repository" />
+<link rel="vcs-git" href="http://darnassus.sceen.net/cgit/hurd-web.git" title="wiki git repository" />
+<link rel="copyright" href="#pagecopyright" />
+<link rel="license" href="#pagelicense" />
+
+
+
+</head>
+<body><script src="https://www.gnu.org/software/hurd/ikiwiki/ikiwiki.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://www.gnu.org/software/hurd/ikiwiki/toggle.js" type="text/javascript" charset="utf-8"></script>
+
+<div class="page">
+
+<div class="pageheader">
+<div class="header">
+<span>
+<span class="parentlinks">
+
+<a href="https://www.gnu.org/software/hurd/index.html">GNU Hurd</a>/ 
+
+</span>
+<span class="title">
+hurd
+
+</span>
+</span>
+
+
+<form method="get" action="http://darnassus.sceen.net/cgi-bin/hurd-web" id="searchform">
+<div>
+<input type="text" id="searchbox" name="P" value="" size="16"
+ />
+</div>
+</form>
+
+
+
+</div>
+
+
+<div class="actions">
+<span class="global">
+<ul>
+
+<li><a href="https://www.gnu.org/software/hurd/recent_changes.html">Recent Changes</a></li>
+
+
+<li><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=prefs">Preferences</a></li>
+
+</ul>
+</span>
+<span class="per_page">
+<ul>
+
+<li><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=edit&amp;page=hurd" rel="nofollow">Edit</a></li>
+
+
+<li><a href="http://darnassus.sceen.net/cgit/hurd-web.git/log/hurd.mdwn">History</a></li>
+
+
+<li><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=getsource&amp;page=hurd">Source</a></li>
+
+
+
+
+<li><span class="createlink"><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=create&amp;from=hurd&amp;page=Discussion" rel="nofollow">?</a>Discussion</span></li>
+
+
+</ul>
+</span>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<div class="sidebar">
+<p>Welcome to... <a href="https://www.gnu.org/software/hurd/logo.html"><img src="https://www.gnu.org/software/hurd/logo/boxes-redrawn.png" width="64" height="64" class="img" /></a> ... the GNU Hurd!</p>
+
+<hr />
+
+<ul>
+<li><strong><a href="https://www.gnu.org/software/hurd/index.html">Home</a></strong></li>
+<li><strong><a href="https://www.gnu.org/software/hurd/community.html">Community</a></strong>
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/contact_us.html">Contact Us</a></li>
+</ul></li>
+<li><strong><a href="https://www.gnu.org/software/hurd/donate.html">Donate</a></strong></li>
+<li><strong><a href="https://www.gnu.org/software/hurd/contributing.html">Contributing</a></strong>
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/public_hurd_boxen.html">Public Hurd Boxen</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/running/qemu.html">QEMU Images</a></li>
+<li><a href="https://www.gnu.org/software/hurd/getting_help.html">Getting Help</a></li>
+<li><a href="https://www.gnu.org/software/hurd/community/gsoc/project_ideas.html">Project Ideas</a></li>
+<li><a href="https://www.gnu.org/software/hurd/open_issues.html">Open Issues</a></li>
+</ul></li>
+<li><strong><a href="https://www.gnu.org/software/hurd/documentation.html">Documentation</a></strong>
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/faq.html">FAQ</a></li>
+</ul></li>
+</ul>
+
+<hr />
+
+<ul>
+<li><strong><span class="selflink">Hurd</span></strong>
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd/documentation.html">Documentation</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/running.html">Running</a></li>
+</ul></li>
+<li><strong><a href="https://www.gnu.org/software/hurd/microkernel/mach.html">Mach</a></strong>
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/microkernel/mach/documentation.html">Documentation</a></li>
+<li><a href="https://www.gnu.org/software/hurd/microkernel/mach/gnumach.html">GNU Mach</a></li>
+</ul></li>
+<li><strong><a href="https://www.gnu.org/software/hurd/microkernel/mach/mig.html">MIG</a></strong>
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/microkernel/mach/mig/documentation.html">Documentation</a></li>
+<li><a href="https://www.gnu.org/software/hurd/microkernel/mach/mig/gnu_mig.html">GNU MIG</a></li>
+</ul></li>
+</ul>
+
+<hr />
+
+<ul>
+<li><strong><a href="https://www.gnu.org/software/hurd/hurd/running/debian.html">Debian GNU/Hurd</a></strong></li>
+<li><strong><a href="https://www.gnu.org/software/hurd/hurd/running/gnu.html">GNU System</a></strong></li>
+</ul>
+
+<hr />
+
+<ul>
+<li><strong><a href="https://www.gnu.org/software/hurd/hurd/ng.html">Hurd NG</a></strong></li>
+</ul>
+
+</div>
+
+
+
+<div id="pagebody">
+
+<div id="content">
+<p>The GNU Hurd is under active development.  Because of that, there is no
+<em>stable</em> version.  We mainly distribute the Hurd sources through
+<a href="https://www.gnu.org/software/hurd/source_repositories.html">Git</a>.  The latest release is <a href="https://www.gnu.org/software/hurd/news/2016-12-18-releases.html">GNU Hurd
+0.9</a>.</p>
+
+<p>Although it is possible to bootstrap the GNU/Hurd system from the sources by
+cross-compiling and installing the system software and the basic applications,
+this is a difficult process.  It is not recommended that you do this.  Instead,
+you should get a binary distribution of the GNU/Hurd, which comes with all the
+GNU software precompiled and an installation routine which is easy to use.</p>
+
+<p>The Debian project has commited to provide such a binary distribution.
+<a href="https://www.gnu.org/software/hurd/hurd/running/debian.html">Debian GNU/Hurd</a> is currently under development and available
+in the <em>unstable</em> branch of the Debian archive.</p>
+
+<hr />
+
+<div class="toc">
+<ol>
+	<li class="L1"><a href="#index1h1">Introduction</a>
+	</li>
+	<li class="L1"><a href="#index2h1">Understanding</a>
+	</li>
+	<li class="L1"><a href="#index3h1">Using</a>
+	</li>
+	<li class="L1"><a href="#index4h1">Contributing</a>
+	</li>
+	<li class="L1"><a href="#index5h1">Developer References</a>
+	</li>
+</ol>
+</div>
+
+<h1><a name="index1h1"></a>Introduction</h1>
+
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd/what_is_the_gnu_hurd.html">What Is the GNU Hurd</a> - A Brief Description</li>
+<li><a href="https://www.gnu.org/software/hurd/advantages.html">Advantages</a>.  And <a href="https://www.gnu.org/software/hurd/challenges.html">challenges</a>.</li>
+<li><a href="https://www.gnu.org/software/hurd/history.html">History</a>
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/history/port_to_another_microkernel.html">Port to another microkernel</a></li>
+</ul></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/logo.html">Logo</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/status.html">Status</a></li>
+<li><span class="createlink"><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=create&amp;from=hurd&amp;page=Translation" rel="nofollow">?</a>Translation</span> - Localized sites about the Hurd</li>
+<li><a href="https://www.gnu.org/software/hurd/donate.html">Donate</a></li>
+<li><span class="createlink"><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=create&amp;from=hurd&amp;page=SeenHurd" rel="nofollow">?</a>SeenHurd</span> - Media references</li>
+<li><span class="createlink"><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=create&amp;from=hurd&amp;page=Shopping" rel="nofollow">?</a>Shopping</span> - Hurd Gear</li>
+<li><span class="createlink"><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=create&amp;from=hurd&amp;page=FunnyHurd" rel="nofollow">?</a>FunnyHurd</span> - From a different Herd</li>
+<li><a href="https://www.gnu.org/software/hurd/faq.html">FAQ</a></li>
+</ul>
+
+<h1><a name="index2h1"></a>Understanding</h1>
+
+<ul>
+<li>Introductory Material
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd/documentation.html">Documentation</a></li>
+<li><a href="http://kilobug.free.fr/hurd/pres-en/slides/slides.html">Gaël Le Mignot</a></li>
+<li><a href="http://kerneltrap.org/node/5">Neal Walfield</a></li>
+</ul></li>
+<li>Architecture
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd-paper.html">Towards a New Strategy of OS Design</a> by Thomas Bushnell, BSG.
+<ul>
+<li>Marcus Brinkmann's <a href="http://lists.gnu.org/archive/html/l4-hurd/2005-10/msg00651.html">revisit</a></li>
+<li>Jonathan S. Shapiro <a href="http://lists.gnu.org/archive/html/l4-hurd/2005-10/msg00654.html">comments</a></li>
+</ul></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/critique.html">Critique</a> - Analysis</li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/hurd_hacking_guide.html">Hurd Hacking Guide</a></li>
+</ul></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/concepts.html">Concepts</a></li>
+</ul>
+
+<h1><a name="index3h1"></a>Using</h1>
+
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd/running.html">Running</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/running/distrib.html">Distrib</a> -- Distributions</li>
+<li><a href="https://www.gnu.org/software/hurd/public_hurd_boxen.html">Public Hurd Boxen</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/neighborhurd.html">Neighborhurd</a>s and <a href="https://www.gnu.org/software/hurd/hurd/subhurd.html">Subhurd</a>s</li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/dde.html">DDE</a> -- Device Driver Environment</li>
+</ul>
+
+<h2><a name="index1h2"></a>Common Problems</h2>
+
+<ul>
+<li><span class="createlink"><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=create&amp;from=hurd&amp;page=GNUstep" rel="nofollow">?</a>GNUstep</span></li>
+<li><span class="createlink"><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=create&amp;from=hurd&amp;page=XattrHurd" rel="nofollow">?</a>XattrHurd</span>: Setting translators under GNU/Linux</li>
+<li><span class="createlink"><a href="http://darnassus.sceen.net/cgi-bin/hurd-web?do=create&amp;from=hurd&amp;page=SerialConsole" rel="nofollow">?</a>SerialConsole</span>: Setting up a serial console.</li>
+</ul>
+
+<h1><a name="index4h1"></a>Contributing</h1>
+
+<ul>
+<li><p><a href="https://www.gnu.org/software/hurd/contributing.html">Contributing</a></p></li>
+<li><p><a href="https://www.gnu.org/software/hurd/tag/open_issue_hurd.html">Open Issues</a></p></li>
+</ul>
+
+<h1><a name="index5h1"></a>Developer References</h1>
+
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd/coding_style.html">Coding Style</a></li>
+<li><a href="https://www.gnu.org/software/hurd/rules.html">Rules</a></li>
+<li><a href="https://www.gnu.org/software/hurd/trackers.html">Trackers</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/building.html">Building</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/toolchain.html">Toolchain</a>
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd/glibc.html">glibc</a></li>
+</ul></li>
+<li>RPC <a href="https://www.gnu.org/software/hurd/hurd/interface.html">Interface</a>s</li>
+<li>Libraries
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libpager.html">libpager</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libports.html">libports</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libstore.html">libstore</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libchannel.html">libchannel</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libtrivfs.html">libtrivfs</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libnetfs.html">libnetfs</a> -- short introductory material</li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libdiskfs.html">libdiskfs</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libihash.html">libihash</a></li>
+<li><a href="https://www.gnu.org/software/hurd/libpthread.html">libpthread</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libfshelp.html">libfshelp</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libps.html">libps</a></li>
+</ul></li>
+<li>In-development Libraries
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libfuse.html">libfuse</a></li>
+</ul></li>
+<li>Discontinued Libraries
+<ul>
+<li><a href="https://www.gnu.org/software/hurd/hurd/libthreads.html">libthreads</a></li>
+</ul></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/io_path.html">IO Path</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/porting.html">Porting</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/debugging.html">Debugging</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/networking.html">Networking</a></li>
+<li><a href="https://www.gnu.org/software/hurd/hurd/console.html">Console</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+<div id="footer" class="pagefooter">
+
+<div id="pageinfo">
+
+
+
+
+
+
+<div id="backlinks">
+Links:
+
+<a href="https://www.gnu.org/software/hurd/contributing.html">contributing</a>
+
+<a href="https://www.gnu.org/software/hurd/contributing/copyright_assignment.html">contributing/copyright assignment</a>
+
+<a href="https://www.gnu.org/software/hurd/faq/system_port.html">faq/system port</a>
+
+<a href="https://www.gnu.org/software/hurd/glibc.html">glibc</a>
+
+<a href="https://www.gnu.org/software/hurd/hurd/interface/fs/14.html">hurd/interface/fs/14</a>
+
+<a href="https://www.gnu.org/software/hurd/hurd/porting/system_api_limitations.html">hurd/porting/system api limitations</a>
+
+<a href="https://www.gnu.org/software/hurd/libpthread.html">libpthread</a>
+
+<a href="https://www.gnu.org/software/hurd/microkernel/mach.html">microkernel/mach</a>
+
+<a href="https://www.gnu.org/software/hurd/microkernel/mach/external_pager_mechanism.html">microkernel/mach/external pager mechanism</a>
+
+<a href="https://www.gnu.org/software/hurd/microkernel/mach/gnumach.html">microkernel/mach/gnumach</a>
+
+
+<span class="popup">...
+<span class="balloon">
+
+<a href="https://www.gnu.org/software/hurd/microkernel/mach/gnumach/hardware_compatibility_list.html">microkernel/mach/gnumach/hardware compatibility list</a>
+
+<a href="https://www.gnu.org/software/hurd/news/2015-10-31-releases.html">news/2015-10-31-releases</a>
+
+<a href="https://www.gnu.org/software/hurd/news/2016-05-18-releases.html">news/2016-05-18-releases</a>
+
+<a href="https://www.gnu.org/software/hurd/news/2016-12-18-releases.html">news/2016-12-18-releases</a>
+
+<a href="https://www.gnu.org/software/hurd/sidebar.html">sidebar</a>
+
+<a href="https://www.gnu.org/software/hurd/source_repositories.html">source repositories</a>
+
+<a href="https://www.gnu.org/software/hurd/system_call.html">system call</a>
+
+<a href="https://www.gnu.org/software/hurd/toolchain/cross-gnu.html">toolchain/cross-gnu</a>
+
+</span>
+</span>
+
+</div>
+
+
+
+<div class="pagecopyright">
+<a name="pagecopyright"></a>
+<p>Copyright © 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008,
+2009, 2010, 2011, 2013, 2015, 2016 Free Software Foundation, Inc.</p>
+
+</div>
+
+
+
+<div class="pagelicense">
+<a name="pagelicense"></a>
+License: <p><a class="toggle" href="#hurd.license">GFDL 1.2+</a><div class="toggleable" id="hurd.license"></p>
+
+<p>Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License, Version 1.2 or
+any later version published by the Free Software Foundation; with no Invariant
+Sections, no Front-Cover Texts, and no Back-Cover Texts.  A copy of the license
+is included in the section entitled <a href="https://www.gnu.org/software/hurd/fdl.html">GNU Free Documentation
+License</a>.</p>
+
+</div>
+
+</div>
+
+
+<div class="pagedate">
+Last edited <span class="date">2017-02-28 16:06:42 UTC</span>
+<!-- Created <span class="date">2007-09-04 19:23:29 UTC</span> -->
+</div>
+
+</div>
+
+
+<!-- from GNU Hurd -->
+</div>
+
+</div>
+
+</body>
+
+<!-- Mirrored from www.gnu.org/software/hurd/hurd.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>

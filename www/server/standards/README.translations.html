@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- Mirrored from www.gnu.org/server/standards/README.translations.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="author" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="../../graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<link rel="stylesheet" type="text/css" href="../../layout.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../../print.min.css" media="print" />
+
+
+
+<!-- Parent-Version: 1.98 -->
+<!-- This page is derived from /server/standards/boilerplate.html -->
+<title>Guide to Translating Web Pages on www.gnu.org 
+- GNU Project - Free  Software Foundation</title>
+<!-- begin translist file -->
+
+<link rel="alternate" type="text/html" href="README.translations.html" hreflang="x-default" />
+<link rel="alternate" type="text/html" lang="en" hreflang="en" href="https://www.gnu.org/server/standards/README.translations.en.html" title="English" />
+<link rel="alternate" type="text/html" lang="ca" hreflang="ca" href="https://www.gnu.org/server/standards/README.translations.ca.html" title="català" />
+<link rel="alternate" type="text/html" lang="de" hreflang="de" href="https://www.gnu.org/server/standards/README.translations.de.html" title="Deutsch" />
+<link rel="alternate" type="text/html" lang="fr" hreflang="fr" href="https://www.gnu.org/server/standards/README.translations.fr.html" title="français" />
+<link rel="alternate" type="text/html" lang="ja" hreflang="ja" href="https://www.gnu.org/server/standards/README.translations.ja.html" title="日本語" />
+<link rel="alternate" type="text/html" lang="pt-br" hreflang="pt-br" href="https://www.gnu.org/server/standards/README.translations.pt-br.html" title="português" />
+<link rel="alternate" type="text/html" lang="sq" hreflang="sq" href="https://www.gnu.org/server/standards/README.translations.sq.html" title="Shqip" />
+<link rel="alternate" type="text/html" lang="zh-cn" hreflang="zh-cn" href="https://www.gnu.org/server/standards/README.translations.zh-cn.html" title="简体中文" />
+<!-- end translist file -->
+
+<!-- start of server/banner.html -->
+<!-- start of head-include-2.html -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- end of head-include-2.html -->
+
+</head>
+<body>
+<div class="inner">
+<!-- start of server/body-include-1.html -->
+<div id="top">
+<a class="skip" href="#content"><b>Skip to main text</b></a>
+</div>
+
+<div id="fsf-frame" role="complementary">
+<form id="fssbox" action="https://my.fsf.org/civicrm/profile/create?reset=1&amp;gid=31"
+      method="post">
+ <div>
+  <input name="postURL" type="hidden" value="" />
+  <input type="hidden" name="group[25]" value="1" />
+  <input name="cancelURL" type="hidden" value="https://crm.fsf.org/civicrm/profile?reset=1&amp;gid=31" />
+  <input name="_qf_default" type="hidden" value="Edit:cancel" />
+  <label for="frmEmail">
+   <a href="http://www.fsf.org/fss">Free Software Supporter</a>:
+  </label>
+  <input type="text" id="frmEmail" name="email-Primary" size="18" maxlength="80"
+         value="email address" onfocus="this.value=''"/>
+  <input type="submit" name="_qf_Edit_next" value="Sign up" />
+ </div>
+</form>
+
+<div id="join-fsf" class="button"><a
+href="https://www.fsf.org/associate/support_freedom?referrer=4052">JOIN&nbsp;THE&nbsp;FSF</a>
+</div>
+</div>
+
+<div id="header" role="banner">
+<p id="gnu-banner">
+ <a href="../../index.html">
+ <img src="../../graphics/heckert_gnu.transp.small.png" height="48" width="49"
+      alt="&nbsp;[A GNU head]&nbsp;" /><strong>GNU</strong> <span
+ class="hide">Operating System</span></a><br />
+ <small id="fsf-support">Supported by the
+ <a href="#mission-statement">Free Software Foundation</a></small>
+</p>
+
+<div id="switches">
+ <div  id="search-button" class="switch">
+  <a href="../../cgi-bin/estseek.cgi">
+  <img id="search-icon" height="30" width="30"
+       src="../../graphics/icons/search.png"
+       alt="&nbsp;[Search www.gnu.org]&nbsp;" /></a>
+ </div>
+
+ <div id="language-button" class="switch">
+  <a href="#language-container">
+  <img id="language-icon" height="30" width="37"
+       src="../../graphics/icons/translations.png"
+       alt="&nbsp;[Other languages]&nbsp;" /></a>
+ </div>
+
+</div>
+</div>
+<!-- end of server/body-include-1.html -->
+
+<!-- start of server/body-include-2 -->
+
+
+<div style="clear: both"></div>
+
+<div id="navigation" role="navigation">
+ <a id="more-links" href="#navigation" title="More...">
+   <span>Site navigation</span></a>
+ <a id="less-links" href="#content"><b>Skip</b></a>
+ <ul>
+
+   <li id="tabAboutGNU"><a href="../../gnu/gnu.html">ABOUT&nbsp;GNU</a></li>
+
+
+  <li id="tabPhilosophy"><a href="../../philosophy/philosophy.html">PHILOSOPHY</a></li>
+
+
+  <li id="tabLicenses"><a href="../../licenses/licenses.html">LICENSES</a></li>
+
+
+  <li id="tabEducation"><a href="../../education/education.html">EDUCATION</a></li>
+
+
+  <li id="tabSoftware"><a href="../../software/software.html">SOFTWARE</a></li>
+
+
+  <li id="tabDistros"><a href="../../distros/distros.html">DISTROS</a></li>
+
+
+  <li id="tabDoc"><a href="../../doc/doc.html">DOCS</a></li>
+
+
+  <li id="tabMalware"><a href="../../proprietary/proprietary.html">MALWARE</a></li>
+
+
+  <li id="tabHelp"><a href="../../help/help.html">HELP&nbsp;GNU</a></li>
+
+
+  <li id="tabAV"><a href="../../audio-video/audio-video.html">AUDIO&nbsp;&amp;&nbsp;VIDEO</a></li>
+
+
+  <li id="tabArt"><a href="../../graphics/graphics.html">GNU&nbsp;ART</a></li>
+
+
+  <li id="tabFun"><a href="../../fun/humor.html">FUN</a></li>
+
+
+  <li id="tabPeople"><a href="../../people/people.html">GNU'S&nbsp;WHO?</a></li>
+
+  <li><a href="http://directory.fsf.org/">SOFTWARE&nbsp;DIRECTORY</a></li>
+  <li><a href="https://h-node.org/">HARDWARE</a></li>
+  <li><a href="../sitemap.html">SITEMAP</a></li>
+ </ul>
+ <div style="clear: both"></div>
+</div><!-- /"navigation -->
+<!-- end of server/body-include-2 -->
+
+<div id="content" role="main">
+<!-- end of server/banner.html -->
+
+<h2 id="guide">Guide to Translating Web Pages on
+www.gnu.org</h2>
+
+<p id="intro">Translating gnu.org with its many articles and keeping them updated 
+is a complex task which requires careful organization. Translators are 
+grouped into teams, one for each language, and each team normally has a 
+coordinator. However, there are some languages for which no team has 
+been formed yet, and sometimes a team lacks a coordinator.</p>
+
+<p>Team Coordinators use software tools to update pages efficiently for 
+partial changes. One of these tools is a program called <strong>GNUnited 
+Nations</strong> (GNUN) that makes it very easy to maintain and keep 
+track of translations that need to be updated; it was developed ad hoc 
+by our current GNU Translations Manager Yavor Doganov.</p>
+
+<p>The Translations Manager is the person in charge of the overall 
+organization of teams and is generally involved in training new Team 
+Coordinators.</p>
+
+<p>As a Team Member, you can contribute to translations without knowing 
+anything about GNUN, but you can help at more levels if you know how to 
+use it.</p>
+
+<h3 id="who">Who can Help</h3>
+
+<p>All teams are always looking for new volunteers. Basically, there is 
+a task for everyone in the translation process: we need people with good 
+language skills, as well as people with good technical skills or willing 
+to learn some simple technical skills.</p>
+
+<ul>
+  <li><p>If you have a deep understanding of written English and a rich 
+    command of your native language, you can certainly engage in 
+    translation, or do proof-reading. Writing good English is not 
+  necessary.</p></li>
+  <li><p>If your understanding of English is not first class, or if you 
+    don't know English at all but have a good mastery of your mother 
+    tongue, you can help review other people's translations to make sure 
+    they read well and have a good style.</p></li>
+  <li><p>If you are a native English speaker, and you can read another 
+    language, even if not quickly and easily, you can still help improve 
+    translations in that language. Translators sometimes misunderstand 
+    English idioms and expressions and write translations that are 
+    misleading or even incorrect. These errors are obvious to the native 
+    English speaker&mdash;you can indicate possible errors and explain 
+    the intended meaning, and others can retranslate that part.</p></li>
+  <li><p>If you are inclined or willing to go for the more technical 
+    side of the translation process, you can help further; for example, 
+    by preparing translated texts for publication.</p></li>
+</ul>
+
+<h3 id="how">How to Participate</h3>
+
+<dl>
+  <dt>As a Team Member</dt>
+    <dd>Please read the <a href="#general-guide">General Guide for 
+      Translations</a> below and then contact the relevant 
+      <a href="#teams">translation team</a>. Each team has its own 
+      system of organizing the work. Thus, to join an existing team, you 
+      need to get detailed information from that team. The Team 
+      Coordinator will be able to guide you through their specific 
+      methods. If you don't get an answer in two weeks, 
+      write to the Translations Manager <a 
+      href="mailto:web-translators@gnu.org">&lt;web-translators@gnu.org&gt;</a>.
+    </dd>
+
+  <dt>As an Occasional Contributor</dt>
+
+    <dd>If you just want to submit a new translation and are not 
+      interested in collaborating regularly, follow the 
+      <a href="#general-guide">General Guide for Translations</a> below 
+      and then send your translation to the appropriate <a href="#teams">
+      Team Coordinator</a> if there is one, or to the Translations 
+      Manager <a 
+      href="mailto:web-translators@gnu.org">&lt;web-translators@gnu.org&gt;</a>
+      if there is no team or coordinator for your language.</dd>
+
+  <dt>As a Team Coordinator</dt>
+    <dd>If there is no team established for your language or a new Team 
+      Coordinator is needed, we will be grateful if you undertake that task. 
+      As a coordinator, you will need to follow both the <a 
+      href="#general-guide">General Guide for Translations</a>  and the more 
+      specific <a href="#coordinator-guide">Guide for Team Coordinators.</a>
+      </dd>
+</dl>
+
+<h3 id="general-guide">General Guide for Translations</h3>
+
+<p>Here are our specific goals for our translated pages.</p>
+
+<h4 id="clarity">Clarity</h4>
+
+<p>With few exceptions, the pages we translate are addressed to the
+general public.  Before working on a page, please look at the original
+and ask yourself whether it is addressed to programmers or to the
+general public.  Then aim your translation at the same audience.</p>
+
+<p>In pages meant for the general public, please avoid words that are not
+found in common dictionaries, except for our special terms such as
+&ldquo;GNU&rdquo; and &ldquo;copyleft&rdquo; (see the list below).</p>
+
+<h4 id="accuracy">Accuracy</h4>
+
+<p>In order to produce a translation which is accurate and faithful to
+the original, you need to be familiar with the basic concepts of the
+GNU Project and the specific terminology used in gnu.org.
+</p>
+
+<p>
+Please study the <a href="https://www.gnu.org/philosophy"> philosophy </a> of the free
+software movement, so that you can present it properly and clearly.
+The following articles will be particularly helpful:
+</p>
+
+<ul>
+  <li><a href="../../philosophy/free-sw.html">What is Free Software?</a></li>
+  <li><a href="https://www.gnu.org/philosophy/categories.html">Categories of Free and 
+    Nonfree Software</a></li>
+
+  <li><a href="https://www.gnu.org/philosophy/words-to-avoid.html">Words to Avoid</a></li>
+  <li><a href="https://www.gnu.org/gnu/why-gnu-linux.html">What's in a Name?</a></li>
+  <li><a href="https://www.gnu.org/philosophy/open-source-misses-the-point.html">Open 
+    Source Misses the Point of Free Software</a></li>
+</ul>
+
+<p>
+These terms and files need special attention:
+</p>
+
+<ul>
+  <li><p><strong>Copyleft</strong>. This is a term that can be difficult to 
+    translate in some languages. It is a pun on the word 
+    &ldquo;Copyright&rdquo; based on the two meanings of 
+    &ldquo;right&rdquo;: ethical and directional. You can read the 
+    article <a href="https://www.gnu.org/copyleft/copyleft.html">What is Copyleft?</a> to 
+    learn more about it and see how it has been translated into other 
+    languages. You will see that in most cases it has not been 
+    translated at all, so if you can't find a good translation for it in 
+    your language, the only option may be to use the English word.</p></li>
+
+  <li><p><strong>Free Software</strong>. Most languages have a word
+    for free-as-in-freedom and another word for gratis (zero price).
+    In gnu.org we generally use &ldquo;free&rdquo; only to refer to
+    freedom, and we say &ldquo;gratis&rdquo; when we mean zero price.
+    Thus, please translate &ldquo;free&rdquo; using the word that
+    means free-as-in-freedom, not the one that refers to price.</p>
+
+    <p>However, in some old pages, such as the GNU Manifesto and the
+    initial announcement, we did not yet make the distinction.  In
+    translating these pages, you may need to think carefully about the
+    proper treatment of each occurrence of the word
+    &ldquo;free&rdquo;.  You might choose to leave the word in
+    English, followed by the explanation of its meaning in that
+    occurrence: either freedom, price, or ambiguously both.</p>
+
+    <p>However, even in these old pages, the word you normally
+    use to translate &ldquo;free&rdquo; in &ldquo;free software&rdquo;
+    should be the one that refers to freedom.</p>
+
+    <p>See the <a 
+    href="https://www.gnu.org/philosophy/fs-translations.html">Translations 
+    of the Term  &ldquo;Free Software&rdquo;</a> in several languages.</p>
+  </li>
+
+  <li><p><strong>Digital Restrictions Management (DRM)</strong>. This is what 
+    we use in gnu.org to avoid the propaganda term &ldquo;Digital Rights 
+    Management&rdquo;. It means that digital techniques are used to impose 
+    restrictions on the user, and these restrictions apply not only to 
+    digital but also to physical objects.</p> 
+
+    <p>However, there is a subtle ambiguity in the English term
+    &ldquo;Digital Restrictions Management&rdquo;.  It can be interpreted in two
+    ways:</p>
+
+    <ol>
+      <li> <strong>Digital Management of Restrictions</strong>.</li>
+      <li> Management of Digital Restrictions.</li>
+    </ol>
+
+    <p>In many languages these require different wording. The correct
+    meaning is the first one, so translations should make this clear.
+    Likewise with &ldquo;rights&rdquo; instead of
+    &ldquo;restrictions&rdquo;.</p>
+  </li>
+
+  <li>
+    <p><strong>Should</strong>. In regard to an ethical issue, 
+    &ldquo;should&rdquo; means it would be wrong to do anything else.  For 
+    instance, the page entitled &ldquo;Why Software Should Be Free&rdquo; 
+    explains why it is wrong to make software nonfree in the actual world 
+    we live in.</p>
+
+    <p>Therefore, please translate &ldquo;should&rdquo; using a verb
+    form that implies a strong ethical obligation.  Don't translate it
+    in a way that means &ldquo;it would be preferable for software to
+    be free&rdquo; or &ldquo;in an ideal world, software would be
+    free&rdquo;.  Those are not strong enough.</p>
+  </li>
+
+  <li><p><strong>GNU's Not Unix</strong>. When translating 
+    &ldquo;GNU's Not Unix&rdquo;, please ensure that the translation 
+    remains recursive. If a recursive translation cannot be conceived, use 
+    the following format (this is an example for Swedish): 
+    &ldquo;GNU's Not Unix (<span xml:lang="sv" lang="sv">
+    GNU &auml;r inte Unix</span>)&rdquo;.</p></li>
+   
+  <li><p>Exception: The page philosophy/words-to-avoid.html is an exception 
+    to our usual policies about which terminology to use, because it
+    presents examples of what <em>not</em> to say.  For instance, in
+    general we shun the term &ldquo;Digital Rights Management&rdquo;.
+    However, we cite that term in philosophy/words-to-avoid.html in
+    order to advise others to shun it.</p>
+
+    <p>As a translator, it is best if you follow the English text.
+    Where the English text says &ldquo;Digital Rights
+    Management&rdquo;, translate that.  Where the English text says
+    &ldquo;Digital Restrictions Management&rdquo;, translate
+    that.</p></li>
+
+  <li><p><strong>Surveillance</strong>. This word has false-friends in 
+    Romance languages because of its Latin root. In English, it specifically 
+    means the close observation of a person or organization under 
+    suspicion of wrongdoing; this makes the surveillee unsafe. In some 
+    Romance languages on the other hand (for instance in French), the 
+    false-friend of &ldquo;surveillance&rdquo; is used more widely; it 
+    may describe the benevolent watch of a shepherd over his sheep or of 
+    a teacher over her students.</p>
+
+    <p>When translating &ldquo;surveillance&rdquo;, please make sure you 
+    don't use a word which could be interpreted as &ldquo;benevolent 
+    watch&rdquo;. If there is no specialized term, the word which means 
+    &ldquo;spying&rdquo; may be adequate in the context of proprietary 
+    software.</p></li>
+</ul>
+
+<p>For more info, see <a
+href="https://www.gnu.org/server/standards/translations/interpreters-guide.html">
+Interpreters Guide</a></p>
+
+<p>Before installing or before submitting your translation for 
+installation in gnu.org:</p>
+
+<ul>
+  <li>Have your translation reviewed by as many members of your team as 
+      possible. Peer review is crucial for the quality of the translation 
+      process. Too many errors are just missed (especially if they are 
+      obvious) when the translator does a final review of her own 
+      translation. One common technique to performing such reviews is to 
+      send the translation to the team's mailing list: members comment on
+      specific parts, quoting them appropriately. The result is better 
+      quality of the translation, since more people looked at it.</li>
+
+  <li>If there is no team established for your language, show your 
+      translations to friends who are not experts on free software or GNU, 
+      to see if they understand the translation clearly.</li>
+</ul>
+
+<h4 id="licensing">Licensing of Translations</h4>
+
+<p>A translation page should be licensed just like the original page.
+If the original page carries a Creative Commons license, use the same
+Creative Commons license.  If the original page says it is in the public
+domain, the translation should say the same thing.</p>
+
+<p>For specific rules, see <a
+href="https://www.gnu.org/software/trans-coord/manual/web-trans/html_node/Distribution-Terms.html">
+Distribution Terms</a> in the <cite>GNU Web Translators Manual</cite>.</p>
+
+<h4 id="what">What to Translate</h4>
+
+<p>We accept contributions of translations of all articles in all languages,
+but you should first browse our 
+<a href="https://www.gnu.org/server/standards/translations/priorities.html">Web Translation 
+Priorities</a>.</p>
+
+<p>Again, please coordinate with your language team before starting any work, 
+to get clear instructions on how to proceed and to avoid duplicating efforts.
+</p>
+
+<h4 id="translators-manual">Translators Manual</h4>
+
+<p>You may also want to read the 
+<a href="https://www.gnu.org/software/trans-coord/manual/web-trans/">GNU Web Translators 
+Manual</a> if you wish to have a better understanding of how our 
+translation system works. But please talk to the team first; most 
+probably you will not be required to read it in order to start helping.</p>
+
+<h3 id="coordinator-guide">Guide for Team Coordinators</h3>
+
+<p>The following is an explanation of what a Team Coordinator does 
+specifically. In addition to what has already been described, a Team 
+Coordinator:</p>
+
+<ul>
+  <li><p>sees to it that all texts to be published are faithful to the 
+    original and respect the terminology used in our website. All 
+    translations submitted by team members or by occasional contributors are 
+    reviewed and approved by the Team Coordinator before they are 
+    published;</p></li>
+
+  <li><p>understands thoroughly how our translation system works, and 
+    knows how to use the tools that we have adopted. In the following section 
+    we explain briefly how it is done.</p></li>
+</ul>
+
+<h4 id="tools">Tools</h4>
+
+<p>We use .po (Portable Object) files to process and maintain translations. 
+A .po file contains the original text and its translation, divided in 
+paragraphs. This is how we do it:</p>
+
+<ul>
+  <li><p>When a new article is published in our website, GNUN, the 
+    program we mentioned at the beginning of this page, generates a .pot file 
+    (.po template) from that article. The .pot file is renamed to .po to be
+    translated. Once it is translated, the .po file is committed. Then
+    GNUN checks it, and if there are no errors in the code, the translated
+    HTML version of the original article is automatically published in the
+    website.</p></li>
+
+  <li><p>Whenever there is a change in the original HTML article, the 
+    .pot and .po files are regenerated by GNUN to merge the changes, clearly 
+    showing the strings that have changed. Translators then update the 
+    translation of only those strings in the .po file. When the updated .po 
+    file is committed, the HTML version of the translation is automatically 
+    updated on the website.</p></li>
+
+  <li><p>.po files can be edited by using any .po file editor.</p>
+
+      <p>Note: Some team members or occasional contributors may find it
+      difficult or inconvenient to translate using PO files. However,
+      contributions submitted as plain text format should not be rejected.
+      To encourage the use of PO files, coordinators can provide those
+      contributors with a simple guide aimed at people with little
+      computer skills. 
+      </p></li>
+</ul>
+
+<p>We have also implemented notification tools to keep translators
+informed of changes in the original pages. In any case, a Team
+Coordinator needs to subscribe to our <a
+href="http://lists.gnu.org/mailman/listinfo/www-commits">www-commits</a>
+
+mailing list to keep an eye on pages that are modified. You may also
+use &ldquo;<em><code>make report TEAM=LANG</code></em>&rdquo; if you
+have GNUN installed.</p>
+
+<h4 id="coord-manuals">Coordinators Manuals</h4>
+
+<p>The following manuals explain in detail the translation process that 
+we have briefly shown above. It is necessary that a coordinator reads and 
+becomes well acquainted with them:</p>
+
+<ul>
+  <li><a href="https://www.gnu.org/software/trans-coord/manual/web-trans/">GNU Web
+  Translators Manual</a></li>
+  <li><a href="https://www.gnu.org/software/trans-coord/manual/gnun/">GNUnited Nations (GNUN) 
+    Manual</a></li>
+
+  <li><a href="https://www.gnu.org/server/standards/README.webmastering.html">GNU Web Site
+    Guidelines: For Volunteers</a></li>
+  <li><a href="https://www.gnu.org/server/fsf-html-style-sheet.html">GNU Web Site
+  Guidelines: HTML Style Sheet</a></li>
+</ul>
+
+<p>After you have read this entire page, if you intend to volunteer and 
+be listed as the Team Coordinator for your language, please inform the 
+Translations Manager <a
+href="mailto:web-translators@gnu.org">&lt;web-translators@gnu.org&gt;</a>
+of your decision. Start reading at least the first two manuals and ask
+the Translations Manager for assistance if you have any doubts.</p>
+
+<h3 id="teams">Translation Teams</h3>
+
+<!--Some docs refer to this anchor-->
+<p id="TranslationsUnderway">Volunteers to establish new teams are more than welcome and will be
+assisted during the learning process.</p>
+
+<p>In the following list, the language code is followed by the name of the
+language, and by the name of the Team Coordinator.</p>
+
+<ul>
+  <!-- Please keep this list alphabetical-->
+  
+  <li><code>ar</code> - 
+    <a href="http://savannah.gnu.org/projects/www-ar">Arabic</a> 
+    (<a href="http://savannah.gnu.org/users/ka2in">Fayçal Alami</a> - 
+    New coordinator needed)</li>
+
+  <li><code>az</code> - Azerbaijani (New coordinator needed)</li>
+    
+  <li><code>bg</code> - 
+    <a href="http://savannah.gnu.org/projects/www-bg">Bulgarian</a> 
+    (<a href="http://savannah.gnu.org/users/yavor">Yavor Doganov</a> -
+    New coordinator needed)</li>
+ 
+  <li><code>bn</code> - 
+    <a href="http://savannah.gnu.org/projects/www-bn">Bengali</a> 
+    (New coordinator needed)</li>
+    
+  <li><code>ca</code> - 
+    <a href="http://savannah.gnu.org/projects/www-ca">Catalan</a> 
+    (<a href="http://savannah.gnu.org/users/puigpe">Miquel 
+    Puigpelat</a> - New coordinator needed)</li>
+
+  <li><code>cs</code> - 
+    <a href="http://savannah.gnu.org/projects/www-cs">Czech</a>
+    (<a href="http://savannah.gnu.org/users/franta">František Kučera</a>)</li>
+    
+  <li><code>da</code> - 
+    <a href="http://savannah.gnu.org/projects/www-da">Danish</a> 
+    (New coordinator needed)</li>
+
+  <li><code>de</code> - 
+    <a href="http://savannah.gnu.org/projects/www-de">German</a> 
+    (<a href="http://savannah.gnu.org/users/joeko">Joerg Kohne</a> -
+    New coordinator needed)</li>
+  
+  <li><code>el</code> - 
+    <a href="http://savannah.gnu.org/projects/www-el">Greek</a> 
+    (<a href="http://savannah.gnu.org/users/gzarkadas">Georgios 
+    Zarkadas</a> - New coordinator needed)</li>
+
+  <li><code>eo</code> - 
+    <a href="http://savannah.gnu.org/projects/www-eo">Esperanto</a> 
+    (<a href="http://savannah.gnu.org/users/civodul">Ludovic 
+    Court&egrave;s</a> - New coordinator needed)</li>
+    
+  <li><code>es</code> - 
+    <a href="http://savannah.gnu.org/projects/www-es">Spanish</a> 
+    (<a href="http://savannah.gnu.org/users/dora">Dora Scilipoti</a>,
+    <a href="http://savannah.gnu.org/users/jfrtnaga">Javier Fernández
+    Retenaga</a>)</li>
+
+  <li><code>fa</code> - 
+    <a href="http://savannah.gnu.org/projects/www-fa">Farsi/Persian</a> 
+    (<a href="http://savannah.gnu.org/users/bandali">Amin Bandali</a>)</li>
+    
+  <li><code>fi</code> - 
+    <a href="http://savannah.gnu.org/projects/www-fi">Finnish</a> 
+    (New coordinator needed)</li>
+
+  <li><code>fr</code> - 
+    <a href="http://savannah.gnu.org/projects/www-fr">French</a> 
+    (<a href="http://savannah.gnu.org/users/barbier">Denis Barbier</a>,
+     <a href="http://savannah.gnu.org/users/th_g">Thérèse Godefroy</a>)</li>
+    
+  <li><code>he</code> - 
+    <a href="http://savannah.gnu.org/projects/www-he">Hebrew</a> (New
+    coordinator needed)</li>
+
+  <li><code>hr</code> - 
+    <a href="http://savannah.gnu.org/projects/www-hr">Croatian</a> 
+    (<a href="http://savannah.gnu.org/users/mist">Martina Bebek</a> -
+    New coordinator needed)</li>
+
+  <li><code>id</code> - 
+    <a href="http://savannah.gnu.org/projects/www-id">Indonesian</a> 
+    (New coordinator needed)</li>
+    
+  <li><code>it</code> - 
+    <a href="http://savannah.gnu.org/projects/www-it">Italian</a> 
+    (<a href="http://savannah.gnu.org/users/pescetti">Andrea 
+    Pescetti</a>)</li>
+
+  <li><code>ja</code> - 
+    <a href="http://savannah.gnu.org/projects/www-ja">Japanese</a> 
+    (<a href="http://savannah.gnu.org/users/gniibe">NIIBE Yutaka</a>)</li>
+    
+  <li><code>ko</code> -
+    <a href="http://savannah.gnu.org/projects/www-ko">Korean</a> 
+    (<a href="http://savannah.gnu.org/users/blueguy">Jongmin Yoon</a> -
+    New coordinator needed) </li>
+
+  <li><code>ku</code> - 
+    <a href="http://savannah.gnu.org/projects/www-ku">Kurdish</a> (New 
+    coordinator needed)</li>
+    
+  <li><code>ml</code> - 
+    <a href="http://savannah.gnu.org/projects/www-ml">Malayalam</a> 
+    (<a href="http://savannah.gnu.org/users/aiswarya">Aiswarya Kaitheri
+     Kandoth</a>)</li>
+    
+  <li><code>nb</code> - 
+    <a href="http://savannah.gnu.org/projects/www-nb">Norwegian 
+    Bokm&aring;l</a> (New coordinator needed)</li>
+   
+  <li><code>nl</code> - 
+    <a href="http://savannah.gnu.org/projects/www-nl">Dutch</a> 
+    (<a href="http://savannah.gnu.org/users/tuijldert">Tom Uijldert</a>,
+     <a href="http://savannah.gnu.org/users/jvs">Justin van Steijn</a>
+     - New coordinator needed)</li>
+    
+  <li><code>nn</code> - Norwegian Nynorsk 
+    (New coordinator needed)</li>
+
+  <li><code>pl</code> - 
+    <a href="http://savannah.gnu.org/projects/www-pl">Polish</a> 
+    (<a href="http://savannah.gnu.org/users/jsowoc">Jan Owoc</a>)</li>
+    
+  <li><code>pt-br</code> - 
+    <a href="http://savannah.gnu.org/projects/www-pt-br">Brazilian
+    Portuguese</a>
+    (<a href="http://savannah.gnu.org/users/rafaelff1">Rafael Fontenelle</a>
+    - New coordinator needed)</li>
+
+  <li><code>ro</code> - 
+    <a href="http://savannah.gnu.org/projects/www-ro">Romanian</a> 
+    (<a href="http://savannah.gnu.org/users/tct">Tiberiu C.
+    Turbureanu</a> - New coordinator needed)</li>
+  
+  <li><code>ru</code> - 
+    <a href="http://savannah.gnu.org/projects/www-ru">Russian</a> 
+    (<a href="http://savannah.gnu.org/users/jimcrow">Anatoly A. 
+    Kazantsev</a>, <a href="http://savannah.gnu.org/users/ineiev">Pavel  
+    Kharitonov</a>)</li>
+
+  <li><code>sk</code> - 
+    <a href="http://savannah.gnu.org/projects/www-sk">Slovak</a> 
+    (<a href="http://savannah.gnu.org/users/dominiks">Dominik Smatana</a> 
+    - New coordinator needed)</li>
+    
+  <li><code>sq</code> - 
+    <a href="http://savannah.gnu.org/projects/www-sq">Albanian</a> 
+    (<a href="http://savannah.gnu.org/users/beso">Besnik Bleta</a>)</li>
+
+  <li><code>sr</code> - 
+    <a href="http://savannah.gnu.org/projects/www-sr">Serbian</a> 
+    (<a href="http://savannah.gnu.org/users/Ctpajgep">Strahinya 
+    Radich</a> - New coordinator needed)</li>
+  
+  <li><code>ta</code> - 
+    <a href="http://savannah.gnu.org/projects/www-ta">Tamil</a> 
+    (<a href="http://savannah.gnu.org/users/amachutechie">Sri 
+    Ramadoss</a> - New coordinator needed)</li>
+
+  <li><code>th</code> - 
+    <a href="http://savannah.gnu.org/projects/www-th">Thai</a> (New 
+    coordinator needed) </li>
+    
+  <li><code>tl</code> - 
+    <a href="http://savannah.gnu.org/projects/www-tl">Tagalog</a> (New 
+    coordinator needed) </li>
+    
+  <li><code>tr</code> - 
+    <a href="http://savannah.gnu.org/projects/www-tr">Turkish</a> 
+    (<a href="http://savannah.gnu.org/users/tekrei">T. E. Kalaycı</a>)</li>
+
+  <li><code>uk</code> - 
+    <a href="http://savannah.gnu.org/projects/www-uk">Ukrainian</a> 
+    (<a href="http://savannah.gnu.org/users/andriykopanytsia">Andriy
+    Bandura</a> - New coordinator needed)</li>
+    
+  <li><code>zh-cn</code> - 
+    <a href="http://savannah.gnu.org/projects/www-zh-cn">Simplified
+    Chinese</a> (<a
+    href="http://savannah.gnu.org/users/wxie">Xie Wensheng</a>)</li>
+
+  <li><code>zh-tw</code> - 
+    <a href="http://savannah.gnu.org/projects/www-zh-tw">Traditional
+    Chinese</a> (<a
+    href="http://savannah.gnu.org/users/s8321414">Po-Yen Huang</a>)</li>
+  
+  <li><code>??</code> - Not available? Then this line is reserved for 
+  you.</li>
+
+  <!-- Please keep this list alphabetical. -->
+</ul>
+
+<p><strong>Note:</strong> <em>English</em> (<code>en</code>) is a special
+case. The bulk of the site is written in English, which is the de-facto
+language of the GNU Project. We <em>occasionally</em> need to 
+translate to English original documents written in other languages. It 
+is best to notify the Team Coordinator of that language if you volunteer. If 
+there is no team coordinator and you are willing to help with this, please 
+contact <a 
+href="mailto:web-translators@gnu.org">&lt;web-translators@gnu.org&gt;</a>.
+</p>
+
+</div><!-- for id="content", starts in the include above -->
+
+              <!-- begin server/footer-text.html -->
+
+
+
+
+
+<div style="clear:both"></div>
+
+
+<div id="language-container">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#top"><b>&#9650;</b></a>
+ </div>
+ <div id="languages" class="rounded-corners">
+  <div class="button">
+   <a href="#top" class="close"><span>BACK TO TOP</span></a>
+  </div>
+  <div id="set-language" class="button">
+   <span class="gnun-split"></span>
+   <a href="https://www.gnu.org/server/select-language.html?callback=/server/standards/README.translations.html" rel="nofollow">
+   Set language
+   <span class="gnun-split"></span>
+   </a>
+  </div>
+  <p>Available for this page:</p>
+  <div id="translations">
+<p>
+<span dir="ltr" class="original">[en]&nbsp;<a lang="en" hreflang="en" href="https://www.gnu.org/server/standards/README.translations.en.html">English</a> &nbsp;</span>
+<span dir="ltr">[ca]&nbsp;<a lang="ca" hreflang="ca" href="https://www.gnu.org/server/standards/README.translations.ca.html">català</a> &nbsp;</span>
+<span dir="ltr">[de]&nbsp;<a lang="de" hreflang="de" href="https://www.gnu.org/server/standards/README.translations.de.html">Deutsch</a> &nbsp;</span>
+<span dir="ltr">[fr]&nbsp;<a lang="fr" hreflang="fr" href="https://www.gnu.org/server/standards/README.translations.fr.html">français</a> &nbsp;</span>
+<span dir="ltr">[ja]&nbsp;<a lang="ja" hreflang="ja" href="https://www.gnu.org/server/standards/README.translations.ja.html">日本語</a> &nbsp;</span>
+<span dir="ltr">[pt-br]&nbsp;<a lang="pt-br" hreflang="pt-br" href="https://www.gnu.org/server/standards/README.translations.pt-br.html">português</a> &nbsp;</span>
+<span dir="ltr">[sq]&nbsp;<a lang="sq" hreflang="sq" href="https://www.gnu.org/server/standards/README.translations.sq.html">Shqip</a> &nbsp;</span>
+<span dir="ltr">[zh-cn]&nbsp;<a lang="zh-cn" hreflang="zh-cn" href="https://www.gnu.org/server/standards/README.translations.zh-cn.html">简体中文</a> &nbsp;</span>
+</p>
+</div>
+ </div>
+</div>
+
+<div id="mission-statement" role="complementary">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#header"><span>BACK TO TOP </span>&#9650;</a>
+ </div>
+<div style="clear: both"></div>
+<blockquote>
+<p style="direction:ltr; text-align:left"><a href="http://www.fsf.org/"><img id="fsfbanner"
+src="../../graphics/fsf-logo-notext-small.png" alt="&nbsp;[FSF logo]&nbsp;"
+width="75" height="25" /></a><strong>
+&ldquo;The Free Software Foundation (FSF) is a nonprofit with a worldwide
+mission to promote computer user freedom. We defend the rights of all
+software users.&rdquo;</strong></p>
+</blockquote>
+
+<div id="support-the-fsf" class="button">
+ <a class="join" href="http://www.fsf.org/associate/support_freedom?referrer=4052">JOIN</a>
+ <a class="donate" href="http://donate.fsf.org/">DONATE</a>
+ <a class="shop" href="http://shop.fsf.org/">SHOP</a>
+</div>
+</div>
+<!-- end server/footer-text.html -->
+
+
+<div id="footer" role="contentinfo">
+<div class="unprintable">
+
+<p>Please send general FSF &amp; GNU inquiries to
+<a href="mailto:gnu@gnu.org">&lt;gnu@gnu.org&gt;</a>.
+There are also <a href="../../contact/index.html">other ways to contact</a>
+the FSF.  Broken links and other corrections or suggestions can be sent
+to <a href="mailto:web-translators@gnu.org">&lt;web-translators@gnu.org&gt;</a>.</p>
+
+<p><!-- TRANSLATORS: Ignore the original text in this paragraph,
+        replace it with the translation of these two:
+
+        We work hard and do our best to provide accurate, good quality
+        translations.  However, we are not exempt from imperfection.
+        Please send your comments and general suggestions in this regard
+        to <a href="mailto:web-translators@gnu.org">
+        &lt;web-translators@gnu.org&gt;</a>.</p>
+
+        <p>For information on coordinating and contributing translations of
+        our web pages, see <a
+        href="/server/standards/README.translations.html">Translations
+        README</a>. -->
+Please see the <a
+href="README.translations.html">Translations
+README</a> for information on coordinating and contributing translations
+of this article.</p>
+</div>
+
+<!-- Regarding copyright, in general, standalone pages (as opposed to
+     files generated as part of manuals) on the GNU web server should
+     be under CC BY-ND 4.0.  Please do NOT change or remove this
+     without talking with the webmasters or licensing team first.
+     Please make sure the copyright date is consistent with the
+     document.  For web pages, it is ok to list just the latest year the
+     document was modified, or published.
+     
+     If you wish to list earlier years, that is ok too.
+     Either "2001, 2002, 2003" or "2001-2003" are ok for specifying
+     years, as long as each year in the range is in fact a copyrightable
+     year, i.e., a year in which the document was published (including
+     being publicly visible on the web or in a revision control system).
+     
+     There is more detail about copyright years in the GNU Maintainers
+     Information document, www.gnu.org/prep/maintain. -->
+
+<p>Copyright &copy; 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2023 Free Software Foundation, Inc.</p>
+
+<p>This page is licensed under a <a rel="license"
+href="http://creativecommons.org/licenses/by-nd/4.0/">Creative
+Commons Attribution-NoDerivatives 4.0 International License</a>.</p>
+
+<!-- start of server/bottom-notes.html -->
+<div id="bottom-notes" class="unprintable">
+<p><a href="http://www.fsf.org/about/dmca-notice">Copyright Infringement Notification</a></p>
+<div id="generic">
+
+
+</div>
+</div>
+<!-- end of server/bottom-notes.html -->
+
+
+<p class="unprintable">Updated:
+<!-- timestamp start -->
+$Date: 2023/04/01 13:10:56 $
+<!-- timestamp end -->
+</p>
+</div>
+</div>
+</body>
+
+<!-- Mirrored from www.gnu.org/server/standards/README.translations.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>
