@@ -76,7 +76,7 @@ debug_strace: debug
 debug_mem: debug
 	valgrind --malloc-fill=0xAA --free-fill=0x88 --fair-sched=yes --read-var-info=yes --read-inline-info=yes --show-error-list=yes --error-exitcode=1 --leak-check=full --track-origins=yes --show-leak-kinds=all --num-callers=40 --trace-children=yes ./build/debug/cewserver
 
-debug_run: debug
+debug_run: debug copy_www
 	./build/debug/cewserver
 
 release:
@@ -85,6 +85,9 @@ release:
 	cmake --build ${DIR_RELEASE} --config Release --verbose --clean-first
 	file ${DIR_RELEASE}/${PROJ_NAME}
 	checksec --file=${DIR_RELEASE}/${PROJ_NAME}
+
+release_run: release copy_www
+	./build/release/cewserver
 
 test: debug
 	mkdir -p -- /var/tmp/cew_test/
@@ -131,3 +134,6 @@ gef:
 
 kill:
 	./tools/killall
+
+copy_www:
+	cp -R ./www /opt

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- Mirrored from www.gnu.org/software/gss/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="author" href="mailto:webmasters@gnu.org" />
+<link rel="icon" type="image/png" href="../../graphics/gnu-head-mini.png" />
+<meta name="ICBM" content="42.355469,-71.058627" />
+<link rel="stylesheet" type="text/css" href="../../layout.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="../../print.min.css" media="print" />
+
+
+
+<!-- Parent-Version: 1.79 -->
+<title>GNU Generic Security Service - Libgss - GNU Project - Free Software Foundation</title>
+<!-- begin /server/gnun/initial-translations-list.html -->
+<!-- HTML head: set a flag for further expansion in body-include*.html. -->
+<!-- end /server/gnun/initial-translations-list.html -->
+
+<!-- start of server/banner.html -->
+<!-- start of head-include-2.html -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- end of head-include-2.html -->
+
+</head>
+<body>
+<div class="inner">
+<!-- start of server/body-include-1.html -->
+<div id="top">
+<a class="skip" href="#content"><b>Skip to main text</b></a>
+</div>
+
+<div id="fsf-frame" role="complementary">
+<form id="fssbox" action="https://my.fsf.org/civicrm/profile/create?reset=1&amp;gid=31"
+      method="post">
+ <div>
+  <input name="postURL" type="hidden" value="" />
+  <input type="hidden" name="group[25]" value="1" />
+  <input name="cancelURL" type="hidden" value="https://crm.fsf.org/civicrm/profile?reset=1&amp;gid=31" />
+  <input name="_qf_default" type="hidden" value="Edit:cancel" />
+  <label for="frmEmail">
+   <a href="http://www.fsf.org/fss">Free Software Supporter</a>:
+  </label>
+  <input type="text" id="frmEmail" name="email-Primary" size="18" maxlength="80"
+         value="email address" onfocus="this.value=''"/>
+  <input type="submit" name="_qf_Edit_next" value="Sign up" />
+ </div>
+</form>
+
+<div id="join-fsf" class="button"><a
+href="https://www.fsf.org/associate/support_freedom?referrer=4052">JOIN&nbsp;THE&nbsp;FSF</a>
+</div>
+</div>
+
+<div id="header" role="banner">
+<p id="gnu-banner">
+ <a href="../../index.html">
+ <img src="../../graphics/heckert_gnu.transp.small.png" height="48" width="49"
+      alt="&nbsp;[A GNU head]&nbsp;" /><strong>GNU</strong> <span
+ class="hide">Operating System</span></a><br />
+ <small id="fsf-support">Supported by the
+ <a href="#mission-statement">Free Software Foundation</a></small>
+</p>
+
+<div id="switches">
+ <div  id="search-button" class="switch">
+  <a href="../../cgi-bin/estseek.cgi">
+  <img id="search-icon" height="30" width="30"
+       src="../../graphics/icons/search.png"
+       alt="&nbsp;[Search www.gnu.org]&nbsp;" /></a>
+ </div>
+
+</div>
+</div>
+<!-- end of server/body-include-1.html -->
+
+<!-- start of server/body-include-2 -->
+
+
+<div style="clear: both"></div>
+
+<div id="navigation" role="navigation">
+ <a id="more-links" href="#navigation" title="More...">
+   <span>Site navigation</span></a>
+ <a id="less-links" href="#content"><b>Skip</b></a>
+ <ul>
+
+   <li id="tabAboutGNU"><a href="../../gnu/gnu.html">ABOUT&nbsp;GNU</a></li>
+
+
+  <li id="tabPhilosophy"><a href="../../philosophy/philosophy.html">PHILOSOPHY</a></li>
+
+
+  <li id="tabLicenses"><a href="../../licenses/licenses.html">LICENSES</a></li>
+
+
+  <li id="tabEducation"><a href="../../education/education.html">EDUCATION</a></li>
+
+
+  <li id="tabSoftware" class="active">
+     <span class='no-display'>=</span> 
+    <a href="../software.html">SOFTWARE</a>
+    <span class="gnun-split"></span>
+     <span class='no-display'>=</span> 
+  </li>
+
+
+  <li id="tabDistros"><a href="../../distros/distros.html">DISTROS</a></li>
+
+
+  <li id="tabDoc"><a href="../../doc/doc.html">DOCS</a></li>
+
+
+  <li id="tabMalware"><a href="../../proprietary/proprietary.html">MALWARE</a></li>
+
+
+  <li id="tabHelp"><a href="../../help/help.html">HELP&nbsp;GNU</a></li>
+
+
+  <li id="tabAV"><a href="../../audio-video/audio-video.html">AUDIO&nbsp;&amp;&nbsp;VIDEO</a></li>
+
+
+  <li id="tabArt"><a href="../../graphics/graphics.html">GNU&nbsp;ART</a></li>
+
+
+  <li id="tabFun"><a href="../../fun/humor.html">FUN</a></li>
+
+
+  <li id="tabPeople"><a href="../../people/people.html">GNU'S&nbsp;WHO?</a></li>
+
+  <li><a href="http://directory.fsf.org/">SOFTWARE&nbsp;DIRECTORY</a></li>
+  <li><a href="https://h-node.org/">HARDWARE</a></li>
+  <li><a href="../../server/sitemap.html">SITEMAP</a></li>
+ </ul>
+ <div style="clear: both"></div>
+</div><!-- /"navigation -->
+<!-- end of server/body-include-2 -->
+
+<div id="content" role="main">
+<!-- end of server/banner.html -->
+
+<h2>GNU Generic Security Service - Libgss</h2>
+<hr />
+
+<h3><a href="#TOCintroduction" id="introduction">Introduction</a></h3>
+
+<p>
+  This page contain information about Generic Security Service (GSS),
+  a free implementation of RFC 2743/2744.
+</p>
+
+<p>
+  If you do not know what GSS is, I suggest to read the following
+  resources.
+</p>
+
+<ul>
+  <li><a href="https://www.ietf.org/rfc/rfc2743.txt">
+      GSSAPIv2u1 specification (RFC 2743)</a></li>
+  <li><a href="https://www.ietf.org/rfc/rfc2744.txt">
+      GSSAPIv2u1 C bindings (RFC 2744)</a></li>
+  <li><a href="http://docs.sun.com/app/docs/doc/816-1331">
+      Sun's GSS-API Programming Guide</a></li>
+</ul>
+
+<h3><a href="#TOCtoc" id="toc">Table of Contents</a></h3>
+
+<ul>
+  <li><a href="#introduction" id="TOCintroduction">Introduction</a></li>
+  <li><a href="#status" id="TOCstatus">Status</a></li>
+  <li><a href="#news" id="TOCnews">News</a></li>
+  <li><a href="#support" id="TOCsupport">Support</a></li>
+  <li><a href="#downloading" id="TOCdownloading">Downloading</a></li>
+  <li><a href="#development" id="TOCdevelopment">Development</a></li>
+</ul>
+
+<h3><a href="#TOCstatus" id="status">Documentation and Status</a></h3>
+
+<p>
+  Refer to the <a href="https://www.gnu.org/software/gss/manual/">GSS Manual</a> web page for links to
+  the manual in all formats; however, quick links to the most popular
+  formats:
+</p>
+
+<ul>
+  <li><a href="https://www.gnu.org/software/gss/manual/gss.html">Online HTML manual</a></li>
+  <li><a href="https://www.gnu.org/software/gss/manual/gss.pdf">PDF manual</a></li>
+  <li><a href="https://www.gnu.org/software/gss/reference/">API reference in HTML</a></li>
+</ul>
+
+<p>
+  GSS has received some real-world testing and should be
+  considered beta quality.
+</p>
+
+<p>
+  The source code framework is in place, an outline of the
+  documentation is ready, and there are some simple self tests.  The
+  Kerberos 5 mechanism (RFC 1964 and RFC 4121) supports mutual
+  authentication, channel bindings and the standard DES cipher.  The
+  non-standard 3DES cipher is also implemented, but unfortunately
+  there are no specifications for AES.  <a href="https://www.gnu.org/software/gsasl/">GNU
+  SASL</a> can use GSS to connect
+  to <a href="https://mailutils.org/">GNU Mailutils</a>
+  and <a href="https://www.cyrusimap.org/">Cyrus IMAP</a> servers that
+  use the GSS implementations
+  from <a href="https://web.mit.edu/kerberos/www/">MIT Kerberos</a>
+  or <a href="https://github.com/heimdal/">Heimdal</a>.  GNU MailUtils
+  can also use GSS to serve GSSAPI clients.  A SSH client and server
+  with GSS authentication is provided by <a href="https://www.gnu.org/software/gss/gss-lsh.html">LSH
+  with some patches</a>.
+</p>
+
+<p>
+  GSS uses <a href="https://www.gnu.org/software/shishi/">GNU Shishi</a> to implement the
+  Kerberos V5 mechanism.
+</p>
+
+<p>
+  Projects using GSS include:
+</p>
+
+<ul>
+  <li><a href="https://www.gnu.org/software/gsasl/">GNU SASL</a>.</li>
+  <li><a href="https://mailutils.org/">GNU Mailutils</a>.</li>
+  <li><a href="https://curl.haxx.se/">Curl</a>.</li>
+  <li><a href="http://fetchmail.berlios.de/">Fetchmail</a>.</li>
+</ul>
+
+<h3><a href="https://www.gnu.org/software/gss/TOCnews" id="news">News</a></h3>
+
+<ul>
+  <li>2022-08-06: <a href="https://lists.gnu.org/archive/html/help-gss/2022-08/msg00003.html">
+      Version 1.0.4</a> released</li>
+
+  <li>2014-10-09: <a href="https://lists.gnu.org/archive/html/help-gss/2014-10/msg00000.html">
+      Version 1.0.3</a> released</li>
+
+  <li>2011-11-25: <a href="https://lists.gnu.org/archive/html/help-gss/2011-11/msg00003.html">
+      Version 1.0.2</a> released</li>
+  
+  <li>2010-05-20: <a href="https://lists.gnu.org/archive/html/help-gss/2010-05/msg00000.html">
+      Version 1.0.1</a> released</li>
+
+  <li>2010-03-30: <a href="https://lists.gnu.org/archive/html/help-gss/2010-03/msg00012.html">
+      Version 1.0.0</a> released, takes GNU GSS out of alpha
+    testing.</li>
+
+  <li>2010-03-15: <a href="https://lists.gnu.org/archive/html/help-gss/2010-03/msg00000.html">
+      Version 0.1.3</a> adds support for Kerberos V5 channel bindings,
+    paving the road for GS2-KRB5 support in
+    <a href="https://www.gnu.org/software/gsasl/">GNU SASL</a>.</li>
+
+  <li>2007-06-29: <a href="https://lists.gnu.org/archive/html/help-gss/2007-06/msg00002.html">
+      Version 0.0.22</a> released under the GPLv3.</li>
+
+  <li>2004-01-22: New releases are no longer announced here.  Instead,
+    read <a href="https://lists.gnu.org/mailman/listinfo/help-gss">
+      help-gss</a> or check the release directory from time to time.  By
+    the way, <a href="https://alpha.gnu.org/pub/gnu/gss/">GSS 0.0.10</a>
+    was just released.</li>
+
+  <li>2004-01-15: Version 0.0.9 released, several new features, API
+    documentation using GTK-DOC.</li>
+
+  <li>2004-01-11: Version 0.0.8 released, various bug fixes and major
+    documentation revamp.</li>
+
+  <li>2004-01-01: Savannah had problems last month, and still isn't
+    operating fully.  CVS has been moved to a private machine, a
+    read-only mirror of it will hopefully be available via Savannah in
+    the future.</li>
+
+  <li>2003-11-26: Version 0.0.7 released, fixes a problem prohibiting
+    3DES gss_wrap from working.</li>
+
+  <li>2003-09-22: Version 0.0.6 released,
+    accompanies <a href="https://www.gnu.org/software/shishi/">Shishi 0.0.7</a>.</li>
+
+  <li>2003-09-16: GSSLib can be used by OpenSSH in client mode to
+    support Kerberos 5 via Shishi, see my page for
+    the <a href="https://www.gnu.org/software/gss/gss-openssh.html">OpenSSH GSSLib patch</a>.</li>
+
+  <li>2003-08-31: Version 0.0.5 released,
+    accompanies <a href="https://www.gnu.org/software/shishi/">Shishi 0.0.4</a>.</li>
+
+  <li>2003-08-10: Version 0.0.4 released, contains Kerberos 5
+    improvements and accompanies <a href="https://www.gnu.org/software/shishi/">Shishi
+    0.0.1</a>.</li>
+
+  <li>2003-06-30: Added <a href="https://www.gnu.org/software/gss/gss-lsh.html">a page with information
+    about SSH authentication</a> using this library.</li>
+
+  <li>2003-06-28: Version 0.0.2 contains limited server mode support.
+    <a href="https://mailutils.org/"> GNU Mailutils</a> can use GSS for its
+    native GSSAPI authentication in server mode (with
+    <a href="https://lists.gnu.org/archive/html/bug-mailutils/2003-06/msg00039.html">
+    this patch</a>), which then interoperate with (at least) the GNU SASL
+    command line client using GSS.</li>
+
+  <li>2003-06-02: Initial release.</li>
+
+</ul>
+
+<h3><a href="#TOCsupport" id="support">Support</a></h3>
+
+<p>
+  A mailing list where GSS users may help each other exists, and you
+  can reach it by sending e-mail
+  to <a href="mailto:help-gss@gnu.org">help-gss@gnu.org</a>.  Archives
+  of the mailing list discussions, and an interface to manage
+  subscriptions, is available through the World Wide Web at
+  <a href="https://lists.gnu.org/mailman/listinfo/help-gss">
+    https://lists.gnu.org/mailman/listinfo/help-gss</a>.
+</p>
+
+<h3><a href="#TOCdownloading" id="downloading">Downloading</a></h3>
+
+<p>
+  The releases are distributed from <a href="https://ftp.gnu.org/gnu/gss/">
+    https://ftp.gnu.org/gnu/gss/</a>.
+</p>
+
+<p>
+  The latest release is signed
+  with <a href="https://josefsson.org/key-20190320.txt">OpenPGP key
+  with fingerprint F8C4 D73C F638 C53C 06BE</a>.  Earlier releases
+  were signed with an <a href="https://josefsson.org/key.txt">OpenPGP
+  key with fingerprint B565716F</a>
+  or <a href="https://josefsson.org/54265e8c.txt">OpenPGP key with
+  fingerprint 5A33 0664 A769 5426 5E8C</a>.
+</p>
+
+<h3><a href="#TOCdevelopment" id="development">Development</a></h3>
+
+<p>
+  There is a <a href="https://savannah.gnu.org/projects/gss/">Savannah
+    GSS</a> project page.  You
+    can <a href="https://savannah.gnu.org/git/?group=gss">check out
+    the sources</a> by using <a href="http://git.or.cz/">git</a> as
+    follows:
+</p>
+
+<pre class="emph-box">
+git clone https://git.savannah.gnu.org/git/gss.git
+</pre>
+
+<p>
+  The <a href="https://git.savannah.gnu.org/gitweb/?p=gss.git">online
+    git interface</a> is available.
+</p>
+
+<p>
+  See the
+  file <a href="https://git.savannah.gnu.org/gitweb/?p=gss.git;a=blob;f=README-alpha;hb=HEAD">README-alpha</a>
+  on how to bootstrap and build the package from version controlled
+  sources.
+</p>
+
+<p>
+  We publish <a href="https://gsasl.gitlab.io/gss/cyclo/">
+  cyclomatic code complexity
+  charts</a>, <a href="https://gsasl.gitlab.io/gss/coverage/">self-test
+  code coverage charts</a>,
+  and <a href="https://gsasl.gitlab.io/gss/clang-analyzer/">Clang
+  code analysis</a>
+</p>
+
+</div><!-- for id="content", starts in the include above -->
+
+              <!-- begin server/footer-text.html -->
+
+
+
+
+
+<div style="clear:both"></div>
+
+
+
+<div id="mission-statement" role="complementary">
+ <div class="backtotop">
+  <hr class="no-display" />
+  <a href="#header"><span>BACK TO TOP </span>&#9650;</a>
+ </div>
+<div style="clear: both"></div>
+<blockquote>
+<p style="direction:ltr; text-align:left"><a href="http://www.fsf.org/"><img id="fsfbanner"
+src="../../graphics/fsf-logo-notext-small.png" alt="&nbsp;[FSF logo]&nbsp;"
+width="75" height="25" /></a><strong>
+&ldquo;The Free Software Foundation (FSF) is a nonprofit with a worldwide
+mission to promote computer user freedom. We defend the rights of all
+software users.&rdquo;</strong></p>
+</blockquote>
+
+<div id="support-the-fsf" class="button">
+ <a class="join" href="http://www.fsf.org/associate/support_freedom?referrer=4052">JOIN</a>
+ <a class="donate" href="http://donate.fsf.org/">DONATE</a>
+ <a class="shop" href="http://shop.fsf.org/">SHOP</a>
+</div>
+</div>
+<!-- end server/footer-text.html -->
+
+
+<div id="footer">
+<div class="unprintable">
+
+<p>Please send general FSF &amp; GNU inquiries to
+<a href="mailto:gnu@gnu.org">&lt;gnu@gnu.org&gt;</a>.
+There are also <a href="../../contact/index.html">other ways to contact</a>
+the FSF.  Broken links and other corrections or suggestions can be sent
+to <a href="mailto:help-gss@gnu.org">&lt;help-gss@gnu.org&gt;</a>.
+</p>
+
+<p>Please see the <a
+href="../../server/standards/README.translations.html">Translations
+README</a> for information on coordinating and submitting translations
+of this article.</p>
+</div>
+
+<p class="imgright unprintable">
+  <a href="https://validator.w3.org/check?uri=referer">
+    <img src="https://www.w3.org/Icons/valid-xhtml10"
+	 alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
+</p>
+
+<!-- Regarding copyright, in general, standalone pages (as opposed to
+     files generated as part of manuals) on the GNU web server should
+     be under CC BY-ND 4.0.  Please do NOT change or remove this
+     without talking with the webmasters or licensing team first.
+     Please make sure the copyright date is consistent with the
+     document.  For web pages, it is ok to list just the latest year the
+     document was modified, or published.
+     
+     If you wish to list earlier years, that is ok too.
+     Either "2001, 2002, 2003" or "2001-2003" are ok for specifying
+     years, as long as each year in the range is in fact a copyrightable
+     year, i.e., a year in which the document was published (including
+     being publicly visible on the web or in a revision control system).
+     
+     There is more detail about copyright years in the GNU Maintainers
+     Information document, www.gnu.org/prep/maintain. -->
+
+<p>Copyright &copy; 2002-2008 Simon Josefsson</p>
+<p>Copyright &copy; 2016 Free Software Foundation, Inc.</p>
+
+<p>This page is licensed under a <a rel="license"
+href="http://creativecommons.org/licenses/by-nd/4.0/">Creative
+Commons Attribution-NoDerivatives 4.0 International License</a>.</p>
+
+<!-- start of server/bottom-notes.html -->
+<div id="bottom-notes" class="unprintable">
+<p><a href="http://www.fsf.org/about/dmca-notice">Copyright Infringement Notification</a></p>
+<div id="generic">
+
+
+</div>
+</div>
+<!-- end of server/bottom-notes.html -->
+
+
+<p class="unprintable">Updated:
+<!-- timestamp start -->
+$Date: 2022/08/07 02:52:48 $
+<!-- timestamp end -->
+</p>
+</div>
+</div>
+</body>
+
+<!-- Mirrored from www.gnu.org/software/gss/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>

@@ -1,0 +1,838 @@
+<!-- ldfmdexu.html -->
+<!-- Created by Laurence Finston Mon Feb 12 15:03:51 CET 2007 -->
+
+<!-- $Id: ldfmdexu.html,v 1.6 2007/03/19 16:01:38 lfinsto1 Exp $ -->
+     
+<!-- * (1) Header  -->
+
+<! file:///u|/ldfmdexu.html>
+<html>
+
+<!-- Mirrored from www.gnu.org/software/metaexchange/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+<title>The GNU Metadata Exchange Utilities Website</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link rel="stylesheet" type="text/css" href="https://www.gnu.org/software/metaexchange/basic.css">
+<meta name="keywords" content="Metadata Harvesting, 
+                               Metadata Exchange, 
+                               OAI,
+                               Open Archives Initiative,
+                               Dublin Core,
+                               Library Software,
+                               Z39.50">
+
+<!-- * (1) Top  -->
+
+</head>
+<body>
+<font color="black">
+<h1 align="center"> 
+<a name="top"> The GNU Metadata Exchange Utilities Website
+</a>
+</h1></font>
+
+<hr><p>metaexchange is looking for a co-maintainer.
+If you're interested, please take a look at this <a
+href="https://www.gnu.org/help/evaluation.html#whatmeans">general information about GNU
+packages and being a GNU maintainer</a>, and then email
+maintainers@gnu.org with a bit about your background and particular
+interest in this package.  Thanks.</p><hr>
+
+<p> 
+Author:  
+<a href = "http://wwwuser.gwdg.de/~lfinsto1/"> 
+   Laurence D. Finston</a>.
+</p> 
+
+
+<!-- * (1) Copyright Notice  -->
+
+<p> The following copyright notices apply to the text and source
+code of this web site (document), and any graphics that may appear on it. 
+The software described in this text has its own copyright notice or
+notices and license, which can be found in the distribution itself. 
+</p>
+
+<p>
+The following copyright notice applies to the contents of this document up to        
+and including January 31, 2007:                                             
+<br> 
+<br> 
+Copyright &copy; 2006, 2007 IWF Wissen und Medien gGmbH
+<br> 
+<br> 
+The following copyright notice applies to all changes and additions to
+this document starting on February 1, 2007: 
+<br> 
+<br> 
+Copyright &copy; 2007 The Free Software Foundation
+</p>
+
+<p>
+Permission is granted to copy, distribute, and/or modify this document
+under the terms of the GNU Free Documentation License, Version 2 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts. A copy of this license is included in the file 
+<a href= "https://www.gnu.org/software/metaexchange/COPYING.TXT"> COPYING.TXT </a>
+</p>
+
+<!-- * (1) Date updated  -->
+
+<p>
+Last updated:  March 19, 2007
+</p>
+
+<hr size ="2" color="black">
+
+<!-- * (1) Contents  -->
+
+
+<h2 align="center"> 
+<a name="Contents">
+Table of Contents
+</a>
+</h2>
+
+<table>
+
+<tr><td><a href="#top"> Top</a> 
+
+<tr><td><a href="#Introduction"> Introduction</a>
+
+<tr><td><td><a href="#Platforms">
+Supported Platforms and Portability</a>
+
+<tr><td><a href="#Late_Breaking_News"> Late Breaking News </a> 
+
+<tr><td><a href="#Old_News"> Old News </a> 
+
+<tr><td><a href="#Distribution"> Distribution</a> 
+
+
+<tr><td><a href="#Documentation"> Documentation</a> 
+
+
+<tr><td><a href="#OAI"> OAI (Open Archives Initiative)</a> 
+
+<tr><td><td><a href="#dctest"> dc_test (Database)</a> 
+
+<tr><td><td><a href="#ATest"> ATest (C++ Program)</a> 
+
+<tr><td><a href="#z3950"> Z39.50 (Pica)</a> 
+
+<tr><td><td><a href="#picadb"> PICA_DB (Database)</a> 
+
+<tr><td><td><a href="#ZTest"> ZTest (C++ Program)</a> 
+
+<tr><td><a href="#Scantest"> Scantest (C++ Program)</a> 
+
+<tr><td><a href="#lodb"> LO_DB (Database)</a> 
+
+<tr><td><a href="#Mailinglist"> Mailing List</a>
+
+<tr><td><a href="#Links"> Links </a>
+
+<tr><td><a href="#Contact"> Contact </a>
+
+</table>
+
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+<!-- * (1) Introduction  -->
+
+<h2 align="center"> 
+<a name="Introduction">
+Introduction
+</a>
+</h2>
+
+<!--  LDF 2006.12.22.  -->
+<p>
+The GNU Metadata Exchange Utilities are a package for 
+retrieving metadata from servers, writing it to databases, 
+and representing it in human-readable form.
+They currently retrieve data from servers using two different sets of standards:
+The Open Archives Initiative Protocol for Metadata Harvesting (OAI-PMH) and
+Z39.50.  
+</p> 
+
+<p>
+<!--  LDF 2007.02.12.  -->
+The GNU Metadata Exchange Utilities contain code from the IWF Metadata
+Harvester, a package developed by the 
+<a href = "http://wwwuser.gwdg.de/~lfinsto1/"> author</a> while
+participating in a programm sponsored by the German government at the 
+IWF Wissen und Media gGmbH, G&ouml;ttingen, Germany.  
+Since this program ended on January 31, 2007, he is developing a new
+package based on the IWF Metadata Harvester
+under the name <q>GNU Metadata Exchange Utilities</q>.  The 
+<a href = "http://wwwuser.gwdg.de/~lfinsto1/"> author</a> 
+would like to express his appreciation to the IWF Wissen und Media
+gGmbH for permitting him to publish his work there under the 
+<a href = "http://www.gnu.org/licenses/gpl.html"> GNU General Public License</a>
+and the 
+<a href = "http://www.gnu.org/licenses/fdl.html">
+GNU Free Documentation License</a>.
+</p> 
+
+<!-- LDF 2006.12.22.  -->
+<p> 
+OAI servers provide records in the form of XML files in a format based on 
+the Dublin Core standard.
+Z39.50 servers, on the other hand, can provide records in a variety of formats, 
+the most common of which is USMARC.  The GNU Metadata Exchange Utilities can currently 
+only process records from z39.50 servers in the Pica format, which is widespread 
+in the Netherlands and Germany.  In the future, I hope to extend it to process
+records in USMARC and other formats as well.
+</p> 
+
+<!-- LDF 2006.12.22.  -->
+<p> 
+The GNU Metadata Exchange Utilities consist of 3 programs written in C++ and 
+three databases:
+</p> 
+
+<table>
+<tr><td><b>ATest</b>: <td>C++ program for retrieving data from OAI servers
+(see <a href=#ATest>ATest</a>)
+
+<tr><td><b>dc_test</b>: <td>Database for storing the data retrieved by ATest
+(see <a href=#dctest>dc_test</a>)
+
+<tr><td><b>ZTest</b>: <td>C++ program for retrieving data in Pica format 
+                         from Z39.50 servers
+(see <a href=#ZTest>ZTest</a>)
+
+<tr><td><b>PICA_DB</b>: <td>Database for storing the data retrieved by ZTest
+(see <a href=#picadb>PICA_DB</a>)
+
+<tr><td><b>Scantest</b>: 
+<td>C++ program implementing an interpreter for 
+    controlling the other C++ programs and accessing
+    the databases.           
+(see <a href=#Scantest>Scantest</a>)
+
+<tr><td><b>LO_DB</b>: <td>A database with a reduced set of tables and fields 
+                          for use in the &ldquo;Lectures Online&rdquo; Project
+                          of the IWF Wissen und Medien gGmbH                           
+(see <a href=#lodb>LO_DB</a>)
+</table>
+
+
+<!-- ** (2) Supported Platforms and Portability  -->
+
+<h3 align="center"> 
+<a name="Platforms">
+Supported Platforms and Portability
+</a>
+</h3>
+
+<!-- LDF 2006.12.22.  -->
+<p> 
+
+
+The programs <a href=#ATest>ATest</a> and <a href=#zTest>ZTest</a> were developed 
+using Microsoft Visual C++ in Microsoft Visual Studio under Microsoft Windows
+and the databases <a href=#dctest>dc_test</a>, <a href=#picadb>PICA_DB</a>
+and <a href=#lodb>LO_DB</a> were developed using Microsort SQL Servers.
+The program <a href=#Scantest>Scantest</a> was also originally developed using 
+MS Visual C++, but it is currently being developed using the GNU Compiler Collection 
+(GCC) under Windows.  Unlike ATest and ZTest, Scantest uses only Standard C++ and the 
+C++ Standard Template Library.
+</p> 
+
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+
+
+<!-- * (1) Late Breaking News  -->
+
+<h2 align="center"> 
+<a name="Late_Breaking_News">
+Late Breaking News
+</a>
+</h2>
+
+<p>
+2007.03.19.
+<br> 
+The author is very pleased to announce that the 
+LDF Metadata Exchange Utilities have been accepted into the  
+<a href="../../index.html"> GNU Project</a>
+of the 
+<a href="http://www.fsf.org/"> Free Software Foundation</a>.
+They have accordingly been renamed the <b>GNU Metadata Exchange Utilities</b>.
+</p> 
+
+
+
+
+<p>
+2007.02.18.
+<br> 
+Added links to the CWEB documentation for the programs in 
+<a href="#Documentation"> Documentation</a>.
+</p> 
+
+<p>
+2007.02.12.
+<br> 
+The GNU Metadata Exchange Utilities contain code from the IWF Metadata
+Harvester, a package developed by the 
+<a href = "http://wwwuser.gwdg.de/~lfinsto1/"> author</a> while
+participating in a programm sponsored by the German government at the 
+IWF Wissen und Media gGmbH, G&ouml;ttingen, Germany.  
+Since this program ended on January 31, 2007, he is developing a new
+package based on the IWF Metadata Harvester
+under the name <q>GNU Metadata Exchange Utilities</q>.  The 
+<a href = "http://wwwuser.gwdg.de/~lfinsto1/"> author</a> 
+would like to express his appreciation to the IWF Wissen und Media
+gGmbH for permitting him to publish his work there under the 
+<a href = "http://www.gnu.org/licenses/gpl.html"> GNU General Public License</a>
+and the 
+<a href = "http://www.gnu.org/licenses/fdl.html">
+GNU Free Documentation License</a>.
+</p> 
+
+<p> 
+2007.01.24.
+<br>
+All variables, functions, and parser rules in the Scantest package are now 
+documented its Texinfo manual.  However, at present, there are few 
+explanations.  I will try to add more as soon as possible.
+</p> 
+
+<p> 
+<!-- 2007.01.24. -->
+<a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/scantest.html">
+The Scantest Manual in HTML format</a>
+<br>
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/scantest.pdf">
+The Scantest Manual in PDF format</a>.
+<br>
+See <a href = #Documentation> Documentation</a> for other formats.
+<br>
+
+
+</p> 
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+
+<!-- * (1) Old News  -->
+
+<h2 align="center"> 
+<a name="Old_News">
+Old News
+</a>
+</h2>
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+<!-- * (1) Distribution  -->
+
+<h2 align="center"> 
+<a name="Distribution">
+Distribution
+</a>
+</h2>
+
+<p>
+The source code for the The GNU Metadata Exchange Utilities is available from 
+<a href = "http://cvs.savannah.nongnu.org/viewcvs/iwf-mdh/?root=iwf-mdh">
+CVS repository</a> for this project 
+at 
+<a href = "http://savannah.nongnu.org/">
+the Savannah developers' website.</a>
+The main web page for the IWF Metadata Harvester at Savannah is 
+<a href = "https://savannah.nongnu.org/projects/iwf-mdh">
+here</a>.
+</p>
+
+<!--  LDF 2006.12.22.  -->
+Snapshots of the individual sub-packages are available in the form of 
+compressed archive files (gzipped tar files):
+
+<table>
+<tr><td>ATest:&nbsp;
+<td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/oai/atestsnp.tar.gz">
+atestsnp.tar.gz</a>
+
+<tr><td>ZTest:&nbsp;
+<td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/z39_50/ztestsnp.tar.gz">
+ztestsnp.tar.gz</a>
+
+<tr><td>Scantest:&nbsp;
+<td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/scantest/sctstsnp.tar.gz">
+sctstsnp.tar.gz</a>
+</table>
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+
+<!-- * (1) Documentation  -->
+
+<h2 align="center"> 
+<a name="Documentation">
+Documentation
+</a>
+</h2>
+
+<p> 
+<!--  LDF 2007.01.18.  -->
+There two user manuals for the The GNU Metadata Exchange Utilities.  
+The first documents
+the programs <a href="#ATest"> ATest</a> and <a href="#ZTest"> ZTest</a>
+and the databases 
+<a href="#dctest"> dc_test</a> 
+and <a href="#picadb"> PICA_DB</a>.  The second documents the program 
+<a href="#Scantest"> Scantest</a>.
+</p> 
+
+<p> 
+<!--  LDF 2007.02.18.  -->
+In addition, the programs <a href="#ATest"> ATest</a>, 
+<a href="#ZTest"> ZTest</a>, and 
+<a href="#Scantest"> Scantest</a> have been written using 
+<a href="http://www-cs-faculty.stanford.edu/~knuth/"> Donald Knuth</a> 
+and Silvio Levy's 
+<q>CWEB System of Structured Documentation</q>, and 
+are available in printable form (see below).
+</p>
+
+<!--  LDF 2006.12.22.  -->
+<table>
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/texinfo/iwf_mh.html">
+User manual I in HTML format</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/texinfo/iwf_mh.html.gz">
+User manual I in HTML format, compressed (gzipped) for downloading</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/texinfo/iwf_mh.pdf">
+User manual I in PDF format</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/texinfo/iwf_mh.pdf.gz">
+User manual I in PDF format, compressed (gzipped) for downloading</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/texinfo/iwf_mh.ps.gz">
+User manual I in PostScript format, compressed (gzipped) for downloading</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/texinfo/iwf_mh.dvi.gz">
+User manual I in DVI format, compressed (gzipped) for downloading</a>  
+
+<tr><td>The current complete Texinfo sources for User Manual I are available in the form 
+of a snapshot: 
+<a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/texinfo/txinfsnp.tar.gz">
+txinfsnp.tar.gz</a>.
+
+<br>
+<br>
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/scantest.html">
+User manual for Scantest in HTML format for browsing</a>. 
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/scantest.pdf">
+User manual for Scantest in PDF format</a>.
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/scantest.html.gz">
+User manual for Scantest in HTML format, compressed (gzipped) for downloading</a>. 
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/scantest.pdf.gz">
+User manual for Scantest in PDF format, compressed (gzipped) for downloading</a>.
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/scantest.ps.gz">
+User manual for Scantest in PostScript format, compressed (gzipped) for downloading</a>.
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/scantest.dvi.gz">
+User manual for Scantest in DVI format, compressed (gzipped) for downloading</a>.
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/scantest.info.gz">
+User manual for Scantest in Info format, compressed (gzipped) for downloading</a>.
+
+<tr><td>The current complete Texinfo sources for the Scantest manual are 
+contained in the snapshot of the complete sub-package: 
+<a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/scantest/sctstsnp.tar.gz">
+sctstsnp.tar.gz</a>.  They are in the subdirectory <b>Scantest-1.0/DOC/TEXINFO/</b>.
+
+</table>
+
+<br> 
+
+<table>
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/oai/atestprg.pdf">
+<b>ATest:  The Program</b> in PDF format for browsing</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/oai/atestprg.pdf.gz">
+<b>ATest:  The Program</b> in PDF format, compressed (gzipped)</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/oai/atestprg.ps.gz">
+<b>ATest:  The Program</b> in PostScript format, compressed (gzipped)</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/oai/atestprg.dvi.gz">
+<b>ATest:  The Program</b> in DVI format, compressed (gzipped)</a>  
+
+<br> 
+<br> 
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/z39_50/ztestprg.pdf">
+<b>ZTest:  The Program</b> in PDF format for browsing</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/z39_50/ztestprg.pdf.gz">
+<b>ZTest:  The Program</b> in PDF format, compressed (gzipped)</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/z39_50/ztestprg.ps.gz">
+<b>ZTest:  The Program</b> in PostScript format, compressed (gzipped)</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/z39_50/ztestprg.dvi.gz">
+<b>ZTest:  The Program</b> in DVI format, compressed (gzipped)</a>  
+
+<br> 
+<br> 
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/sctstprg.pdf">
+<b>Scantest:  The Program</b> in PDF format for browsing</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/sctstprg.pdf.gz">
+<b>Scantest:  The Program</b> in PDF format, compressed (gzipped)</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/sctstprg.ps.gz">
+<b>Scantest:  The Program</b> in PostScript format, compressed (gzipped)</a>  
+
+<tr><td><a href = "http://ftp.gwdg.de/pub/gnu2/iwfmdh/doc/scantest/sctstprg.dvi.gz">
+<b>Scantest:  The Program</b> in DVI format, compressed (gzipped)</a>  
+
+</table>
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+
+
+<!-- * (1) OAI  -->
+
+
+<h2 align="center"> 
+<a name="OAI">
+OAI (Open Archives Initiative)
+</a>
+</h2>
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+<!-- ** (2) dc_test  -->
+
+
+<h3 align="center"> 
+<a name="dctest">
+dc_test (Database)
+</a>
+</h3>
+
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+<!-- ** (2) ATest  -->
+
+<h3 align="center"> 
+<a name="ATest">
+ATest (C++ Program)
+</a>
+</h3>
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+<!-- * (1) Z39.50  -->
+
+<h2 align="center"> 
+<a name="z3950">
+Z39.50 (Pica)
+</a>
+</h2>
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+
+<!-- ** (2) PICA_DB  -->
+
+
+<h3 align="center"> 
+<a name="picadb">
+PICA_DB (Database)
+</a>
+</h3>
+
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+<!-- ** (2) ZTest  -->
+
+<h3 align="center"> 
+<a name="ZTest">
+ZTest (C++ Program)
+</a>
+</h3>
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+<!-- * (1) ScanTest  -->
+
+<h2 align="center"> 
+<a name="ScanTest">
+ScanTest (C++ Program)
+</a>
+</h2>
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+
+<!-- ** (2) LO_DB  -->
+
+
+<h2 align="center"> 
+<a name="lodb">
+LO_DB (Database)
+</a>
+</h3>
+
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+
+<!-- * (1) Mailing List  -->
+
+<h2 align="center">
+<a name="Mailinglist">
+Mailing List
+</a>
+</h2>
+
+The
+<a href="http://lists.nongnu.org/mailman/listinfo/iwf-mdh-help">
+iwf-mdh-help mailing list</a>
+is available for users to ask questions and get help.
+The address is <b>iwf-mdh-help-*-AT-*-iwf-mdh-help@nongnu.org</b>
+(Replace <q>-*-AT-*-</q> with <q>@</q> for the email address).
+However, <i>please note that you must subscribe to the list in order to be
+able to post to it</i>.  This is to prevent spam being sent to this list.
+In addition, all postings from non-subscribers are discarded 
+with no notification, so that innocent parties, whose addresses 
+may be being used by spammers, will not receive erroneous 
+rejection notifications.  You can subscribe to the 
+iwf-mdh-help mailing list 
+<a href="http://lists.nongnu.org/mailman/listinfo/iwf-mdh-help">
+here</a>. 
+
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+<!-- * (1) Links  -->
+
+<h2 align="center">
+<a name="Links">
+Links
+</a>
+</h2>
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+
+
+<!-- * (1) Contact  -->
+
+<h2 align="center">
+<a name="Contact">
+Contact
+</a>
+</h2>
+
+<p>
+<!-- 2005-05-10 -->
+If you want to contact me about the the GNU Metadata Exchange
+Utilities, please put 
+&ldquo;GNU Metadata Exchange Utilities&rdquo;
+or something similar in the subject line of your email. 
+Otherwise, it's likely to be filtered.
+
+<p>
+If you want to 
+encrypt an email to me, you can use my 
+<a href="https://www.gnu.org/software/metaexchange/mykey.asc" >
+public key </a>.
+<br> 
+Fingerprint: 0007 566D B0E0 96AE 3F4A  EBE5 6213 D0F0 7376 08BA
+</p>
+
+<p>
+Laurence Finston<br>
+<br>
+email: <b>lfinsto1-*-AT-*-gwdg.de</b>
+<br>
+<b>s246794-*-AT-*-stud.uni-goettingen.de</b>
+<br> 
+Please use only one address at a time!
+(Replace <q>-*-AT-*-</q> with <q>@</q> for the email addresses.)
+</p>
+
+
+<!-- ---------------- -->
+<!-- "Back to" block. -->
+<hr size="2" color="black">
+<a href=#Contents> Back to contents</a>
+<br> 
+<a href=#Top> Back to top</a>
+<hr size="2" color="black">
+<!-- End of "Back to" block. -->
+<!-- ---------------- -->
+
+<!-- * (1) End  -->
+
+</font>
+</body>
+
+<!-- Mirrored from www.gnu.org/software/metaexchange/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>
+
+
+
+<!-- * (1) Local Variables for Emacs-Lisp  -->
+
+<!--  eval:(setq outline-regexp (concat "<" "!-- [*\f]+")) --> 
+
+<!--  Local Variables: --> 
+<!--  auto-fill-function:do-auto-fill --> 
+<!--  abbrev-mode:true --> 
+<!--  eval:(outline-minor-mode t) --> 
+<!--  eval:(setq outline-regexp (concat "<!" "-- [*\f]+")) --> 
+<!--  End: --> 
+
+<!-- * (1) End of file `ldfmdexu.html'   -->
+

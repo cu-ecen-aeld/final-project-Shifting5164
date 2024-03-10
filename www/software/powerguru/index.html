@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+<!-- Mirrored from www.gnu.org/software/powerguru/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+<head>
+	<title>PowerGuru - GNU Project - Free Software Foundation (FSF)</title>
+	<meta name="generator" content="Emacs (Linux)">
+	<meta name="changedby" content="Rob Savoye">
+    <META NAME="keywords" CONTENT="dejagnu">
+
+	<style>
+	<!--
+		TH P { color: #000000 }
+		TD P { color: #000000 }
+		H3 { color: #000000 }
+		H4 { color: #000000 }
+		P { color: #000000 }
+		PRE { color: #000000 }
+		A:link { color: #1f00ff }
+		A:visited { color: #9900dd }
+	-->
+	</style>
+</head>
+<body text="#000000" link="#1f00ff" vlink="#9900dd" bgcolor="#ffffff">
+
+<!-- <img src="images/gnuae-logo.png" alt="PowerGuru Logo Graphic"
+align=left width=232 height=82 border=0> -->
+
+<h1 align=center>PowerGuru</h1>
+
+<img src="https://www.gnu.org/software/powerguru/images/gnu-type-sm.jpg" alt="Gnu Head Logo" align=right width=123
+height=126 border=0>
+<br clear=right>
+
+<hr><p>PowerGuru is looking for a co-maintainer.
+If you're interested, please take a look at this <a
+href="https://www.gnu.org/help/evaluation.html#whatmeans">general information about GNU
+packages and being a GNU maintainer</a>, and then email
+maintainers@gnu.org with a bit about your background and particular
+interest in this package.  Thanks.</p>
+
+<p>Please note that maintaining this package requires <a
+href="https://www.gnu.org/licenses/why-assign.html">assigning
+copyright to the FSF</a>, and ensuring that any future contributors
+also execute papers, since that is what past authors and contributors
+have done.</p>
+<hr>
+
+<p align=center>
+<!-- These quick navigation menu bar lines can't be longer then about -->
+<!-- 72 characters or lynx will break them poorly. -->
+<!-- If we add more then 2 lines, they will become too cluttered to be -->
+<!-- quickly and easily understood. -->
+<!-- Obviously, we list ONLY the most useful/important URLs here. -->
+
+<a href="#introduction" name="TOCintroduction">Introduction</A>
+| <a href="#downloading" name="TOCdownloading">Get the Software</a> |
+<a href="#documentation" name="TOCdocumentation">Documentation
+<!-- try to keep this balanced --></a>
+<br>| <a href="#lists" name="TOClists">Mailing Lists/Newsgroups
+<!-- Optional: --></a>
+| <a href="#installhgelp" name="TOCinstallhelp">Install Help</a>
+<br>| <a href="#enhancement" name="TOCenhancement">Request an
+Enhancement</a> | <a href="#bug" name="TOCbug">Report a Bug
+<!-- only if the maintainer wants to be mentioned, --></a>
+| <a href="#maintainer" namE="TOCmaintainer">Maintainer</a> 
+</p>
+
+<hr>
+
+<!-- We can use BLOCKQUOTE to indent the pages, so that
+     it will have a better look
+
+I don't like this BLOCKQUOTE kludge.  HTML is best kept simple.
+And the change from letting the broswer chose formating and typography
+to the designer trying to do it and failing has been ugly. -tower -->
+
+<h4><a href="#TOCintroduction" NAME="introduction">Introduction</a></h4>
+
+
+Powerguru is a a monitoring, data logging, and remote control
+application for power generation products used for renewable
+energy. Currently devices being supported are
+<a href=http://www.xantrex.com/>Xantrex</a> (Trace) and <a
+href=http://www.outbackpower.com/>Outback Power Systems</a>
+products.<p>
+
+<p> <h2>Features</h2>
+
+<ul>
+<dl>
+
+<dt>Data-logging
+<dd>PowerGuru can poll all the meters on a Xantrex or Outback product,
+including multiples devices, and writes the data to an SQL database.
+
+<dt>Remote Control
+<dd>PowerGuru enables one to remotely control the device as if you
+were sitting there pushing buttons yourself.
+
+<dt>Setup and Configuration
+<dd>PowerGuru enables you to have a default set of configuration
+options as a disk based file, and to set or dump this data into/from
+the device. This is to make the setup of new installations simpler.
+
+<dt>Free Software
+<dd>PowerGuru is 100% free software. For more information on the GPL, go to the
+<a href=http://www.fsf.org/>Free Software Foundation</a> web site.
+
+<dt>SQL Database Support
+<dd>PowerGuru uses an SQL database to store all the data from logging
+the devices, so you can do advanced queries and graphs.
+
+<dt>SNMP Support
+<dd>PowerGuru has SNMP support, so it can be easily integrated into other
+network administration tools like <a target=_top
+href=http://people.ee.ethz.ch/~oetiker/webtools/mrtg/>Mrtg</a> or PHP
+scripts.
+
+</dl>
+</ul>
+
+<h4><a href="#TOCdownloading" name="downloading">Downloading Powerguru</a></h4>
+
+Powerguru releases (when the release is done) will be found on in the
+subdirectory <i>/gnu/powerguru/</i> on your favorite <a
+href="http://www.gnu.org/prep/ftp.html">GNU mirror</a>. Currently
+PowerGuru is under heavy development and although many features work,
+it is probably only of interest to other developers. Data logging works
+pretty reliably now.<p>
+
+The latest powerguru development sources are available via anonymous
+CVS. Use the following commands to check them out (just hit return
+when you are prompted for the password):<p>
+
+<pre>
+export CVS_RSH="ssh"
+cvs -z3 -d:ext:anoncvs@savannah.gnu.org:/cvsroot/powerguru co powerguru
+</pre>
+
+<!-- find . -path '*/CVS/Root' | xargs perl -i -p -e 's/:pserver:/:ext:/' -->
+
+<p>For more detailed information on CVS usage at gnu.org, read <a
+href=http://savanah.gnu.org/cvs/?group_id=7708>CVS Usage at gnu.org</a>.
+You can also <a href=http://savannah.gnu.org/cgi-bin/viewcvs/powerguru/powerguru>browse the sources</a>.<p>
+
+<p>For other ways to obtain Powerguru, please read <a
+href="../software.html#HowToGetSoftware">How 
+to get GNU Software</a></p>
+
+<!--
+<p align=left>Once you have the tree checked out, you can keep it up
+to date by using <tt>cvs update</tt>. There are three interesting
+branches right now, which you can check out by using the <tt>-r
+&lt;tag&gt;</tt> switch to <tt>cvs co</tt> or <tt>cvs update</tt>:</p>
+
+<table width=1030 border=0 cellpadding=2 cellspacing=0
+style="page-break-before: always">
+	<col width=199>
+	<col width=823>
+	<tr> 
+	     <th width=199 bgcolor="#8888ff">
+		  <p align=left>Tag</p>
+	     </th>
+	     <th width=823 bgcolor="#8888ff">
+		  <p align=left>Details</p>
+	     </th>
+	</tr>
+	<tr>
+	    <td width=199 bgcolor="#ccccee">
+		<p>HEAD</p>
+	    </td>
+	    <td width=823 bgcolor="#ccccee">
+		<p>The main development trunk, working towards release 2.0</p>
+	    </td>
+	</tr>
+	<tr>
+	    <td width=199 bgcolor="#ccccee">
+		<p>Branch-1-4</p>
+	    </td>
+	    <td width=823 bgcolor="#ccccee">
+		<p>The 1. 4 release branch. Patch releases for 1.4.x come from
+		here</p>
+	    </td>
+	</tr>
+</table>
+<p align=left>Make sure you have installed recent versions of GNU
+Autoconf and Automake, then run<samp>.</samp></p>
+
+-->
+
+<h4><a href="#TOCdocumentation" name="documentation">Documentation</a></h4>
+
+The initial very rough draft of the manual, covers the Xantrex and
+Outback serial protocols <a href=https://www.gnu.org/software/powerguru/manual/powerguru.html>is here</a> or <a
+href=https://www.gnu.org/software/powerguru/manual/powerguru.pdf>here as a PDF</a>. This manual is just getting
+started, but since people wanted the details on the Xantrex and
+Outback serial protocol documents, I figure here it is... This should
+be enough for anyone interested in writing their own software.<p>
+<p>
+
+<!--
+<p>You may also find more information about Powerguru by looking at
+<em>/usr/share/doc/powerguru/</em> or <em>/usr/local/share/doc/powerguru/</em> on
+your system.</p>
+-->
+
+<h4><a href="#TOClists" name="lists">Mailing Lists/Newsgroups</a></h4>
+
+<p align=left>Powerguru has three mailing lists hosted at <tt>gnu.org</tt>.
+Archives of these lists are stored at <a
+href="http://mail.gnu.org/pipermail/">
+http://mail.gnu.org/pipermail/</a>:</p>
+
+<ul>
+	<li><p align=left style="margin-bottom: 0in"><a href="http://mail.gnu.org/pipermail/powerguru/"><b>powerguru@gnu.org</b></a>
+	is for discussion of powerguru development, porting to new platforms,
+	ideas for the future, general powerguru usage or problems. New alpha
+	and stable releases are announced here. To subscribe, go the
+	<a href="http://mail.gnu.org/mailman/listinfo/powerguru">
+	http://mail.gnu.org/mailman/listinfo/powerguru</a>
+	Volume is typically low.</p>
+
+	<li><p align=left><a href="http://mail.gnu.org/pipermail/bug-powerguru">
+	<b>bug-powerguru@gnu.org</b></a> is a special list for reporting
+	bugs, and to enable the developers to track submitted bug
+	reports. If you think you have found a bug in powerguru, then
+	you should, in the first instance send as complete a report as
+	possible to this list. ideally, you should include the text
+	you get by running <samp>config.guess</samp>, the text you see
+	when you run <samp>configure</samp>,	and if you can, a
+	patch made with <samp>diff -u5</samp> which fixes the
+	problem. It will also be useful to send the logfile from the
+	test run. To subscribe, go the <a
+	href="http://mail.gnu.org/mailman/listinfo/bug-powerguru">
+	http://mail.gnu.org/mailman/listinfo/bug-powerguru</a>
+	Volume is typically low.</p>
+
+	<li><p align=left><a
+	href="http://mail.gnu.org/pipermail/powerguru-commit">
+	<b>powerguru-commit@gnu.org</b></a> is where summaries of
+	changes commited to the CVS repository are automatically
+	posted. If you wish to see these changes as they happen, <a
+	href="http://mail.gnu.org/mailman/listinfo/powerguru-commit">
+	http://mail.gnu.org/mailman/listinfo/powerguru-commit</a> Volume
+	is sporadic, but typically low.</p>
+
+<!--
+	<li><p align=left style="margin-bottom: 0in"><a href="http://mail.gnu.org/pipermail/powerguru-patches/"><b>powerguru-patches@gnu.org</b></a>
+	is where the patches to the powerguru repository are posted for peer
+	review before being commited to CVS. Send an email to
+	<a href="mailto:libtool-patches-request@gnu.org">powerguru-patches-request@gnu.org</a>
+	with <tt>subscribe</tt> as the subject line if you want to join.
+	Volume is typically low, though individual messages can be quite
+	large.</p>
+-->
+
+</ul>
+
+<p>Announcements about Powerguru and most other GNU Software are made
+on <a href="mailto:info-gnu@gnu.org">&lt;info-gnu@gnu.org&gt;</a>.</p>
+
+<h4><a href="#TOCenhancement" name="enhancement">Request an
+Enhancement</a></h4>
+
+<p>If you would like any new feature to be included in future
+versions of Powerguru, please send a request to <a
+href="mailto:powerguru@gnu.org">&lt;powerguru@gnu.org&gt;</a></p>
+
+<p>Please remember that development of Powerguru is a volunteer effort,
+and you can also contribute to its development. For information about
+contributing to the GNU Project, please read <a
+href="../../help/help.html">How to help GNU</a>.</p>
+
+<h4><a href="#TOCbug" name="bug">Report a Bug</a></h4>
+
+<p>If you think you have found a bug in Powerguru, then you should send
+as complete a report as possible to <a
+href="mailto:bug-powerguru@gnu.org">&lt;bug-powerguru@gnu.org&gt;</a>.
+</P>
+
+<h4><!-- optional section: -->
+<a href="#TOCmaintainer" NAME="maintainer">Maintainer</a></h4>
+
+<p style="margin-bottom: 0in">PowerGuru is currently being maintained
+by <a href=http://www.senecass.com/rob.html>Rob Savoye</a></p>
+
+<!-- * If needed, change the copyright block at the bottom. In 
+general, all pages on the GNU web server should have the section about
+verbatim copying. Please do NOT remove this without talking with the
+webmasters first. -->
+
+<hr>
+
+<P>[<!-- Please keep this list alphabetical -->
+<!-- PLEASE UPDATE THE LIST AT THE BOTTOM (OR TOP) OF THE PAGE TOO! -->
+
+<A HREF="http://www.gnu.org/software/XXX.html">English
+<!-- | A HREF="boilerplate.LG.html" LANGUAGE /A -->
+<!-- Please keep this list alphabetical -->
+<!-- PLEASE UPDATE THE LIST AT THE BOTTOM (OR TOP) OF THE PAGE TOO! --></A>
+] </P>
+
+<p>Return to <a href="../../home.html">GNU's home
+page</a>.</p>
+
+<p>Please send FSF &amp; GNU inquiries &amp; questions to <em><a
+href="mailto:gnu@gnu.org">gnu@gnu.org</a></em>. there are also <a
+href="../../home.html#contactinfo">other ways to
+contact</a> the FSF.</p>
+
+<p>Please send comments on these web pages to <em><a
+href="mailto:webmasters@gnu.org">webmasters@gnu.org</a></em>, send
+other questions to <em><a
+href="mailto:gnu@gnu.org">gnu@gnu.org</a></em>.</p>
+
+<p>Copyright (C) 2005 Free Software Foundation, Inc.,
+51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA </p>
+
+<p>Verbatim copying and distribution of this entire article is
+permitted in any medium, provided this notice is preserved.</p>
+
+<p style="margin-bottom: 0in">Updated:
+<!-- hhmts start -->
+ $Date: 2013/10/20 18:11:54 $ $Author: brandon $
+<!-- hhmts end --> 
+</p>
+<hr>
+</body>
+
+<!-- Mirrored from www.gnu.org/software/powerguru/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Mar 2024 14:20:25 GMT -->
+</html>

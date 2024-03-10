@@ -13,18 +13,6 @@
 #include <cew_worker.h>
 #include <cew_http.h>
 
-/* socket send and recv buffers, per client */
-#define RECV_BUFF_SIZE 4096     /* Bytes */
-
-typedef struct sClientStruct {
-    int32_t iId;                            // unique random id
-    int32_t iSockfd;         /* socket clients connected on */
-    struct sockaddr_in sTheirAddr;
-    int8_t cIP[INET_ADDRSTRLEN];
-    sds acSendBuff;    /* Data sending */
-    char acRecvBuff[RECV_BUFF_SIZE];    /* Data reception */
-} tsClientStruct;
-
 /* ev composit block
  * http://pod.tst.eu/http://cvs.schmorp.de/libev/ev.pod#GLOBAL_FUNCTIONS
  * BUILDING YOUR OWN COMPOSITE WATCHERS
@@ -64,7 +52,7 @@ static int32_t client_deregister(tsClientEv *psClientEv) {
 
     free(psClientEv);
 
-    log_info("Deregistered client %d.", iId);
+    log_debug("Deregistered client %d.", iId);
 
     return EXIT_SUCCESS;
 }
@@ -97,15 +85,7 @@ static void client_callback_serve(struct ev_loop *loop, ev_io *w, int revents) {
 
         ev_timer_again(psWorkerEVLoop, &psClientEv->timer);
 
-        psClient->acSendBuff = sdsempty();
-        http_basic_response(&psClient->acSendBuff);
-
-        if (send(psClient->iSockfd, psClient->acSendBuff, sdslen(psClient->acSendBuff), 0) == -1) {
-            log_debug("Sending error on client %d", psClient->iId);
-        }
-
-        sdsfree(psClient->acSendBuff);
-        psClient->acSendBuff = NULL;
+        http_handle_client_request(psClient);
 
         client_deregister(psClientEv);
 
@@ -132,7 +112,7 @@ int32_t client_register_ev(int32_t iSockfd) {
         return EXIT_FAILURE;
     }
 
-    log_info("Added callback for client %d from %s ", psClientEv->sClient.iId, psClientEv->sClient.cIP);
+    log_debug("Added callback for client %d from %s ", psClientEv->sClient.iId, psClientEv->sClient.cIP);
 
     /* Client receive timeout timer */
     ev_timer_init (&psClientEv->timer, client_callback_timeout, CLIENT_TIMEOUT, CLIENT_TIMEOUT);
